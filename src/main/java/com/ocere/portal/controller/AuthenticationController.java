@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ocere.portal.model.User;
-import com.ocere.portal.model.Email;
+
 import javax.validation.Valid;
 
 @Controller
@@ -97,23 +97,6 @@ public class AuthenticationController
         userService.saveUserById(user, user.getId());
         modelAndView.addObject("listOfUsers", userService.findAll());
         modelAndView.setViewName("admin");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/home/emailForm", method = RequestMethod.GET)
-    public ModelAndView sendEmail() {
-        ModelAndView modelAndView = new ModelAndView();
-        Email email = new Email();
-        modelAndView.addObject("email", email);
-        modelAndView.setViewName("emailForm");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/home/emailForm", method = RequestMethod.POST)
-    public ModelAndView sendEmail(Email email) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("email", email);
-        modelAndView.setViewName("emailForm");
         return modelAndView;
     }
 }
