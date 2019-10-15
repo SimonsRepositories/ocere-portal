@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -60,8 +61,8 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Cascade(CascadeType.DELETE)
     public void removeUserById(int id) {
         userRepository.deleteById(id);
     }
 }
+
