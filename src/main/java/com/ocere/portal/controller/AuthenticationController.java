@@ -1,8 +1,8 @@
-package com.slh.opensourcesharing.controller;
+package com.ocere.portal.controller;
 
-import com.slh.opensourcesharing.model.Post;
-import com.slh.opensourcesharing.service.PostList;
-import com.slh.opensourcesharing.service.UserService;
+import com.ocere.portal.model.Post;
+import com.ocere.portal.service.PostList;
+import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.slh.opensourcesharing.model.User;
-import com.slh.opensourcesharing.model.Email;
+import com.ocere.portal.model.User;
+import com.ocere.portal.model.Email;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 public class AuthenticationController

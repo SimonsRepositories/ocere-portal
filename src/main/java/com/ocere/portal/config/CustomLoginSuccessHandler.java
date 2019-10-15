@@ -1,4 +1,4 @@
-package com.slh.opensourcesharing.config;
+package com.ocere.portal.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;

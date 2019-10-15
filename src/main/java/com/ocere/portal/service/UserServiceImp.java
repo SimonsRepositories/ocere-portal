@@ -1,10 +1,9 @@
-package com.slh.opensourcesharing.service;
+package com.ocere.portal.service;
 
-import com.slh.opensourcesharing.model.Post;
-import com.slh.opensourcesharing.model.Role;
-import com.slh.opensourcesharing.model.User;
-import com.slh.opensourcesharing.repository.RoleRepository;
-import com.slh.opensourcesharing.repository.UserRepository;
+import com.ocere.portal.model.Role;
+import com.ocere.portal.model.User;
+import com.ocere.portal.repository.RoleRepository;
+import com.ocere.portal.repository.UserRepository;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService
