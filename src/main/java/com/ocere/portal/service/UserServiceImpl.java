@@ -15,14 +15,17 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class UserServiceImp implements UserService
-{
-    @Autowired
+public class UserServiceImpl implements UserService {
     public BCryptPasswordEncoder encoder;
-    @Autowired
     public RoleRepository roleRepository;
-    @Autowired
     public UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(BCryptPasswordEncoder encoder, RoleRepository roleRepository, UserRepository userRepository) {
+        this.encoder = encoder;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void saveUser(User user) {
@@ -33,9 +36,8 @@ public class UserServiceImp implements UserService
         userRepository.save(user);
     }
 
-    public void saveUserById(User user, int id)
-    {
-        for(int i = 0; i < findAll().size(); i++) {
+    public void saveUserById(User user, int id) {
+        for (int i = 0; i < findAll().size(); i++) {
             User tmpValue = findAll().get(i);
             if (tmpValue.getId() == id) {
                 saveUser(user);
@@ -54,8 +56,7 @@ public class UserServiceImp implements UserService
     }
 
     @Override
-    public boolean isUserAlreadyPresent(User user)
-    {
+    public boolean isUserAlreadyPresent(User user) {
         return false;
     }
 
