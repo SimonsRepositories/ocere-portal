@@ -1,8 +1,7 @@
-package com.slh.opensourcesharing.service;
+package com.ocere.portal.service;
 
-import com.slh.opensourcesharing.model.Post;
+import com.ocere.portal.model.Post;
 import org.springframework.stereotype.Service;
-import com.slh.opensourcesharing.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;

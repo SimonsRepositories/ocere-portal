@@ -1,4 +1,4 @@
-package com.slh.opensourcesharing.config;
+package com.ocere.portal.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,5 +75,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
 
     //https://www.youtube.com/watch?v=xRE12Y-PFQs&list=PL3hpmQhMoz-cz1GBAtovJyrfspZctG03L&index=4&t=0s
-    
+
 }

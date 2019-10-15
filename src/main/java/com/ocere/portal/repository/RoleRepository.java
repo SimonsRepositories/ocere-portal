@@ -1,6 +1,6 @@
-package com.slh.opensourcesharing.repository;
+package com.ocere.portal.repository;
 
-import com.slh.opensourcesharing.model.Role;
+import com.ocere.portal.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

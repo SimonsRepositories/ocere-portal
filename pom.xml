@@ -8,11 +8,11 @@
 		<version>2.1.8.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.slh</groupId>
-	<artifactId>opensourcesharing</artifactId>
+	<groupId>com.ocere</groupId>
+	<artifactId>portal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>opensourcesharing</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ocere-portal</name>
+	<description>desc</description> <!-- TODO -->
 
 	<properties>
 		<java.version>11</java.version>

@@ -1,8 +1,7 @@
-package com.slh.opensourcesharing.service;
-import com.slh.opensourcesharing.model.User;
+package com.ocere.portal.service;
+import com.ocere.portal.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService
 {

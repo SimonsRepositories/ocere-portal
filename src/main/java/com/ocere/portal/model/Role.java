@@ -1,4 +1,4 @@
-package com.slh.opensourcesharing.model;
+package com.ocere.portal.model;
 
 import lombok.Getter;
 import lombok.Setter;
