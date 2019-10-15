@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+
+<h2>Send e-mail to admin:</h2>
+
+<form th:action="@{/home/emailForm}" th:object="${email}" enctype="text/plain" method="post" >
+    setFrom:<br>
+    <input type="text" name="name" th:field="*{setFrom}"><br>
+    Recipient:<br>
+    <input type="text" name="mail" th:field="*{recipient}"><br>
+    Content:<br>
+    <input type="text" name="mail" th:field="*{content}"><br>
+    Comment:<br>
+    <input type="text" name="comment" size="50"><br><br>
+    <button type="submit" value="Send"><a th:href="'mailto:' + ${email.recipient}"></a>Send</button>
+    <button type="reset" value="Reset">Reset</button>
+</form>
+
+</body>
+</html>
