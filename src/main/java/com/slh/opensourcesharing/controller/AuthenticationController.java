@@ -132,6 +132,7 @@ public class AuthenticationController
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("listOfUsers", userService.findAll());
         userService.removeUserById(id);
+
         modelAndView.setViewName("admin");
         return modelAndView;
     }
