@@ -1,7 +1,5 @@
 package com.ocere.portal.controller;
 
-import com.ocere.portal.model.Post;
-import com.ocere.portal.service.PostList;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +21,6 @@ public class AuthenticationController
     @Autowired
     UserService userService;
 
-    @Autowired
-    PostList postList;
-
     @RequestMapping(value = { "/page/login" } , method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
@@ -45,9 +40,6 @@ public class AuthenticationController
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        Post post = new Post();
-        modelAndView.addObject("post", post);
-        modelAndView.addObject("listOfPosts", postList.getAllPosts());
         modelAndView.setViewName("home"); //resources/templates/home.html
         return modelAndView;
     }
@@ -77,52 +69,6 @@ public class AuthenticationController
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/home/addPost", method = RequestMethod.GET)
-    public ModelAndView showAddPost() {
-        ModelAndView modelAndView = new ModelAndView();
-        Post post = new Post();
-        modelAndView.addObject("post", post);
-        modelAndView.setViewName("addPost"); //resources/templates/admin.html
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/home/addPost", method = RequestMethod.POST)
-    public ModelAndView addPost(Post post) {
-        ModelAndView modelAndView = new ModelAndView();
-        postList.addPost(post);
-        modelAndView.addObject("listOfPosts", postList.getAllPosts());
-        modelAndView.setViewName("home"); //resources/templates/admin.html
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/home/editPost/{id}", method = RequestMethod.GET)
-    public ModelAndView editPost(@PathVariable("id") long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        Post value = postList.getPost(id);
-        modelAndView.addObject("post", value);
-        modelAndView.setViewName("editPost");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/home/editPost", method = RequestMethod.POST)
-    public ModelAndView editPost(Post post) {
-        ModelAndView modelAndView = new ModelAndView();
-        postList.updatePost(post.getId(), post);
-        modelAndView.addObject("listOfPosts", postList.getAllPosts());
-        modelAndView.setViewName("home");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/home/delete-post", method = RequestMethod.GET)
-    public ModelAndView deletePost(@RequestParam(name="id", required = true) long id)
-    {
-        ModelAndView modelAndView = new ModelAndView();
-        postList.removePost(id);
-        modelAndView.addObject("listOfPosts", postList.getAllPosts());
-        modelAndView.setViewName("home");
         return modelAndView;
     }
 
@@ -170,5 +116,4 @@ public class AuthenticationController
         modelAndView.setViewName("emailForm");
         return modelAndView;
     }
-
 }

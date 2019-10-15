@@ -2,39 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello Admin!</title>
+    <title>Hello User! Welcome Home</title>
 </head>
 <body>
-<h2>Hello User, Welcome to the Open Source Sharing </h2>
-<div>
-    <div th:switch="${listOfPosts}">
-        <h4 th:case="null">No Posts yet</h4>
-        <div th:case="*">
-            <h4>Posts</h4>
-            <table>
-                <caption>Liste von Posts</caption>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Author</th>
-                    <th>Beschreibung</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="post : ${listOfPosts}">
-                    <td th:text="${post.id}"></td>
-                    <td th:text="${post.author}"></td>
-                    <td th:text="${post.content}"></td>
-                    <td><a th:href="@{/home/editPost/{id}(id=${post.id})}">Edit</a></td>
-                    <td><a th:href="@{/home/delete-post?id={id}(id=${post.id})}">Delete</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div>
-        <a href="/home/addPost">New Post</a>
-    </div>
-</div>
+<h2>Hello User, Welcome to the Ocere-platform</h2>
+
 </body>
 </html>
