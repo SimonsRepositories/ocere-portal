@@ -1,14 +1,14 @@
 package com.ocere.portal.model;
 
-import jdk.jfr.Timestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
-public class Group {
+public class Usergroup {
     // Default constructor is required by JPA
-    public Group() {}
+    public Usergroup() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,21 +16,25 @@ public class Group {
     private int id;
 
     @Column(name = "is_active")
-    private Boolean active;
+    private boolean active;
 
     @Column(name = "is_empty")
-    private Boolean empty;
+    private boolean empty;
 
     @NotNull(message = "name is compulsory")
     private String name;
 
-    @Timestamp
     @Column(name = "created_at")
     private Timestamp created_at;
 
-    @Timestamp
     @Column(name = "updated_at")
     private Timestamp updated_at;
+
+    @OneToMany(
+            mappedBy = "assignedGroup",
+            cascade = CascadeType.ALL
+    )
+    private Set<Ticket> tickets;
 
     public int getId() {
         return id;
@@ -40,19 +44,19 @@ public class Group {
         this.id = id;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public Boolean getEmpty() {
+    public boolean isEmpty() {
         return empty;
     }
 
-    public void setEmpty(Boolean empty) {
+    public void setEmpty(boolean empty) {
         this.empty = empty;
     }
 
@@ -78,5 +82,13 @@ public class Group {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }

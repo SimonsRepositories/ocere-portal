@@ -19,5 +19,5 @@ public class Job {
             mappedBy = "job",
             cascade = CascadeType.ALL
     )
-    private Set<Task> tasks;
+    private Set<Ticket> tickets;
 }

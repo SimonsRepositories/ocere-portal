@@ -1,22 +1,21 @@
 package com.ocere.portal.model;
 
 import com.ocere.portal.enums.ClientStatus;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private int id;
-
-    private String companyName;
-
-    @Enumerated(EnumType.STRING)
-    private ClientStatus status;
 
     @OneToMany(
             mappedBy = "client",
@@ -30,7 +29,11 @@ public class Client {
     )
     private Set<Note> notes;
 
-    // private Group leadGroup;
+    @Enumerated(EnumType.STRING)
+    private ClientStatus status;
+
+    // private String companyName;
+    // private Usergroup leadGroup;
     // private String contactName;
     // private String phone;
     // private String city;
