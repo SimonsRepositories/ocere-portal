@@ -20,18 +20,18 @@ public class User
 
     @NotNull(message = "first name is compulsory")
     @Column(name = "first_name")
-    private String name;
+    private String firstname;
 
-    @NotNull(message = "Last name name is compulsory")
+    @NotNull(message = "last name is compulsory")
     @Column(name = "last_name")
     private String lastname;
 
-    @NotNull(message = "email name is compulsory")
+    @NotNull(message = "email is compulsory")
     @Email(message ="Email is invalid")
     @Column(name = "email")
     private String email;
 
-    @NotNull(message = "password name is compulsory")
+    @NotNull(message = "password is compulsory")
     @Length(min=5, message = "Password should be at least 5 characters")
     @Column(name = "password")
     private String password;
@@ -58,12 +58,12 @@ public class User
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {

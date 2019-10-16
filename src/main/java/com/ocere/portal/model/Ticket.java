@@ -37,6 +37,12 @@ public class Ticket {
     )
     private Set<Note> notes;
 
+    @OneToMany(
+            mappedBy = "ticket",
+            cascade = CascadeType.ALL
+    )
+    private Set<DBFile> files;
+
     @NotNull(message = "status is compulsory")
     @Column(name = "status")
     private Status status;
