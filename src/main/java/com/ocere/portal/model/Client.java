@@ -8,8 +8,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
 public class Client {
 
     @Id
@@ -50,4 +48,37 @@ public class Client {
     // private String contactUsPage;
     // private String linkedIn;
     // Phones and Emails (List)
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+    public Set<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<Note> notes) {
+        this.notes = notes;
+    }
+
+    public ClientStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ClientStatus status) {
+        this.status = status;
+    }
 }
