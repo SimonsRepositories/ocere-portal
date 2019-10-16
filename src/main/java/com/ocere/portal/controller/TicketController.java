@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TicketController {
-    @RequestMapping("/Tickets")
+    @RequestMapping("/tickets")
     public ModelAndView ticketOverview() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("ticket"); //resources/templates/ticket.html
