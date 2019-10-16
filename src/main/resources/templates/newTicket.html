@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ticket</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Create Ticket</h1>
+    </div>
+    <div class="row ml-5">
+        <form action="#" method="post" th:action="@{/createTicket}" th:object="${ticket}">
+            <div class="form-group blu-margin">
+                <label for="assignedUser">Assigned User:</label>
+                <select class="form-control" id="assignedUser" th:field="*{assignedUser}">
+                    <option value="0">select user</option>
+                    <option th:each="user : ${users}" th:text="${user.firstname + ' ' + user.lastname}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a href="/createTicket" class="btn btn-warning">Abbrechen</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

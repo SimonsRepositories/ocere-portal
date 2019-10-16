@@ -23,7 +23,7 @@
                 <tbody>
                     <tr th:each="user : ${listOfUsers}">
                         <td th:text="${user.id}"></td>
-                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.firstname}"></td>
                         <td th:text="${user.lastname}"></td>
                         <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
                         <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>

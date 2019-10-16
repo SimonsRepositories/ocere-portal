@@ -21,6 +21,12 @@ public class Job {
     )
     private Set<Ticket> tickets;
 
+    @OneToMany(
+            mappedBy = "job",
+            cascade = CascadeType.ALL
+    )
+    private Set<DBFile> files;
+
     public int getId() {
         return id;
     }
