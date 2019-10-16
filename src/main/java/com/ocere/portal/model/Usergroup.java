@@ -21,7 +21,7 @@ public class Usergroup {
     @Column(name = "is_empty")
     private boolean empty;
 
-    @NotNull(message = "name is compulsory")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "created_at")

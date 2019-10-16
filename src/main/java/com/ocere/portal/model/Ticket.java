@@ -7,24 +7,31 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
 public class Ticket {
     // Default constructor is required by JPA
-    public Ticket() {}
+    public Ticket() {
+        this.assignedUser = new User();
+        this.assignedGroup = new Usergroup();
+        this.notes = Collections.emptySet();
+        this.files = Collections.emptySet();
+        this.status = Status.OPEN;
+        this.priority = Priority.MEDIUM;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
     private int id;
 
-    @NotNull(message = "It is compulsory to select an assignee")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User assignedUser;
 
-    @NotNull(message = "It is compulsory to select an assigned group")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Usergroup assignedGroup;
@@ -45,24 +52,21 @@ public class Ticket {
     )
     private Set<DBFile> files;
 
-    @NotNull(message = "status is compulsory")
     @Column(name = "status")
+    @Enumerated
     private Status status;
 
-    @NotNull(message = "subject is compulsory")
+    @Column(name = "priority")
+    @Enumerated
+    private Priority priority;
+
     @Column(name = "subject")
     private String subject;
 
     @Column(name = "description")
     private String description;
 
-    @NotNull(message = "priority is compulsory")
-    @Column(name = "priority")
-    private Priority priority;
-
-    // @Column(name = "attachments")
-    // private List<File> attachments;
-
+    // TODO: Turnaround time
 
     public int getId() {
         return id;
