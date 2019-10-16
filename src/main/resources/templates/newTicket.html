@@ -12,16 +12,51 @@
         <h1>Create Ticket</h1>
     </div>
     <div class="row ml-5">
-        <form action="#" method="post" th:action="@{/createTicket}" th:object="${ticket}">
-            <div class="form-group blu-margin">
+        <form action="#" method="post" th:action="@{/tickets/create}" th:object="${ticket}">
+            <div class="form-group">
                 <label for="assignedUser">Assigned User:</label>
-                <select class="form-control" id="assignedUser" th:field="*{assignedUser}">
+                <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
                     <option value="0">select user</option>
-                    <option th:each="user : ${users}" th:text="${user.firstname + ' ' + user.lastname}"></option>
+                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.firstname + ' ' + user.lastname}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="assignedGroup">Assigned Group:</label>
+                <select class="form-control" id="assignedGroup" th:field="*{assignedGroup.id}">
+                    <option value="0">select group</option>
+                    <option th:each="group : ${groups}" th:value="${group.id}" th:text="'GroupNamePlaceholder'"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input th:field="*{subject}" placeholder="Subject" id="subject" class="form-control" type="text"/>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea th:field="*{description}" placeholder="Description" id="description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" th:field="*{status}">
+                    <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
+                            th:value="${status}"
+                            th:text="${status}"
+                            th:selected="${ticket.status == status}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <select class="form-control" id="priority" th:field="*{priority}">
+                    <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
+                            th:value="${priority}"
+                            th:text="${priority}"
+                            th:selected="${ticket.priority == priority}">
+                    </option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
-            <a href="/createTicket" class="btn btn-warning">Abbrechen</a>
+            <a href="/tickets/dashboard" class="btn btn-warning">Abbrechen</a>
         </form>
     </div>
 </div>
