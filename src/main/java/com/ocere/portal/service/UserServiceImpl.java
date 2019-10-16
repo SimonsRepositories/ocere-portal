@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserAlreadyPresent(User user) {
-        return false;
+        return userRepository.findById(user.getId()).isPresent();
     }
 
     public void removeUserById(int id) {
