@@ -1,7 +1,8 @@
-package com.ocere.portal.service;
+package com.ocere.portal.service.Impl;
 
 import com.ocere.portal.model.Ticket;
 import com.ocere.portal.repository.TicketRepository;
+import com.ocere.portal.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.ocere.portal.service;
+package com.ocere.portal.service.Impl;
 
 import com.ocere.portal.exception.FileStorageException;
 import com.ocere.portal.exception.MyFileNotFoundException;

@@ -24,7 +24,7 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
-    private com.ocere.portal.service.DBFileStorageService DBFileStorageService;
+    private com.ocere.portal.service.Impl.DBFileStorageService DBFileStorageService;
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {

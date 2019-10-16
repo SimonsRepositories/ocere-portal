@@ -16,12 +16,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequestMapping("/tickets")
 public class TicketController {
