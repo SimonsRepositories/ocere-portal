@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "auth_user")
 public class User
 {
-    //Default constructor required by JPA
+    //Default constructor is required by JPA
     public User(){}
 
     @Id
@@ -47,7 +47,7 @@ public class User
     @Column(name = "status")
     private String status;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"),
             inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
     private Set<Role> roles;
