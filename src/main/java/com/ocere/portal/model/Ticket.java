@@ -2,13 +2,10 @@ package com.ocere.portal.model;
 
 import com.ocere.portal.enums.Priority;
 import com.ocere.portal.enums.Status;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -66,7 +63,9 @@ public class Ticket {
     @Column(name = "description")
     private String description;
 
-    // TODO: Turnaround time
+    @Column(name = "turnaround")
+    private Timestamp turnaround;
+
 
     public int getId() {
         return id;
@@ -138,5 +137,13 @@ public class Ticket {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Timestamp getTurnaround() {
+        return turnaround;
+    }
+
+    public void setTurnaround(Timestamp turnaround) {
+        this.turnaround = turnaround;
     }
 }

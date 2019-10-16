@@ -11,9 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@RequestMapping("/tickets")
 public class TicketController {
 
     private UserService userService;
@@ -27,7 +37,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping("/createTicket")
+    @GetMapping("/create")
     public String loadCreateTicketView(Model model) {
         model.addAttribute("ticket", new Ticket());
         model.addAttribute("users", this.userService.findAll());
@@ -35,18 +45,26 @@ public class TicketController {
         return "newTicket";
     }
 
-    @PostMapping("/createTicket")
+    @PostMapping("/create")
     public String createTicket(@ModelAttribute Ticket ticket) {
         ticket.setAssignedUser(this.userService.getUserById(ticket.getAssignedUser().getId()));
         ticket.setAssignedGroup(this.usergroupService.findUsergroupById(ticket.getAssignedGroup().getId()).get());
         this.ticketService.saveTicket(ticket);
-        return "redirect:/tickets";
+        return "redirect:/tickets/dashboard";
     }
 
-    @RequestMapping("/tickets")
-    public ModelAndView ticketOverview() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("ticket"); //resources/templates/ticket.html
-        return modelAndView;
+    @GetMapping("/dashboard")
+    public String allTickets(Model model) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        List<Ticket> tickets = ticketService.findAll();
+        List<Ticket> overdue = new ArrayList<>();
+
+        /*for (Ticket ticket : tickets) {
+            if (ticket.getTurnaround().after(timestamp)) {
+                overdue.add(ticket);
+            }
+        }*/
+        model.addAttribute("tickets", tickets); // all tickets
+        return "ticket";
     }
 }
