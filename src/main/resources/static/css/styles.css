@@ -34,8 +34,10 @@ a:focus {
 }
 
 .card-img-top {
-    width: 60%;
-    height: 60%;
+    width: 350px;
+    height: 350px;
+    align-self: center;
+    margin-top: 20px;
 }
 
 .navbar {
