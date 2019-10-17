@@ -74,7 +74,6 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAllByStatus(status);
     }
 
-    @Override
     public List<Ticket> findAllByTurnaround() {
         List<Ticket> overdue = new ArrayList<>();
         Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -91,7 +90,6 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAllByAssignedUser(user);
     }
 
-    @Override
     public List<Ticket> findAllByAssignedUserAndTurnaround(User user) {
         List<Ticket> overdue = new ArrayList<>();
         Timestamp now = new Timestamp(System.currentTimeMillis());

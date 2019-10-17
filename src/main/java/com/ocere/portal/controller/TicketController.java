@@ -2,6 +2,7 @@ package com.ocere.portal.controller;
 
 import com.ocere.portal.enums.Status;
 import com.ocere.portal.model.Ticket;
+import com.ocere.portal.service.Impl.TicketServiceImpl;
 import com.ocere.portal.service.TicketService;
 import com.ocere.portal.service.UserService;
 import com.ocere.portal.service.UsergroupService;
@@ -23,12 +24,14 @@ public class TicketController {
     private UserService userService;
     private UsergroupService usergroupService;
     private TicketService ticketService;
+    private TicketServiceImpl ticketServiceImpl;
 
     @Autowired
-    public TicketController(UserService userService, UsergroupService usergroupService, TicketService ticketService) {
+    public TicketController(UserService userService, UsergroupService usergroupService, TicketService ticketService, TicketServiceImpl ticketServiceImpl) {
         this.userService = userService;
         this.usergroupService = usergroupService;
         this.ticketService = ticketService;
+        this.ticketServiceImpl = ticketServiceImpl;
     }
 
     @GetMapping("/create")
@@ -51,12 +54,16 @@ public class TicketController {
 
     @GetMapping("/dashboard")
     public String allTickets(Model model, Principal principal) {
+        Ticket ticket = new Ticket();
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("groups", usergroupService.findAll());
         model.addAttribute("tickets", ticketService.findAll());
         model.addAttribute("open", ticketService.findAllByStatus(Status.OPEN));
-        model.addAttribute("overdue", ticketService.findAllByTurnaround());
+        model.addAttribute("overdue", ticketServiceImpl.findAllByTurnaround());
         model.addAttribute("assigned", ticketService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
         model.addAttribute("assignedOpen", ticketService.findAllByAssignedUserAndStatus(userService.findByEmail(principal.getName()), Status.OPEN));
-        model.addAttribute("assignedOverdue", ticketService.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
+        model.addAttribute("assignedOverdue", ticketServiceImpl.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
         return "ticket";
     }
 }
