@@ -11,4 +11,9 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findAllByStatus(Status status);
+    List<Ticket> findAllByTurnaround();
+    List<Ticket> findAllByAssignedUser(User user);
+    List<Ticket> findAllByAssignedUserAndTurnaround(User user);
+    List<Ticket> findAllByAssignedUserAndStatus(User user, Status status);
+
 }
