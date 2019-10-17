@@ -1,5 +1,6 @@
 package com.ocere.portal.service;
 
+import com.ocere.portal.enums.Status;
 import com.ocere.portal.model.Ticket;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface TicketService {
     Ticket getTicketById(int id);
 
     Ticket saveTicketById(Ticket ticket, int id) throws Exception;
+
+    List<Ticket> findAllByStatus(Status status);
 }

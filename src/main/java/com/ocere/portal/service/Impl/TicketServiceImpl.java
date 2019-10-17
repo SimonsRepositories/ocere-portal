@@ -1,5 +1,6 @@
 package com.ocere.portal.service.Impl;
 
+import com.ocere.portal.enums.Status;
 import com.ocere.portal.model.Ticket;
 import com.ocere.portal.repository.TicketRepository;
 import com.ocere.portal.service.TicketService;
@@ -64,4 +65,11 @@ public class TicketServiceImpl implements TicketService {
             }
             return ticketRepository.saveAndFlush(updatedTicket);
     }
+
+    @Override
+    public List<Ticket> findAllByStatus(Status status) {
+        return ticketRepository.findAllByStatus(status);
+    }
+
+
 }
