@@ -63,7 +63,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public void removeUserById(int id) {
-        userRepository.deleteById(id);
+        for (int i = 0; i < findAll().size(); i++) {
+            User tmpValue = findAll().get(i);
+            if(tmpValue.getId() == id) {
+                userRepository.deleteById(id);
+                return;
+            }
+        }
     }
 
     public User findByEmail(String email) {

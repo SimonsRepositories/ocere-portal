@@ -39,9 +39,9 @@ public class User
     @Column(name = "status")
     private String status;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"),
-            inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
+    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+    @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "auth_role_id", nullable = false))
     private Set<Role> roles;
 
     @OneToMany(
