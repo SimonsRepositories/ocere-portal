@@ -78,7 +78,7 @@ public class AuthenticationController
         modelAndView.addObject("listOfUsers", userService.findAll());
         userService.removeUserById(id);
 
-        modelAndView.setViewName("admin");
+        modelAndView.setViewName("redirect:/admin");
         return modelAndView;
     }
 

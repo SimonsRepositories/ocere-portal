@@ -13,7 +13,7 @@ public class Role
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "auth_role_id")
+    @Column(name = "auth_role_id", nullable = false)
     private int id;
 
     @Column(name = "role_name")
