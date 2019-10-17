@@ -116,7 +116,7 @@
                     <select class="form-control" id="assignedGroup" th:field="*{assignedGroup.id}">
                         <option value="0">select group</option>
                         <option th:each="group : ${groups}" th:value="${group.id}"
-                                th:text="'GroupNamePlaceholder'"></option>
+                                th:text="${group.name}"></option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -151,11 +151,11 @@
                 </div>
                 <div class="form-group">
                     <label for="priority">Turnaround:</label>
-                    <select class="form-control" id="turnaround" th:field="*{turnaround}">
-                        <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
-                                th:value="${turnaround}"
-                                th:text="${turnaround}"
-                                th:selected="${ticket.turnaround == turnaround}">
+                    <select class="form-control" id="turnaround" th:field="*{turnaround.id}">
+                        <option th:value="1" selected disabled>Select turnaround time</option>
+                        <option th:each="turnaround : ${turnaroundTimes}"
+                                th:value="${turnaround.id}"
+                                th:text="${turnaround.description}">
                         </option>
                     </select>
                 </div>

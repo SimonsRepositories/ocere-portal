@@ -18,6 +18,7 @@ public class Ticket {
         this.files = Collections.emptySet();
         this.status = Status.OPEN;
         this.priority = Priority.MEDIUM;
+        this.turnaround = new Turnaround();
     }
 
     @Id
@@ -36,6 +37,10 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private Job job;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "turnaround_id")
+    private Turnaround turnaround;
 
     @OneToMany(
             mappedBy = "ticket",
@@ -62,9 +67,6 @@ public class Ticket {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "turnaround")
-    private Timestamp turnaround;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -105,6 +107,14 @@ public class Ticket {
         this.job = job;
     }
 
+    public Turnaround getTurnaround() {
+        return turnaround;
+    }
+
+    public void setTurnaround(Turnaround turnaround) {
+        this.turnaround = turnaround;
+    }
+
     public Set<Note> getNotes() {
         return notes;
     }
@@ -113,12 +123,28 @@ public class Ticket {
         this.notes = notes;
     }
 
+    public Set<DBFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<DBFile> files) {
+        this.files = files;
+    }
+
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public String getSubject() {
@@ -135,30 +161,6 @@ public class Ticket {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-    public Timestamp getTurnaround() {
-        return turnaround;
-    }
-
-    public void setTurnaround(Timestamp turnaround) {
-        this.turnaround = turnaround;
-    }
-
-    public Set<DBFile> getFiles() {
-        return files;
-    }
-
-    public void setFiles(Set<DBFile> files) {
-        this.files = files;
     }
 
     public Timestamp getCreatedAt() {
