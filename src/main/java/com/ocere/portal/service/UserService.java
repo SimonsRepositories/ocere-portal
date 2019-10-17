@@ -3,6 +3,7 @@ package com.ocere.portal.service;
 import com.ocere.portal.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     void saveUser(User user);
@@ -13,7 +14,7 @@ public interface UserService {
 
     void removeUserById(int id);
 
-    User getUserById(int id);
+    Optional<User> getUserById(int id);
 
     void saveUserById(User user, int id);
 

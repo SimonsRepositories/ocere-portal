@@ -19,8 +19,14 @@ public interface TicketService {
 
     Ticket saveTicketById(Ticket ticket, int id) throws Exception;
 
+    List<Ticket> findAllByTurnaround();
+
+    List<Ticket> findAllByAssignedUserAndTurnaround(User user);
+
     List<Ticket> findAllByStatus(Status status);
+
     List<Ticket> findAllByAssignedUser(User user);
+
     List<Ticket> findAllByAssignedUserAndStatus(User user, Status status);
     List<Ticket> findAllByAuthor(User user);
 }

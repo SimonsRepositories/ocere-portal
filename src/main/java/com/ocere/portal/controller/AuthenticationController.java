@@ -85,7 +85,7 @@ public class AuthenticationController
     @RequestMapping(value="/admin/editUser/{id}", method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        User value = userService.getUserById(id);
+        User value = userService.getUserById(id).get();
         modelAndView.addObject("user", value);
         modelAndView.setViewName("editUser");
         return modelAndView;

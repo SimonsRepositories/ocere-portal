@@ -5,21 +5,26 @@ import com.ocere.portal.model.Ticket;
 import com.ocere.portal.model.User;
 import com.ocere.portal.repository.TicketRepository;
 import com.ocere.portal.service.TicketService;
+import com.ocere.portal.service.TurnaroundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TicketServiceImpl implements TicketService {
-    public TicketRepository ticketRepository;
+    private TicketRepository ticketRepository;
+    private TurnaroundService turnaroundService;
 
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository, TurnaroundService turnaroundService) {
         this.ticketRepository = ticketRepository;
+        this.turnaroundService = turnaroundService;
     }
 
     @Override
@@ -77,8 +82,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> findAllByTurnaround() {
         List<Ticket> overdue = new ArrayList<>();
         Timestamp now = new Timestamp(System.currentTimeMillis());
+
         for (Ticket ticket : findAll()) {
-            if (ticket.getTurnaround().after(now)) {
+            if (turnaroundService.getTurnaroundTimestamp(ticket).after(now)) {
                 overdue.add(ticket);
             }
         }
@@ -94,7 +100,7 @@ public class TicketServiceImpl implements TicketService {
         List<Ticket> overdue = new ArrayList<>();
         Timestamp now = new Timestamp(System.currentTimeMillis());
         for (Ticket ticket : findAllByAssignedUser(user)) {
-            if (ticket.getTurnaround().after(now)) {
+            if (turnaroundService.getTurnaroundTimestamp(ticket).after(now)) {
                 overdue.add(ticket);
             }
         }
