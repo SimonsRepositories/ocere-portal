@@ -56,6 +56,10 @@ public class User
     )
     private Set<Ticket> createdTickets;
 
+    public String getName() {
+        return firstname + " " + lastname;
+    }
+
     public int getId() {
         return id;
     }

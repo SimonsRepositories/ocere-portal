@@ -12,10 +12,7 @@ import com.ocere.portal.service.UsergroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -39,30 +36,47 @@ public class TicketController {
     }
 
     @GetMapping("/create")
-    public String loadCreateTicketView(Model model) {
-        model.addAttribute("ticket", new Ticket());
+    public String loadCreateTicketView(Model model, @RequestParam(name="id", defaultValue = "-1") int id) {
+        model.addAttribute("siteTitle", "New Ticket");
+        model.addAttribute("action", "create");
+        model.addAttribute("submitText", "Create");
+
+        Ticket ticket;
+        if (id == -1) {
+            ticket = new Ticket();
+        } else {
+            ticket = this.ticketService.findTemplateById(id);
+        }
+        model.addAttribute("ticket", ticket);
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "add-ticket";
+        return "tickets_form";
     }
 
-    @PostMapping("/create")
-    public String createTicket(@ModelAttribute Ticket ticket, Principal principal) {
-        Optional<User> user = this.userService.getUserById(ticket.getAssignedUser().getId());
-        user.ifPresentOrElse(ticket::setAssignedUser, () -> ticket.setAssignedUser(null));
+    @GetMapping("/templates")
+    public String loadTemplateListView(Model model) {
+        model.addAttribute("templates", this.ticketService.findAllTemplates());
+        return "tickets_templates-list";
+    }
 
-        Optional<Usergroup> usergroup = this.usergroupService.findUsergroupById(ticket.getAssignedGroup().getId());
-        usergroup.ifPresentOrElse(ticket::setAssignedGroup, () -> ticket.setAssignedGroup(null));
+    @GetMapping("/templates/{id}")
+    public String loadTemplateView(Model model, @PathVariable int id) {
+        model.addAttribute("template", this.ticketService.findTemplateById(id));
+        return "tickets_templates-view";
+    }
 
-        Optional<Turnaround> turnaround = this.turnaroundService.findTurnaroundById(ticket.getTurnaround().getId());
-        turnaround.ifPresentOrElse(ticket::setTurnaround, () -> ticket.setTurnaround(null));
+    @GetMapping("/templates/edit/{id}")
+    public String loadTemplateEditView(Model model, @PathVariable int id) {
+        model.addAttribute("siteTitle", "Edit Template");
+        model.addAttribute("action", "save");
+        model.addAttribute("submitText", "Save");
 
-        ticket.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        ticket.setAuthor(this.userService.findByEmail(principal.getName()));
-
-        this.ticketService.saveTicket(ticket);
-        return "redirect:/tickets/dashboard";
+        model.addAttribute("ticket", this.ticketService.findTemplateById(id));
+        model.addAttribute("users", this.userService.findAll());
+        model.addAttribute("groups", this.usergroupService.findAll());
+        model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
+        return "tickets_form";
     }
 
     @GetMapping("/dashboard")
@@ -75,5 +89,45 @@ public class TicketController {
         model.addAttribute("assignedOverdue", ticketService.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
         model.addAttribute("submitted", ticketService.findAllByAuthor(userService.findByEmail(principal.getName())));
         return "ticket";
+    }
+
+    /*
+        ACTIONS
+     */
+
+    @PostMapping("/create")
+    public String createTicket(@ModelAttribute Ticket ticket, Principal principal) {
+        fillTicketReferencesById(ticket);
+
+        ticket.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        ticket.setAuthor(this.userService.findByEmail(principal.getName()));
+
+        this.ticketService.saveTicket(ticket);
+        return "redirect:/tickets/dashboard";
+    }
+
+    @PostMapping("/save")
+    public String saveTicket(@ModelAttribute Ticket ticket) throws Exception{
+        fillTicketReferencesById(ticket);
+
+        this.ticketService.saveTicketById(ticket, ticket.getId());
+        return "redirect:/tickets/templates";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String saveTicket(@PathVariable int id) throws Exception {
+        this.ticketService.removeTicketById(id);
+        return "redirect:/";
+    }
+
+    private void fillTicketReferencesById(Ticket ticket) {
+        Optional<User> user = this.userService.getUserById(ticket.getAssignedUser().getId());
+        user.ifPresentOrElse(ticket::setAssignedUser, () -> ticket.setAssignedUser(null));
+
+        Optional<Usergroup> usergroup = this.usergroupService.findUsergroupById(ticket.getAssignedGroup().getId());
+        usergroup.ifPresentOrElse(ticket::setAssignedGroup, () -> ticket.setAssignedGroup(null));
+
+        Optional<Turnaround> turnaround = this.turnaroundService.findTurnaroundById(ticket.getTurnaround().getId());
+        turnaround.ifPresentOrElse(ticket::setTurnaround, () -> ticket.setTurnaround(null));
     }
 }

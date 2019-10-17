@@ -28,5 +28,10 @@ public interface TicketService {
     List<Ticket> findAllByAssignedUser(User user);
 
     List<Ticket> findAllByAssignedUserAndStatus(User user, Status status);
+
     List<Ticket> findAllByAuthor(User user);
+
+    Ticket findTemplateById(int id);
+
+    List<Ticket> findAllTemplates();
 }

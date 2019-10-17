@@ -116,4 +116,14 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> findAllByAuthor(User user) {
         return ticketRepository.findAllByAuthor(user);
     }
+
+    @Override
+    public Ticket findTemplateById(int id) {
+        return ticketRepository.findByIdAndTemplateTrue(id);
+    }
+
+    @Override
+    public List<Ticket> findAllTemplates() {
+        return ticketRepository.findAllByTemplateTrue();
+    }
 }

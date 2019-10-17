@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>Ticket</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -73,7 +73,6 @@
 
     <!-- Page Content  -->
     <div id="content">
-
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
 
@@ -102,66 +101,84 @@
         </nav>
 
         <div id="content-text">
-            <form action="#" method="post" th:action="@{/tickets/create}" th:object="${ticket}">
-                <div class="form-group">
-                    <label for="assignedUser">Assigned User:</label>
-                    <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
-                        <option value="0">select user</option>
-                        <option th:each="user : ${users}" th:value="${user.id}"
-                                th:text="${user.firstname + ' ' + user.lastname}"></option>
-                    </select>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 th:text="${siteTitle}">Title</h1>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="assignedGroup">Assigned Group:</label>
-                    <select class="form-control" id="assignedGroup" th:field="*{assignedGroup.id}">
-                        <option value="0">select group</option>
-                        <option th:each="group : ${groups}" th:value="${group.id}"
-                                th:text="${group.name}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input th:field="*{subject}" placeholder="Subject" id="subject" class="form-control"
-                           type="text"/>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea th:field="*{description}" placeholder="Description" id="description"
-                              class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status:</label>
-                    <select class="form-control" id="status" th:field="*{status}">
-                        <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
-                                th:value="${status}"
-                                th:text="${status}"
-                                th:selected="${ticket.status == status}">
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="priority">Priority:</label>
-                    <select class="form-control" id="priority" th:field="*{priority}">
-                        <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
-                                th:value="${priority}"
-                                th:text="${priority}"
-                                th:selected="${ticket.priority == priority}">
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="priority">Turnaround:</label>
-                    <select class="form-control" id="turnaround" th:field="*{turnaround.id}">
-                        <option th:value="1" selected disabled>Select turnaround time</option>
-                        <option th:each="turnaround : ${turnaroundTimes}"
-                                th:value="${turnaround.id}"
-                                th:text="${turnaround.description}">
-                        </option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-                <a href="/tickets/dashboard" class="btn btn-warning">Abbrechen</a>
-            </form>
+                <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}" th:object="${ticket}">
+                    <div class="form-group col-12">
+                        <label for="subject">Subject:</label>
+                        <input th:field="*{subject}" placeholder="Subject" id="subject"
+                               class="form-control"
+                               type="text"/>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="assignedUser">Assigned User:</label>
+                        <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
+                            <option value="0">select user</option>
+                            <option th:each="user : ${users}"
+                                    th:value="${user.id}"
+                                    th:text="${user.firstname + ' ' + user.lastname}"
+                                    th:selected="${ticket.assignedUser.id == user.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="assignedGroup">Assigned Group:</label>
+                        <select class="form-control" id="assignedGroup" th:field="*{assignedGroup.id}">
+                            <option value="0">select group</option>
+                            <option th:each="group : ${groups}"
+                                    th:value="${group.id}"
+                                    th:text="${group.name}"
+                                    th:selected="${ticket.assignedGroup.id == group.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="description">Description:</label>
+                        <textarea th:field="*{description}" th:text="${ticket.description}" placeholder="Description"
+                                  id="description"
+                                  class="form-control"></textarea>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="priority">Priority:</label>
+                        <select class="form-control" id="priority" th:field="*{priority}">
+                            <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
+                                    th:value="${priority}"
+                                    th:text="${priority}"
+                                    th:selected="${ticket.priority == priority}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="status">Status:</label>
+                        <select class="form-control" id="status" th:field="*{status}">
+                            <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
+                                    th:value="${status}"
+                                    th:text="${status}"
+                                    th:selected="${ticket.status == status}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="turnaround">Turnaround:</label>
+                        <select class="form-control" id="turnaround" th:field="*{turnaround.id}">
+                            <option th:each="turnaround : ${turnaroundTimes}"
+                                    th:value="${turnaround.id}"
+                                    th:text="${turnaround.description}"
+                                    th:selected="${ticket.turnaround.id == turnaround.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                        <a href="/tickets/dashboard" class="btn btn-warning">Cancel</a>
+                    </div>
+                </form>
+            </div>
 
             <!--<form>
                 <div class="form-group">

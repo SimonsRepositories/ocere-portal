@@ -6,6 +6,12 @@ import java.util.Set;
 @Entity
 public class Turnaround {
 
+    public Turnaround() { }
+
+    public Turnaround(int initialId) {
+        this.id = initialId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)

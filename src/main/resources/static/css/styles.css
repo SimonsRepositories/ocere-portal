@@ -14,7 +14,6 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
 }
 
 a,
@@ -30,7 +29,6 @@ a:focus {
     background: #1AA090;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -197,6 +195,18 @@ a.article:hover {
     transform: none;
     opacity: 1;
     margin: 5px auto;
+}
+
+.attribute-title {
+    color: #333333;
+}
+
+.attribute-value {
+    color: #000000;
+}
+
+.inlineBlockForm {
+    display: inline-block;
 }
 
 /* ---------------------------------------------------
