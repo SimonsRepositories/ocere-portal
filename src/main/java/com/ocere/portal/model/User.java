@@ -50,6 +50,12 @@ public class User
     )
     private Set<Ticket> tickets;
 
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL
+    )
+    private Set<Ticket> createdTickets;
+
     public int getId() {
         return id;
     }

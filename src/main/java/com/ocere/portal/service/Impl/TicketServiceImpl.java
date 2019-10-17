@@ -1,11 +1,15 @@
 package com.ocere.portal.service.Impl;
 
+import com.ocere.portal.enums.Status;
 import com.ocere.portal.model.Ticket;
+import com.ocere.portal.model.User;
 import com.ocere.portal.repository.TicketRepository;
 import com.ocere.portal.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +67,44 @@ public class TicketServiceImpl implements TicketService {
                 throw new Exception("Couldn’t update ticket, because it didn’t exist !");
             }
             return ticketRepository.saveAndFlush(updatedTicket);
+    }
+
+    @Override
+    public List<Ticket> findAllByStatus(Status status) {
+        return ticketRepository.findAllByStatus(status);
+    }
+
+    @Override
+    public List<Ticket> findAllByTurnaround() {
+        List<Ticket> overdue = new ArrayList<>();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        for (Ticket ticket : findAll()) {
+            if (ticket.getTurnaround().after(now)) {
+                overdue.add(ticket);
+            }
+        }
+        return overdue;
+    }
+
+    @Override
+    public List<Ticket> findAllByAssignedUser(User user) {
+        return ticketRepository.findAllByAssignedUser(user);
+    }
+
+    @Override
+    public List<Ticket> findAllByAssignedUserAndTurnaround(User user) {
+        List<Ticket> overdue = new ArrayList<>();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        for (Ticket ticket : findAllByAssignedUser(user)) {
+            if (ticket.getTurnaround().after(now)) {
+                overdue.add(ticket);
+            }
+        }
+        return overdue;
+    }
+
+    @Override
+    public List<Ticket> findAllByAssignedUserAndStatus(User user, Status status) {
+        return ticketRepository.findAllByAssignedUserAndStatus(user, status);
     }
 }
