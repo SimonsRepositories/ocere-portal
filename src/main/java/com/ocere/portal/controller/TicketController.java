@@ -64,6 +64,7 @@ public class TicketController {
         model.addAttribute("assigned", ticketService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
         model.addAttribute("assignedOpen", ticketService.findAllByAssignedUserAndStatus(userService.findByEmail(principal.getName()), Status.OPEN));
         model.addAttribute("assignedOverdue", ticketServiceImpl.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
+        model.addAttribute("submitted", ticketService.findAllByAuthor(userService.findByEmail(principal.getName())));
         return "ticket";
     }
 }

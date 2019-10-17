@@ -22,4 +22,5 @@ public interface TicketService {
     List<Ticket> findAllByStatus(Status status);
     List<Ticket> findAllByAssignedUser(User user);
     List<Ticket> findAllByAssignedUserAndStatus(User user, Status status);
+    List<Ticket> findAllByAuthor(User user);
 }

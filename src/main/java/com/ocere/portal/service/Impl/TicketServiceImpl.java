@@ -105,4 +105,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> findAllByAssignedUserAndStatus(User user, Status status) {
         return ticketRepository.findAllByAssignedUserAndStatus(user, status);
     }
+
+    @Override
+    public List<Ticket> findAllByAuthor(User user) {
+        return ticketRepository.findAllByAuthor(user);
+    }
 }
