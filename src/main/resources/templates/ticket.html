@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tickets</title>
+</head>
+<body>
+<h1>All tickets</h1>
+<h4 th:if="${tickets.isEmpty()}">0 tickets left! You're all done</h4>
+<table th:if="${!tickets.isEmpty()}">
+    <caption>List of tickets</caption>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Job</th>
+        <th>Subject</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Assigned User</th>
+        <th>Assigned Group</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.getId()}"></td>
+        <td th:text="${ticket.getJob()}"></td>
+        <td th:text="${ticket.getSubject()}"></td>
+        <td th:text="${ticket.getDescription()}"></td>
+        <td th:text="${ticket.getStatus()}"></td>
+        <td th:text="${ticket.getPriority()}"></td>
+        <td th:text="${ticket.getAssignedUser()}"></td>
+        <td th:text="${ticket.getAssignedGroup()}"></td>
+        <td th:text="${ticket.getNotes()}"></td>
+        <!--<td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
