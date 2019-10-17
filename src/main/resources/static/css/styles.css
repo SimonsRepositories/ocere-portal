@@ -25,6 +25,19 @@ a:focus {
     transition: all 0.3s;
 }
 
+.nav-link {
+    color: white !important;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-img-top {
+    width: 60%;
+    height: 60%;
+}
+
 .navbar {
     padding: 15px 10px;
     background: #1AA090;
