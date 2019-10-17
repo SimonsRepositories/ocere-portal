@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +37,15 @@ public class TicketController {
         model.addAttribute("ticket", new Ticket());
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
-        return "newTicket";
+        return "add-ticket";
     }
 
     @PostMapping("/create")
-    public String createTicket(@ModelAttribute Ticket ticket) {
+    public String createTicket(@ModelAttribute Ticket ticket, Principal principal) {
         ticket.setAssignedUser(this.userService.getUserById(ticket.getAssignedUser().getId()));
         ticket.setAssignedGroup(this.usergroupService.findUsergroupById(ticket.getAssignedGroup().getId()).get());
+        ticket.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        ticket.setAuthor(this.userService.findByEmail(principal.getName()));
         this.ticketService.saveTicket(ticket);
         return "redirect:/tickets/dashboard";
     }

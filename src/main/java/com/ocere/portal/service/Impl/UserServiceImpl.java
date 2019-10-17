@@ -65,5 +65,9 @@ public class UserServiceImpl implements UserService {
     public void removeUserById(int id) {
         userRepository.deleteById(id);
     }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
 

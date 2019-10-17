@@ -26,7 +26,7 @@ public class Ticket {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "assigned_user_id")
     private User assignedUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -66,6 +66,12 @@ public class Ticket {
     @Column(name = "turnaround")
     private Timestamp turnaround;
 
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private User author;
 
     public int getId() {
         return id;
@@ -145,5 +151,29 @@ public class Ticket {
 
     public void setTurnaround(Timestamp turnaround) {
         this.turnaround = turnaround;
+    }
+
+    public Set<DBFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<DBFile> files) {
+        this.files = files;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
