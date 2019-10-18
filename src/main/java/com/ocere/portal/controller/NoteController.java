@@ -35,7 +35,7 @@ public class NoteController {
         model.addAttribute("cancelPage", "/tickets");
 
         Note note = new Note();
-        note.setTicket(ticketService.getTicketById(ticketId));
+        note.setTicket(ticketService.findTicketById(ticketId));
 
         model.addAttribute("note", note);
         return "notes_form";
