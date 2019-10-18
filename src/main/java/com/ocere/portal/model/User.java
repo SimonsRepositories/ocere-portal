@@ -56,6 +56,12 @@ public class User
     )
     private Set<Ticket> createdTickets;
 
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL
+    )
+    private Set<Note> createdNotes;
+
     public String getName() {
         return firstname + " " + lastname;
     }
@@ -122,5 +128,21 @@ public class User
 
     public void setTickets(Set<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Set<Ticket> getCreatedTickets() {
+        return createdTickets;
+    }
+
+    public void setCreatedTickets(Set<Ticket> createdTickets) {
+        this.createdTickets = createdTickets;
+    }
+
+    public Set<Note> getCreatedNotes() {
+        return createdNotes;
+    }
+
+    public void setCreatedNotes(Set<Note> createdNotes) {
+        this.createdNotes = createdNotes;
     }
 }

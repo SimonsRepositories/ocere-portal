@@ -15,7 +15,7 @@ public interface UsergroupService {
 
     Usergroup createUsergroup(Usergroup usergroup);
 
-    void deleteUsergroupById(int id) throws Exception;
-
     Usergroup updateUsergroup(Usergroup usergroup, int id) throws Exception;
+
+    void deleteUsergroupById(int id) throws Exception;
 }

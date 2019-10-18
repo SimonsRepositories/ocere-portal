@@ -59,6 +59,38 @@ a:focus {
     margin: 40px 0;
 }
 
+.note {
+    position: relative;
+    max-width: 400px;
+    margin: 10px;
+    padding: 10px;
+    background: #ededed;
+    border-radius: 5px;
+}
+
+.note-title {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.note-text {
+    font-size: 16px;
+}
+
+.note-button--close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0;
+    background: 0;
+    color: red;
+    cursor: pointer;
+}
+
+.note-button--close:focus {
+    outline: 0;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

@@ -58,16 +58,19 @@ public class TicketServiceImpl implements TicketService {
             Optional<Ticket> optionalUpdatedTicket = ticketRepository.findById(id);
             if (optionalUpdatedTicket.isPresent()) {
                 updatedTicket = optionalUpdatedTicket.get();
+                updatedTicket.setTemplate(ticket.isTemplate());
+                updatedTicket.setTurnaround(ticket.getTurnaround());
                 updatedTicket.setAssignedGroup(ticket.getAssignedGroup());
                 updatedTicket.setAssignedUser(ticket.getAssignedUser());
                 updatedTicket.setDescription(ticket.getDescription());
-                updatedTicket.setId(ticket.getId());
                 updatedTicket.setJob(ticket.getJob());
                 updatedTicket.setNotes(ticket.getNotes());
                 updatedTicket.setPriority(ticket.getPriority());
                 updatedTicket.setStatus(ticket.getStatus());
                 updatedTicket.setSubject(ticket.getSubject());
-
+                updatedTicket.setCreatedAt(ticket.getCreatedAt());
+                updatedTicket.setAuthor(ticket.getAuthor());
+                updatedTicket.setFiles(ticket.getFiles());
             } else {
                 throw new Exception("Couldn’t update ticket, because it didn’t exist !");
             }

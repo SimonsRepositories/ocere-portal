@@ -36,7 +36,7 @@ public class TicketController {
     }
 
     @GetMapping
-    public String allTickets(Model model, Principal principal) {
+    public String allTicketListView(Model model, Principal principal) {
         model.addAttribute("tickets", ticketService.findAll());
         model.addAttribute("open", ticketService.findAllByStatus(Status.OPEN));
         model.addAttribute("overdue", ticketService.findAllByTurnaround());
@@ -45,6 +45,12 @@ public class TicketController {
         model.addAttribute("assignedOverdue", ticketService.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
         model.addAttribute("submitted", ticketService.findAllByAuthor(userService.findByEmail(principal.getName())));
         return "tickets-list";
+    }
+
+    @GetMapping("{id}")
+    public String loadTicketView(Model model, @PathVariable int id) {
+        model.addAttribute("ticket", this.ticketService.getTicketById(id));
+        return "tickets-view";
     }
 
     @GetMapping("/create")
@@ -153,7 +159,7 @@ public class TicketController {
     @PostMapping("/delete/{id}")
     public String deleteTicket(@PathVariable int id) throws Exception {
         this.ticketService.removeTicketById(id);
-        return "redirect:/tickets/";
+        return "redirect:/tickets";
     }
 
     @PostMapping("/templates/delete/{id}")

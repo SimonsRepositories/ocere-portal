@@ -1,9 +1,7 @@
 package com.ocere.portal.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 public class Note {
@@ -23,6 +21,16 @@ public class Note {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @Column(name = "title")
+    private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private User author;
 
     public int getId() {
         return id;
@@ -54,5 +62,29 @@ public class Note {
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
