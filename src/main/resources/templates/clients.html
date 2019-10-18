@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Ticket Dashboard</title>
+    <title>Clients</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -37,7 +37,26 @@
         <!-- Content Start -->
         <div id="content-text" class="container">
             <h1>Clients</h1>
+            <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
+            <table th:if="${!assigned.isEmpty()}"
+                   class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Contact Name</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="client : ${assigned}">
+                    <td th:text="${client.companyName}"></td>
+                    <td th:text="${client.contactName}"></td>
+                    <td th:text="${client.status}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
 </div>
 <!-- jQuery CDN - Slim version (=without AJAX) -->
