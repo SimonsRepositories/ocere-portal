@@ -100,6 +100,10 @@ a:focus {
     width: 100%;
 }
 
+.client-row:hover{
+    cursor: pointer;
+}
+
 #sidebar {
     width: 250px;
     position: fixed;
@@ -295,3 +299,29 @@ a.article:hover {
         display: none;
     }*/
 }
+
+.card-signin {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-signin .card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+
+.card-signin .card-body {
+    padding: 2rem;
+}
+
+.form-signin {
+    width: 100%;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
