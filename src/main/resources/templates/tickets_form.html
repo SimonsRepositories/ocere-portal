@@ -39,7 +39,7 @@
                     <div class="col-12">
                         <h1 th:text="${siteTitle}">Title</h1>
                     </div>
-                    <div th:if="${ticket.template}" class="form-group col-12">
+                    <div th:if="${ticket.template==false}" class="form-group col-12">
                         <label for="assignedUser">Template :</label>
                         <select class="form-control template-dropdown" id="templateId">
                             <option value="0" selected disabled>select template</option>

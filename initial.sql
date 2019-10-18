@@ -27,4 +27,11 @@ INSERT INTO usergroup (group_id, is_active, created_at, is_empty, `name`, update
 VALUES  (1, true, NOW(), false, 'GroupTest', NOW());
 
 INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
-VALUES (1, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Ham', 'Ham Salesman #87', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'Happy', 'Road 1', 'A', 'https://www.ocere.com/')
+VALUES (1, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Ham', 'Ham Salesman #87', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'Happy', 'Road 1', 'A', 'https://www.ocere.com/');
+
+INSERT INTO `ticket` (`ticket_id`, `created_at`, `description`, `priority`, `status`, `subject`, `template`, `group_id`, `assigned_user_id`, `author_id`, `job_id`, `turnaround_id`) VALUES
+(1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL, NULL, 1, NULL, 4),
+(2, '2019-10-18 16:31:08', '', 1, 0, 'Digital Review + Proposal', b'1', NULL, NULL, 1, NULL, 4),
+(3, '2019-10-18 16:31:29', '', 1, 0, 'Source sites for Outreach (new client)', b'1', NULL, NULL, 1, NULL, 4),
+(4, '2019-10-18 16:31:53', '', 1, 0, 'GA Analysis for Potential Client (need guidelines)', b'1', NULL, NULL, 1, NULL, 4),
+(5, '2019-10-18 16:32:21', '', 1, 0, 'PCC Update / Report', b'1', NULL, NULL, 1, NULL, 4);
