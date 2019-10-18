@@ -7,12 +7,12 @@
 <body>
 <nav th:fragment="sidebar" id="sidebar">
     <div class="sidebar-header">
-        <h3>Ocere-Portal</h3>
+        <a href="/"><h3>Ocere-Portal</h3></a>
     </div>
 
     <ul class="list-unstyled components">
-        <li class="active">
-            <a href="#">Home</a>
+        <li>
+            <a href="/">Home</a>
         </li>
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
@@ -27,6 +27,9 @@
                     <a href="#">Recurring</a>
                 </li>
             </ul>
+        </li>
+        <li>
+            <a href="/clients">Clients</a>
         </li>
         <li>
             <a href="#">Groups</a>
