@@ -42,14 +42,14 @@ public class AuthenticationController
         model.addAttribute("role", role);
         model.addAttribute("listOfRoles", roleService.findAll());
         modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("register"); //resources/templates/register.html
+        modelAndView.setViewName("register");
         return modelAndView;
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index"); //resources/templates/index.html
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 
