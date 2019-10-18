@@ -5,10 +5,7 @@ import com.ocere.portal.model.Ticket;
 import com.ocere.portal.model.Turnaround;
 import com.ocere.portal.model.User;
 import com.ocere.portal.model.Usergroup;
-import com.ocere.portal.service.TicketService;
-import com.ocere.portal.service.TurnaroundService;
-import com.ocere.portal.service.UserService;
-import com.ocere.portal.service.UsergroupService;
+import com.ocere.portal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,36 +22,42 @@ public class TicketController {
     private UserService userService;
     private UsergroupService usergroupService;
     private TicketService ticketService;
+    private TemplateService templateService;
     private TurnaroundService turnaroundService;
 
     @Autowired
-    public TicketController(UserService userService, UsergroupService usergroupService, TicketService ticketService, TurnaroundService turnaroundService) {
+    public TicketController(UserService userService,
+                            UsergroupService usergroupService,
+                            TicketService ticketService,
+                            TemplateService templateService,
+                            TurnaroundService turnaroundService) {
         this.userService = userService;
         this.usergroupService = usergroupService;
         this.ticketService = ticketService;
+        this.templateService = templateService;
         this.turnaroundService = turnaroundService;
     }
 
     @GetMapping
     public String allTicketListView(Model model, Principal principal) {
-        model.addAttribute("tickets", ticketService.findAll());
-        model.addAttribute("open", ticketService.findAllByStatus(Status.OPEN));
-        model.addAttribute("overdue", ticketService.findAllByTurnaround());
-        model.addAttribute("assigned", ticketService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
-        model.addAttribute("assignedOpen", ticketService.findAllByAssignedUserAndStatus(userService.findByEmail(principal.getName()), Status.OPEN));
-        model.addAttribute("assignedOverdue", ticketService.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
-        model.addAttribute("submitted", ticketService.findAllByAuthor(userService.findByEmail(principal.getName())));
+        model.addAttribute("tickets", ticketService.findAllTickets());
+        model.addAttribute("open", ticketService.findAllTicketsByStatus(Status.OPEN));
+        model.addAttribute("overdue", ticketService.findAllTicketsByTurnaroundInFuture());
+        model.addAttribute("assigned", ticketService.findAllTicketsByAssignedUser(userService.findByEmail(principal.getName())));
+        model.addAttribute("assignedOpen", ticketService.findAllTicketsByAssignedUserAndStatus(userService.findByEmail(principal.getName()), Status.OPEN));
+        model.addAttribute("assignedOverdue", ticketService.findAllTicketsByAssignedUserAndTurnaroundInFuture(userService.findByEmail(principal.getName())));
+        model.addAttribute("submitted", ticketService.findAllTicketsByAuthor(userService.findByEmail(principal.getName())));
         return "tickets-list";
     }
 
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
-        model.addAttribute("ticket", this.ticketService.getTicketById(id));
+        model.addAttribute("ticket", this.ticketService.findTicketById(id));
         return "tickets-view";
     }
 
     @GetMapping("/create")
-    public String loadCreateTicketView(Model model, @RequestParam(name="id", defaultValue = "-1") int id) {
+    public String loadCreateTicketView(Model model, @RequestParam(name = "id", defaultValue = "-1") int id) {
         model.addAttribute("siteTitle", "New Ticket");
         model.addAttribute("action", "create");
         model.addAttribute("submitText", "Create");
@@ -64,7 +67,7 @@ public class TicketController {
         if (id == -1) {
             ticket = new Ticket();
         } else {
-            ticket = this.ticketService.findTemplateById(id);
+            ticket = this.templateService.findTemplateById(id);
         }
         model.addAttribute("ticket", ticket);
         model.addAttribute("users", this.userService.findAll());
@@ -89,13 +92,13 @@ public class TicketController {
 
     @GetMapping("/templates")
     public String loadTemplateListView(Model model) {
-        model.addAttribute("templates", this.ticketService.findAllTemplates());
+        model.addAttribute("templates", this.templateService.findAllTemplates());
         return "tickets_templates-list";
     }
 
     @GetMapping("/templates/{id}")
     public String loadTemplateView(Model model, @PathVariable int id) {
-        model.addAttribute("template", this.ticketService.findTemplateById(id));
+        model.addAttribute("template", this.templateService.findTemplateById(id));
         return "tickets_templates-view";
     }
 
@@ -106,7 +109,7 @@ public class TicketController {
         model.addAttribute("submitText", "Save");
         model.addAttribute("cancelPage", "/tickets/templates");
 
-        model.addAttribute("ticket", this.ticketService.findTemplateById(id));
+        model.addAttribute("ticket", this.templateService.findTemplateById(id));
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
@@ -141,29 +144,29 @@ public class TicketController {
     }
 
     @PostMapping("/save/{id}")
-    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception{
+    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception {
         fillTicketReferencesById(ticket);
 
-        this.ticketService.saveTicketById(ticket, id);
+        this.ticketService.updateTicket(ticket, id);
         return "redirect:/tickets";
     }
 
     @PostMapping("/templates/save/{id}")
-    public String saveTemplate(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception{
+    public String saveTemplate(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception {
         fillTicketReferencesById(ticket);
 
-        this.ticketService.saveTicketById(ticket, id);
+        this.ticketService.updateTicket(ticket, id);
         return "redirect:/tickets/templates";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteTicket(@PathVariable int id) throws Exception {
+    public String deleteTicket(@PathVariable int id) {
         this.ticketService.removeTicketById(id);
         return "redirect:/tickets";
     }
 
     @PostMapping("/templates/delete/{id}")
-    public String deleteTemplate(@PathVariable int id) throws Exception {
+    public String deleteTemplate(@PathVariable int id) {
         this.ticketService.removeTicketById(id);
         return "redirect:/tickets/templates";
     }

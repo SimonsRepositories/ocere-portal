@@ -1,25 +1,30 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.model.Role;
+import com.ocere.portal.service.RoleService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ocere.portal.model.User;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Controller
 public class AuthenticationController
 {
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping(value = { "/page/login" } , method = RequestMethod.GET)
     public ModelAndView login() {
@@ -29,10 +34,14 @@ public class AuthenticationController
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView register() {
+    public ModelAndView register(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
+        Role role = new Role();
         modelAndView.addObject("user", user);
+        model.addAttribute("role", role);
+        model.addAttribute("listOfRoles", roleService.findAll());
+        modelAndView.addObject("listOfUsers", userService.findAll());
         modelAndView.setViewName("register"); //resources/templates/register.html
         return modelAndView;
     }
@@ -53,7 +62,7 @@ public class AuthenticationController
     }
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
+    public ModelAndView registerUser(@ModelAttribute("role") Role role, @Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
         if (bindingResult.hasErrors()) {
@@ -64,14 +73,13 @@ public class AuthenticationController
         else if(userService.isUserAlreadyPresent(user)){
             modelAndView.addObject("successMessage", "User already exists!");
         } else {
-            userService.saveUser(user);
+            userService.saveUser(user, role);
             modelAndView.addObject("successMessage", "User is registered successfully");
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
         return modelAndView;
     }
-
     @RequestMapping(value="/admin/delete-user", method = RequestMethod.GET)
     public ModelAndView deleteUser(@RequestParam(name="id", required = true) int id) {
         ModelAndView modelAndView = new ModelAndView();
@@ -82,19 +90,21 @@ public class AuthenticationController
         return modelAndView;
     }
 
-    @RequestMapping(value="/admin/editUser/{id}", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable("id") int id) {
+    @RequestMapping(value="/admin/editUser/{id}{role}", method = RequestMethod.GET)
+    public ModelAndView editUser(@PathVariable("id") int id, @PathVariable("role") Role role) {
         ModelAndView modelAndView = new ModelAndView();
         User value = userService.getUserById(id).get();
+        Role roleValue = roleService.findByRole(role.getRole());
+        modelAndView.addObject("role", roleValue);
         modelAndView.addObject("user", value);
         modelAndView.setViewName("editUser");
         return modelAndView;
     }
 
     @RequestMapping(value="/admin/editUser", method = RequestMethod.POST)
-    public ModelAndView editUser(User user) {
+    public ModelAndView editUser(User user, Role role) {
         ModelAndView modelAndView = new ModelAndView();
-        userService.saveUserById(user, user.getId());
+        userService.saveUserById(user, user.getId(), role);
         modelAndView.addObject("listOfUsers", userService.findAll());
         modelAndView.setViewName("admin");
         return modelAndView;
