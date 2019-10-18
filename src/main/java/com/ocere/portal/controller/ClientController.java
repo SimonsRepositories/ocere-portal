@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 
@@ -26,6 +28,18 @@ public class ClientController {
         model.addAttribute("assigned", clientService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
 
+        return "clients";
+    }
+
+    @GetMapping("clients/{id}")
+    public String loadTicketView(Model model, @PathVariable int id) {
+        model.addAttribute("client", this.clientService.getClientById(id));
+        return "clients-view";
+    }
+
+    @PostMapping("clients/delete/{id}")
+    public String deleteClient(@PathVariable int id) {
+        clientService.removeClientById(id);
         return "clients";
     }
 }

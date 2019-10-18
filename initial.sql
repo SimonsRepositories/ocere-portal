@@ -27,4 +27,4 @@ INSERT INTO usergroup (group_id, is_active, created_at, is_empty, `name`, update
 VALUES  (1, true, NOW(), false, 'GroupTest', NOW());
 
 INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
-VALUES (1, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Ham', 'Ham Salesman #87', 'www.cheltenham.ham/contact', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'Happy', 'Road 1', 'A', 'www.cheltenham.ham')
+VALUES (1, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Ham', 'Ham Salesman #87', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'Happy', 'Road 1', 'A', 'https://www.ocere.com/')
