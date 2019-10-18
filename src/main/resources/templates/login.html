@@ -2,29 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>WebEncyclop - Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Ocere - Login</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 
-<body style="background-color:#ededed;">
-<div style="background-color:#337ab7;height:50px;"></div>
-<div class="container-fluid">
-    <div class="row col-lg-4 col-lg-offset-4"
-         style="margin-top: 80px;background-color:#fff;padding:20px;border:solid 1px #ddd;">
-        <!--<img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />-->
-        <form th:action="@{/page/login}" method="POST" class="form-signin">
-            <h3 class="form-signin-heading" th:text="Login"></h3>
-            <br/> <input type="text" id="email" name="email" th:placeholder="Email" class="form-control"/> <br/> <input
-                type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
+<body style="background-color:#1AA090;">
+    <div id="loginBox" class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Log In</h5>
+                            <form th:action="@{/page/login}" method="POST" class="form-signin">
+                                <br/> <input type="text" id="email" name="email" th:placeholder="Email" class="form-control"/> <br/> <input
+                                    type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
 
-            <div align="center" th:if="${param.error}">
-                <p style="font-size: 20px; color: #FF1C19;">Email or Password is invalid.</p>
+                                <div align="center" th:if="${param.error}">
+                                    <p style="font-size: 20px; color: #FF1C19;">Email or Password is invalid.</p>
+                                </div>
+                                <button class="btn btn-lg btn-primary" name="Submit" value="Login" type="Submit" th:text="Login"
+                                        style="margin-right:10px;"></button>
+                                <a href="/home">Forgot password?</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-lg btn-primary" name="Submit" value="Login" type="Submit" th:text="Login"
-                    style="margin-right:10px;"></button>
-            <a href="/home">Forgot password?</a>
-        </form>
+        </div>
     </div>
-</div>
 </body>
 </html>

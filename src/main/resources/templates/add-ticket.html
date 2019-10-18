@@ -102,7 +102,7 @@
         </nav>
 
         <div id="content-text">
-            <form action="#" method="post" th:action="@{/tickets/create}" th:object="${ticket}">
+            <foerm action="#" method="post" th:action="@{/tickets/create}" th:object="${ticket}">
                 <div class="form-group">
                     <label for="assignedUser">Assigned User:</label>
                     <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
@@ -161,7 +161,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a href="/tickets/dashboard" class="btn btn-warning">Abbrechen</a>
-            </form>
+            </foerm>
 
             <!--<form>
                 <div class="form-group">
