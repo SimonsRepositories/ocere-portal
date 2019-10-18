@@ -101,20 +101,21 @@
                         <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                                   role="tab" aria-controls="nav-home" aria-selected="true">Open</a>
+                                   role="tab" aria-controls="nav-home" aria-selected="true" style="color: black !important">Open</a>
                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                                   role="tab" aria-controls="nav-profile" aria-selected="false">Overdue</a>
+                                   role="tab" aria-controls="nav-profile" aria-selected="false" style="color: black !important">Overdue</a>
                                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
-                                   role="tab" aria-controls="nav-contact" aria-selected="false">All</a>
+                                   role="tab" aria-controls="nav-contact" aria-selected="false" style="color: black !important">All</a>
                                 <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about"
-                                   role="tab" aria-controls="nav-about" aria-selected="false">Submitted</a>
+                                   role="tab" aria-controls="nav-about" aria-selected="false" style="color: black !important">Submitted</a>
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                  aria-labelledby="nav-home-tab">
                                 <h4 th:if="${assignedOpen.isEmpty()}">0 tickets left! You're all done</h4>
-                                <table th:if="${!assignedOpen.isEmpty()}" style="width: 100%" class="table table-striped">
+                                <table th:if="${!assignedOpen.isEmpty()}" style="width: 100%"
+                                       class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -129,7 +130,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${submitted}">
+                                    <tr th:each="ticket : ${assignedOpen}">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>
@@ -146,7 +147,8 @@
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                                  aria-labelledby="nav-profile-tab">
                                 <h4 th:if="${assignedOverdue.isEmpty()}">0 tickets overdue! Good job</h4>
-                                <table th:if="${!assignedOverdue.isEmpty()}" style="width: 100%" class="table table-striped">
+                                <table th:if="${!assignedOverdue.isEmpty()}" style="width: 100%"
+                                       class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -161,7 +163,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${submitted}">
+                                    <tr th:each="ticket : ${assignedOverdue}">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>
@@ -193,7 +195,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${submitted}">
+                                    <tr th:each="ticket : ${tickets}">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>

@@ -88,7 +88,7 @@ public class TicketController {
         model.addAttribute("assignedOpen", ticketService.findAllByAssignedUserAndStatus(userService.findByEmail(principal.getName()), Status.OPEN));
         model.addAttribute("assignedOverdue", ticketService.findAllByAssignedUserAndTurnaround(userService.findByEmail(principal.getName())));
         model.addAttribute("submitted", ticketService.findAllByAuthor(userService.findByEmail(principal.getName())));
-        return "ticket";
+        return "tickets-list";
     }
 
     /*
@@ -114,11 +114,15 @@ public class TicketController {
         return "redirect:/tickets/templates";
     }
 
-    @PostMapping("/delete/{id}")
-    public String saveTicket(@PathVariable int id) throws Exception {
+    @PostMapping("/delete/{type}/{id}")
+    public String saveTicket(@PathVariable String type, @PathVariable int id) throws Exception {
         this.ticketService.removeTicketById(id);
-        return "redirect:/";
+        return "redirect:/tickets/" + type;
     }
+
+    /*
+        PRIVATE
+     */
 
     private void fillTicketReferencesById(Ticket ticket) {
         Optional<User> user = this.userService.getUserById(ticket.getAssignedUser().getId());
