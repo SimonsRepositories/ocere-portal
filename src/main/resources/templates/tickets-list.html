@@ -31,68 +31,11 @@
 <body>
 
 <div class="wrapper">
-    <!-- Sidebar  -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Ocere-Portal</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li class="active">
-                <a href="#" aria-expanded="false">Ticket Dashboard</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Recurring</a>
-                    </li>
-                    <li>
-                        <a href="#">Templates</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Groups</a>
-            </li>
-            <li>
-                <a href="#">User</a>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Page Content  -->
+    <div th:replace="navigation :: sidebar"></div>
     <div id="content">
+        <div th:replace="navigation :: header"></div>
 
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="navbar-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-align-justify"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!-- Content Start -->
         <div id="content-text">
             <section id="tabs">
                 <h6 class="section-title h1">Ticket Dashboard</h6>
@@ -101,13 +44,17 @@
                         <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                                   role="tab" aria-controls="nav-home" aria-selected="true" style="color: black !important">Open</a>
+                                   role="tab" aria-controls="nav-home" aria-selected="true"
+                                   style="color: black !important">Open</a>
                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                                   role="tab" aria-controls="nav-profile" aria-selected="false" style="color: black !important">Overdue</a>
+                                   role="tab" aria-controls="nav-profile" aria-selected="false"
+                                   style="color: black !important">Overdue</a>
                                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
-                                   role="tab" aria-controls="nav-contact" aria-selected="false" style="color: black !important">All</a>
+                                   role="tab" aria-controls="nav-contact" aria-selected="false"
+                                   style="color: black !important">All</a>
                                 <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about"
-                                   role="tab" aria-controls="nav-about" aria-selected="false" style="color: black !important">Submitted</a>
+                                   role="tab" aria-controls="nav-about" aria-selected="false"
+                                   style="color: black !important">Submitted</a>
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -245,8 +192,11 @@
                 </div>
             </section>
         </div>
+        <!-- Content End -->
+
     </div>
 </div>
+
 <!-- jQuery CDN - Slim version (=without AJAX) -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
