@@ -52,6 +52,7 @@ public class TicketController {
         model.addAttribute("siteTitle", "New Ticket");
         model.addAttribute("action", "create");
         model.addAttribute("submitText", "Create");
+        model.addAttribute("cancelPage", "/tickets");
 
         Ticket ticket;
         if (id == -1) {
@@ -71,11 +72,9 @@ public class TicketController {
         model.addAttribute("siteTitle", "New Template");
         model.addAttribute("action", "templates/create");
         model.addAttribute("submitText", "Create");
+        model.addAttribute("cancelPage", "/tickets/templates");
 
-        Ticket ticket = new Ticket();
-        ticket.setTemplate(true);
-
-        model.addAttribute("ticket", ticket);
+        model.addAttribute("ticket", new Ticket());
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
@@ -97,8 +96,9 @@ public class TicketController {
     @GetMapping("/templates/edit/{id}")
     public String loadTemplateEditView(Model model, @PathVariable int id) {
         model.addAttribute("siteTitle", "Edit Template");
-        model.addAttribute("action", "save");
+        model.addAttribute("action", "templates/save/" + id);
         model.addAttribute("submitText", "Save");
+        model.addAttribute("cancelPage", "/tickets/templates");
 
         model.addAttribute("ticket", this.ticketService.findTemplateById(id));
         model.addAttribute("users", this.userService.findAll());
@@ -126,6 +126,7 @@ public class TicketController {
     public String createTemplate(@ModelAttribute Ticket ticket, Principal principal) {
         fillTicketReferencesById(ticket);
 
+        ticket.setTemplate(true);
         ticket.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         ticket.setAuthor(this.userService.findByEmail(principal.getName()));
 
@@ -133,19 +134,19 @@ public class TicketController {
         return "redirect:/tickets/templates";
     }
 
-    @PostMapping("/save")
-    public String saveTicket(@ModelAttribute Ticket ticket) throws Exception{
+    @PostMapping("/save/{id}")
+    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception{
         fillTicketReferencesById(ticket);
 
-        this.ticketService.saveTicketById(ticket, ticket.getId());
+        this.ticketService.saveTicketById(ticket, id);
         return "redirect:/tickets";
     }
 
-    @PostMapping("/templates/save")
-    public String saveTemplate(@ModelAttribute Ticket ticket) throws Exception{
+    @PostMapping("/templates/save/{id}")
+    public String saveTemplate(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception{
         fillTicketReferencesById(ticket);
 
-        this.ticketService.saveTicketById(ticket, ticket.getId());
+        this.ticketService.saveTicketById(ticket, id);
         return "redirect:/tickets/templates";
     }
 

@@ -108,7 +108,7 @@
                     </div>
                     <div class="col-12">
                         <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
-                        <a href="/tickets/dashboard" class="btn btn-warning">Cancel</a>
+                        <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
                     </div>
                 </form>
             </div>

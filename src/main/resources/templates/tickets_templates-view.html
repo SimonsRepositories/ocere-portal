@@ -27,82 +27,13 @@
 </head>
 
 <body>
-
 <div class="wrapper">
-    <!-- Sidebar  -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Ocere-Portal</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-                   class="dropdown-toggle">Dashboards</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Admin</a>
-                    </li>
-                    <li>
-                        <a href="#">User</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Recurring</a>
-                    </li>
-                    <li>
-                        <a href="#">Types</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Groups</a>
-            </li>
-            <li>
-                <a href="#">User</a>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Page Content  -->
+    <div th:replace="navigation :: sidebar"></div>
     <div id="content">
+        <div th:replace="navigation :: header"></div>
 
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="navbar-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-align-justify"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">my Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+        <!-- Content Start -->
         <div id="content-text">
-
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -116,11 +47,17 @@
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Assigned User:</small>
-                        <p class="attribute-value" th:text="${template.assignedUser.name}">Value</p>
+                        <div th:switch="${template.assignedUser}">
+                            <p class="attribute-value" th:case="null">None</p>
+                            <p class="attribute-value" th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                        </div>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Assigned Group:</small>
-                        <p class="attribute-value" th:text="${template.assignedUser.name}">Value</p>
+                        <div th:switch="${template.assignedGroup}">
+                            <p class="attribute-value" th:case="null">None</p>
+                            <p class="attribute-value" th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                        </div>
                     </div>
                     <div class="col-12">
                         <small class="attribute-title">Description:</small>
@@ -140,14 +77,16 @@
                     </div>
                     <div class="col-12">
                         <a class="btn btn-primary" th:href="${'/tickets/templates/edit/' + template.id}">Edit</a>
-                        <form class="inlineBlockForm" method="post" th:action="@{/tickets/templates/delete/{id}(id=${template.id})}">
-                            <button type="submit" class="btn btn-warning">Delete</button>
+                        <form class="inlineBlockForm" method="post"
+                              th:action="@{/tickets/templates/delete/{id}(id=${template.id})}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <a href="/tickets/templates" class="btn btn-warning">Cancel</a>
                     </div>
                 </div>
             </div>
-
         </div>
+        <!-- Content End -->
 
     </div>
 </div>
