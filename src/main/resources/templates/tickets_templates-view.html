@@ -79,8 +79,9 @@
                         <a class="btn btn-primary" th:href="${'/tickets/templates/edit/' + template.id}">Edit</a>
                         <form class="inlineBlockForm" method="post"
                               th:action="@{/tickets/templates/delete/{id}(id=${template.id})}">
-                            <button type="submit" class="btn btn-warning">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <a href="/tickets/templates" class="btn btn-warning">Cancel</a>
                     </div>
                 </div>
             </div>

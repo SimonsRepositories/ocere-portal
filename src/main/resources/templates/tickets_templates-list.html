@@ -52,11 +52,10 @@
                                 <th>Priority</th>
                                 <th>Assigned User</th>
                                 <th>Assigned Group</th>
-                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="template : ${templates}">
+                            <tr class="template-row" th:each="template : ${templates}" th:data-id="${template.id}" style="cursor: pointer;">
                                 <a href="/tickets/create">
                                     <td th:text="${template.id}"></td>
                                     <td th:text="${template.subject}"></td>
@@ -71,7 +70,6 @@
                                         <p th:case="null">None</p>
                                         <p th:case="*" th:text="${template.assignedGroup.name}">Name</p>
                                     </td>
-                                    <td><a th:href="${'/tickets/templates/' + template.id}">View</a></td>
                                 </a>
                             </tr>
                             </tbody>
@@ -101,6 +99,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <script type="text/javascript">
+    $('.template-row').on('click', function() {
+        window.location.replace(window.location.origin + "/tickets/templates/" + $(this).data('id'));
+    });
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');
