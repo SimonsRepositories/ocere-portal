@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Ticket</title>
+    <title th:value="${client.companyName}"></title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -35,73 +35,73 @@
         <!-- Content Start -->
         <div id="content-text">
             <div class="container">
+                <h1 th:text="${client.companyName}"></h1>
                 <div class="row">
-                    <div class="col-12">
-                        <h1>Ticket View
-                            <a class="btn btn-primary" th:href="${'/tickets/edit/' + ticket.id}">Edit</a>
-                            <form class="inlineBlockForm" method="post"
-                                  th:action="@{/tickets/delete/{id}(id=${ticket.id})}">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            <a href="/tickets" class="btn btn-warning">Cancel</a>
-                        </h1>
+                    <div class="col-6">
+                        <small class="attribute-title">Name</small>
+                        <p class="attribute-value" th:text="${client.companyName}">Name</p>
+                    </div>
+
+                    <div class="col-6">
+                        <small class="attribute-title">Tier</small>
+                        <p class="attribute-value" th:text="${client.tier}">Tier</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <small class="attribute-title">Subject:</small>
-                        <p class="attribute-value" th:text="${ticket.subject}">Value</p>
+                    <div class="col-6">
+                        <small class="attribute-title">Contact Person</small>
+                        <p class="attribute-value" th:text="${client.contactName}">Contact Person</p>
                     </div>
                     <div class="col-6">
-                        <small class="attribute-title">Assigned User:</small>
-                        <div th:switch="${ticket.assignedUser}">
-                            <p class="attribute-value" th:case="null">None</p>
-                            <p class="attribute-value" th:case="*" th:text="${ticket.assignedUser.name}">Name</p>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Assigned Group:</small>
-                        <div th:switch="${ticket.assignedGroup}">
-                            <p class="attribute-value" th:case="null">None</p>
-                            <p class="attribute-value" th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <small class="attribute-title">Description:</small>
-                        <p class="attribute-value" th:text="${ticket.description}">Value</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Priority:</small>
-                        <p class="attribute-value" th:text="${ticket.priority}">Value</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Status:</small>
-                        <p class="attribute-value" th:text="${ticket.status}">Value</p>
-                    </div>
-                    <div class="col-12">
-                        <small class="attribute-title">Turnaround:</small>
-                        <p class="attribute-value" th:text="${ticket.turnaround.description}">Value</p>
-                    </div>
-                    <div class="col-12">
-                        <h4 class="attribute-title">Notes <a class="btn btn-primary"
-                                                             th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
-                        </h4>
-                        <div class="note" th:each="note: ${ticket.notes}">
-                            <h5 class="note-title" th:text="${note.title}">Title</h5>
-                            <p class="note-text" th:text="${note.text}">Text
-                            <form class="inlineBlockForm" method="post"
-                                  th:action="@{/notes/delete/{id}(id=${note.id})}">
-                                <button type="submit" class="note-button--close"><i class="fa fa-times"
-                                                                                    aria-hidden="true"></i></button>
-                            </form>
-                        </div>
+                        <small class="attribute-title">Satisfaction</small>
+                        <p class="attribute-value" th:text="${client.satisfaction}">Email</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                        <small class="attribute-title">Phone</small>
+                        <p class="attribute-value" th:text="${client.phone}">Phone</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Website</small>
+                        <br>
+                        <a class="attribute-value" th:href="${client.website}" th:text="${client.website}">Website</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <small class="attribute-title">Email</small>
+                        <p class="attribute-value" th:text="${client.email}">Email</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Status</small>
+                        <p class="attribute-value" th:text="${client.status}">Status</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <small class="attribute-title">Address</small>
+                        <p class="attribute-value"
+                           th:text="${client.postcode} + ' ' + ${client.city} + ' ' + ${client.street}">Address</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Contact page</small>
+                        <br>
+                        <a class="attribute-value" th:href="${client.contactUsPage}" th:text="${client.contactUsPage}">Contact page</a>
+                    </div>
+                </div>
+                <br>
+                <a class="btn btn-primary" th:href="${'/clients/edit/' + client.id}">Edit</a>
+                <form class="inlineBlockForm" method="post"
+                      th:action="@{/clients/delete/{id}(id=${client.id})}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a href="/clients" class="btn btn-warning">Cancel</a>
             </div>
         </div>
-        <!-- Content End -->
-
     </div>
+    <!-- Content End -->
+
 </div>
 
 <!-- jQuery CDN - Slim version (=without AJAX) -->
