@@ -49,7 +49,7 @@ public class AuthenticationController
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home"); //resources/templates/home.html
+        modelAndView.setViewName("index"); //resources/templates/index.html
         return modelAndView;
     }
 

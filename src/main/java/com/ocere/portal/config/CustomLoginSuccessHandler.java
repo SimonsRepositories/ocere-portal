@@ -42,10 +42,15 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         // check user role and decide the redirect URL
         if (roles.contains("ADMIN_USER")) {
-            url = "/admin";
+            url = "/";
         }
+<<<<<<< HEAD
         else if (roles.contains("CLIENT_USER")) {
             url = "/home";
+=======
+        else if (roles.contains("SITE_USER")) {
+            url = "/";
+>>>>>>> b8c02521da0cfe668ef36a9cd13a7d3abea9d080
         }
         return url;
     }

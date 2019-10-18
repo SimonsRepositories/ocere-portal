@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ticket</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="navigation :: sidebar"></div>
+    <div id="content">
+        <div th:replace="navigation :: header"></div>
+
+        <!-- Content Start -->
+        <div id="content-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Template View</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <small class="attribute-title">Subject:</small>
+                        <p class="attribute-value" th:text="${template.subject}">Value</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Assigned User:</small>
+                        <div th:switch="${template.assignedUser}">
+                            <p class="attribute-value" th:case="null">None</p>
+                            <p class="attribute-value" th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Assigned Group:</small>
+                        <div th:switch="${template.assignedGroup}">
+                            <p class="attribute-value" th:case="null">None</p>
+                            <p class="attribute-value" th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <small class="attribute-title">Description:</small>
+                        <p class="attribute-value" th:text="${template.description}">Value</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Priority:</small>
+                        <p class="attribute-value" th:text="${template.priority}">Value</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="attribute-title">Status:</small>
+                        <p class="attribute-value" th:text="${template.status}">Value</p>
+                    </div>
+                    <div class="col-12">
+                        <small class="attribute-title">Turnaround:</small>
+                        <p class="attribute-value" th:text="${template.turnaround.description}">Value</p>
+                    </div>
+                    <div class="col-12">
+                        <a class="btn btn-primary" th:href="${'/tickets/templates/edit/' + template.id}">Edit</a>
+                        <form class="inlineBlockForm" method="post"
+                              th:action="@{/tickets/templates/delete/{id}(id=${template.id})}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <a href="/tickets/templates" class="btn btn-warning">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content End -->
+
+    </div>
+</div>
+
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -18,7 +18,8 @@ public class Ticket {
         this.files = Collections.emptySet();
         this.status = Status.OPEN;
         this.priority = Priority.MEDIUM;
-        this.turnaround = new Turnaround();
+        this.turnaround = new Turnaround(4);
+        this.template = false;
     }
 
     @Id
@@ -70,6 +71,9 @@ public class Ticket {
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+    @Column(name = "template")
+    private boolean template;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
@@ -169,6 +173,14 @@ public class Ticket {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isTemplate() {
+        return template;
+    }
+
+    public void setTemplate(boolean template) {
+        this.template = template;
     }
 
     public User getAuthor() {

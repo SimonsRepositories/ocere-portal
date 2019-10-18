@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ticket</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="navigation :: sidebar"></div>
+    <div id="content">
+        <div th:replace="navigation :: header"></div>
+
+        <!-- Content Start -->
+        <div id="content-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 th:text="${siteTitle}">Title</h1>
+                    </div>
+                </div>
+                <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}"
+                      th:object="${ticket}">
+                    <div class="form-group col-12">
+                        <label for="subject">Subject:</label>
+                        <input th:field="*{subject}" placeholder="Subject" id="subject"
+                               class="form-control"
+                               type="text"/>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="assignedUser">Assigned User:</label>
+                        <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
+                            <option value="0">select user</option>
+                            <option th:each="user : ${users}"
+                                    th:value="${user.id}"
+                                    th:text="${user.firstname + ' ' + user.lastname}"
+                                    th:selected="${ticket.assignedUser.id == user.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="assignedGroup">Assigned Group:</label>
+                        <select class="form-control" id="assignedGroup" th:field="*{assignedGroup.id}">
+                            <option value="0">select group</option>
+                            <option th:each="group : ${groups}"
+                                    th:value="${group.id}"
+                                    th:text="${group.name}"
+                                    th:selected="${ticket.assignedGroup.id == group.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="description">Description:</label>
+                        <textarea th:field="*{description}" th:text="${ticket.description}" placeholder="Description"
+                                  id="description"
+                                  class="form-control"></textarea>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="priority">Priority:</label>
+                        <select class="form-control" id="priority" th:field="*{priority}">
+                            <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
+                                    th:value="${priority}"
+                                    th:text="${priority}"
+                                    th:selected="${ticket.priority == priority}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="status">Status:</label>
+                        <select class="form-control" id="status" th:field="*{status}">
+                            <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
+                                    th:value="${status}"
+                                    th:text="${status}"
+                                    th:selected="${ticket.status == status}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="turnaround">Turnaround:</label>
+                        <select class="form-control" id="turnaround" th:field="*{turnaround.id}">
+                            <option th:each="turnaround : ${turnaroundTimes}"
+                                    th:value="${turnaround.id}"
+                                    th:text="${turnaround.description}"
+                                    th:selected="${ticket.turnaround.id == turnaround.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                        <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                    </div>
+                </form>
+            </div>
+
+            <!--<form>
+                <div class="form-group">
+                    <label for="ticket-type">Ticket Type</label>
+                    <select class="form-control" id="ticket-type">
+                        <option>Select Ticket type</option>
+                        <option>PPC Review + Proposal</option>
+                        <option>Digital Review + Proposal</option>
+                        <option>Source sites for Outreach (new client)</option>
+                        <option>GA Analysis for Potential Client (need guidelines)</option>
+                        <option>PPC Update / Report</option>
+                        <option>Rankings / Organic Investigation</option>
+                        <option>Add Reports to Portal</option>
+                        <option>Source sites for Outreach (existing client)</option>
+                        <option>Content Checking (High Value Client Only)</option>
+                        <option>New PPC Campaign (Google Ads)</option>
+                        <option>New PPC Campaign (FB)</option>
+                        <option>Client Questions Answered</option>
+                        <option>SEO Keyword Research:</option>
+                        <option>PPC Results Iprovement (Extra work)</option>
+                        <option>Google My Business - Setup/Optimization</option>
+                        <option>On-Page Review</option>
+                        <option>Implement On-Page Changes to Client Site</option>
+                        <option>Upload Content to Client Site</option>
+                        <option>Job Profit Report</option>
+                        <option>Holiday Request</option>
+                        <option>New Invoice</option>
+                        <option>Edit Existing Invoice</option>
+                        <option>Cancel Invoice</option>
+                        <option>SEMrush Account Setup</option>
+                        <option>Testing</option>
+                        <option>PPC Projections</option>
+                    </select>
+                </div>
+            </form>-->
+        </div>
+        <!-- Content End -->
+
+    </div>
+</div>
+
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -44,7 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // URLs matching for access rights
-                .antMatchers("/").permitAll()
                 .antMatchers("/page/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/home/**").hasAnyAuthority("DEV_USER", "ADMIN_USER", "STAFF_USER", "CLIENT_USER")
