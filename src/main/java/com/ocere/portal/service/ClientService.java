@@ -18,8 +18,6 @@ public interface ClientService {
 
     Client saveClientById(Client client, int id) throws Exception;
 
-    List<Client> findAllByTurnaround();
-
     List<Client> findAllByAssignedUser(User user);
 
     List<Client> findAllByAuthor(User user);
