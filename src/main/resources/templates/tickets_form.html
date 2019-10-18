@@ -39,6 +39,16 @@
                     <div class="col-12">
                         <h1 th:text="${siteTitle}">Title</h1>
                     </div>
+                    <div th:if="${ticket.template}" class="form-group col-12">
+                        <label for="assignedUser">Template :</label>
+                        <select class="form-control template-dropdown" id="templateId">
+                            <option value="0" selected disabled>select template</option>
+                            <option th:each="template : ${templates}"
+                                    th:value="${template.id}"
+                                    th:text="${template.subject}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
                 <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}"
                       th:object="${ticket}">
@@ -112,41 +122,6 @@
                     </div>
                 </form>
             </div>
-
-            <!--<form>
-                <div class="form-group">
-                    <label for="ticket-type">Ticket Type</label>
-                    <select class="form-control" id="ticket-type">
-                        <option>Select Ticket type</option>
-                        <option>PPC Review + Proposal</option>
-                        <option>Digital Review + Proposal</option>
-                        <option>Source sites for Outreach (new client)</option>
-                        <option>GA Analysis for Potential Client (need guidelines)</option>
-                        <option>PPC Update / Report</option>
-                        <option>Rankings / Organic Investigation</option>
-                        <option>Add Reports to Portal</option>
-                        <option>Source sites for Outreach (existing client)</option>
-                        <option>Content Checking (High Value Client Only)</option>
-                        <option>New PPC Campaign (Google Ads)</option>
-                        <option>New PPC Campaign (FB)</option>
-                        <option>Client Questions Answered</option>
-                        <option>SEO Keyword Research:</option>
-                        <option>PPC Results Iprovement (Extra work)</option>
-                        <option>Google My Business - Setup/Optimization</option>
-                        <option>On-Page Review</option>
-                        <option>Implement On-Page Changes to Client Site</option>
-                        <option>Upload Content to Client Site</option>
-                        <option>Job Profit Report</option>
-                        <option>Holiday Request</option>
-                        <option>New Invoice</option>
-                        <option>Edit Existing Invoice</option>
-                        <option>Cancel Invoice</option>
-                        <option>SEMrush Account Setup</option>
-                        <option>Testing</option>
-                        <option>PPC Projections</option>
-                    </select>
-                </div>
-            </form>-->
         </div>
         <!-- Content End -->
 
@@ -169,6 +144,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <script type="text/javascript">
+    $('.template-dropdown').on('change', function() {
+        window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
+    });
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');
