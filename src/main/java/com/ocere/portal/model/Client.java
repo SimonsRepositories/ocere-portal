@@ -1,8 +1,6 @@
 package com.ocere.portal.model;
 
 import com.ocere.portal.enums.ClientStatus;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -34,17 +32,16 @@ public class Client {
     // private Usergroup leadGroup;
     // private String contactName;
     // private String phone;
-    // private String city;
-    // private String country;
+    // private String street;
+    // private String postcode
+    // private String city
+    // private String email;
+    // private String website;
+
     // private String paymentTerms;
     // private String username;
     // private String tier;
     // private String satisfaction;
-    // private String email;
-    // private String website;
-    // private String addressLine;
-    // private String state;
-    // private String postcode;
     // private String contactUsPage;
     // private String linkedIn;
     // Phones and Emails (List)
