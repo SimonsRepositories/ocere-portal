@@ -72,10 +72,7 @@ public class TicketController {
         model.addAttribute("action", "templates/create");
         model.addAttribute("submitText", "Create");
 
-        Ticket ticket = new Ticket();
-        ticket.setTemplate(true);
-
-        model.addAttribute("ticket", ticket);
+        model.addAttribute("ticket", new Ticket());
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
@@ -126,6 +123,7 @@ public class TicketController {
     public String createTemplate(@ModelAttribute Ticket ticket, Principal principal) {
         fillTicketReferencesById(ticket);
 
+        ticket.setTemplate(true);
         ticket.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         ticket.setAuthor(this.userService.findByEmail(principal.getName()));
 

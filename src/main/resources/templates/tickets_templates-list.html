@@ -37,7 +37,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h1>Templates</h1>
+                        <h1>Templates <a class="btn btn-primary" href="/tickets/templates/create">New</a></h1>
                     </div>
                 </div>
                 <div class="row">
@@ -63,8 +63,14 @@
                                     <td th:text="${template.description}"></td>
                                     <td th:text="${template.status}"></td>
                                     <td th:text="${template.priority}"></td>
-                                    <td th:text="${template.assignedUser.firstname + ' ' + template.assignedUser.lastname}"></td>
-                                    <td th:text="${template.assignedGroup.name}"></td>
+                                    <td th:switch="${template.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                                    </td>
+                                    <td th:switch="${template.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                                    </td>
                                     <td><a th:href="${'/tickets/templates/' + template.id}">View</a></td>
                                 </a>
                             </tr>
