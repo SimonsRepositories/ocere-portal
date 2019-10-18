@@ -77,7 +77,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${assignedOpen}">
+                                    <tr th:each="ticket : ${assignedOpen}" class="ticket-row" th:data-id="${ticket.id}" style="cursor: pointer;">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>
@@ -110,7 +110,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${assignedOverdue}">
+                                    <tr th:each="ticket : ${assignedOverdue}" class="ticket-row" th:data-id="${ticket.id}" style="cursor: pointer;">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>
@@ -142,7 +142,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${tickets}">
+                                    <tr th:each="ticket : ${tickets}" class="ticket-row" th:data-id="${ticket.id}" style="cursor: pointer;">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>
@@ -173,7 +173,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ticket : ${submitted}">
+                                    <tr th:each="ticket : ${submitted}" class="ticket-row" th:data-id="${ticket.id}" style="cursor: pointer;">
                                         <td th:text="${ticket.id}"></td>
                                         <td th:text="${ticket.job}"></td>
                                         <td th:text="${ticket.subject}"></td>
@@ -213,6 +213,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <script type="text/javascript">
+    $('.ticket-row').on('click', function() {
+        window.location.href = window.location.origin + "/tickets/" + $(this).data('id');
+    });
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');

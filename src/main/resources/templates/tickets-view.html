@@ -37,51 +37,65 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h1>Template View</h1>
+                        <h1>Ticket View
+                            <a class="btn btn-primary" th:href="${'/tickets/edit/' + ticket.id}">Edit</a>
+                            <form class="inlineBlockForm" method="post"
+                                  th:action="@{/tickets/delete/{id}(id=${ticket.id})}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            <a href="/tickets" class="btn btn-warning">Cancel</a>
+                        </h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         <small class="attribute-title">Subject:</small>
-                        <p class="attribute-value" th:text="${template.subject}">Value</p>
+                        <p class="attribute-value" th:text="${ticket.subject}">Value</p>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Assigned User:</small>
-                        <div th:switch="${template.assignedUser}">
+                        <div th:switch="${ticket.assignedUser}">
                             <p class="attribute-value" th:case="null">None</p>
-                            <p class="attribute-value" th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                            <p class="attribute-value" th:case="*" th:text="${ticket.assignedUser.name}">Name</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Assigned Group:</small>
-                        <div th:switch="${template.assignedGroup}">
+                        <div th:switch="${ticket.assignedGroup}">
                             <p class="attribute-value" th:case="null">None</p>
-                            <p class="attribute-value" th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                            <p class="attribute-value" th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
                         </div>
                     </div>
                     <div class="col-12">
                         <small class="attribute-title">Description:</small>
-                        <p class="attribute-value" th:text="${template.description}">Value</p>
+                        <p class="attribute-value" th:text="${ticket.description}">Value</p>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Priority:</small>
-                        <p class="attribute-value" th:text="${template.priority}">Value</p>
+                        <p class="attribute-value" th:text="${ticket.priority}">Value</p>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Status:</small>
-                        <p class="attribute-value" th:text="${template.status}">Value</p>
+                        <p class="attribute-value" th:text="${ticket.status}">Value</p>
                     </div>
                     <div class="col-12">
                         <small class="attribute-title">Turnaround:</small>
-                        <p class="attribute-value" th:text="${template.turnaround.description}">Value</p>
+                        <p class="attribute-value" th:text="${ticket.turnaround.description}">Value</p>
                     </div>
                     <div class="col-12">
-                        <a class="btn btn-primary" th:href="${'/tickets/templates/edit/' + template.id}">Edit</a>
-                        <form class="inlineBlockForm" method="post"
-                              th:action="@{/tickets/templates/delete/{id}(id=${template.id})}">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                        <a href="/tickets/templates" class="btn btn-warning">Cancel</a>
+                        <h4 class="attribute-title">Notes <a class="btn btn-primary"
+                                                             th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
+                        </h4>
+                        <div class="note" th:each="note: ${ticket.notes}">
+                            <h5 class="note-title" th:text="${note.title}">Title</h5>
+                            <p class="note-text" th:text="${note.text}">Text
+                            <form class="inlineBlockForm" method="post"
+                                  th:action="@{/notes/delete/{id}(id=${note.id})}">
+                                <button type="submit" class="note-button--close"><i class="fa fa-times"
+                                                                                    aria-hidden="true"></i></button>
+                            </form>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
