@@ -31,19 +31,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user, Role role) {
+    public void saveUser(User user, int roleId) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setStatus("VERIFIED");
-        Role userRole = roleRepository.findByRole(role.getDesc());
+        Role userRole = roleRepository.findById(roleId);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
 
-    public void saveUserById(User user, int id, Role role) {
+    public void saveUserById(User user, int id, int roleId) {
         for (int i = 0; i < findAll().size(); i++) {
             User tmpValue = findAll().get(i);
             if (tmpValue.getId() == id) {
-                saveUser(user, role);
+                saveUser(user, roleId);
                 return;
             }
         }

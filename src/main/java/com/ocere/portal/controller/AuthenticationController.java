@@ -42,14 +42,14 @@ public class AuthenticationController
         model.addAttribute("role", role);
         model.addAttribute("listOfRoles", roleService.findAll());
         modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("register"); //resources/templates/register.html
+        modelAndView.setViewName("register");
         return modelAndView;
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index"); //resources/templates/index.html
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 
@@ -73,7 +73,7 @@ public class AuthenticationController
         else if(userService.isUserAlreadyPresent(user)){
             modelAndView.addObject("successMessage", "User already exists!");
         } else {
-            userService.saveUser(user, role);
+            userService.saveUser(user, role.getId());
             modelAndView.addObject("successMessage", "User is registered successfully");
         }
         modelAndView.addObject("user", new User());
@@ -104,7 +104,7 @@ public class AuthenticationController
     @RequestMapping(value="/admin/editUser", method = RequestMethod.POST)
     public ModelAndView editUser(User user, Role role) {
         ModelAndView modelAndView = new ModelAndView();
-        userService.saveUserById(user, user.getId(), role);
+        userService.saveUserById(user, user.getId(), role.getId());
         modelAndView.addObject("listOfUsers", userService.findAll());
         modelAndView.setViewName("admin");
         return modelAndView;
