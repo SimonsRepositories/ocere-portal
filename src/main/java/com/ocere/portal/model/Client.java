@@ -37,7 +37,8 @@ public class Client {
     private User assignedUser;
 
     private String companyName;
-    private String contactName;
+    private String contactFirstName;
+    private String contactLastName;
     private String phone;
     private String street;
     private String postcode;
@@ -56,6 +57,23 @@ public class Client {
     // private String username;
     // private String linkedIn;
     // Phones and Emails (List)
+
+
+    public String getContactFirstName() {
+        return contactFirstName;
+    }
+
+    public void setContactFirstName(String contactFirstName) {
+        this.contactFirstName = contactFirstName;
+    }
+
+    public String getContactLastName() {
+        return contactLastName;
+    }
+
+    public void setContactLastName(String contactLastName) {
+        this.contactLastName = contactLastName;
+    }
 
     public String getTier() {
         return tier;
@@ -87,14 +105,6 @@ public class Client {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
     }
 
     public String getPhone() {

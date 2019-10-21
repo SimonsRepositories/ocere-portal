@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title th:text="New client"></title>
+    <title>New Client</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -35,56 +35,88 @@
         <!-- Content Start -->
         <div id="content-text">
             <div class="container">
-                <h1 th:text="New client"></h1>
-                <form action="#" th:action="@{/clients/saveClient}" th:object="${newClient}" method="post">
+                <h1>New Client</h1>
+                <form action="#" th:action="@{/clients/save}" th:object="${newClient}" method="post">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6">
-                                <small class="attribute-title">Name</small>
+                                <small class="attribute-title">Company Name</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{companyName}">
+                                <input type="text" required class="form-control" th:field="*{companyName}">
                             </div>
 
                             <div class="col-6">
                                 <small class="attribute-title">Tier</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{companyName}">
+                                <select class="form-control" id="tier" th:field="*{tier}">
+                                    <option th:each="tier : ${T(com.ocere.portal.enums.Tier).values()}"
+                                            th:value="${tier}"
+                                            th:text="${tier}"
+                                            th:selected="${newClient.tier == tier}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
-                                <small class="attribute-title">Contact Person</small>
+                            <div class="col-3">
+                                <small class="attribute-title">Contact Person Firstname</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{contactName}">
+                                <input type="text" required class="form-control" th:field="*{contactFirstName}">
+                            </div>
+                            <div class="col-3">
+                                <small class="attribute-title">Contact Person Lastname</small>
+                                <br>
+                                <input type="text" required class="form-control" th:field="*{contactLastName}">
                             </div>
                             <div class="col-6">
                                 <small class="attribute-title">Satisfaction</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{satisfaction}">
+                                <input type="text" required class="form-control" th:field="*{satisfaction}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <small class="attribute-title">Phone</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{phone}">
+                                <input type="text" required class="form-control" th:field="*{phone}">
                             </div>
                             <div class="col-6">
                                 <small class="attribute-title">Website</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{website}">
+                                <input type="text" required class="form-control" th:field="*{website}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <small class="attribute-title">Email</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{email}">
+                                <input type="email" required class="form-control" th:field="*{email}">
                             </div>
                             <div class="col-6">
                                 <small class="attribute-title">Status</small>
                                 <br>
-                                <input type="text" class="form-control" th:field="*{status}">
+                                <select class="form-control" id="status" th:field="*{status}">
+                                    <option th:each="status : ${T(com.ocere.portal.enums.ClientStatus).values()}"
+                                            th:value="${status}"
+                                            th:text="${status}"
+                                            th:selected="${newClient.status == status}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <small>Responsible user</small>
+                                <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
+                                    <option value="0">select user</option>
+                                    <option th:each="user : ${users}" th:value="${user.id}"
+                                            th:text="${user.firstname + ' ' + user.lastname}"></option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <small class="attribute-title">Contact page</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{contactUsPage}">
                             </div>
                         </div>
                         <div class="row">
@@ -99,11 +131,8 @@
                                 <br>
                                 <input type="text" class="form-control" th:field="*{street}">
                             </div>
-                            <div class="col-6">
-                                <small class="attribute-title">Contact page</small>
-                                <br>
-                                <input type="text" class="form-control" th:field="*{contactUsPage}">
-                            </div>
+                            <small class="attribute-title">Email Password to send Client login info</small>
+                            <br>
                         </div>
                         <br>
                         <button type="submit" class="btn btn-success" value="submit"><a href="/clients"></a>Save
