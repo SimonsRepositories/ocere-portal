@@ -7,14 +7,19 @@
 
     <title>Ticket</title>
 
+    <!-- Froala Editor -->
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
+
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -40,7 +45,8 @@
                         <h1 th:text="${siteTitle}">Title</h1>
                     </div>
                 </div>
-                <form class="row" action="#" method="post" th:action="@{/notes/{action}(action=${action})}" th:object="${note}">
+                <form class="row" action="#" method="post" th:action="@{/notes/{action}(action=${action})}"
+                      th:object="${note}">
                     <div class="form-group col-12">
                         <label for="title">Title:</label>
                         <input th:field="*{title}" placeholder="Title" id="title"
@@ -49,8 +55,10 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="text">Text:</label>
-                        <textarea th:field="*{text}" th:text="${note.text}" placeholder="Text" id="text"
-                                  class="form-control"></textarea>
+                        <textarea th:field="*{text}"
+                                  th:text="${note.text}"
+                                  class="form-control"
+                                  id="text">Initialize the Froala WYSIWYG HTML Editor on a textarea.</textarea>
                     </div>
                     <input th:field="*{ticket.id}" th:value="${note.ticket.id}" hidden/>
                     <div class="col-12">
@@ -58,6 +66,12 @@
                         <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
                     </div>
                 </form>
+                <div class="row">
+                    <form th:if="${note.id!=0}" class="col-12 mt-1 inlineBlockForm" method="post"
+                          th:action="@{/notes/delete/{id}(id=${note.id})}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- Content End -->
@@ -80,7 +94,28 @@
 <!-- jQuery Custom Scroller CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+<!-- Froala Editor -->
+<script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
+
 <script type="text/javascript">
+    new FroalaEditor('textarea#text', {
+        // Set the image upload parameter.
+        imageUploadParam: 'file',
+
+        // Set the image upload URL.
+        imageUploadURL: '/froala/upload',
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
+    });
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');

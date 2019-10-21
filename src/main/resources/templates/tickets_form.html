@@ -7,6 +7,10 @@
 
     <title>Ticket</title>
 
+    <!-- Froala Editor -->
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
+
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -82,9 +86,10 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="description">Description:</label>
-                        <textarea th:field="*{description}" th:text="${ticket.description}" placeholder="Description"
-                                  id="description"
-                                  class="form-control"></textarea>
+                        <textarea th:field="*{description}"
+                                  th:text="${ticket.description}"
+                                  class="form-control"
+                                  id="description">Initialize the Froala WYSIWYG HTML Editor on a textarea.</textarea>
                     </div>
                     <div class="form-group col-6">
                         <label for="priority">Priority:</label>
@@ -143,9 +148,30 @@
 <!-- jQuery Custom Scroller CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+<!-- Froala Editor -->
+<script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
+
 <script type="text/javascript">
     $('.template-dropdown').on('change', function() {
         window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
+    });
+
+    new FroalaEditor('textarea#description', {
+        // Set the image upload parameter.
+        imageUploadParam: 'file',
+
+        // Set the image upload URL.
+        imageUploadURL: '/froala/upload',
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
     });
 
     $(document).ready(function () {

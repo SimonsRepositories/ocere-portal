@@ -7,6 +7,8 @@
 
     <title>Ticket</title>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -68,7 +70,7 @@
                     </div>
                     <div class="col-12">
                         <small class="attribute-title">Description:</small>
-                        <p class="attribute-value" th:text="${ticket.description}">Value</p>
+                        <div class="attribute-value froala-wrapper" th:utext="${ticket.description}">Value</div>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Priority:</small>
@@ -86,16 +88,19 @@
                         <h4 class="attribute-title">Notes <a class="btn btn-primary"
                                                              th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
                         </h4>
-                        <div class="note" th:each="note: ${ticket.notes}">
-                            <h5 class="note-title" th:text="${note.title}">Title</h5>
-                            <p class="note-text" th:text="${note.text}">Text
-                            <form class="inlineBlockForm" method="post"
-                                  th:action="@{/notes/delete/{id}(id=${note.id})}">
-                                <button type="submit" class="note-button--close"><i class="fa fa-times"
-                                                                                    aria-hidden="true"></i></button>
-                            </form>
+                        <div class="row" th:each="note: ${ticket.notes}">
+                            <div class="note">
+                                <h5 class="note-title" th:text="${note.title}">Title</h5>
+                                <div class="note-text" th:utext="${note.text}">Text</div>
+                                <a class="note-button--edit" th:href="'/notes/edit/' + ${note.id}"></a>
+                            </div>
                         </div>
                     </div>
+                    <!--<div class="col-12">
+                        <h4 class="attribute-title">Documents
+                            <a class="btn btn-primary" th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
+                        </h4>
+                    </div>-->
                 </div>
             </div>
         </div>

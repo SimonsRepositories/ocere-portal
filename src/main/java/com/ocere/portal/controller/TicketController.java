@@ -168,7 +168,7 @@ public class TicketController {
         mapUneditedValuesToTicket(ticket, id);
 
         this.ticketService.updateTicket(ticket, id);
-        return "redirect:/tickets";
+        return "redirect:/tickets/" + id;
     }
 
     @PostMapping("/templates/save/{id}")
@@ -177,7 +177,7 @@ public class TicketController {
         mapUneditedValuesToTemplate(template, id);
 
         this.templateService.updateTemplate(template, id);
-        return "redirect:/tickets/templates";
+        return "redirect:/tickets/templates/" + id;
     }
 
     @PostMapping("/delete/{id}")

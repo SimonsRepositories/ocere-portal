@@ -47,7 +47,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Subject</th>
-                                <th>Description</th>
                                 <th>Status</th>
                                 <th>Priority</th>
                                 <th>Assigned User</th>
@@ -59,7 +58,6 @@
                                 <a href="/tickets/create">
                                     <td th:text="${template.id}"></td>
                                     <td th:text="${template.subject}"></td>
-                                    <td th:text="${template.description}"></td>
                                     <td th:text="${template.status}"></td>
                                     <td th:text="${template.priority}"></td>
                                     <td th:switch="${template.assignedUser}">

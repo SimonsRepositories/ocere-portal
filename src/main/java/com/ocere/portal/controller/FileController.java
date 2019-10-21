@@ -2,6 +2,7 @@ package com.ocere.portal.controller;
 
 import com.ocere.portal.model.DBFile;
 import com.ocere.portal.payload.UploadFileResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,4 +61,11 @@ public class FileController {
                 .body(new ByteArrayResource(dbFile.getData()));
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/file/{fileId}",
+            method = RequestMethod.GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] accessFile(@PathVariable String fileId) {
+        return DBFileStorageService.getFile(fileId).getData();
+    }
 }
