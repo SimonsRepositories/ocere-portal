@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    void saveUser(User user, Role role);
+    void saveUser(User user, int role);
 
     boolean isUserAlreadyPresent(User user);
 
@@ -17,7 +17,7 @@ public interface UserService {
 
     Optional<User> getUserById(int id);
 
-    void saveUserById(User user, int id, Role role);
+    void saveUserById(User user, int id, int roleId);
 
     User findByEmail(String email);
 }
