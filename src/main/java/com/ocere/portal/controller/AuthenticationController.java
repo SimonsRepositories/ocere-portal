@@ -13,9 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ocere.portal.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Controller
 public class AuthenticationController
@@ -38,6 +42,8 @@ public class AuthenticationController
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         Role role = new Role();
+        int[] idRoles = new int[4];
+        model.addAttribute("idRoles", idRoles);
         modelAndView.addObject("user", user);
         model.addAttribute("role", role);
         model.addAttribute("listOfRoles", roleService.findAll());
@@ -46,23 +52,8 @@ public class AuthenticationController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminHome() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("admin"); // resources/template/admin.html
-        return modelAndView;
-    }
-
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@ModelAttribute("role") Role role, @Valid User user, BindingResult bindingResult, ModelMap modelMap) {
+    public ModelAndView registerUser(@ModelAttribute @Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
         if (bindingResult.hasErrors()) {
@@ -73,40 +64,16 @@ public class AuthenticationController
         else if(userService.isUserAlreadyPresent(user)){
             modelAndView.addObject("successMessage", "User already exists!");
         } else {
-            userService.saveUser(user, role.getId());
+            if(user.getRoles() != null) {
+                for(Role idrole : user.getRoles()) {
+                    System.out.println("<<" + idrole.getId() + ">>");
+                }
+                userService.saveUser(user, user.getRoles());
+            }
             modelAndView.addObject("successMessage", "User is registered successfully");
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
-        return modelAndView;
-    }
-    @RequestMapping(value="/admin/delete-user", method = RequestMethod.GET)
-    public ModelAndView deleteUser(@RequestParam(name="id", required = true) int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        userService.removeUserById(id);
-
-        modelAndView.setViewName("redirect:/admin");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/admin/editUser/{id}{role}", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable("id") int id, @PathVariable("role") Role role) {
-        ModelAndView modelAndView = new ModelAndView();
-        User value = userService.getUserById(id).get();
-        Role roleValue = roleService.findByRole(role.getRole());
-        modelAndView.addObject("role", roleValue);
-        modelAndView.addObject("user", value);
-        modelAndView.setViewName("editUser");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/admin/editUser", method = RequestMethod.POST)
-    public ModelAndView editUser(User user, Role role) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.saveUserById(user, user.getId(), role.getId());
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("admin");
         return modelAndView;
     }
 }
