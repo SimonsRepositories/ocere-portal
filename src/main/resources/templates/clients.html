@@ -16,42 +16,43 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!-- Content Start -->
-        <div id="content-text" class="container">
-            <h1>Clients</h1> <a class="btn btn-primary" href="/clients/create">New</a>
-            <br>
-            <br>
-            <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
-            <table th:if="${!assigned.isEmpty()}"
-                   class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Contact Name</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="client : ${assigned}" th:data-id="${client.id}" class="client-row">
-                        <td th:text="${client.companyName}"></td>
-                        <td th:text="${client.contactFirstName} + ' ' +  ${client.contactLastName}"></td>
-                        <td th:text="${client.status}"></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <h1>Clients</h1> <a class="btn btn-primary" href="/clients/create">New</a>
+                    <br>
+                    <br>
+                    <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
+                    <table th:if="${!assigned.isEmpty()}"
+                           class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Contact Name</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="client : ${assigned}" th:data-id="${client.id}" class="client-row">
+                            <td th:text="${client.companyName}"></td>
+                            <td th:text="${client.contactFirstName} + ' ' +  ${client.contactLastName}"></td>
+                            <td th:text="${client.status}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
 
 <div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
-    $('.client-row').on('click', function() {
+    $('.client-row').on('click', function () {
         window.location.href = window.location.origin + "/clients/" + $(this).data('id');
     });
 

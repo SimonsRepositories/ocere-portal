@@ -16,53 +16,51 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!-- Content Start -->
-        <div id="content-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1 th:text="${siteTitle}">Title</h1>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 th:text="${siteTitle}">Title</h1>
+                        </div>
                     </div>
-                </div>
-                <form class="row" action="#" method="post" th:action="@{/notes/{action}(action=${action})}"
-                      th:object="${note}">
-                    <div class="form-group col-12">
-                        <label for="title">Title:</label>
-                        <input th:field="*{title}"
-                               id="title"
-                               class="form-control"
-                               placeholder="Title"
-                               type="text"/>
-                    </div>
-                    <div class="form-group col-12">
-                        <label for="text">Text:</label>
-                        <textarea th:field="*{text}"
-                                  th:text="${note.text}"
-                                  id="text"
-                                  class="form-control">
-                            Initialize the Froala WYSIWYG HTML Editor on a textarea.
-                        </textarea>
-                    </div>
-                    <input th:field="*{ticket.id}" th:value="${note.ticket.id}" hidden/>
-                    <div class="col-12">
-                        <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
-                        <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
-                    </div>
-                </form>
-                <div class="row">
-                    <form th:if="${note.id!=0}" class="col-12 mt-1 inlineBlockForm" method="post"
-                          th:action="@{/notes/delete/{id}(id=${note.id})}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                    <form class="row" action="#" method="post" th:action="@{/notes/{action}(action=${action})}"
+                          th:object="${note}">
+                        <div class="form-group col-12">
+                            <label for="title">Title:</label>
+                            <input th:field="*{title}"
+                                   id="title"
+                                   class="form-control"
+                                   placeholder="Title"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="text">Text:</label>
+                            <textarea th:field="*{text}"
+                                      th:text="${note.text}"
+                                      id="text"
+                                      class="form-control">
+                                Initialize the Froala WYSIWYG HTML Editor on a textarea.
+                            </textarea>
+                        </div>
+                        <input th:field="*{ticket.id}" th:value="${note.ticket.id}" hidden/>
+                        <div class="col-12">
+                            <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                            <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                        </div>
                     </form>
+                    <div class="row">
+                        <form th:if="${note.id!=0}" class="col-12 mt-1 inlineBlockForm" method="post"
+                              th:action="@{/notes/delete/{id}(id=${note.id})}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Content End -->
-
     </div>
 </div>
 

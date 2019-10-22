@@ -12,109 +12,113 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!-- Content Start -->
-        <div id="content-text">
-            <div class="container">
-                <h1 th:text="${client.companyName}"></h1>
-                <div class="row">
-                    <div class="col-6">
-                        <small class="attribute-title">Name</small>
-                        <p class="attribute-value" th:text="${client.companyName}">Name</p>
-                    </div>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <h1 th:text="${client.companyName}"></h1>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="attribute-title">Name</small>
+                            <p class="attribute-value" th:text="${client.companyName}">Name</p>
+                        </div>
 
-                    <div class="col-6">
-                        <small class="attribute-title">Tier</small>
-                        <p class="attribute-value" th:text="${client.tier}">Tier</p>
+                        <div class="col-6">
+                            <small class="attribute-title">Tier</small>
+                            <p class="attribute-value" th:text="${client.tier}">Tier</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <small class="attribute-title">Contact Firstname</small>
-                        <p class="attribute-value" th:text="${client.contactFirstName}">Contact <Firstname></Firstname></p>
+                    <div class="row">
+                        <div class="col-3">
+                            <small class="attribute-title">Contact Firstname</small>
+                            <p class="attribute-value" th:text="${client.contactFirstName}">Contact
+                                <Firstname></Firstname>
+                            </p>
+                        </div>
+                        <div class="col-3">
+                            <small class="attribute-title">Contact Lastname</small>
+                            <p class="attribute-value" th:text="${client.contactLastName}">Contact Lastname</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Satisfaction</small>
+                            <p class="attribute-value" th:text="${client.satisfaction}">Email</p>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <small class="attribute-title">Contact Lastname</small>
-                        <p class="attribute-value" th:text="${client.contactLastName}">Contact Lastname</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="attribute-title">Phone</small>
+                            <p class="attribute-value" th:text="${client.phone}">Phone</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Website</small>
+                            <br>
+                            <a class="attribute-value" th:href="${client.website}"
+                               th:text="${client.website}">Website</a>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Satisfaction</small>
-                        <p class="attribute-value" th:text="${client.satisfaction}">Email</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="attribute-title">Email</small>
+                            <p class="attribute-value" th:text="${client.email}">Email</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Status</small>
+                            <p class="attribute-value" th:text="${client.status}">Status</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <small class="attribute-title">Phone</small>
-                        <p class="attribute-value" th:text="${client.phone}">Phone</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="attribute-title">Address</small>
+                            <p class="attribute-value"
+                               th:text="${client.postcode} + ' ' + ${client.city} + ' ' + ${client.street}">Address</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Contact page</small>
+                            <br>
+                            <a class="attribute-value" th:href="${client.contactUsPage}"
+                               th:text="${client.contactUsPage}">Contact
+                                page</a>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Website</small>
-                        <br>
-                        <a class="attribute-value" th:href="${client.website}" th:text="${client.website}">Website</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <small class="attribute-title">Email</small>
-                        <p class="attribute-value" th:text="${client.email}">Email</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Status</small>
-                        <p class="attribute-value" th:text="${client.status}">Status</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <small class="attribute-title">Address</small>
-                        <p class="attribute-value"
-                           th:text="${client.postcode} + ' ' + ${client.city} + ' ' + ${client.street}">Address</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Contact page</small>
-                        <br>
-                        <a class="attribute-value" th:href="${client.contactUsPage}" th:text="${client.contactUsPage}">Contact page</a>
-                    </div>
-                </div>
-                <br>
-                <a class="btn btn-primary" th:href="${'/clients/edit/' + client.id}">Edit</a>
-                <form class="inlineBlockForm" method="post"
-                      th:action="@{/clients/delete/{id}(id=${client.id})}">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-                <a href="/clients" class="btn btn-warning">Cancel</a>
-                <a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn btn-success">New Job</a>
-                <div class="row mt-1">
-                    <div class="col-12">
-                        <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Company</th>
-                                <th>Website</th>
-                                <th>Start</th>
-                                <th>End</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="template-row" th:each="job : ${jobs}" th:data-id="${job.id}" style="cursor: pointer;">
-                                <td th:text="${job.id}"></td>
-                                <td th:text="${job.company}"></td>
-                                <td th:text="${job.website}"></td>
-                                <td th:text="${#dates.format(job.startDate, 'dd. MMMM YYYY')}"></td>
-                                <td th:text="${#dates.format(job.endDate, 'dd. MMMM YYYY')}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <br>
+                    <a class="btn btn-primary" th:href="${'/clients/edit/' + client.id}">Edit</a>
+                    <form class="inlineBlockForm" method="post"
+                          th:action="@{/clients/delete/{id}(id=${client.id})}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <a href="/clients" class="btn btn-warning">Cancel</a>
+                    <a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn btn-success">New Job</a>
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Company</th>
+                                    <th>Website</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="template-row" th:each="job : ${jobs}" th:data-id="${job.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${job.id}"></td>
+                                    <td th:text="${job.company}"></td>
+                                    <td th:text="${job.website}"></td>
+                                    <td th:text="${#dates.format(job.startDate, 'dd. MMMM YYYY')}"></td>
+                                    <td th:text="${#dates.format(job.endDate, 'dd. MMMM YYYY')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Content End -->
-
 </div>
 
 <div th:replace="fragments :: script-links"></div>

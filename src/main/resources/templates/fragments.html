@@ -5,13 +5,18 @@
     <title>Templates</title>
 
     <div th:fragment="head-links">
+        <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
               integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
               crossorigin="anonymous">
-
-        <!-- Our Custom CSS -->
-        <link rel="stylesheet" th:href="@{/css/styles.css}">
 
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet"
@@ -25,83 +30,78 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
                 integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
                 crossorigin="anonymous"></script>
+
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
     </div>
 
 </head>
 <body>
-<nav th:fragment="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <a href="/"><h3>Ocere-Portal</h3></a>
-    </div>
 
-    <ul class="list-unstyled components">
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="/clients">Clients</a>
-        </li>
-        <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tickets</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="/tickets">Ticket Dashboard</a>
-                </li>
-                <li>
-                    <a href="/tickets/templates">Template Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Recurring</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">Groups</a>
-        </li>
-        <li>
-            <a href="/users">User</a>
-        </li>
-    </ul>
-</nav>
-
-<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-
-        <button type="button" id="sidebarCollapse" class="navbar-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-align-justify"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
-            </ul>
+<div th:fragment="header">
+    <div class="header-wrapper">
+        <div class="header">
+            <a href="/">
+                <img alt="Ocere Logo" height="42px" src="/img/ocere.svg">
+            </a>
+            <div class="navigation">
+                <div class="links">
+                    <a href="/clients">Clients</a>
+                    <a href="/jobs">Jobs</a>
+                    <div class="hover-dropdown">
+                        <a>Tickets</a>
+                        <div class="hover-dropdown--wrapper">
+                            <div class="item">
+                                <a href="/tickets">Ticket Dashboard</a>
+                            </div>
+                            <div class="item">
+                                <a href="/tickets/templates">Template Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/groups">Groups</a>
+                    <a href="/users">Users</a>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="button green">Button 1</a>
+                    <a href="#" class="button orange">Button 2</a>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
+</div>
 
 <div th:fragment="script-links">
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+
     <!-- Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
             integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+        $('.post-button').on('click', function() {
+            $.post($(this).data('post-url'));
+            window.location.href = window.location.origin + $(this).data('redirect-url');
+        });
+
+        $(document).ready(function(){
+            $('.fixed-action-btn').floatingActionButton();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {
+                direction: 'top'
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
