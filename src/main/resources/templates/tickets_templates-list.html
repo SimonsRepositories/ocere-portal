@@ -7,14 +7,14 @@
 
     <title>Tickets</title>
 
-    <div th:replace="templates :: head-links"></div>
+    <div th:replace="fragments :: head-links"></div>
 </head>
 
 <body>
 <div class="wrapper">
-    <div th:replace="templates :: sidebar"></div>
+    <div th:replace="fragments :: sidebar"></div>
     <div id="content">
-        <div th:replace="templates :: header"></div>
+        <div th:replace="fragments :: header"></div>
 
         <!-- Content Start -->
         <div id="content-text">
@@ -38,21 +38,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="template-row" th:each="template : ${templates}" th:data-id="${template.id}" style="cursor: pointer;">
-                                <a href="/tickets/create">
-                                    <td th:text="${template.id}"></td>
-                                    <td th:text="${template.subject}"></td>
-                                    <td th:text="${template.status}"></td>
-                                    <td th:text="${template.priority}"></td>
-                                    <td th:switch="${template.assignedUser}">
-                                        <p th:case="null">None</p>
-                                        <p th:case="*" th:text="${template.assignedUser.name}">Name</p>
-                                    </td>
-                                    <td th:switch="${template.assignedGroup}">
-                                        <p th:case="null">None</p>
-                                        <p th:case="*" th:text="${template.assignedGroup.name}">Name</p>
-                                    </td>
-                                </a>
+                            <tr class="template-row" th:each="template : ${templates}" th:data-id="${template.id}"
+                                style="cursor: pointer;">
+                                <td th:text="${template.id}"></td>
+                                <td th:text="${template.subject}"></td>
+                                <td th:text="${template.status}"></td>
+                                <td th:text="${template.priority}"></td>
+                                <td th:switch="${template.assignedUser}">
+                                    <p th:case="null">None</p>
+                                    <p th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                                </td>
+                                <td th:switch="${template.assignedGroup}">
+                                    <p th:case="null">None</p>
+                                    <p th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -65,10 +64,10 @@
     </div>
 </div>
 
-<div th:replace="templates :: script-links"></div>
+<div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
-    $('.template-row').on('click', function() {
+    $('.template-row').on('click', function () {
         window.location.href = window.location.origin + "/tickets/templates/" + $(this).data('id');
     });
 

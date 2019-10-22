@@ -1,6 +1,7 @@
 package com.ocere.portal.controller;
 
 import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.JobService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,13 @@ import java.security.Principal;
 public class ClientController {
     private ClientService clientService;
     private UserService userService;
+    private JobService jobService;
 
     @Autowired
-    public ClientController(ClientService clientService, UserService userService) {
+    public ClientController(ClientService clientService, UserService userService, JobService jobService) {
         this.clientService = clientService;
         this.userService = userService;
+        this.jobService = jobService;
     }
 
     @GetMapping("/clients")
@@ -34,6 +37,7 @@ public class ClientController {
     @GetMapping("clients/{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("client", this.clientService.getClientById(id));
+        model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
         return "clients-view";
     }
 

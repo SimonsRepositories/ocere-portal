@@ -7,14 +7,14 @@
 
     <title th:value="${client.companyName}"></title>
 
-    <div th:replace="templates :: head-links"></div>
+    <div th:replace="fragments :: head-links"></div>
 </head>
 
 <body>
 <div class="wrapper">
-    <div th:replace="templates :: sidebar"></div>
+    <div th:replace="fragments :: sidebar"></div>
     <div id="content">
-        <div th:replace="templates :: header"></div>
+        <div th:replace="fragments :: header"></div>
 
         <!-- Content Start -->
         <div id="content-text">
@@ -81,6 +81,31 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 <a href="/clients" class="btn btn-warning">Cancel</a>
+                <a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn btn-success">New Job</a>
+                <div class="row mt-1">
+                    <div class="col-12">
+                        <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Company</th>
+                                <th>Website</th>
+                                <th>Start</th>
+                                <th>End</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="template-row" th:each="job : ${jobs}" th:data-id="${job.id}" style="cursor: pointer;">
+                                <td th:text="${job.id}"></td>
+                                <td th:text="${job.company}"></td>
+                                <td th:text="${job.website}"></td>
+                                <td th:text="${#dates.format(job.startDate, 'dd. MMMM YYYY')}"></td>
+                                <td th:text="${#dates.format(job.endDate, 'dd. MMMM YYYY')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -88,9 +113,13 @@
 
 </div>
 
-<div th:replace="templates :: script-links"></div>
+<div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
+    $('.template-row').on('click', function () {
+        window.location.href = window.location.origin + "/jobs/" + $(this).data('id');
+    });
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');
