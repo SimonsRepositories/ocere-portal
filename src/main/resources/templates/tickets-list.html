@@ -7,7 +7,7 @@
 
     <title>Ticket Dashboard</title>
 
-    <div th:replace="templates :: head-links"></div>
+    <div th:replace="fragments :: head-links"></div>
 
     <!-- Tabs -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -17,9 +17,9 @@
 <body>
 
 <div class="wrapper">
-    <div th:replace="templates :: sidebar"></div>
+    <div th:replace="fragments :: sidebar"></div>
     <div id="content">
-        <div th:replace="templates :: header"></div>
+        <div th:replace="fragments :: header"></div>
 
         <!-- Content Start -->
         <div id="content-text" class="container">
@@ -175,7 +175,7 @@
     </div>
 </div>
 
-<div th:replace="templates :: script-links"></div>
+<div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
     $('.ticket-row').on('click', function() {
