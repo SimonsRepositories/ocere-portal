@@ -34,6 +34,12 @@
                                     <input type="password" th:field="*{password}" placeholder="Password" class="form-control"/>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="">
+                                    <input type="password" th:field="*{mailpassword}" placeholder="Mail Password" class="form-control"/>
+                                </div>
+                            </div>
                             <div class="form-group" th:object="${role}">
                                 <label for="roleSelect">Select Role</label>
                                 <select th:field="*{id}" class="form-control" id="roleSelect">

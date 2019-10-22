@@ -32,9 +32,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
-                        <small class="attribute-title">Contact Person</small>
-                        <p class="attribute-value" th:text="${client.contactName}">Contact Person</p>
+                    <div class="col-3">
+                        <small class="attribute-title">Contact Firstname</small>
+                        <p class="attribute-value" th:text="${client.contactFirstName}">Contact <Firstname></Firstname></p>
+                    </div>
+                    <div class="col-3">
+                        <small class="attribute-title">Contact Lastname</small>
+                        <p class="attribute-value" th:text="${client.contactLastName}">Contact Lastname</p>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Satisfaction</small>

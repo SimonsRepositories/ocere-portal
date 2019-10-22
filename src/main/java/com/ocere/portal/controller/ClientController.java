@@ -68,13 +68,12 @@ public class ClientController {
         model.addAttribute("clients", clientService.findAll());
         model.addAttribute("newClient", newClient);
         model.addAttribute("users", userService.findAll());
+
         return "clients-create";
     }
 
-    @PostMapping("clients/save")
-    public String saveClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
-        // this.clientService.saveClient(client);
-
+    @PostMapping("clients/create")
+    public String saveNewClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
         // Create User account with generated credentials and mail them to user
         User user = new User();
         user.setFirstname(client.getContactFirstName());
@@ -83,11 +82,17 @@ public class ClientController {
         user.setRoles(new HashSet<Role>(4));
         user.setPassword(generatePassword(12));
 
-        String mailpw = "";
-        mailService.sendMail(principal.getName(), mailpw, client.getEmail(), "Ocere login credentials",
+        mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), client.getEmail(), "Ocere login credentials",
                 "Authentication credentials for http://localhost:8080\n" +
                         "Username: " + user.getEmail()+ "\n" +
                         "Password: " + user.getPassword());
+        return "redirect:/clients";
+    }
+
+    @PostMapping("clients/save")
+    public String saveClient(@ModelAttribute Client client) {
+        this.clientService.saveClient(client);
+
         return "redirect:/clients";
     }
 
