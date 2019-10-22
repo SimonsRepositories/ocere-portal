@@ -28,22 +28,21 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!-- Content Start -->
-        <div id="content-text">
-            <div class="container">
-                <h1>New Client</h1>
-                <form action="#" th:action="@{/clients/create}" th:object="${newClient}" method="post">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-6">
-                                <small class="attribute-title">Company Name</small>
-                                <br>
-                                <input type="text" required class="form-control" th:field="*{companyName}">
-                            </div>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <h1>New Client</h1>
+                    <form action="#" th:action="@{/clients/create}" th:object="${newClient}" method="post">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="attribute-title">Company Name</small>
+                                    <br>
+                                    <input type="text" required class="form-control" th:field="*{companyName}">
+                                </div>
 
                             <div class="col-6">
                                 <small class="attribute-title">Tier</small>

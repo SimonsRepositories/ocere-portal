@@ -12,42 +12,42 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!-- Content Start -->
-        <div id="content-text" class="container">
-            <h1>Ocere-Portal</h1>
-            <div class="card-deck">
-                <a href="/clients">
-                    <div class="card">
-                        <img class="card-img-top" src="img/customer.svg" alt="img not found">
-                        <div class="card-body">
-                            <h4 class="card-title">Clients</h4>
-                        </div>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <h1>Ocere-Portal</h1>
+                    <div class="card-deck">
+                        <a href="/clients">
+                            <div class="card">
+                                <img class="card-img-top" src="img/customer.svg" alt="img not found">
+                                <div class="card-body">
+                                    <h4 class="card-title">Clients</h4>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card">
+                                <img class="card-img-top" src="img/suitcase.svg" alt="img not found">
+                                <div class="card-body">
+                                    <h4 class="card-title">Jobs</h4>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/tickets">
+                            <div class="card">
+                                <img class="card-img-top" src="img/bill.svg" alt="img not found">
+                                <div class="card-body">
+                                    <h4 class="card-title">Tickets</h4>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-                <a href="#">
-                    <div class="card">
-                        <img class="card-img-top" src="img/suitcase.svg" alt="img not found">
-                        <div class="card-body">
-                            <h4 class="card-title">Jobs</h4>
-                        </div>
-                    </div>
-                </a>
-                <a href="/tickets">
-                    <div class="card">
-                        <img class="card-img-top" src="img/bill.svg" alt="img not found">
-                        <div class="card-body">
-                            <h4 class="card-title">Tickets</h4>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
-        <!-- Content End -->
-
     </div>
 </div>
 
