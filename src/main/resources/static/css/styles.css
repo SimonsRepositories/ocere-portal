@@ -205,6 +205,17 @@ a.button, button {
 
 .content-container h1 {
     text-align: center;
+    animation: 0.1s title-appear infinite;
+}
+
+@keyframes title-appear {
+    0% {
+        transform: translateX(0.2px);
+    }
+
+    100% {
+        transform: translateX(-0.2px);
+    }
 }
 
 /*
