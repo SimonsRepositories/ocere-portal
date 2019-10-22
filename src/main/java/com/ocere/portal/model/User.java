@@ -39,6 +39,10 @@ public class User
     @Column(name = "password")
     private String password;
 
+    @NotNull(message = "password is compulsory")
+    @Column(name = "mailpassword")
+    private String mailpassword;
+
     @Column(name = "status")
     private String status;
 
@@ -64,6 +68,14 @@ public class User
             cascade = CascadeType.ALL
     )
     private Set<Note> createdNotes;
+
+    public String getMailpassword() {
+        return mailpassword;
+    }
+
+    public void setMailpassword(String mailpassword) {
+        this.mailpassword = mailpassword;
+    }
 
     public String getName() {
         return firstname + " " + lastname;

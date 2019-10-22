@@ -7,30 +7,14 @@
 
     <title th:value="${client.companyName}"></title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
-
+    <div th:replace="fragments :: head-links"></div>
 </head>
 
 <body>
 <div class="wrapper">
-    <div th:replace="navigation :: sidebar"></div>
+    <div th:replace="fragments :: sidebar"></div>
     <div id="content">
-        <div th:replace="navigation :: header"></div>
+        <div th:replace="fragments :: header"></div>
 
         <!-- Content Start -->
         <div id="content-text">
@@ -48,9 +32,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
-                        <small class="attribute-title">Contact Person</small>
-                        <p class="attribute-value" th:text="${client.contactName}">Contact Person</p>
+                    <div class="col-3">
+                        <small class="attribute-title">Contact Firstname</small>
+                        <p class="attribute-value" th:text="${client.contactFirstName}">Contact <Firstname></Firstname></p>
+                    </div>
+                    <div class="col-3">
+                        <small class="attribute-title">Contact Lastname</small>
+                        <p class="attribute-value" th:text="${client.contactLastName}">Contact Lastname</p>
                     </div>
                     <div class="col-6">
                         <small class="attribute-title">Satisfaction</small>
@@ -97,6 +85,31 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 <a href="/clients" class="btn btn-warning">Cancel</a>
+                <a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn btn-success">New Job</a>
+                <div class="row mt-1">
+                    <div class="col-12">
+                        <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Company</th>
+                                <th>Website</th>
+                                <th>Start</th>
+                                <th>End</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="template-row" th:each="job : ${jobs}" th:data-id="${job.id}" style="cursor: pointer;">
+                                <td th:text="${job.id}"></td>
+                                <td th:text="${job.company}"></td>
+                                <td th:text="${job.website}"></td>
+                                <td th:text="${#dates.format(job.startDate, 'dd. MMMM YYYY')}"></td>
+                                <td th:text="${#dates.format(job.endDate, 'dd. MMMM YYYY')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,22 +117,13 @@
 
 </div>
 
-<!-- jQuery CDN - Slim version (=without AJAX) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<!-- Popper.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
+    $('.template-row').on('click', function () {
+        window.location.href = window.location.origin + "/jobs/" + $(this).data('id');
+    });
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');

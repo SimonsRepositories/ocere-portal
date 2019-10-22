@@ -32,7 +32,7 @@ public class NoteController {
         model.addAttribute("siteTitle", "Create Note");
         model.addAttribute("action", "create");
         model.addAttribute("submitText", "Create");
-        model.addAttribute("cancelPage", "/tickets");
+        model.addAttribute("cancelPage", "/tickets/" + ticketId);
 
         Note note = new Note();
         note.setTicket(ticketService.findTicketById(ticketId));
@@ -43,12 +43,14 @@ public class NoteController {
 
     @GetMapping("edit/{id}")
     public String loadNoteEditView(Model model, @PathVariable int id) {
+        Note note = noteService.findNoteById(id).get();
+
         model.addAttribute("siteTitle", "Edit Note");
         model.addAttribute("action", "save/" + id);
         model.addAttribute("submitText", "Save");
-        model.addAttribute("cancelPage", "/tickets");
+        model.addAttribute("cancelPage", "/tickets/" + note.getTicket().getId());
 
-        model.addAttribute("note", noteService.findNoteById(id).get());
+        model.addAttribute("note", note);
         return "notes_form";
     }
 
@@ -68,6 +70,7 @@ public class NoteController {
 
     @PostMapping("/save/{id}")
     public String saveTicket(@PathVariable int id, @ModelAttribute Note note) throws Exception {
+        mapUneditedValuesToNote(note, id);
         int ticketId = note.getTicket().getId();
         this.noteService.updateNote(note, id);
         return "redirect:/tickets/" + ticketId;
@@ -78,5 +81,11 @@ public class NoteController {
         int ticketId = noteService.findNoteById(id).get().getTicket().getId();
         this.noteService.deleteNoteById(id);
         return "redirect:/tickets/" + ticketId;
+    }
+
+    private void mapUneditedValuesToNote(Note note, int id) {
+        Note dbNote = noteService.findNoteById(id).get();
+        note.setCreatedAt(dbNote.getCreatedAt());
+        note.setAuthor(dbNote.getAuthor());
     }
 }

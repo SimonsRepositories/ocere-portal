@@ -7,30 +7,18 @@
 
     <title>Ticket</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <div th:replace="fragments :: head-links"></div>
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
-
+    <!-- Froala Editor -->
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
 </head>
 
 <body>
 <div class="wrapper">
-    <div th:replace="navigation :: sidebar"></div>
+    <div th:replace="fragments :: sidebar"></div>
     <div id="content">
-        <div th:replace="navigation :: header"></div>
+        <div th:replace="fragments :: header"></div>
 
         <!-- Content Start -->
         <div id="content-text">
@@ -39,7 +27,7 @@
                     <div class="col-12">
                         <h1 th:text="${siteTitle}">Title</h1>
                     </div>
-                    <div th:if="${ticket.template}" class="form-group col-12">
+                    <div th:if="${ticket.template==false}" class="form-group col-12">
                         <label for="assignedUser">Template :</label>
                         <select class="form-control template-dropdown" id="templateId">
                             <option value="0" selected disabled>select template</option>
@@ -82,9 +70,10 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="description">Description:</label>
-                        <textarea th:field="*{description}" th:text="${ticket.description}" placeholder="Description"
-                                  id="description"
-                                  class="form-control"></textarea>
+                        <textarea th:field="*{description}"
+                                  th:text="${ticket.description}"
+                                  class="form-control"
+                                  id="description">Initialize the Froala WYSIWYG HTML Editor on a textarea.</textarea>
                     </div>
                     <div class="form-group col-6">
                         <label for="priority">Priority:</label>
@@ -128,24 +117,32 @@
     </div>
 </div>
 
-<!-- jQuery CDN - Slim version (=without AJAX) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<!-- Popper.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Froala Editor -->
+<script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
 
 <script type="text/javascript">
     $('.template-dropdown').on('change', function() {
         window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
+    });
+
+    new FroalaEditor('textarea#description', {
+        // Set the image upload parameter.
+        imageUploadParam: 'file',
+
+        // Set the image upload URL.
+        imageUploadURL: '/froala/upload',
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
     });
 
     $(document).ready(function () {

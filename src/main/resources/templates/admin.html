@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Admin!</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+<body>
+<h1>Hello Admin, Welcome to the list of Users </h1>
+<div>
+    <div th:switch="${listOfUsers}">
+        <h4 th:case="null">No Users yet</h4>
+        <div th:case="*">
+            <h4>Posts</h4>
+            <table>
+                <caption>Liste von Usern</caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Nachname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${listOfUsers}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstname}"></td>
+                        <td th:text="${user.lastname}"></td>
+                        <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
+                        <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <a href="/register">New Account</a>
+    </div>
+</div>
+<a href="/tickets/dashboard">all tickets</a>
+<a href="/tickets/create" style="font-size: 32px;">Create Ticket</a>
+</body>
+</html>
