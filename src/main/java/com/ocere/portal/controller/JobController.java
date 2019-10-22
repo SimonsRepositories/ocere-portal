@@ -60,20 +60,18 @@ public class JobController {
 
     @PostMapping("/create")
     public String createJob(@ModelAttribute Job job, Principal principal) {
-        int clientId = job.getClient().getId();
         job.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         job.setAuthor(this.userService.findByEmail(principal.getName()));
 
         this.jobService.saveJob(job);
-        return "redirect:/clients/" + clientId;
+        return "redirect:/clients/" + job.getClient().getId();
     }
 
     @PostMapping("/save/{id}")
     public String saveTicket(@PathVariable int id, @ModelAttribute Job job) throws Exception {
         mapUneditedValuesToJob(job, id);
-        int clientId = job.getClient().getId();
         jobService.updateJob(job, id);
-        return "redirect:/clients/" + clientId;
+        return "redirect:/clients/" + job.getClient().getId();
     }
 
     @PostMapping("/delete/{id}")

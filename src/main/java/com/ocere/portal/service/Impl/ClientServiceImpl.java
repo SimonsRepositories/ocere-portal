@@ -21,7 +21,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void saveClient(Client client) {
-        clientRepository.save(client);
+        clientRepository.saveAndFlush(client);
     }
 
     @Override
@@ -35,8 +35,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void removeClientById(int id) {
-        clientRepository.deleteById(id);
+    public void deleteClientById(int id) throws Exception {
+        if (clientRepository.existsById(id)) {
+            clientRepository.deleteById(id);
+        } else {
+            throw new Exception("Couldn't delete client because it didn't exist");
+        }
     }
 
     @Override
@@ -45,8 +49,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client saveClientById(Client client, int id) throws Exception {
-        Client updatedClient;
+    public Client saveClientById(Client client, int id) {
+        Client updatedClient = client;
         Optional<Client> optionalUpdatedClient = clientRepository.findById(id);
         if (optionalUpdatedClient.isPresent()) {
             updatedClient = optionalUpdatedClient.get();
@@ -55,9 +59,8 @@ public class ClientServiceImpl implements ClientService {
             updatedClient.setNotes(client.getNotes());
             updatedClient.setStatus(client.getStatus());
 
-        } else {
-            throw new Exception("Couldn’t update client, because he didn’t exist !");
         }
+
         return clientRepository.saveAndFlush(updatedClient);
     }
 
@@ -69,5 +72,36 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> findAllByAuthor(User user) {
         return clientRepository.findAllByAuthor(user);
+    }
+
+    @Override
+    public Client updateClient(Client client, int id) throws Exception {
+        Client updatedClient;
+        Optional<Client> optionalUpdatedClient = clientRepository.findById(id);
+
+        if (optionalUpdatedClient.isPresent()) {
+            updatedClient = optionalUpdatedClient.get();
+            updatedClient.setAssignedUser(client.getAssignedUser());
+            updatedClient.setStatus(client.getStatus());
+            updatedClient.setNotes(client.getNotes());
+            updatedClient.setJobs(client.getJobs());
+            updatedClient.setId(client.getId());
+            updatedClient.setAuthor(client.getAuthor());
+            updatedClient.setCity(client.getCity());
+            updatedClient.setCompanyName(client.getCompanyName());
+            updatedClient.setContactFirstName(client.getContactFirstName());
+            updatedClient.setContactLastName(client.getContactLastName());
+            updatedClient.setContactUsPage(client.getContactUsPage());
+            updatedClient.setEmail(client.getEmail());
+            updatedClient.setPhone(client.getPhone());
+            updatedClient.setPostcode(client.getPostcode());
+            updatedClient.setSatisfaction(client.getSatisfaction());
+            updatedClient.setStreet(client.getStreet());
+            updatedClient.setTier(client.getTier());
+            updatedClient.setWebsite(client.getWebsite());
+        } else {
+            throw new Exception("Couldn’t update client because he didn’t exist");
+        }
+        return clientRepository.saveAndFlush(updatedClient);
     }
 }

@@ -12,7 +12,7 @@ public interface ClientService {
 
     List<Client> findAll();
 
-    void removeClientById(int id);
+    void deleteClientById(int id) throws Exception;
 
     Client getClientById(int id);
 
@@ -21,4 +21,6 @@ public interface ClientService {
     List<Client> findAllByAssignedUser(User user);
 
     List<Client> findAllByAuthor(User user);
+
+    Client updateClient(Client client, int id) throws Exception;
 }

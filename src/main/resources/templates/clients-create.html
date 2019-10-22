@@ -28,15 +28,15 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="templates :: sidebar"></div>
+    <div th:replace="fragments :: sidebar"></div>
     <div id="content">
-        <div th:replace="templates :: header"></div>
+        <div th:replace="fragments :: header"></div>
 
         <!-- Content Start -->
         <div id="content-text">
             <div class="container">
                 <h1>New Client</h1>
-                <form action="#" th:action="@{/clients/save}" th:object="${newClient}" method="post">
+                <form action="#" th:action="@{/clients/create}" th:object="${newClient}" method="post">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6">
