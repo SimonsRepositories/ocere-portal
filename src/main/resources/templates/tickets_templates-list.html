@@ -71,34 +71,6 @@
 </div>
 
 <div th:replace="fragments :: script-links"></div>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.fixed-action-btn').floatingActionButton();
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.fixed-action-btn');
-        var instances = M.FloatingActionButton.init(elems, {
-            direction: 'top'
-        });
-    });
-
-    $('.template-row').on('click', function () {
-        window.location.href = window.location.origin + "/tickets/templates/" + $(this).data('id');
-    });
-
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
-
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
-    });
-</script>
 </body>
 
 </html>

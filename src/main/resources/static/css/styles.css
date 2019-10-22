@@ -205,29 +205,6 @@ a.button, button {
 
 .content-container h1 {
     text-align: center;
-    animation: 0.35s title-appear ease-out;
-}
-
-@keyframes title-appear {
-    0% {
-        transform: skewY(0deg) skewX(0deg);
-    }
-
-    25% {
-        transform: skewY(3deg) skewX(3deg);
-    }
-
-    50% {
-        transform: skewY(-5deg) skewX(-5deg);
-    }
-
-    75% {
-        transform: skewY(2deg) skewX(2deg);
-    }
-
-    100% {
-        transform: skewY(0deg) skewX(0deg);
-    }
 }
 
 /*

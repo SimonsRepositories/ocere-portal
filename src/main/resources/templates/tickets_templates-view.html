@@ -58,11 +58,10 @@
                         </div>
                     </div>
                     <div class="fixed-action-btn">
-                        <a class="btn-floating btn-large .ocere-green--background">
+                        <a class="btn-floating btn-large ocere-green--background">
                             <i class="large material-icons">menu_book</i>
                         </a>
                         <ul>
-                            <li><a href="/tickets/templates/create" class="btn-floating green"><i class="material-icons">add</i></a></li>
                             <li><a th:href="${'/tickets/templates/edit/' + template.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
                             <li><a class="btn-floating red post-button" th:data-post-url="${'/tickets/templates/delete/' + template.id}" data-redirect-url="/tickets/templates"><i class="material-icons">delete</i></a></li>
                         </ul>
