@@ -4,11 +4,8 @@ import com.ocere.portal.model.Client;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.ClientService;
-<<<<<<< HEAD
 import com.ocere.portal.service.JobService;
-=======
 import com.ocere.portal.service.Impl.MailService;
->>>>>>> f98c2a06ab37f2cc7c2ed0337155a4a864c55ac2
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,27 +23,23 @@ import java.util.HashSet;
 
 @Controller
 public class ClientController {
+
+    private static final String dic = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_=+-/";
+
     private ClientService clientService;
     private UserService userService;
-<<<<<<< HEAD
     private JobService jobService;
+    private MailService mailService;
 
     @Autowired
-    public ClientController(ClientService clientService, UserService userService, JobService jobService) {
+    public ClientController(ClientService clientService,
+                            UserService userService,
+                            JobService jobService,
+                            MailService mailService) {
         this.clientService = clientService;
         this.userService = userService;
         this.jobService = jobService;
-=======
-    private MailService mailService;
-    private static final String dic = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_=+-/";
-
-
-    @Autowired
-    public ClientController(ClientService clientService, UserService userService, MailService mailService) {
-        this.clientService = clientService;
-        this.userService = userService;
         this.mailService = mailService;
->>>>>>> f98c2a06ab37f2cc7c2ed0337155a4a864c55ac2
     }
 
     @GetMapping("/clients")
@@ -78,7 +71,7 @@ public class ClientController {
     }
 
     @GetMapping("clients/create")
-    public String createClient(Model  model) {
+    public String createClient(Model model) {
         Client newClient = new Client();
         model.addAttribute("clients", clientService.findAll());
         model.addAttribute("newClient", newClient);
@@ -101,7 +94,7 @@ public class ClientController {
         String mailpw = "";
         mailService.sendMail(principal.getName(), mailpw, client.getEmail(), "Ocere login credentials",
                 "Authentication credentials for http://localhost:8080\n" +
-                        "Username: " + user.getEmail()+ "\n" +
+                        "Username: " + user.getEmail() + "\n" +
                         "Password: " + user.getPassword());
         return "redirect:/clients";
     }
