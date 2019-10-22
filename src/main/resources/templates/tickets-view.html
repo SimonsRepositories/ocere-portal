@@ -12,82 +12,80 @@
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!-- Content Start -->
-        <div id="content-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1>Ticket View
-                            <a class="btn btn-primary" th:href="${'/tickets/edit/' + ticket.id}">Edit</a>
-                            <form class="inlineBlockForm" method="post"
-                                  th:action="@{/tickets/delete/{id}(id=${ticket.id})}">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            <a href="/tickets" class="btn btn-warning">Cancel</a>
-                        </h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <small class="attribute-title">Subject:</small>
-                        <p class="attribute-value" th:text="${ticket.subject}">Value</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Assigned User:</small>
-                        <div th:switch="${ticket.assignedUser}">
-                            <p class="attribute-value" th:case="null">None</p>
-                            <p class="attribute-value" th:case="*" th:text="${ticket.assignedUser.name}">Name</p>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>Ticket View
+                                <a class="btn btn-primary" th:href="${'/tickets/edit/' + ticket.id}">Edit</a>
+                                <form class="inlineBlockForm" method="post"
+                                      th:action="@{/tickets/delete/{id}(id=${ticket.id})}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                <a href="/tickets" class="btn btn-warning">Cancel</a>
+                            </h1>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Assigned Group:</small>
-                        <div th:switch="${ticket.assignedGroup}">
-                            <p class="attribute-value" th:case="null">None</p>
-                            <p class="attribute-value" th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <small class="attribute-title">Subject:</small>
+                            <p class="attribute-value" th:text="${ticket.subject}">Value</p>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <small class="attribute-title">Description:</small>
-                        <div class="attribute-value froala-wrapper" th:utext="${ticket.description}">Value</div>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Priority:</small>
-                        <p class="attribute-value" th:text="${ticket.priority}">Value</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">Status:</small>
-                        <p class="attribute-value" th:text="${ticket.status}">Value</p>
-                    </div>
-                    <div class="col-12">
-                        <small class="attribute-title">Turnaround:</small>
-                        <p class="attribute-value" th:text="${ticket.turnaround.description}">Value</p>
-                    </div>
-                    <div class="col-12">
-                        <h4 class="attribute-title">Notes <a class="btn btn-primary"
-                                                             th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
-                        </h4>
-                        <div class="row" th:each="note: ${ticket.sortedNotes}">
-                            <div class="note">
-                                <h5 class="note-title" th:text="${note.title}">Title</h5>
-                                <div class="note-text" th:utext="${note.text}">Text</div>
-                                <a class="note-button--edit" th:href="'/notes/edit/' + ${note.id}"></a>
+                        <div class="col-6">
+                            <small class="attribute-title">Assigned User:</small>
+                            <div th:switch="${ticket.assignedUser}">
+                                <p class="attribute-value" th:case="null">None</p>
+                                <p class="attribute-value" th:case="*" th:text="${ticket.assignedUser.name}">Name</p>
                             </div>
                         </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Assigned Group:</small>
+                            <div th:switch="${ticket.assignedGroup}">
+                                <p class="attribute-value" th:case="null">None</p>
+                                <p class="attribute-value" th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small class="attribute-title">Description:</small>
+                            <div class="attribute-value froala-wrapper" th:utext="${ticket.description}">Value</div>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Priority:</small>
+                            <p class="attribute-value" th:text="${ticket.priority}">Value</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">Status:</small>
+                            <p class="attribute-value" th:text="${ticket.status}">Value</p>
+                        </div>
+                        <div class="col-12">
+                            <small class="attribute-title">Turnaround:</small>
+                            <p class="attribute-value" th:text="${ticket.turnaround.description}">Value</p>
+                        </div>
+                        <div class="col-12">
+                            <h4 class="attribute-title">Notes <a class="btn btn-primary"
+                                                                 th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
+                            </h4>
+                            <div class="row" th:each="note: ${ticket.sortedNotes}">
+                                <div class="note">
+                                    <h5 class="note-title" th:text="${note.title}">Title</h5>
+                                    <div class="note-text" th:utext="${note.text}">Text</div>
+                                    <a class="note-button--edit" th:href="'/notes/edit/' + ${note.id}"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-12">
+                            <h4 class="attribute-title">Documents
+                                <a class="btn btn-primary" th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
+                            </h4>
+                        </div>-->
                     </div>
-                    <!--<div class="col-12">
-                        <h4 class="attribute-title">Documents
-                            <a class="btn btn-primary" th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
-                        </h4>
-                    </div>-->
                 </div>
             </div>
         </div>
-        <!-- Content End -->
-
     </div>
 </div>
 
