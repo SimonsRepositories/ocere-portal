@@ -6,172 +6,171 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Client</title>
+    <div th:replace="fragments :: head-links"></div>
 </head>
 
 <body>
 <div class="wrapper">
-    <div th:replace="fragments :: sidebar"></div>
-    <div id="content">
-        <div th:replace="fragments :: header"></div>
-
-        <!-- Content Start -->
-        <div id="content-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1 th:text="${siteTitle}">Title</h1>
+    <div th:replace="fragments :: header"></div>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 th:text="${siteTitle}">Title</h1>
+                        </div>
                     </div>
+                    <form class="row" action="#" method="post" th:action="@{/clients/{action}(action=${action})}"
+                          th:object="${client}">
+                        <div class="form-group col-12">
+                            <label for="client">Client:</label>
+                            <input th:field="*{companyName}" placeholder="Client" id="client"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="tier">Tier</label>
+                            <select class="form-control" id="tier" th:field="*{tier}">
+                                <option th:each="tier : ${T(com.ocere.portal.enums.Tier).values()}"
+                                        th:value="${tier}"
+                                        th:text="${tier}"
+                                        th:selected="${client.tier == tier}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="satisfaction">Satisfaction</label>
+                            <select class="form-control" id="satisfaction" th:field="*{satisfaction}">
+                                <option th:each="satisfaction : ${T(com.ocere.portal.enums.Satisfaction).values()}"
+                                        th:value="${satisfaction}"
+                                        th:text="${satisfaction}"
+                                        th:selected="${client.satisfaction == satisfaction}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-3">
+                            <label for="fname">Contact Firstname</label>
+                            <input th:field="*{contactFirstName}" placeholder="Firstname" id="fname"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="lname">Contact Lastname</label>
+                            <input th:field="*{contactLastName}" placeholder="Lastname" id="lname"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="email">Email</label>
+                            <input th:field="*{email}" placeholder="Email" id="email"
+                                   class="form-control"
+                                   type="email"/>
+                        </div>
+
+                        <div class="form-group col-3">
+                            <label for="pc">Postal Code</label>
+                            <input th:field="*{postcode}" placeholder="Post Code" id="pc"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="city">City</label>
+                            <input th:field="*{city}" placeholder="City" id="city"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="street">Street</label>
+                            <input th:field="*{street}" placeholder="Street" id="street"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="website">Website</label>
+                            <input th:field="*{website}" placeholder="Website" id="website"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="contactpage">Contact Page</label>
+                            <input th:field="*{contactUsPage}" placeholder="Contactpage" id="contactpage"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="assignedUser">Assigned User</label>
+                            <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
+                                <option value="0">select user</option>
+                                <option th:each="user : ${users}"
+                                        th:value="${user.id}"
+                                        th:text="${user.firstname + ' ' + user.lastname}"
+                                        th:selected="${client.assignedUser.id == user.id}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="priority">Status</label>
+                            <select class="form-control" id="priority" th:field="*{status}">
+                                <option th:each="status : ${T(com.ocere.portal.enums.ClientStatus).values()}"
+                                        th:value="${status}"
+                                        th:text="${status}"
+                                        th:selected="${client.status == status}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                            <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                        </div>
+                    </form>
                 </div>
-                <form class="row" action="#" method="post" th:action="@{/clients/{action}(action=${action})}"
-                      th:object="${client}">
-                    <div class="form-group col-12">
-                        <label for="client">Client:</label>
-                        <input th:field="*{companyName}" placeholder="Client" id="client"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="tier">Tier</label>
-                        <select class="form-control" id="tier" th:field="*{tier}">
-                            <option th:each="tier : ${T(com.ocere.portal.enums.Tier).values()}"
-                                    th:value="${tier}"
-                                    th:text="${tier}"
-                                    th:selected="${client.tier == tier}">
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="satisfaction">Satisfaction</label>
-                        <select class="form-control" id="satisfaction" th:field="*{satisfaction}">
-                            <option th:each="satisfaction : ${T(com.ocere.portal.enums.Satisfaction).values()}"
-                                    th:value="${satisfaction}"
-                                    th:text="${satisfaction}"
-                                    th:selected="${client.satisfaction == satisfaction}">
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-3">
-                        <label for="fname">Contact Firstname</label>
-                        <input th:field="*{contactFirstName}" placeholder="Firstname" id="fname"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-                    <div class="form-group col-3">
-                        <label for="lname">Contact Lastname</label>
-                        <input th:field="*{contactLastName}" placeholder="Lastname" id="lname"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-
-                    <div class="form-group col-6">
-                        <label for="email">Email</label>
-                        <input th:field="*{email}" placeholder="Email" id="email"
-                               class="form-control"
-                               type="email"/>
-                    </div>
-
-                    <div class="form-group col-3">
-                        <label for="pc">Postal Code</label>
-                        <input th:field="*{postcode}" placeholder="Post Code" id="pc"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-                    <div class="form-group col-3">
-                        <label for="city">City</label>
-                        <input th:field="*{city}" placeholder="City" id="city"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="street">Street</label>
-                        <input th:field="*{street}" placeholder="Street" id="street"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-
-                    <div class="form-group col-6">
-                        <label for="website">Website</label>
-                        <input th:field="*{website}" placeholder="Website" id="website"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="contactpage">Contact Page</label>
-                        <input th:field="*{contactUsPage}" placeholder="Contactpage" id="contactpage"
-                               class="form-control"
-                               type="text"/>
-                    </div>
-
-                    <div class="form-group col-6">
-                        <label for="assignedUser">Assigned User</label>
-                        <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
-                            <option value="0">select user</option>
-                            <option th:each="user : ${users}"
-                                    th:value="${user.id}"
-                                    th:text="${user.firstname + ' ' + user.lastname}"
-                                    th:selected="${client.assignedUser.id == user.id}">
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="priority">Status</label>
-                        <select class="form-control" id="priority" th:field="*{status}">
-                            <option th:each="status : ${T(com.ocere.portal.enums.ClientStatus).values()}"
-                                    th:value="${status}"
-                                    th:text="${status}"
-                                    th:selected="${client.status == status}">
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="col-12">
-                        <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
-                        <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
-                    </div>
-                </form>
             </div>
+            <!-- Content End -->
         </div>
-        <!-- Content End -->
     </div>
-</div>
 
-<div th:replace="fragments :: script-links"></div>
+    <div th:replace="fragments :: script-links"></div>
 
-<script type="text/javascript">
-    $('.template-dropdown').on('change', function () {
-        window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
-    });
-
-    new FroalaEditor('textarea#description', {
-        // Set the image upload parameter.
-        imageUploadParam: 'file',
-
-        // Set the image upload URL.
-        imageUploadURL: '/froala/upload',
-
-        // Set request type.
-        imageUploadMethod: 'POST',
-
-        // Set max image size to 5MB.
-        imageMaxSize: 5 * 1024 * 1024,
-
-        // Allow to upload PNG and JPG.
-        imageAllowedTypes: ['jpeg', 'jpg', 'png']
-    });
-
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    <script type="text/javascript">
+        $('.template-dropdown').on('change', function () {
+            window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
         });
 
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
+        new FroalaEditor('textarea#description', {
+            // Set the image upload parameter.
+            imageUploadParam: 'file',
+
+            // Set the image upload URL.
+            imageUploadURL: '/froala/upload',
+
+            // Set request type.
+            imageUploadMethod: 'POST',
+
+            // Set max image size to 5MB.
+            imageMaxSize: 5 * 1024 * 1024,
+
+            // Allow to upload PNG and JPG.
+            imageAllowedTypes: ['jpeg', 'jpg', 'png']
         });
-    });
-</script>
+
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
 	<artifactId>portal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ocere-portal</name>
-	<description>desc</description> <!-- TODO -->
+	<description>Complete overhaul for the ticket system as well as the digital marketing site for Ocere Ltd.</description>
 
 	<properties>
 		<java.version>11</java.version>
