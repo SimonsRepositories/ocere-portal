@@ -10,10 +10,7 @@ import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -22,6 +19,7 @@ import java.security.SecureRandom;
 import java.util.HashSet;
 
 @Controller
+@RequestMapping("clients")
 public class ClientController {
 
     private static final String dic = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_=+-/";
@@ -42,7 +40,7 @@ public class ClientController {
         this.mailService = mailService;
     }
 
-    @GetMapping("/clients")
+    @GetMapping
     public String clientLanding(Model model, Principal principal) {
         model.addAttribute("clients", clientService.findAll());
         model.addAttribute("assigned", clientService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
@@ -51,26 +49,26 @@ public class ClientController {
         return "clients";
     }
 
-    @GetMapping("clients/{id}")
+    @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("client", this.clientService.getClientById(id));
         model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
         return "clients-view";
     }
 
-    @GetMapping("clients/edit/{id}")
+    @GetMapping("edit/{id}")
     public String editClient(Model model, @PathVariable int id) {
         model.addAttribute("client", clientService.getClientById(id));
         return "clients-edit";
     }
 
-    @PostMapping("clients/delete/{id}")
+    @PostMapping("delete/{id}")
     public String deleteClient(@PathVariable int id) {
         clientService.removeClientById(id);
         return "clients";
     }
 
-    @GetMapping("clients/create")
+    @GetMapping("create")
     public String createClient(Model model) {
         Client newClient = new Client();
         model.addAttribute("clients", clientService.findAll());
@@ -79,7 +77,7 @@ public class ClientController {
         return "clients-create";
     }
 
-    @PostMapping("clients/save")
+    @PostMapping("save")
     public String saveClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
         // this.clientService.saveClient(client);
 
