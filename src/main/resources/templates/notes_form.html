@@ -52,11 +52,13 @@
                             <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
                         </div>
                     </form>
-                    <div class="row">
-                        <form th:if="${note.id!=0}" class="col-12 mt-1 inlineBlockForm" method="post"
-                              th:action="@{/notes/delete/{id}(id=${note.id})}">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                    <div class="fixed-action-btn">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu_book</i>
+                        </a>
+                        <ul>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/notes/delete/' + note.id}" th:data-redirect-url="${'/tickets/' + note.ticket.id}"><i class="material-icons">delete</i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

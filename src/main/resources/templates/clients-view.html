@@ -83,13 +83,6 @@
                         </div>
                     </div>
                     <br>
-                    <a class="btn btn-primary" th:href="${'/clients/edit/' + client.id}">Edit</a>
-                    <form class="inlineBlockForm" method="post"
-                          th:action="@{/clients/delete/{id}(id=${client.id})}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                    <a href="/clients" class="btn btn-warning">Cancel</a>
-                    <a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn btn-success">New Job</a>
                     <div class="row mt-1">
                         <div class="col-12">
                             <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
@@ -114,6 +107,16 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="fixed-action-btn">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu_book</i>
+                        </a>
+                        <ul>
+                            <li><a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                            <li><a th:href="${'/clients/edit/' + client.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/clients/delete/' + client.id}" data-redirect-url="/clients"><i class="material-icons">delete</i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

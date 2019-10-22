@@ -20,14 +20,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h1>Ticket View
-                                <a class="btn btn-primary" th:href="${'/tickets/edit/' + ticket.id}">Edit</a>
-                                <form class="inlineBlockForm" method="post"
-                                      th:action="@{/tickets/delete/{id}(id=${ticket.id})}">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                                <a href="/tickets" class="btn btn-warning">Cancel</a>
-                            </h1>
+                            <h1>Ticket View</h1>
                         </div>
                     </div>
                     <div class="row">
@@ -66,9 +59,7 @@
                             <p class="attribute-value" th:text="${ticket.turnaround.description}">Value</p>
                         </div>
                         <div class="col-12">
-                            <h4 class="attribute-title">Notes <a class="btn btn-primary"
-                                                                 th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
-                            </h4>
+                            <h4 class="attribute-title">Notes</h4>
                             <div class="row" th:each="note: ${ticket.sortedNotes}">
                                 <div class="note">
                                     <h5 class="note-title" th:text="${note.title}">Title</h5>
@@ -82,6 +73,16 @@
                                 <a class="btn btn-primary" th:href="${'/notes/create?ticketId=' + ticket.id}">New</a>
                             </h4>
                         </div>-->
+                    </div>
+                    <div class="fixed-action-btn">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu_book</i>
+                        </a>
+                        <ul>
+                            <li><a th:href="${'/notes/create?ticketId=' + ticket.id}" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                            <li><a th:href="${'/tickets/edit/' + ticket.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/tickets/delete/' + ticket.id}" data-redirect-url="/clients"><i class="material-icons">delete</i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
