@@ -40,12 +40,22 @@
                                     <input type="password" th:field="*{mailpassword}" placeholder="Mail Password" class="form-control"/>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Choose a role</label>
+                                <ul>
+                                    <li th:each="role : ${listOfRoles}" style="list-style-type: none; text-align: left">
+                                        <input type="checkbox" th:field="*{roles}" th:value="${role.id}" name="roleId"/>
+                                        <label th:text="${role.desc}"></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--
                             <div class="form-group" th:object="${role}">
                                 <label for="roleSelect">Select Role</label>
                                 <select th:field="*{id}" class="form-control" id="roleSelect">
                                     <option th:each="role : ${listOfRoles}" th:value="${role.id}" th:text="${role.desc}"></option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <div class="">
                                     <button type="submit" class="btn btn-primary btn-block">Register User</button>

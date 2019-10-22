@@ -12,10 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,19 +28,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user, int roleId) {
+    public void saveUser(User user, Set<Role> idRoles) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setStatus("VERIFIED");
-        Role userRole = roleRepository.findById(roleId);
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        //Role userRole = roleRepository.findById(roleId);
+        //user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<Role>(idRoles));
         userRepository.save(user);
     }
 
-    public void saveUserById(User user, int id, int roleId) {
+    public void saveUserById(User user, int id, Set<Role> idRoles) {
         for (int i = 0; i < findAll().size(); i++) {
             User tmpValue = findAll().get(i);
             if (tmpValue.getId() == id) {
-                saveUser(user, roleId);
+                saveUser(user, idRoles);
                 return;
             }
         }

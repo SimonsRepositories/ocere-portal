@@ -3,11 +3,10 @@ package com.ocere.portal.service;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public interface UserService {
-    void saveUser(User user, int role);
+    void saveUser(User user, Set<Role> idRoles);
 
     boolean isUserAlreadyPresent(User user);
 
@@ -17,7 +16,7 @@ public interface UserService {
 
     Optional<User> getUserById(int id);
 
-    void saveUserById(User user, int id, int roleId);
+    void saveUserById(User user, int id, Set<Role> idRoles);
 
     User findByEmail(String email);
 }
