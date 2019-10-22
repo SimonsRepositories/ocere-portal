@@ -50,14 +50,14 @@ public class ClientController {
 
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
-        model.addAttribute("client", this.clientService.getClientById(id));
+        model.addAttribute("client", this.clientService.findClientById(id));
         model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
         return "clients-view";
     }
 
     @GetMapping("edit/{id}")
     public String editClient(Model model, @PathVariable int id) {
-        model.addAttribute("client", this.clientService.getClientById(id));
+        model.addAttribute("client", this.clientService.findClientById(id));
 
         model.addAttribute("siteTitle", "Edit Client");
         model.addAttribute("action", "save/" + id);
@@ -142,7 +142,7 @@ public class ClientController {
      * @param clientId
      */
     private void mapUneditedValuesToClient(Client client, int clientId) {
-        Client dbClient = clientService.getClientById(clientId);
+        Client dbClient = clientService.findClientById(clientId);
         client.setAuthor(dbClient.getAuthor());
     }
 }

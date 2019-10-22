@@ -12,11 +12,11 @@ public interface ClientService {
 
     List<Client> findAll();
 
+    Client createClient(Client client);
+
     void deleteClientById(int id) throws Exception;
 
-    Client getClientById(int id);
-
-    Client saveClientById(Client client, int id) throws Exception;
+    Client findClientById(int id);
 
     List<Client> findAllByAssignedUser(User user);
 

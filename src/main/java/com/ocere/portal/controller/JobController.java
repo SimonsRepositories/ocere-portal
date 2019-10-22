@@ -35,7 +35,7 @@ public class JobController {
         model.addAttribute("cancelPage", "/clients/" + clientId);
 
         Job job = new Job();
-        job.setClient(clientService.getClientById(clientId));
+        job.setClient(clientService.findClientById(clientId));
 
         model.addAttribute("job", job);
         return "jobs_form";
