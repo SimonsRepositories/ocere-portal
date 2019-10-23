@@ -75,10 +75,6 @@ public class UserController
     public ModelAndView editUser(@ModelAttribute User user, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         if(user.getRoles() != null) {
-            for(Role roleId : user.getRoles())
-            {
-                System.out.println("<<" + roleId.getId() + ">>");
-            }
             userService.saveUserById(user, user.getId(), user.getRoles());
         }
 
