@@ -4,6 +4,8 @@ import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.Satisfaction;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,19 +55,35 @@ public class Client {
 
     private String contactUsPage;
 
-    /*private double monthlySpend;
+    private double monthlySpend;
     private double totalSpend;
 
     private List<String> phones;
     private List<String> emails;
     private String linkedIn;
 
-    private Boolean lead;*/
+    private Boolean lead;
 
-    // Not sure about these attributes
-    // private String paymentTerms;
+    private String paymentTerms;
+    private Date lastOrder;
 
-    /*public double getMonthlySpend() {
+    public Date getLastOrder() {
+        return lastOrder;
+    }
+
+    public void setLastOrder(Date lastOrder) {
+        this.lastOrder = lastOrder;
+    }
+
+    public String getPaymentTerms() {
+        return paymentTerms;
+    }
+
+    public void setPaymentTerms(String paymentTerms) {
+        this.paymentTerms = paymentTerms;
+    }
+
+    public double getMonthlySpend() {
         return monthlySpend;
     }
 
@@ -111,7 +129,7 @@ public class Client {
 
     public void setLead(Boolean lead) {
         this.lead = lead;
-    }*/
+    }
 
     public String getContactFirstName() {
         return contactFirstName;
