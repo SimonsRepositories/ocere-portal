@@ -249,6 +249,10 @@ table > thead > tr:first-child th {
     border-top: 0;
 }
 
+td {
+    padding: 5px;
+}
+
 /*
     NOTE
  */

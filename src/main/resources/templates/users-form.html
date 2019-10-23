@@ -23,34 +23,36 @@
 </head>
 <body>
 <div class="wrapper">
-    <div th:replace="navigation :: sidebar"></div>
-    <div id="content">
-        <div th:replace="navigation :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!--Content Start-->
-        <div id="content-text">
-            <div class="container">
-                <form class="row" action="#" method="post" th:action="@{/admin/editUser}" th:object="${user}">
-                    <div class="input-field col s12">
-                        <label for="id">Id: </label>
-                        <input type="text" th:field="*{id}" placeholder="id" id="id" />
-                    </div>
-                    <div class="input-field col s6">
-                        <label for="id">Firstname: </label>
-                        <input type="text" th:field="*{firstname}" placeholder="firstname" id="firstname" />
-                    </div>
-                    <div class="input-field col s6">
-                        <label for="id">Lastname: </label>
-                        <input type="text" th:field="*{lastname}" placeholder="lastname" id="lastname" />
-                    </div>
-                    <div class="input-field col s12">
-                        <label for="id">Email: </label>
-                        <input type="text" th:field="*{email}" placeholder="email" id="email" />
-                    </div>
-                    <div>
-                        <button type="submit" value="Submit"><a href="/users"></a>Submit</button>
-                    </div>
-                </form>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <form class="row" action="#" method="post" th:action="@{/admin/editUser}" th:object="${user}">
+                        <div class="input-field col s12">
+                            <label for="id">Id: </label>
+                            <input type="text" th:field="*{id}" placeholder="id" id="id"/>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="id">Firstname: </label>
+                            <input type="text" th:field="*{firstname}" placeholder="firstname"
+                                   id="firstname"/>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="id">Lastname: </label>
+                            <input type="text" th:field="*{lastname}" placeholder="lastname"
+                                   id="lastname"/>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="id">Email: </label>
+                            <input type="text" th:field="*{email}" placeholder="email" id="email"/>
+                        </div>
+                        <div>
+                            <button type="submit" value="Submit"><a href="/users"></a>Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

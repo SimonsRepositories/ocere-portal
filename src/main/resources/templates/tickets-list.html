@@ -45,8 +45,7 @@
                                     <th>Priority</th>
                                     <th>Assigned User</th>
                                     <th>Assigned Group</th>
-                                    <th>Notes</th>
-                                </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="ticket : ${assignedOpen}" class="ticket-row"
@@ -56,9 +55,12 @@
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
                                     <td th:text="${ticket.priority}"></td>
-                                    <td th:text="${ticket.assignedUser}"></td>
-                                    <td th:text="${ticket.assignedGroup}"></td>
-                                    <td th:text="${ticket.notes}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                                    <p th:case="null">None</p>
+                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                                    <p th:case="null">None</p>
+                                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -76,8 +78,7 @@
                                     <th>Priority</th>
                                     <th>Assigned User</th>
                                     <th>Assigned Group</th>
-                                    <th>Notes</th>
-                                </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="ticket : ${assignedOverdue}" class="ticket-row"
@@ -87,9 +88,12 @@
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
                                     <td th:text="${ticket.priority}"></td>
-                                    <td th:text="${ticket.assignedUser}"></td>
-                                    <td th:text="${ticket.assignedGroup}"></td>
-                                    <td th:text="${ticket.notes}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                                    <p th:case="null">None</p>
+                                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                                    <p th:case="null">None</p>
+                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -107,11 +111,10 @@
                                     <th>Priority</th>
                                     <th>Assigned User</th>
                                     <th>Assigned Group</th>
-                                    <th>Notes</th>
-                                </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="ticket : ${tickets}" class="ticket-row"
+                                <tr th:each="ticket : ${assigned}" class="ticket-row"
                                     th:data-id="${ticket.id}"
                                     style="cursor: pointer;">
                                     <td th:text="${ticket.id}"></td>
@@ -119,9 +122,12 @@
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
                                     <td th:text="${ticket.priority}"></td>
-                                    <td th:text="${ticket.assignedUser}"></td>
-                                    <td th:text="${ticket.assignedGroup}"></td>
-                                    <td th:text="${ticket.notes}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                                    <p th:case="null">None</p>
+                                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                    <p th:case="null">None</p>
+                                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -139,7 +145,7 @@
                                     <th>Priority</th>
                                     <th>Assigned User</th>
                                     <th>Assigned Group</th>
-                                    <th>Notes</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -151,9 +157,12 @@
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
                                     <td th:text="${ticket.priority}"></td>
-                                    <td th:text="${ticket.assignedUser}"></td>
-                                    <td th:text="${ticket.assignedGroup}"></td>
-                                    <td th:text="${ticket.notes}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                                    <p th:case="null">None</p>
+                                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                    <p th:case="null">None</p>
+                                                    <p th:case="*" th:text="${ticket.assignedUser.name}">Name</p></td>
                                 </tr>
                                 </tbody>
                             </table>
