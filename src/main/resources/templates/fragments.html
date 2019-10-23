@@ -86,6 +86,10 @@
             $('select').formSelect();
         });
 
+        $('select').change(function () {
+            $(this).parent().find('.dropdown-trigger').addClass('valid');
+        });
+
         $(document).ready(function(){
             $('.fixed-action-btn').floatingActionButton();
         });
