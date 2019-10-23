@@ -8,10 +8,6 @@
     <title>Ticket Dashboard</title>
 
     <div th:replace="fragments :: head-links"></div>
-
-    <!-- Tabs -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -22,168 +18,147 @@
     <div class="content">
         <div class="content-wrapper">
             <div class="content-container">
-                <div class="container">
-                    <section id="tabs">
-                        <h6 class="section-title h1">Ticket Dashboard <a class="btn btn-primary" href="/tickets/create">New</a>
-                        </h6>
-                        <div class="row">
-                            <div style="width: 100%" class="col-xs-12">
-                                <nav>
-                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
-                                           href="#nav-home"
-                                           role="tab" aria-controls="nav-home" aria-selected="true"
-                                           style="color: black !important">Open</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
-                                           href="#nav-profile"
-                                           role="tab" aria-controls="nav-profile" aria-selected="false"
-                                           style="color: black !important">Overdue</a>
-                                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
-                                           href="#nav-contact"
-                                           role="tab" aria-controls="nav-contact" aria-selected="false"
-                                           style="color: black !important">All</a>
-                                        <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab"
-                                           href="#nav-about"
-                                           role="tab" aria-controls="nav-about" aria-selected="false"
-                                           style="color: black !important">Submitted</a>
-                                    </div>
-                                </nav>
-                                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                         aria-labelledby="nav-home-tab">
-                                        <h4 th:if="${assignedOpen.isEmpty()}">0 tickets left! You're all done</h4>
-                                        <table th:if="${!assignedOpen.isEmpty()}" style="width: 100%"
-                                               class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Job</th>
-                                                <th>Subject</th>
-                                                <th>Status</th>
-                                                <th>Priority</th>
-                                                <th>Assigned User</th>
-                                                <th>Assigned Group</th>
-                                                <th>Notes</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="ticket : ${assignedOpen}" class="ticket-row"
-                                                th:data-id="${ticket.id}"
-                                                style="cursor: pointer;">
-                                                <td th:text="${ticket.id}"></td>
-                                                <td th:text="${ticket.job}"></td>
-                                                <td th:text="${ticket.subject}"></td>
-                                                <td th:text="${ticket.status}"></td>
-                                                <td th:text="${ticket.priority}"></td>
-                                                <td th:text="${ticket.assignedUser}"></td>
-                                                <td th:text="${ticket.assignedGroup}"></td>
-                                                <td th:text="${ticket.notes}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                                         aria-labelledby="nav-profile-tab">
-                                        <h4 th:if="${assignedOverdue.isEmpty()}">0 tickets overdue! Good job</h4>
-                                        <table th:if="${!assignedOverdue.isEmpty()}" style="width: 100%"
-                                               class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Job</th>
-                                                <th>Subject</th>
-                                                <th>Status</th>
-                                                <th>Priority</th>
-                                                <th>Assigned User</th>
-                                                <th>Assigned Group</th>
-                                                <th>Notes</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="ticket : ${assignedOverdue}" class="ticket-row"
-                                                th:data-id="${ticket.id}" style="cursor: pointer;">
-                                                <td th:text="${ticket.id}"></td>
-                                                <td th:text="${ticket.job}"></td>
-                                                <td th:text="${ticket.subject}"></td>
-                                                <td th:text="${ticket.status}"></td>
-                                                <td th:text="${ticket.priority}"></td>
-                                                <td th:text="${ticket.assignedUser}"></td>
-                                                <td th:text="${ticket.assignedGroup}"></td>
-                                                <td th:text="${ticket.notes}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-contact" role="tabpanel"
-                                         aria-labelledby="nav-contact-tab">
-                                        <h4 th:if="${assigned.isEmpty()}">You weren't assigned any tickets yet</h4>
-                                        <table th:if="${!assigned.isEmpty()}" style="width: 100%"
-                                               class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Job</th>
-                                                <th>Subject</th>
-                                                <th>Status</th>
-                                                <th>Priority</th>
-                                                <th>Assigned User</th>
-                                                <th>Assigned Group</th>
-                                                <th>Notes</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="ticket : ${tickets}" class="ticket-row"
-                                                th:data-id="${ticket.id}"
-                                                style="cursor: pointer;">
-                                                <td th:text="${ticket.id}"></td>
-                                                <td th:text="${ticket.job}"></td>
-                                                <td th:text="${ticket.subject}"></td>
-                                                <td th:text="${ticket.status}"></td>
-                                                <td th:text="${ticket.priority}"></td>
-                                                <td th:text="${ticket.assignedUser}"></td>
-                                                <td th:text="${ticket.assignedGroup}"></td>
-                                                <td th:text="${ticket.notes}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-about" role="tabpanel"
-                                         aria-labelledby="nav-about-tab">
-                                        <h4 th:if="${submitted.isEmpty()}">You haven't submitted any tickets yet</h4>
-                                        <table th:if="${!submitted.isEmpty()}" style="width: 100%"
-                                               class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Job</th>
-                                                <th>Subject</th>
-                                                <th>Status</th>
-                                                <th>Priority</th>
-                                                <th>Assigned User</th>
-                                                <th>Assigned Group</th>
-                                                <th>Notes</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="ticket : ${submitted}" class="ticket-row"
-                                                th:data-id="${ticket.id}"
-                                                style="cursor: pointer;">
-                                                <td th:text="${ticket.id}"></td>
-                                                <td th:text="${ticket.job}"></td>
-                                                <td th:text="${ticket.subject}"></td>
-                                                <td th:text="${ticket.status}"></td>
-                                                <td th:text="${ticket.priority}"></td>
-                                                <td th:text="${ticket.assignedUser}"></td>
-                                                <td th:text="${ticket.assignedGroup}"></td>
-                                                <td th:text="${ticket.notes}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="container full-width">
+                    <div class="row">
+                        <h1 class="section-title h1">Ticket Dashboard <a class="btn btn-primary" href="/tickets/create">New</a>
+                        </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a href="#open">Open</a></li>
+                                <li class="tab col s3"><a class="active" href="#overdue">Overdue</a></li>
+                                <li class="tab col s3"><a href="#all">All</a></li>
+                                <li class="tab col s3"><a href="#submitted">Submitted</a></li>
+                            </ul>
                         </div>
-                    </section>
+                        <div id="open" class="col s12">
+                            <h4 th:if="${assignedOpen.isEmpty()}">0 tickets left! You're all done</h4>
+                            <table th:if="${!assignedOpen.isEmpty()}"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+                                    <th>Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${assignedOpen}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.id}"></td>
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:text="${ticket.assignedUser}"></td>
+                                    <td th:text="${ticket.assignedGroup}"></td>
+                                    <td th:text="${ticket.notes}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="overdue" class="col s12">
+                            <h4 th:if="${assignedOverdue.isEmpty()}">0 tickets overdue! Good job</h4>
+                            <table th:if="${!assignedOverdue.isEmpty()}"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+                                    <th>Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${assignedOverdue}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.id}"></td>
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:text="${ticket.assignedUser}"></td>
+                                    <td th:text="${ticket.assignedGroup}"></td>
+                                    <td th:text="${ticket.notes}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="all" class="col s12">
+                            <h4 th:if="${assigned.isEmpty()}">You weren't assigned any tickets yet</h4>
+                            <table th:if="${!assigned.isEmpty()}" style="width: 100%"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+                                    <th>Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${tickets}" class="ticket-row"
+                                    th:data-id="${ticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${ticket.id}"></td>
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:text="${ticket.assignedUser}"></td>
+                                    <td th:text="${ticket.assignedGroup}"></td>
+                                    <td th:text="${ticket.notes}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="submitted" class="col s12">
+                            <h4 th:if="${submitted.isEmpty()}">You haven't submitted any tickets yet</h4>
+                            <table th:if="${!submitted.isEmpty()}" style="width: 100%"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+                                    <th>Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${submitted}" class="ticket-row"
+                                    th:data-id="${ticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${ticket.id}"></td>
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:text="${ticket.assignedUser}"></td>
+                                    <td th:text="${ticket.assignedGroup}"></td>
+                                    <td th:text="${ticket.notes}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,6 +168,10 @@
 <div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('.tabs').tabs();
+    });
+
     $('.ticket-row').on('click', function () {
         window.location.href = window.location.origin + "/tickets/" + $(this).data('id');
     });
