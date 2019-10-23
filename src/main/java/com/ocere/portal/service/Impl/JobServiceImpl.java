@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public class JobServiceImpl implements JobService {
-
     private JobRepository jobRepository;
     private ClientService clientService;
 
@@ -71,6 +70,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<Job> findAllJobsByClientId(int id) {
-        return jobRepository.findAllByClient(clientService.getClientById(id));
+        return jobRepository.findAllByClient(clientService.findClientById(id));
     }
 }

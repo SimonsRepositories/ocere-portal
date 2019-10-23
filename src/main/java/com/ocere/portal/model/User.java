@@ -1,7 +1,5 @@
 package com.ocere.portal.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -39,7 +37,6 @@ public class User
     @Column(name = "password")
     private String password;
 
-    @NotNull(message = "password is compulsory")
     @Column(name = "mailpassword")
     private String mailpassword;
 

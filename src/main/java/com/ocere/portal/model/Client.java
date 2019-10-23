@@ -1,6 +1,7 @@
 package com.ocere.portal.model;
 
 import com.ocere.portal.enums.ClientStatus;
+import com.ocere.portal.enums.Satisfaction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -46,8 +47,12 @@ public class Client {
     private String email;
     private String website;
     private String tier;
-    private String satisfaction;
+
+    @Enumerated(EnumType.STRING)
+    private Satisfaction satisfaction;
+
     private String contactUsPage;
+
     // private double monthlySpend;
     // private double totalSpend;
 
@@ -83,11 +88,11 @@ public class Client {
         this.tier = tier;
     }
 
-    public String getSatisfaction() {
+    public Satisfaction getSatisfaction() {
         return satisfaction;
     }
 
-    public void setSatisfaction(String satisfaction) {
+    public void setSatisfaction(Satisfaction satisfaction) {
         this.satisfaction = satisfaction;
     }
 

@@ -35,7 +35,7 @@
             <div class="content-container">
                 <div class="container">
                     <h1 th:text="${client.companyName}"></h1>
-                    <form action="#" th:action="@{/clients/editClient}" th:object="${client}" method="post">
+                    <form action="#" th:action="@{/clients/save}" th:object="${client}" method="post">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-6">
@@ -43,83 +43,83 @@
                                     <br>
                                     <input type="text" class="form-control" th:field="*{companyName}">
                                 </div>
-
-                                <div class="col-6">
-                                    <small class="attribute-title">Tier</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{companyName}">
-                                </div>
+                            <div class="col-6">
+                                <small class="attribute-title">Tier</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{companyName}">
                             </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <small class="attribute-title">Contact Person Firstname</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{contactFirstName}">
-                                </div>
-                                <div class="col-3">
-                                    <small class="attribute-title">Contact Person Lastname</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{contactLastName}">
-                                </div>
-                                <div class="col-6">
-                                    <small class="attribute-title">Satisfaction</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{satisfaction}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <small class="attribute-title">Phone</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{phone}">
-                                </div>
-                                <div class="col-6">
-                                    <small class="attribute-title">Website</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{website}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <small class="attribute-title">Email</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{email}">
-                                </div>
-                                <div class="col-6">
-                                    <small class="attribute-title">Status</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{status}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <small class="attribute-title">Post code</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{postcode}">
-                                    <small class="attribute-title">City</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{city}">
-                                    <small class="attribute-title">Street</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{street}">
-                                </div>
-                                <div class="col-6">
-                                    <small class="attribute-title">Contact page</small>
-                                    <br>
-                                    <input type="text" class="form-control" th:field="*{contactUsPage}">
-                                </div>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-success" value="submit"><a href="/clients"></a>Save
-                            </button>
-                            <a href="/clients" class="btn btn-warning">Cancel</a>
                         </div>
-                    </form>
-                    <br>
-                </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <small class="attribute-title">Contact Person Firstname</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{contactFirstName}">
+                            </div>
+                            <div class="col-3">
+                                <small class="attribute-title">Contact Person Lastname</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{contactLastName}">
+                            </div>
+                            <div class="col-6">
+                                <small class="attribute-title">Satisfaction</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{satisfaction}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="attribute-title">Phone</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{phone}">
+                            </div>
+                            <div class="col-6">
+                                <small class="attribute-title">Website</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{website}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="attribute-title">Email</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{email}">
+                            </div>
+                            <div class="col-6">
+                                <small class="attribute-title">Status</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{status}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="attribute-title">Post code</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{postcode}">
+                                <small class="attribute-title">City</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{city}">
+                                <small class="attribute-title">Street</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{street}">
+                            </div>
+                            <div class="col-6">
+                                <small class="attribute-title">Contact page</small>
+                                <br>
+                                <input type="text" class="form-control" th:field="*{contactUsPage}">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-success" value="submit"><a href="/clients"></a>Save
+                        </button>
+                        <a href="/clients" class="btn btn-warning">Cancel</a>
+                    </div>
+                </form>
+                <br>
             </div>
         </div>
     </div>
+    <!-- Content End -->
+
 </div>
 
 <!-- jQuery CDN - Slim version (=without AJAX) -->

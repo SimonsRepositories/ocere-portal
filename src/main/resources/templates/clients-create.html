@@ -7,23 +7,7 @@
 
     <title>New Client</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
-
+    <div th:replace="fragments :: head-links"></div>
 </head>
 
 <body>
@@ -35,7 +19,7 @@
             <div class="content-container">
                 <div class="container">
                     <h1>New Client</h1>
-                    <form action="#" th:action="@{/clients/save}" th:object="${newClient}" method="post">
+                    <form action="#" th:action="@{/clients/create}" th:object="${newClient}" method="post">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-6">
@@ -142,24 +126,25 @@
                 </div>
             </div>
         </div>
+        <!-- Content End -->
+
     </div>
-</div>
 
-<div th:replace="fragments :: script-links"></div>
+    <div th:replace="fragments :: script-links"></div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
         });
-
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
-    });
-</script>
+    </script>
 </body>
 
 </html>
