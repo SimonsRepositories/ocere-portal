@@ -46,9 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // URLs matching for access rights
                 .antMatchers("/page/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/home/**").permitAll()
-                .antMatchers("/admin/**").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/home/**").hasAnyAuthority("DEV_USER", "ADMIN_USER", "STAFF_USER", "CLIENT_USER")
+                .antMatchers("/admin/**").hasAnyAuthority("DEV_USER", "ADMIN_USER")
+                .anyRequest().authenticated()
                 .and()
                 // form login
                 .csrf().disable().formLogin()
