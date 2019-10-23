@@ -4,6 +4,7 @@ import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.Satisfaction;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,16 +54,16 @@ public class Client {
 
     private String contactUsPage;
 
-    // private double monthlySpend;
-    // private double totalSpend;
+    private double monthlySpend;
+    private double totalSpend;
+
+    private List<String> phones;
+    private List<String> emails;
+    private String linkedIn;
 
     // Not sure about these attributes
     // private Usergroup leadGroup;
     // private String paymentTerms;
-    // private String username;
-    // private String linkedIn;
-    // Phones and Emails (List)
-
 
     public String getContactFirstName() {
         return contactFirstName;
