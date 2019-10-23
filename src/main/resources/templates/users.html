@@ -7,25 +7,7 @@
 
     <title>Users Dashboard</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
-    <!-- Tabs -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <div th:replace="fragments :: head-links"></div>
 
 </head>
 
@@ -42,14 +24,13 @@
                         <div th:switch="${listOfUsers}">
                             <h4 th:case="null">No Users yet</h4>
                             <div th:case="*">
-                                <h4>Posts</h4>
                                 <table class="table table-striped">
-                                    <caption>Liste von Usern</caption>
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Nachname</th>
+                                        <th>firstname</th>
+                                        <th>lastame</th>
+                                        <th>email</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -58,8 +39,9 @@
                                         <td th:text="${user.id}"></td>
                                         <td th:text="${user.firstname}"></td>
                                         <td th:text="${user.lastname}"></td>
-                                        <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
-                                        <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>
+                                        <td th:text="${user.email}"></td>
+                                        <!--<td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
+                                        <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>-->
                                     </tr>
                                     </tbody>
                                 </table>
