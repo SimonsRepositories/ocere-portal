@@ -26,48 +26,46 @@
 </head>
 <body>
 <div class="wrapper">
-    <div th:replace="navigation :: sidebar"></div>
-    <div id="content">
-        <div th:replace="navigation :: header"></div>
+    <div th:replace="fragments :: header"></div>
 
-        <!--th:href="@{/users/edit-user/{id}(id=${user.id})}"-->
-
-        <!-- Content Start -->
-        <div id="content-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1>User View
-                            <a class="btn btn-primary" th:href="${'/users/edit-user/' + user.id + role.id}">Edit</a>
-                            <form class="inlineBlockForm" method="post" th:href="@{/users/delete-user?id={id}(id=${user.id})}">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            <a href="/users" class="btn btn-warning">Cancel</a>
-                        </h1>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>User View
+                                <a class="btn btn-primary" th:href="${'/users/edit-user/' + user.id}">Edit</a>
+                                <form class="inlineBlockForm" method="post"
+                                      th:href="@{/users/delete-user?id={id}(id=${user.id})}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                <a href="/users" class="btn btn-warning">Cancel</a>
+                            </h1>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <small class="attribute-title">Id:</small>
-                        <p class="attribute-value" th:text="${user.id}">Value</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <small class="attribute-title">Id:</small>
+                            <p class="attribute-value" th:text="${user.id}">Value</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">firstname:</small>
+                            <p class="attribute-value" th:text="${user.firstname}">Value</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="attribute-title">lastname:</small>
+                            <p class="attribute-value" th:text="${user.lastname}">Value</p>
+                        </div>
+                        <div class="col-12">
+                            <small class="attribute-title">lastname:</small>
+                            <p class="attribute-value" th:text="${user.email}">Value</p>
+                        </div>
+                        <!--show roles here-->
                     </div>
-                    <div class="col-6">
-                        <small class="attribute-title">firstname:</small>
-                        <p class="attribute-value" th:text="${user.firstname}">Value</p>
-                    </div>
-                    <div class="col-6">
-                        <small class="attribute-title">lastname:</small>
-                        <p class="attribute-value" th:text="${user.lastname}">Value</p>
-                    </div>
-                    <div class="col-12">
-                        <small class="attribute-title">lastname:</small>
-                        <p class="attribute-value" th:text="${user.email}">Value</p>
-                    </div>
-                    <!--show roles here-->
                 </div>
             </div>
         </div>
-        <!-- Content End -->
     </div>
 </div>
 </body>
