@@ -29,25 +29,46 @@
         <div class="content-wrapper">
             <div class="content-container">
                 <div class="container">
-                    <form class="row" action="#" method="post" th:action="@{/admin/editUser}" th:object="${user}">
+                    <form class="row" action="#" method="post" th:action="@{/users/edit-user}" th:object="${user}">
                         <div class="form-group col-12">
                             <label for="id">Id: </label>
                             <input class="form-control" type="text" th:field="*{id}" placeholder="id" id="id"/>
                         </div>
                         <div class="form-group col-6">
                             <label for="id">Firstname: </label>
-                            <input class="form-control" type="text" th:field="*{firstname}" placeholder="firstname"
-                                   id="firstname"/>
+                            <input class="form-control" type="text" th:field="*{firstname}" placeholder="firstname" id="firstname"/>
                         </div>
                         <div class="form-group col-6">
                             <label for="id">Lastname: </label>
-                            <input class="form-control" type="text" th:field="*{lastname}" placeholder="lastname"
-                                   id="lastname"/>
+                            <input class="form-control" type="text" th:field="*{lastname}" placeholder="lastname" id="lastname"/>
                         </div>
                         <div class="form-group col-12">
                             <label for="id">Email: </label>
                             <input class="form-control" type="text" th:field="*{email}" placeholder="email" id="email"/>
                         </div>
+                        <div class="form-group col-12">
+                            <label for="id">new Password: </label>
+                            <input class="form-control" type="password" placeholder="New password" id="newpassword"/>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="id">confirm password: </label>
+                            <input class="form-control" type="password" th:field="*{password}" placeholder="Confirm passwrod" id="confirmpasswrod"/>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="id">new mail password: </label>
+                            <input class="form-control" type="password" placeholder="New mail passwrod" id="newmailpassword"/>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="id">confirm mail password: </label>
+                            <input class="form-control" type="password" th:field="*{mailpassword}" placeholder="Confirm mail passwrod" id="confirmmailpassword"/>
+                        </div>
+                        <p>Edit your roles: </p><br>
+                        <p th:each="role : ${listOfRoles}" style="list-style-type: none; text-align: left">
+                            <label>
+                                <input type="checkbox" th:field="*{roles}" th:value="${role.id}" th:checked="${user.getRoles().contains(role)}"/>
+                                <span th:text="${role.desc}"></span><br>
+                            </label>
+                        </p>
                         <div>
                             <button type="submit" value="Submit"><a href="/users"></a>Submit</button>
                         </div>
