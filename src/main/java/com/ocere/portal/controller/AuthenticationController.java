@@ -1,6 +1,7 @@
 package com.ocere.portal.controller;
 
 import com.ocere.portal.model.Role;
+import com.ocere.portal.model.User;
 import com.ocere.portal.service.RoleService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ocere.portal.model.User;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 public class AuthenticationController
@@ -30,14 +23,14 @@ public class AuthenticationController
     @Autowired
     RoleService roleService;
 
-    @RequestMapping(value = { "/page/login" } , method = RequestMethod.GET)
+    @GetMapping(value = { "/page/login" })
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login"); //resources/templates/login.html
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public ModelAndView register(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
@@ -52,7 +45,7 @@ public class AuthenticationController
         return modelAndView;
     }
 
-    @RequestMapping(value="/register", method = RequestMethod.POST)
+    @PostMapping(value="/register")
     public ModelAndView registerUser(@ModelAttribute @Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
@@ -65,9 +58,6 @@ public class AuthenticationController
             modelAndView.addObject("successMessage", "User already exists!");
         } else {
             if(user.getRoles() != null) {
-                for(Role idrole : user.getRoles()) {
-                    System.out.println("<<" + idrole.getId() + ">>");
-                }
                 userService.saveUser(user, user.getRoles());
             }
             modelAndView.addObject("successMessage", "User is registered successfully");

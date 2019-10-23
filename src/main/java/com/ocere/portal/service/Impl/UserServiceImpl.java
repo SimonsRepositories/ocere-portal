@@ -5,14 +5,14 @@ import com.ocere.portal.model.User;
 import com.ocere.portal.repository.RoleRepository;
 import com.ocere.portal.repository.UserRepository;
 import com.ocere.portal.service.UserService;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.sql.*;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,8 +29,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user, Set<Role> idRoles) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setMailpassword(encoder.encode(user.getMailpassword()));
+        if(user.getPassword() != null) {
+            user.setPassword(encoder.encode(user.getPassword()));
+            if(user.getMailpassword() != null) {
+                user.setMailpassword(encoder.encode(user.getMailpassword()));
+            }
+        }
         user.setStatus("VERIFIED");
         //Role userRole = roleRepository.findById(roleId);
         //user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
