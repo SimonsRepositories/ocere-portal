@@ -33,7 +33,7 @@
             <div class="content-container">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col s12">
                             <h1>User View
                                 <a class="btn btn-primary" th:href="${'/users/edit-user/' + user.id}">Edit</a>
                                 <form class="inlineBlockForm" method="post"
@@ -45,19 +45,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col s12">
                             <small class="attribute-title">Id:</small>
                             <p class="attribute-value" th:text="${user.id}">Value</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">firstname:</small>
                             <p class="attribute-value" th:text="${user.firstname}">Value</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">lastname:</small>
                             <p class="attribute-value" th:text="${user.lastname}">Value</p>
                         </div>
-                        <div class="col-12">
+                        <div class="col s12">
                             <small class="attribute-title">lastname:</small>
                             <p class="attribute-value" th:text="${user.email}">Value</p>
                         </div>

@@ -17,14 +17,14 @@
     <div class="content">
         <div class="content-wrapper">
             <div class="content-container">
-                <div class="container">
+                <div class="container full-width">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col s12">
                             <h1>Templates</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col s12">
                             <table th:if="${!templates.isEmpty()}" style="width: 100%" class="table table-striped">
                                 <thead>
                                 <tr>
@@ -71,6 +71,13 @@
 </div>
 
 <div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $('.template-row').on('click', function () {
+        window.location.href = window.location.origin + "/tickets/templates/" + $(this).data('id');
+    });
+</script>
+
 </body>
 
 </html>

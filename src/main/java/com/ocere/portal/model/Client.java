@@ -53,16 +53,81 @@ public class Client {
 
     private String contactUsPage;
 
-    // private double monthlySpend;
-    // private double totalSpend;
+    /*private double monthlySpend;
+    private double totalSpend;
 
-    // Not sure about these attributes
-    // private Usergroup leadGroup;
-    // private String paymentTerms;
-    // private String username;
-    // private String linkedIn;
-    // Phones and Emails (List)
+    private List<String> phones;
+    private List<String> emails;
+    private String linkedIn;
 
+    private Boolean lead;
+
+    private String paymentTerms;
+    private Date lastOrder;
+
+    public Date getLastOrder() {
+        return lastOrder;
+    }
+
+    public void setLastOrder(Date lastOrder) {
+        this.lastOrder = lastOrder;
+    }
+
+    public String getPaymentTerms() {
+        return paymentTerms;
+    }
+
+    public void setPaymentTerms(String paymentTerms) {
+        this.paymentTerms = paymentTerms;
+    }
+
+    public double getMonthlySpend() {
+        return monthlySpend;
+    }
+
+    public void setMonthlySpend(double monthlySpend) {
+        this.monthlySpend = monthlySpend;
+    }
+
+    public double getTotalSpend() {
+        return totalSpend;
+    }
+
+    public void setTotalSpend(double totalSpend) {
+        this.totalSpend = totalSpend;
+    }
+
+    public List<String> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<String> phones) {
+        this.phones = phones;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
+
+    public Boolean getLead() {
+        return lead;
+    }
+
+    public void setLead(Boolean lead) {
+        this.lead = lead;
+    }*/
 
     public String getContactFirstName() {
         return contactFirstName;
