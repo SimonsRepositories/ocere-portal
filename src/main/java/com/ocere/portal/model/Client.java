@@ -61,9 +61,58 @@ public class Client {
     private List<String> emails;
     private String linkedIn;
 
+    private Boolean lead;
+
     // Not sure about these attributes
-    // private Usergroup leadGroup;
     // private String paymentTerms;
+
+    public double getMonthlySpend() {
+        return monthlySpend;
+    }
+
+    public void setMonthlySpend(double monthlySpend) {
+        this.monthlySpend = monthlySpend;
+    }
+
+    public double getTotalSpend() {
+        return totalSpend;
+    }
+
+    public void setTotalSpend(double totalSpend) {
+        this.totalSpend = totalSpend;
+    }
+
+    public List<String> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<String> phones) {
+        this.phones = phones;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
+
+    public Boolean getLead() {
+        return lead;
+    }
+
+    public void setLead(Boolean lead) {
+        this.lead = lead;
+    }
 
     public String getContactFirstName() {
         return contactFirstName;
