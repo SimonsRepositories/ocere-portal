@@ -23,31 +23,29 @@
             <div class="content-container">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col s12">
                             <h1 th:text="${siteTitle}">Title</h1>
                         </div>
-                        <div th:if="${ticket.template==false}" class="form-group col-12">
-                            <label for="assignedUser">Template :</label>
-                            <select class="form-control template-dropdown" id="templateId">
+                        <div th:if="${ticket.template==false}" class="input-field col s12">
+                            <select class="template-dropdown" id="templateId">
                                 <option value="0" selected disabled>select template</option>
                                 <option th:each="template : ${templates}"
                                         th:value="${template.id}"
                                         th:text="${template.subject}">
                                 </option>
                             </select>
+                            <label for="assignedUser">Template :</label>
                         </div>
                     </div>
                     <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}"
                           th:object="${ticket}">
-                        <div class="form-group col-12">
+                        <div class="input-field col s12">
                             <label for="subject">Subject:</label>
-                            <input th:field="*{subject}" placeholder="Subject" id="subject"
-                                   class="form-control"
+                            <input th:field="*{subject}" placeholder="Subject" id="subject" class="validate"
                                    type="text"/>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="assignedUser">Assigned User:</label>
-                            <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
+                        <div class="input-field col s6">
+                            <select id="assignedUser" th:field="*{assignedUser.id}">
                                 <option value="0">select user</option>
                                 <option th:each="user : ${users}"
                                         th:value="${user.id}"
@@ -55,10 +53,10 @@
                                         th:selected="${ticket.assignedUser.id == user.id}">
                                 </option>
                             </select>
+                            <label for="assignedUser">Assigned User:</label>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="assignedGroup">Assigned Group:</label>
-                            <select class="form-control" id="assignedGroup" th:field="*{assignedGroup.id}">
+                        <div class="input-field col s6">
+                            <select id="assignedGroup" th:field="*{assignedGroup.id}">
                                 <option value="0">select group</option>
                                 <option th:each="group : ${groups}"
                                         th:value="${group.id}"
@@ -66,45 +64,45 @@
                                         th:selected="${ticket.assignedGroup.id == group.id}">
                                 </option>
                             </select>
+                            <label for="assignedGroup">Assigned Group:</label>
                         </div>
-                        <div class="form-group col-12">
+                        <div class="input-field col s12">
                             <label for="description">Description:</label>
                             <textarea th:field="*{description}"
                                       th:text="${ticket.description}"
-                                      class="form-control"
                                       id="description">Initialize the Froala WYSIWYG HTML Editor on a textarea.</textarea>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="priority">Priority:</label>
-                            <select class="form-control" id="priority" th:field="*{priority}">
+                        <div class="input-field col s6">
+                            <select id="priority" th:field="*{priority}">
                                 <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
                                         th:value="${priority}"
                                         th:text="${priority}"
                                         th:selected="${ticket.priority == priority}">
                                 </option>
                             </select>
+                            <label for="priority">Priority:</label>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="status">Status:</label>
-                            <select class="form-control" id="status" th:field="*{status}">
+                        <div class="input-field col s6">
+                            <select id="status" th:field="*{status}">
                                 <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
                                         th:value="${status}"
                                         th:text="${status}"
                                         th:selected="${ticket.status == status}">
                                 </option>
                             </select>
+                            <label for="status">Status:</label>
                         </div>
-                        <div class="form-group col-12">
-                            <label for="turnaround">Turnaround:</label>
-                            <select class="form-control" id="turnaround" th:field="*{turnaround.id}">
+                        <div class="input-field col s12">
+                            <select id="turnaround" th:field="*{turnaround.id}">
                                 <option th:each="turnaround : ${turnaroundTimes}"
                                         th:value="${turnaround.id}"
                                         th:text="${turnaround.description}"
                                         th:selected="${ticket.turnaround.id == turnaround.id}">
                                 </option>
                             </select>
+                            <label for="turnaround">Turnaround:</label>
                         </div>
-                        <div class="col-12">
+                        <div class="col s12">
                             <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
                             <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
                         </div>
@@ -141,18 +139,6 @@
 
         // Allow to upload PNG and JPG.
         imageAllowedTypes: ['jpeg', 'jpg', 'png']
-    });
-
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
-
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
     });
 </script>
 </body>

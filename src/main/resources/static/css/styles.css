@@ -2,7 +2,7 @@
 
 .wrapper {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #f1f2f4;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -131,7 +131,7 @@ a.button.orange, button.orange {
     margin-left: 4px;
 }
 
-a.button, button {
+a.button {
     padding: 8px 16px;
     line-height: 24px;
     border-radius: 5px;
@@ -146,7 +146,7 @@ a.button, button {
     text-wrap: none;
     white-space: nowrap;
     overflow: hidden;
-    transition: color .2s,background-color .2s ease,border .2s;
+    transition: color .2s, background-color .2s ease, border .2s;
     min-width: 120px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -184,11 +184,45 @@ a.button, button {
     margin: 24px auto;
     border-radius: 8px;
     background-color: #fff;
-    box-shadow: 0 0 16px 0 rgba(0,0,0,.2);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
     display: flex;
     align-items: center;
-    cursor: pointer;
-    transition: transform .2s,box-shadow .2s;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+/*
+    MATERIALIZE
+ */
+
+/*Black color to the text*/
+.tabs .tab a {
+    color: #9FCCBE;
+}
+
+/*Text color on hover*/
+.tabs .tab a:hover {
+    color: #1AA090;
+}
+
+/*Background and text color when a tab is active*/
+.tabs .tab a.active {
+    background-color: rgba(46,196,182,0.2);
+    color: #1AA090;
+}
+
+/*Color of underline*/
+.tabs .indicator {
+    background-color: #1AA090;
+}
+
+/*Color after click*/
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba(46,196,182,0.2);
+    outline: none;
 }
 
 /*
@@ -205,17 +239,6 @@ a.button, button {
 
 .content-container h1 {
     text-align: center;
-    animation: 0.01s title-appear infinite;
-}
-
-@keyframes title-appear {
-    0% {
-        transform: translateX(0.5px);
-    }
-
-    100% {
-        transform: translateX(-0.5px);
-    }
 }
 
 /*
@@ -224,6 +247,10 @@ a.button, button {
 
 table > thead > tr:first-child th {
     border-top: 0;
+}
+
+td {
+    padding: 5px;
 }
 
 /*
@@ -272,34 +299,31 @@ table > thead > tr:first-child th {
 }
 
 /*
-    CARD
+    INDEX BUTTONS
  */
 
-.card-signin {
-    border: 0;
-    border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+.index-button-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.card-signin .card-title {
-    margin-bottom: 2rem;
-    font-weight: 300;
-    font-size: 1.5rem;
+.index-button {
+    display: flex;
+    margin: 50px;
+    flex-flow: column nowrap;
 }
 
-.card-signin .card-body {
-    padding: 2rem;
+.index-button img {
+    width: 200px;
+    height: 200px;
 }
 
-.card-body {
+.index-button p {
     text-align: center;
-}
-
-.card-img-top {
-    width: 250px;
-    height: 250px;
-    align-self: center;
-    margin: 20px;
+    font-size: 24px;
+    color: black;
 }
 
 /*

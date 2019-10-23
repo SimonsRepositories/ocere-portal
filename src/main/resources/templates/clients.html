@@ -21,10 +21,10 @@
     <div class="content">
         <div class="content-wrapper">
             <div class="content-container">
-                <div class="container">
-                    <h1>Clients</h1> <a class="btn btn-primary" href="/clients/create">New</a>
-                    <br>
-                    <br>
+                <div class="container full-width">
+                    <div class="row">
+                        <h1>Clients</h1>
+                    </div>
                     <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
                     <table th:if="${!assigned.isEmpty()}"
                            class="table table-striped">
@@ -43,6 +43,14 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div class="fixed-action-btn">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu_book</i>
+                        </a>
+                        <ul>
+                            <li><a href="/clients/create" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

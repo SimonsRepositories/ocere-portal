@@ -20,38 +20,38 @@
                 <div class="container">
                     <h1 th:text="${client.companyName}"></h1>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Name</small>
                             <p class="attribute-value" th:text="${client.companyName}">Name</p>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Tier</small>
                             <p class="attribute-value" th:text="${client.tier}">Tier</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col s3">
                             <small class="attribute-title">Contact Firstname</small>
                             <p class="attribute-value" th:text="${client.contactFirstName}">Contact
                                 <Firstname></Firstname>
                             </p>
                         </div>
-                        <div class="col-3">
+                        <div class="col s3">
                             <small class="attribute-title">Contact Lastname</small>
                             <p class="attribute-value" th:text="${client.contactLastName}">Contact Lastname</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Satisfaction</small>
                             <p class="attribute-value" th:text="${client.satisfaction}">Email</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Phone</small>
                             <p class="attribute-value" th:text="${client.phone}">Phone</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Website</small>
                             <br>
                             <a class="attribute-value" th:href="${client.website}"
@@ -59,22 +59,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Email</small>
                             <p class="attribute-value" th:text="${client.email}">Email</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Status</small>
                             <p class="attribute-value" th:text="${client.status}">Status</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Address</small>
                             <p class="attribute-value"
                                th:text="${client.postcode} + ' ' + ${client.city} + ' ' + ${client.street}">Address</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col s6">
                             <small class="attribute-title">Contact page</small>
                             <br>
                             <a class="attribute-value" th:href="${client.contactUsPage}"
@@ -84,7 +84,7 @@
                     </div>
                     <br>
                     <div class="row mt-1">
-                        <div class="col-12">
+                        <div class="col s12">
                             <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
                                 <thead>
                                 <tr>
