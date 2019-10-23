@@ -52,10 +52,44 @@ public class JobServiceImpl implements JobService {
 
         if (optionalUpdatedJob.isPresent()) {
             updatedJob = optionalUpdatedJob.get();
+
             updatedJob.setClient(job.getClient());
-            updatedJob.setTickets(job.getTickets());
             updatedJob.setCreatedAt(job.getCreatedAt());
             updatedJob.setAuthor(job.getAuthor());
+            updatedJob.setTickets(job.getTickets());
+            updatedJob.setProductTypes(job.getProductTypes());
+            updatedJob.setValue(job.getValue());
+            updatedJob.setCurrency(job.getCurrency());
+            updatedJob.setStartDate(job.getStartDate());
+            updatedJob.setEndDate(job.getEndDate());
+            updatedJob.setDescription(job.getDescription());
+            updatedJob.setWhiteLabel(job.isWhiteLabel());
+            updatedJob.setCompany(job.getCompany());
+            updatedJob.setWebsite(job.getWebsite());
+            updatedJob.setStatus(job.getStatus());
+            updatedJob.setFiles(job.getFiles());
+            updatedJob.setTargetKeywords(job.getTargetKeywords());
+            updatedJob.setReportingKeywords(job.getReportingKeywords());
+            updatedJob.setSeoSearchEngines(job.getSeoSearchEngines());
+            updatedJob.setOnPageReview(job.isOnPageReview());
+            updatedJob.setHealthCheck(job.isHealthCheck());
+            updatedJob.setLinkSearchEngines(job.getLinkSearchEngines());
+            updatedJob.setGoogleDocLink(job.getGoogleDocLink());
+            updatedJob.setExcelFile(job.getExcelFile());
+            updatedJob.setCampaignTypes(job.getCampaignTypes());
+            updatedJob.setCampaignLaunchDate(job.getCampaignLaunchDate());
+            updatedJob.setSignOffRequired(job.isSignOffRequired());
+            updatedJob.setFacebookId(job.getFacebookId());
+            updatedJob.setFacebookUrl(job.getFacebookUrl());
+            updatedJob.setSetUpRequired(job.isSetUpRequired());
+            updatedJob.setGoogleAdsId(job.getGoogleAdsId());
+            updatedJob.setMonthlyClickSpend(job.getMonthlyClickSpend());
+            updatedJob.setTargetAreas(job.getTargetAreas());
+            updatedJob.setLandingPageUrls(job.getLandingPageUrls());
+            updatedJob.setAdwordsMainGoal(job.getAdwordsMainGoal());
+            updatedJob.setFacebookMainGoal(job.getFacebookMainGoal());
+            updatedJob.setThankYouPageUrl(job.getThankYouPageUrl());
+            updatedJob.setReportingEmail(job.getReportingEmail());
         } else {
             throw new Exception("Couldn't update job, because it didn't exist!");
         }

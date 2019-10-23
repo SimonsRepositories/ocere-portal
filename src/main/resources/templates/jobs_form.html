@@ -8,6 +8,10 @@
     <title>Job</title>
 
     <div th:replace="fragments :: head-links"></div>
+
+    <!-- Froala Editor -->
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
 </head>
 
 <body>
@@ -17,63 +21,82 @@
     <div class="content">
         <div class="content-wrapper">
             <div class="content-container">
-                <div class="container">
+                <div class="container full-width">
                     <div class="row">
                         <div class="col s12">
                             <h1 th:text="${siteTitle}">Title</h1>
                         </div>
                     </div>
-                    <form class="row" action="#" method="post" th:action="@{/jobs/{action}(action=${action})}"
-                          th:object="${job}">
-                        <div class="form-group col s6">
-                            <label for="company">Company:</label>
+                    <form class="row" action="#" method="post" th:action="@{/jobs/{action}(action=${action})}" th:object="${job}">
+                        <div class="input-field col s6">
                             <input th:field="*{company}"
                                    id="company"
-                                   class="form-control"
+                                   class="validate"
                                    type="text"
                                    placeholder="Company"/>
+                            <label for="company">Company:</label>
                         </div>
-                        <div class="form-group col s6">
-                            <label for="website">Website:</label>
+                        <div class="input-field col s6">
                             <input th:field="*{website}"
                                    id="website"
-                                   class="form-control"
+                                   class="validate"
                                    type="text"
                                    placeholder="Website"/>
+                            <label for="website">Website:</label>
                         </div>
-                        <div class="form-group col s6">
+                        <div class="input-field col s6">
+                            <input th:field="*{startDate}" id="startDate" class="validate" type="date">
                             <label for="startDate">Start Date:</label>
-                            <input th:field="*{startDate}"
-                                   id="startDate"
-                                   type="date"
-                                   class="form-control"/>
                         </div>
-                        <div class="form-group col s6">
+                        <div class="input-field col s6">
+                            <input th:field="*{endDate}" id="endDate" class="validate" type="date">
                             <label for="endDate">End Date:</label>
-                            <input th:field="*{endDate}"
-                                   id="endDate"
-                                   type="date"
-                                   class="form-control"/>
                         </div>
-                        <div class="form-group col s6">
-                            <label for="currency">Currency:</label>
-                            <select class="form-control" id="currency" th:field="*{currency}">
+                        <div class="input-field col s3">
+                            <input th:field="*{value}" id="value" class="validate" type="number">
+                            <label for="value">Value:</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <select id="currency" th:field="*{currency}">
                                 <option th:each="currency : ${T(com.ocere.portal.enums.Currency).values()}"
                                         th:value="${currency}"
                                         th:text="${currency}"
                                         th:selected="${job.currency == currency}">
                                 </option>
                             </select>
+                            <label for="currency">Currency:</label>
                         </div>
-                        <div class="form-group col s6">
-                            <label for="status">Status:</label>
-                            <select class="form-control" id="status" th:field="*{status}">
+                        <div class="input-field col s3">
+                            <select id="whiteLabel" th:field="*{whiteLabel}">
+                                <option value="0" th:selected="${job.whiteLabel == false}">No</option>
+                                <option value="1" th:selected="${job.whiteLabel == true}">Yes</option>
+                            </select>
+                            <label for="whiteLabel">White Label:</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <select id="status" th:field="*{status}">
                                 <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
                                         th:value="${status}"
                                         th:text="${status}"
                                         th:selected="${job.status == status}">
                                 </option>
                             </select>
+                            <label for="status">Status:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="description">Description:</label>
+                            <textarea th:field="*{description}"
+                                      th:text="${job.description}"
+                                      id="description"></textarea>
+                        </div>
+                        <div class="input-field col s6 offset-s3">
+                            <select id="productTypes" th:field="*{productTypes}" multiple>
+                                <option th:each="productType : ${T(com.ocere.portal.enums.ProductType).values()}"
+                                        th:value="${productType}"
+                                        th:text="${productType}">
+                                </option>
+                            </select>
+                            <label for="productTypes">Products:</label>
                         </div>
                         <input th:field="*{client.id}" th:value="${job.client.id}" hidden/>
                         <div class="col s12">
@@ -94,7 +117,7 @@
         src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
 
 <script type="text/javascript">
-    new FroalaEditor('textarea#text', {
+    new FroalaEditor('textarea#description', {
         // Set the image upload parameter.
         imageUploadParam: 'file',
 
@@ -109,18 +132,6 @@
 
         // Allow to upload PNG and JPG.
         imageAllowedTypes: ['jpeg', 'jpg', 'png']
-    });
-
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
-
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
     });
 </script>
 </body>
