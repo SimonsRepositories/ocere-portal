@@ -7,64 +7,72 @@
     <div th:replace="fragments :: head-links"></div>
 </head>
 <body style="background-color: #1AA090;">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-9 col-md col-lg-5 mx-auto">
-                <div class="card card-signin my-5">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Register</h5>
-                        <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post" class="form-signin" role="form">
-                            <div class="form-group">
-                                <div class="">
-                                    <input type="text" th:field="*{firstname}" placeholder="Name" class="form-control"/>
-                                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Register</h5>
+                    <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post"
+                          class="form-signin" role="form">
+                        <div class="form-group">
+                            <div class="">
+                                <input type="text" th:field="*{firstname}" placeholder="Name" class="form-control"/>
                             </div>
-                            <div class="form-group">
-                                <div class="">
-                                    <input type="text" th:field="*{lastname}" placeholder="Last Name" class="form-control"/>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="">
+                                <input type="text" th:field="*{lastname}" placeholder="Last Name" class="form-control"/>
                             </div>
-                            <div class="form-group">
-                                <div class="">
-                                    <input type="text" th:field="*{email}" placeholder="Email" class="form-control"/>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="">
+                                <input type="text" th:field="*{email}" placeholder="Email" class="form-control"/>
                             </div>
-                            <div class="form-group">
-                                <div class="">
-                                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" th:field="*{password}" placeholder="Password" class="form-control"/>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="">
+                                <input type="password"
+                                       th:field="*{password}" placeholder="Password" class="form-control"/>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <div class="">
-                                    <input type="password" th:field="*{mailpassword}" placeholder="Mail Password" class="form-control"/>
-                                </div>
+                        <div class="form-group">
+                            <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" th:field="*{mailpassword}" placeholder="Mail Password"
+                                   class="form-control"/>
+                        </div>
+                        <!--<p>Choose a role: </p>
+                        <label th:each="role : ${listOfRoles}">
+                            <input th:value="${role.id}" th:field="*{roles}" type="checkbox" />
+                            <span th:text="${role.desc}" ></span>
+                            <br>
+                        </label>-->
+
+                        <div class="form-group materialize-checkbox">
+                            <div th:each="role : ${listOfRoles}">
+                                <input type="checkbox" th:text="${role.desc}" th:value="${role.id}" th:field="*{roles}"
+                                       style=""><br>
                             </div>
-                            <p>Choose a role: </p>
-                            <p th:each="role : ${listOfRoles}" style="list-style-type: none; text-align: left">
-                                <label>
-                                    <input type="checkbox" th:field="*{roles}" th:value="${role.id}" />
-                                    <span th:text="${role.desc}"></span>
-                                </label>
-                            </p>
-                            <!--
-                            <div class="form-group" th:object="${role}">
-                                <label for="roleSelect">Select Role</label>
-                                <select th:field="*{id}" class="form-control" id="roleSelect">
-                                    <option th:each="role : ${listOfRoles}" th:value="${role.id}" th:text="${role.desc}"></option>
-                                </select>
-                            </div>-->
-                            <div class="form-group">
-                                <div class="">
-                                    <button type="submit" class="btn btn-primary btn-block">Register User</button>
-                                </div>
+                        </div>
+
+                        <!--
+                        <div class="form-group" th:object="${role}">
+                            <label for="roleSelect">Select Role</label>
+                            <select th:field="*{id}" class="form-control" id="roleSelect">
+                                <option th:each="role : ${listOfRoles}" th:value="${role.id}" th:text="${role.desc}"></option>
+                            </select>
+                        </div>-->
+                        <div class="form-group">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary btn-block">Register User</button>
                             </div>
-                            <span th:utext="${successMessage}"></span>
-                        </form>
-                    </div>
+                        </div>
+                        <span th:utext="${successMessage}"></span>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
