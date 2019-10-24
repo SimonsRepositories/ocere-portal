@@ -38,7 +38,8 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" th:field="*{mailpassword}" placeholder="Mail Password"
+                            <input type="password"
+                                   th:field="*{mailpassword}" placeholder="Mail Password"
                                    class="form-control"/>
                         </div>
                         <!--<p>Choose a role: </p>
@@ -48,13 +49,20 @@
                             <br>
                         </label>-->
 
-                        <div class="form-group materialize-checkbox">
-                            <div th:each="role : ${listOfRoles}">
-                                <input type="checkbox" th:text="${role.desc}" th:value="${role.id}" th:field="*{roles}"
-                                       style=""><br>
-                            </div>
+                        <div class="input-field col s3">
+                            <select id="roles" th:field="*{roles}" multiple>
+                                <option th:each="role : ${listOfRoles}"
+                                        th:value="${role.id}"
+                                        th:text="${role.desc}">
+                                </option>
+                            </select>
+                            <label for="roles">Roles</label>
                         </div>
 
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                         <!--
                         <div class="form-group" th:object="${role}">
                             <label for="roleSelect">Select Role</label>
@@ -74,5 +82,8 @@
         </div>
     </div>
 </div>
+
+<div th:replace="fragments :: script-links"></div>
+
 </body>
 </html>
