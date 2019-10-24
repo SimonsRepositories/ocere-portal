@@ -63,6 +63,7 @@ public class AuthenticationController
             modelAndView.addObject("successMessage", "User is registered successfully");
         }
         modelAndView.addObject("user", new User());
+        modelAndView.addObject("listOfRoles", roleService.findAll());
         modelAndView.setViewName("register");
         return modelAndView;
     }
