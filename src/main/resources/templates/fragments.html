@@ -80,12 +80,12 @@
             crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        $('.post-button').on('click', function() {
+        $('.post-button').on('click', function () {
             $.post($(this).data('post-url'));
             window.location.href = window.location.origin + $(this).data('redirect-url');
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('select').formSelect();
         });
 
@@ -93,10 +93,10 @@
             $(this).parent().find('.dropdown-trigger').addClass('valid');
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.fixed-action-btn').floatingActionButton();
         });
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.fixed-action-btn');
             var instances = M.FloatingActionButton.init(elems, {
                 direction: 'top'
