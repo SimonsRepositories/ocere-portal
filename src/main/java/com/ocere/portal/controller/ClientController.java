@@ -105,7 +105,7 @@ public class ClientController {
         user.setLastname(client.getContactLastName());
         user.setEmail(client.getEmail());
         user.setRoles(new HashSet<>(4));
-        user.setPassword(encoder.encode(generatePassword(12)));
+        user.setPassword(generatePassword(12));
 
         user.setClient(true);
 
