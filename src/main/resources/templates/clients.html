@@ -27,12 +27,12 @@
                     </div>
                     <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
                     <table th:if="${!assigned.isEmpty()}"
-                           class="table table-striped">
-                        <thead>
+                           class="table table-striped js-sort-table">
+                        <thead class="sortable-head">
                         <tr>
-                            <th>Company Name</th>
-                            <th>Contact Name</th>
-                            <th>Status</th>
+                            <th class="js-sort-string">Company Name</th>
+                            <th class="js-sort-string">Contact Name</th>
+                            <th class="js-sort-string">Status</th>
                         </tr>
                         </thead>
                         <tbody>

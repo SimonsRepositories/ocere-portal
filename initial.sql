@@ -1,7 +1,7 @@
     USE ocere;
 
     INSERT INTO auth_user (auth_user_id,first_name,last_name,email,password,mailpassword,status, client)
-    VALUES  (1,'Ankit','Wasankar','admin@gmail.com','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','VERIFIED', false);
+    VALUES  (1,'Ankit','Wasankar','admin@gmail.com','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','VERIFIED', false );
 
     INSERT INTO auth_user_role (auth_user_id, auth_role_id)
     VALUES  ('1','1'),
@@ -29,6 +29,10 @@
 
     INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
     VALUES (1, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Ham', 'Ham' , 'Hamster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'HAPPY', 'Road 1', 'A', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
+    VALUES (2, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Bacon', 'Bac' , 'Bacton', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'NEUTRAL', 'Road 1', 'B', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
+    VALUES (3, 'FINISHED', 1, 1, 'Cheltenham', 'Cheltenham-Steak', 'Ste' , 'Steakster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'UNHAPPY', 'Road 1', 'F', 'https://www.ocere.com/');
 
     INSERT INTO `ticket` (`ticket_id`, `created_at`, `description`, `priority`, `status`, `subject`, `template`, `group_id`, `assigned_user_id`, `author_id`, `job_id`, `turnaround_id`) VALUES
     (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL, NULL, 1, NULL, 4),

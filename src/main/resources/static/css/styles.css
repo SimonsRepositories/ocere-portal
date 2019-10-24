@@ -309,6 +309,10 @@ td {
     align-items: center;
 }
 
+table:hover {
+    cursor: pointer;
+}
+
 .index-button {
     display: flex;
     margin: 50px;
