@@ -107,6 +107,7 @@ public class ClientController {
         user.setEmail(client.getEmail());
         user.setRoles(new HashSet<>(4));
         user.setPassword(encoder.encode(generatePassword(12)));
+        user.setClient(true);
 
         client.setAssignedUser(user);
         this.clientService.saveClient(client);

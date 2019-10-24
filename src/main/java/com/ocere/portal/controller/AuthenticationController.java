@@ -58,6 +58,11 @@ public class AuthenticationController
             modelAndView.addObject("successMessage", "User already exists!");
         } else {
             if(user.getRoles() != null) {
+                for (Role role : user.getRoles()) {
+                    if (role.getRole().equals("CLIENT")) {
+                        user.setClient(true);
+                    }
+                }
                 userService.saveUser(user, user.getRoles());
             }
             modelAndView.addObject("successMessage", "User is registered successfully");

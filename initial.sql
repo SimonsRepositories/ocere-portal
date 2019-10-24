@@ -1,7 +1,7 @@
     USE ocere;
 
-    INSERT INTO auth_user (auth_user_id,first_name,last_name,email,password,mailpassword,status)
-    VALUES  (1,'Ankit','Wasankar','admin@gmail.com','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','VERIFIED');
+    INSERT INTO auth_user (auth_user_id,first_name,last_name,email,password,mailpassword,status, client)
+    VALUES  (1,'Ankit','Wasankar','admin@gmail.com','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','$2a$10$DD/FQ0hTIprg3fGarZl1reK1f7tzgM4RuFKjAKyun0Si60w6g3v5i','VERIFIED', false);
 
     INSERT INTO auth_user_role (auth_user_id, auth_role_id)
     VALUES  ('1','1'),
