@@ -33,19 +33,21 @@ public class ClientController {
     private JobService jobService;
     private MailService mailService;
     private RoleService roleService;
-    public BCryptPasswordEncoder encoder;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
     public ClientController(ClientService clientService,
                             UserService userService,
                             JobService jobService,
                             MailService mailService,
-                            RoleService roleService) {
+                            RoleService roleService,
+                            BCryptPasswordEncoder encoder) {
         this.clientService = clientService;
         this.userService = userService;
         this.jobService = jobService;
         this.mailService = mailService;
         this.roleService = roleService;
+        this.encoder = encoder;
     }
 
     @GetMapping
@@ -107,6 +109,7 @@ public class ClientController {
         user.setEmail(client.getEmail());
         user.setRoles(new HashSet<>(4));
         user.setPassword(encoder.encode(generatePassword(12)));
+
         user.setClient(true);
 
         client.setAssignedUser(user);
