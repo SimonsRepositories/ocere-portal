@@ -1,11 +1,15 @@
 package com.ocere.portal.controller;
 
-import com.ocere.portal.model.*;
+import com.ocere.portal.model.Client;
+import com.ocere.portal.model.Role;
+import com.ocere.portal.model.User;
 import com.ocere.portal.service.ClientService;
 import com.ocere.portal.service.Impl.MailService;
 import com.ocere.portal.service.JobService;
+import com.ocere.portal.service.RoleService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +20,7 @@ import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("clients")
@@ -27,16 +32,20 @@ public class ClientController {
     private UserService userService;
     private JobService jobService;
     private MailService mailService;
+    private RoleService roleService;
+    public BCryptPasswordEncoder encoder;
 
     @Autowired
     public ClientController(ClientService clientService,
                             UserService userService,
                             JobService jobService,
-                            MailService mailService) {
+                            MailService mailService,
+                            RoleService roleService) {
         this.clientService = clientService;
         this.userService = userService;
         this.jobService = jobService;
         this.mailService = mailService;
+        this.roleService = roleService;
     }
 
     @GetMapping
@@ -97,10 +106,16 @@ public class ClientController {
         user.setLastname(client.getContactLastName());
         user.setEmail(client.getEmail());
         user.setRoles(new HashSet<>(4));
-        user.setPassword(generatePassword(12));
+        user.setPassword(encoder.encode(generatePassword(12)));
 
         client.setAssignedUser(user);
         this.clientService.saveClient(client);
+
+        Set<Role> roles = new HashSet<>();
+        Role clientRole = roleService.findById(4);
+        roles.add(clientRole);
+
+        this.userService.saveUser(user, roles);
 
         mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), client.getEmail(), "Ocere login credentials",
                 "Authentication credentials for http://localhost:8080\n" +
@@ -138,6 +153,7 @@ public class ClientController {
 
     /**
      * Needs to be done in order to keep the changes
+     *
      * @param client
      * @param clientId
      */
