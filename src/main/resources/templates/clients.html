@@ -51,9 +51,9 @@
                             }
                         }
                     </script>
-                    <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
-                    <input th:if="${!assigned.isEmpty()}" type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for company" title="Type in a name">
-                    <table th:if="${!assigned.isEmpty()}"
+                    <h4 th:if="${clients.isEmpty()}">No clients found</h4>
+                    <input th:if="${!clients.isEmpty()}" type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for company" title="Type in a name">
+                    <table th:if="${!clients.isEmpty()}"
                            class="table table-striped js-sort-table" id="clientTable">
                         <thead class="sortable-head">
                         <tr>
@@ -63,7 +63,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="client : ${assigned}" th:data-id="${client.id}" class="client-row">
+                        <tr th:each="client : ${clients}" th:data-id="${client.id}" class="client-row">
                             <td th:text="${client.companyName}"></td>
                             <td th:text="${client.contactFirstName} + ' ' +  ${client.contactLastName}"></td>
                             <td th:text="${client.status}"></td>

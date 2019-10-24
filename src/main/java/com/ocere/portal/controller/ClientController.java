@@ -19,7 +19,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -53,7 +52,6 @@ public class ClientController {
     @GetMapping
     public String clientLanding(Model model, Principal principal) {
         model.addAttribute("clients", clientService.findAll());
-        model.addAttribute("assigned", clientService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
 
         return "clients";
@@ -100,7 +98,6 @@ public class ClientController {
 
     @PostMapping("create")
     public String saveNewClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
-        fillClientReferencesById(client);
 
         // Create User account with generated credentials and mail them to user
         User user = new User();
@@ -112,7 +109,6 @@ public class ClientController {
 
         user.setClient(true);
 
-        client.setAssignedUser(user);
         this.clientService.saveClient(client);
 
         Set<Role> roles = new HashSet<>();
@@ -131,7 +127,6 @@ public class ClientController {
 
     @PostMapping("save/{id}")
     public String saveClient(@PathVariable int id, @ModelAttribute Client client) throws Exception {
-        fillClientReferencesById(client);
         mapUneditedValuesToClient(client, id);
 
         this.clientService.updateClient(client, id);
@@ -147,12 +142,6 @@ public class ClientController {
             result += dic.charAt(index);
         }
         return result;
-    }
-
-
-    private void fillClientReferencesById(Client client) {
-        Optional<User> user = this.userService.getUserById(client.getAssignedUser().getId());
-        user.ifPresentOrElse(client::setAssignedUser, () -> client.setAssignedUser(null));
     }
 
     /**

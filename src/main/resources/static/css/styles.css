@@ -309,6 +309,10 @@ td {
     align-items: center;
 }
 
+::placeholder {
+    color: black;
+}
+
 table:hover {
     cursor: pointer;
 }
@@ -342,6 +346,8 @@ table:hover {
     position: relative;
     margin-bottom: 1rem;
 }
+
+
 
 /* -----------------------------------------------------
     MEDIA
