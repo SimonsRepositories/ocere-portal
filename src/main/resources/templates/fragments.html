@@ -49,8 +49,8 @@
                     <a href="/users">Users</a>
                 </div>
                 <div class="buttons">
-                    <a href="#" class="button green">Button 1</a>
-                    <a href="#" class="button orange">Button 2</a>
+                    <a href="/profile" class="button green">Profile</a>
+                    <a href="/logout" class="button orange">Logout</a>
                 </div>
             </div>
         </div>
@@ -64,6 +64,9 @@
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script th:src="@{/js/jquery-3.4.1.js}"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    <!-- Sortable Table -->
+    <script th:src="@{/js/sort-table.js}"></script>
 
     <!-- Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -81,12 +84,12 @@
             crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        $('.post-button').on('click', function() {
+        $('.post-button').on('click', function () {
             $.post($(this).data('post-url'));
             window.location.href = window.location.origin + $(this).data('redirect-url');
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('select').formSelect();
         });
 
@@ -94,10 +97,10 @@
             $(this).parent().find('.dropdown-trigger').addClass('valid');
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.fixed-action-btn').floatingActionButton();
         });
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.fixed-action-btn');
             var instances = M.FloatingActionButton.init(elems, {
                 direction: 'top'

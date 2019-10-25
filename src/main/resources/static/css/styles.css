@@ -337,6 +337,14 @@ td {
     align-items: center;
 }
 
+::placeholder {
+    color: black;
+}
+
+table:hover {
+    cursor: pointer;
+}
+
 .index-button {
     display: flex;
     margin: 50px;
@@ -366,6 +374,8 @@ td {
     position: relative;
     margin-bottom: 1rem;
 }
+
+
 
 /* -----------------------------------------------------
     MEDIA

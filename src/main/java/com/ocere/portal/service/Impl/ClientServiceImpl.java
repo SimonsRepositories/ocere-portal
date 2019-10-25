@@ -53,7 +53,6 @@ public class ClientServiceImpl implements ClientService {
 
         if (optionalUpdatedClient.isPresent()) {
             updatedClient = optionalUpdatedClient.get();
-            updatedClient.setAssignedUser(client.getAssignedUser());
             updatedClient.setStatus(client.getStatus());
             updatedClient.setNotes(client.getNotes());
             updatedClient.setJobs(client.getJobs());
@@ -66,8 +65,7 @@ public class ClientServiceImpl implements ClientService {
             updatedClient.setContactUsPage(client.getContactUsPage());
             updatedClient.setEmail(client.getEmail());
             updatedClient.setPhone(client.getPhone());
-            updatedClient.setPostcode(client.getPostcode());
-            updatedClient.setSatisfaction(client.getSatisfaction());
+            updatedClient.setAddressLine2(client.getAddressLine2());
             updatedClient.setStreet(client.getStreet());
             updatedClient.setTier(client.getTier());
             updatedClient.setWebsite(client.getWebsite());
@@ -79,18 +77,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void saveClient(Client client) {
-        userRepository.saveAndFlush(client.getAssignedUser());
         clientRepository.saveAndFlush(client);
     }
 
     @Override
     public boolean isClientAlreadyPresent(Client client) {
         return clientRepository.findById(client.getId()).isPresent();
-    }
-
-    @Override
-    public List<Client> findAllByAssignedUser(User user) {
-        return clientRepository.findAllByAssignedUser(user);
     }
 
 

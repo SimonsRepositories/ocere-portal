@@ -23,154 +23,407 @@
                     </div>
                     <form class="row" action="#" method="post" th:action="@{/clients/{action}(action=${action})}"
                           th:object="${client}">
-                        <div class="form-group col-12">
-                            <label for="client">Client:</label>
-                            <input th:field="*{companyName}" placeholder="Client" id="client"
-                                   class="form-control"
-                                   type="text"/>
+                        <div class="col s12">
+                            <h5>Company</h5>
+                            <div class="input-field col s12">
+                                <input th:field="*{companyName}" id="client"
+                                       class="form-control"
+                                       type="text"/>
+                                <label for="client">Company Name</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{jobTitle}" id="jobTitle"
+                                       class="form-control"
+                                       type="text"/>
+                                <label for="jobTitle">Job Title</label>
+                            </div>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="tier">Tier</label>
-                            <select class="form-control" id="tier" th:field="*{tier}">
-                                <option th:each="tier : ${T(com.ocere.portal.enums.Tier).values()}"
-                                        th:value="${tier}"
-                                        th:text="${tier}"
-                                        th:selected="${client.tier == tier}">
-                                </option>
-                            </select>
+                        <div class="col s12">
+                            <h5>Contact</h5>
+                            <div class="input-field col s6">
+                                <input th:field="*{contactFirstName}" id="firstname"
+                                       class="form-control"
+                                       type="text"/>
+                                <label for="firstname">Firstname</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{contactLastName}" id="lastname"
+                                       class="form-control"
+                                       type="text"/>
+                                <label for="lastname">Lastname</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{phone}" id="phone"
+                                       class="form-control"
+                                       type="text"/>
+
+                                <label for="phone">Phone</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{email}" id="email"
+                                       class="form-control"
+                                       type="email"/>
+
+                                <label for="email">Email</label>
+                            </div>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="satisfaction">Satisfaction</label>
-                            <select class="form-control" id="satisfaction" th:field="*{satisfaction}">
-                                <option th:each="satisfaction : ${T(com.ocere.portal.enums.Satisfaction).values()}"
-                                        th:value="${satisfaction}"
-                                        th:text="${satisfaction}"
-                                        th:selected="${client.satisfaction == satisfaction}">
-                                </option>
-                            </select>
+                        <div class="col s12">
+                            <h5>Address</h5>
+                            <div class="input-field col s6">
+                                <input th:field="*{addressLine1}" id="addressline1"
+                                       class="form-control"
+                                       type="text"/>
+
+                                <label for="addressline1">Address Line 1</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <input th:field="*{addressLine2}" placeholder="Address Line 2" id="addressline2"
+                                       class="form-control"
+                                       type="text"/>
+
+                                <label for="addressline2">Address Line 2</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{city}" id="city"
+                                       class="form-control"
+                                       type="text"/>
+
+                                <label for="city">City</label>
+                            </div>
+
+
+                            <div class="input-field col s6">
+                                <select id="countries" th:field="*{country}" name="countries">
+                                    <option th:value="Afghanistan">Afghanistan</option>
+                                    <option th:value="Aland_Islands">Aland Islands</option>
+                                    <option th:value="Albania">Albania</option>
+                                    <option th:value="Algeria">Algeria</option>
+                                    <option th:value="American_Samoa">American Samoa</option>
+                                    <option th:value="Andorra">Andorra</option>
+                                    <option th:value="Angola">Angola</option>
+                                    <option th:value="Anguilla">Anguilla</option>
+                                    <option th:value="Antarctica">Antarctica</option>
+                                    <option th:value="Antigua_and_Barbuda">Antigua and Barbuda</option>
+                                    <option th:value="Argentina">Argentina</option>
+                                    <option th:value="Armenia">Armenia</option>
+                                    <option th:value="Aruba">Aruba</option>
+                                    <option th:value="Australia">Australia</option>
+                                    <option th:value="Austria">Austria</option>
+                                    <option th:value="Azerbaijan">Azerbaijan</option>
+                                    <option th:value="Bahamas">Bahamas</option>
+                                    <option th:value="Bahrain">Bahrain</option>
+                                    <option th:value="Bangladesh">Bangladesh</option>
+                                    <option th:value="Barbados">Barbados</option>
+                                    <option th:value="Belarus">Belarus</option>
+                                    <option th:value="Belgium">Belgium</option>
+                                    <option th:value="Belize">Belize</option>
+                                    <option th:value="Benin">Benin</option>
+                                    <option th:value="Bermuda">Bermuda</option>
+                                    <option th:value="Bhutan">Bhutan</option>
+                                    <option th:value="Bolivia">Bolivia</option>
+                                    <option th:value="Bosnia_and_Herzegovina">Bosnia and Herzegovina</option>
+                                    <option th:value="Botswana">Botswana</option>
+                                    <option th:value="Bouvet_Island">Bouvet Island</option>
+                                    <option th:value="Brazil">Brazil</option>
+                                    <option th:value="British_Indian_Ocean_Territory">British Indian Ocean Territory
+                                    </option>
+                                    <option th:value="Brunei_Darussalam">Brunei Darussalam</option>
+                                    <option th:value="Bulgaria">Bulgaria</option>
+                                    <option th:value="Burkina_Faso">Burkina Faso</option>
+                                    <option th:value="Burundi">Burundi</option>
+                                    <option th:value="Cambodia">Cambodia</option>
+                                    <option th:value="Cameroon">Cameroon</option>
+                                    <option th:value="Canada">Canada</option>
+                                    <option th:value="Cape_Verde">Cape Verde</option>
+                                    <option th:value="Cayman_Islands">Cayman Islands</option>
+                                    <option th:value="Central_African_Republic">Central African Republic</option>
+                                    <option th:value="Chad">Chad</option>
+                                    <option th:value="Chile">Chile</option>
+                                    <option th:value="China">China</option>
+                                    <option th:value="Christmas_Island">Christmas Island</option>
+                                    <option th:value="Cocos_Islands">Cocos (Keeling) Islands</option>
+                                    <option th:value="Colombia">Colombia</option>
+                                    <option th:value="Comoros">Comoros</option>
+                                    <option th:value="Congo">Congo</option>
+                                    <option th:value="Congov2">Congo, The Democratic Republic of The</option>
+                                    <option th:value="Cook_Islands">Cook Islands</option>
+                                    <option th:value="Costa_Rica">Costa Rica</option>
+                                    <option th:value="Cote_Divoire">Cote D'ivoire</option>
+                                    <option th:value="Croatia">Croatia</option>
+                                    <option th:value="Cuba">Cuba</option>
+                                    <option th:value="Cyprus">Cyprus</option>
+                                    <option th:value="Czechia">Czechia</option>
+                                    <option th:value="Denmark">Denmark</option>
+                                    <option th:value="Djibouti">Djibouti</option>
+                                    <option th:value="Dominica">Dominica</option>
+                                    <option th:value="Dominican_Republic">Dominican Republic</option>
+                                    <option th:value="Ecuador">Ecuador</option>
+                                    <option th:value="Egypt">Egypt</option>
+                                    <option th:value="El_Salvador">El Salvador</option>
+                                    <option th:value="Equatorial_Guinea">Equatorial Guinea</option>
+                                    <option th:value="Eritrea">Eritrea</option>
+                                    <option th:value="Estonia">Estonia</option>
+                                    <option th:value="Ethiopia">Ethiopia</option>
+                                    <option th:value="Falkland_Islands">Falkland Islands (Malvinas)</option>
+                                    <option th:value="Faroe_Islands">Faroe Islands</option>
+                                    <option th:value="Fiji">Fiji</option>
+                                    <option th:value="Finland">Finland</option>
+                                    <option th:value="France">France</option>
+                                    <option th:value="French_Guiana">French Guiana</option>
+                                    <option th:value="French_Polynesia">French Polynesia</option>
+                                    <option th:value="French_Southern_Territories">French Southern Territories</option>
+                                    <option th:value="Gabon">Gabon</option>
+                                    <option th:value="Gambia">Gambia</option>
+                                    <option th:value="Georgia">Georgia</option>
+                                    <option th:value="Germany">Germany</option>
+                                    <option th:value="Ghana">Ghana</option>
+                                    <option th:value="Gibraltar">Gibraltar</option>
+                                    <option th:value="Greece">Greece</option>
+                                    <option th:value="Greenland">Greenland</option>
+                                    <option th:value="Grenada">Grenada</option>
+                                    <option th:value="Guadeloupe">Guadeloupe</option>
+                                    <option th:value="Guam">Guam</option>
+                                    <option th:value="Guatemala">Guatemala</option>
+                                    <option th:value="Guernsey">Guernsey</option>
+                                    <option th:value="Guinea">Guinea</option>
+                                    <option th:value="Guinea-bissau">Guinea-bissau</option>
+                                    <option th:value="Guyana">Guyana</option>
+                                    <option th:value="Haiti">Haiti</option>
+                                    <option th:value="Heard_Island_and_Mcdonald_Islands">Heard Island and Mcdonald
+                                        Islands
+                                    </option>
+                                    <option th:value="Holy_See">Holy See (Vatican City State)</option>
+                                    <option th:value="Honduras">Honduras</option>
+                                    <option th:value="Hong_Kong">Hong Kong</option>
+                                    <option th:value="Hungary">Hungary</option>
+                                    <option th:value="Iceland">Iceland</option>
+                                    <option th:value="India">India</option>
+                                    <option th:value="Indonesia">Indonesia</option>
+                                    <option th:value="Iran">Iran</option>
+                                    <option th:value="Iraq">Iraq</option>
+                                    <option th:value="Ireland">Ireland</option>
+                                    <option th:value="Isle_of_Man">Isle of Man</option>
+                                    <option th:value="Israel">Israel</option>
+                                    <option th:value="Italy">Italy</option>
+                                    <option th:value="Jamaica">Jamaica</option>
+                                    <option th:value="Japan">Japan</option>
+                                    <option th:value="Jersey">Jersey</option>
+                                    <option th:value="Jordan">Jordan</option>
+                                    <option th:value="Kazakhstan">Kazakhstan</option>
+                                    <option th:value="Kenya">Kenya</option>
+                                    <option th:value="Kiribati">Kiribati</option>
+                                    <option th:value="SthKorea">South Korea</option>
+                                    <option th:value="Kuwait">Kuwait</option>
+                                    <option th:value="Kyrgyzstan">Kyrgyzstan</option>
+                                    <option th:value="Lao_Peoples_Democratic_Republic">Lao People's Democratic
+                                        Republic
+                                    </option>
+                                    <option th:value="Latvia">Latvia</option>
+                                    <option th:value="Lebanon">Lebanon</option>
+                                    <option th:value="Lesotho">Lesotho</option>
+                                    <option th:value="Liberia">Liberia</option>
+                                    <option th:value="Libyan_Arab_Jamahiriya">Libyan Arab Jamahiriya</option>
+                                    <option th:value="Liechtenstein">Liechtenstein</option>
+                                    <option th:value="Lithuania">Lithuania</option>
+                                    <option th:value="Luxembourg">Luxembourg</option>
+                                    <option th:value="Macao">Macao</option>
+                                    <option th:value="Macedonia">Macedonia</option>
+                                    <option th:value="Madagascar">Madagascar</option>
+                                    <option th:value="Malawi">Malawi</option>
+                                    <option th:value="Malaysia">Malaysia</option>
+                                    <option th:value="Maldives">Maldives</option>
+                                    <option th:value="Mali">Mali</option>
+                                    <option th:value="Malta">Malta</option>
+                                    <option th:value="Marshall_Islands">Marshall_Islands</option>
+                                    <option th:value="Martinique">Martinique</option>
+                                    <option th:value="Mauritania">Mauritania</option>
+                                    <option th:value="Mauritius">Mauritius</option>
+                                    <option th:value="Mayotte">Mayotte</option>
+                                    <option th:value="Mexico">Mexico</option>
+                                    <option th:value="Micronesia">Micronesia</option>
+                                    <option th:value="Moldova">Moldova</option>
+                                    <option th:value="Monaco">Monaco</option>
+                                    <option th:value="Mongolia">Mongolia</option>
+                                    <option th:value="Montenegro">Montenegro</option>
+                                    <option th:value="Montserrat">Montserrat</option>
+                                    <option th:value="Morocco">Morocco</option>
+                                    <option th:value="Mozambique">Mozambique</option>
+                                    <option th:value="Myanmar">Myanmar</option>
+                                    <option th:value="Namibia">Namibia</option>
+                                    <option th:value="Nauru">Nauru</option>
+                                    <option th:value="Nepal">Nepal</option>
+                                    <option th:value="Netherlands">Netherlands</option>
+                                    <option th:value="Netherlands_Antilles">Netherlands Antilles</option>
+                                    <option th:value="New_Caledonia">New Caledonia</option>
+                                    <option th:value="New_Zealand">New Zealand</option>
+                                    <option th:value="Nicaragua">Nicaragua</option>
+                                    <option th:value="Niger">Niger</option>
+                                    <option th:value="Nigeria">Nigeria</option>
+                                    <option th:value="Niue">Niue</option>
+                                    <option th:value="Norfolk_Island">Norfolk Island</option>
+                                    <option th:value="Northern_Mariana_Islands">Northern Mariana Islands</option>
+                                    <option th:value="Norway">Norway</option>
+                                    <option th:value="Oman">Oman</option>
+                                    <option th:value="Pakistan">Pakistan</option>
+                                    <option th:value="Palau">Palau</option>
+                                    <option th:value="Palestinian_Territory">Palestinian Territory</option>
+                                    <option th:value="Panama">Panama</option>
+                                    <option th:value="Papua_New_Guinea">Papua New Guinea</option>
+                                    <option th:value="Paraguay">Paraguay</option>
+                                    <option th:value="Peru">Peru</option>
+                                    <option th:value="Philippines">Philippines</option>
+                                    <option th:value="Pitcairn">Pitcairn</option>
+                                    <option th:value="Poland">Poland</option>
+                                    <option th:value="Portugal">Portugal</option>
+                                    <option th:value="Puerto_Rico">Puerto Rico</option>
+                                    <option th:value="Qatar">Qatar</option>
+                                    <option th:value="Reunion">Reunion</option>
+                                    <option th:value="Romania">Romania</option>
+                                    <option th:value="Russian_Federation">Russian Federation</option>
+                                    <option th:value="Rwanda">Rwanda</option>
+                                    <option th:value="Saint_Helena">Saint Helena</option>
+                                    <option th:value="Saint_Kitts_and_Nevis">Saint Kitts and Nevis</option>
+                                    <option th:value="Saint_Lucia">Saint Lucia</option>
+                                    <option th:value="Saint_Pierre_and_Miquelon">Saint Pierre and Miquelon</option>
+                                    <option th:value="Saint_Vincent_and_The_Grenadines">Saint Vincent and The
+                                        Grenadines
+                                    </option>
+                                    <option th:value="Samoa">Samoa</option>
+                                    <option th:value="San_Marino">San Marino</option>
+                                    <option th:value="Sao_Tome_and_Principe">Sao Tome and Principe</option>
+                                    <option th:value="Saudi_Arabia">Saudi Arabia</option>
+                                    <option th:value="Senegal">Senegal</option>
+                                    <option th:value="Serbia">Serbia</option>
+                                    <option th:value="Seychelles">Seychelles</option>
+                                    <option th:value="Sierra_Leone">Sierra Leone</option>
+                                    <option th:value="Singapore">Singapore</option>
+                                    <option th:value="Slovakia">Slovakia</option>
+                                    <option th:value="Slovenia">Slovenia</option>
+                                    <option th:value="Solomon_Islands">Solomon Islands</option>
+                                    <option th:value="Somalia">Somalia</option>
+                                    <option th:value="South_Africa">South Africa</option>
+                                    <option th:value="South_Georgia_and_The_South_Sandwich_Islands">South Georgia and
+                                        The South Sandwich Islands
+                                    </option>
+                                    <option th:value="Spain">Spain</option>
+                                    <option th:value="Sri_Lanka">Sri Lanka</option>
+                                    <option th:value="Sudan">Sudan</option>
+                                    <option th:value="Suriname">Suriname</option>
+                                    <option th:value="Svalbard_and_Jan_Mayen">Svalbard and Jan Mayen</option>
+                                    <option th:value="Swaziland">Swaziland</option>
+                                    <option th:value="Sweden">Sweden</option>
+                                    <option th:value="Switzerland">Switzerland</option>
+                                    <option th:value="Syrian_Arab_Republic">Syrian Arab Republic</option>
+                                    <option th:value="Taiwan_Province_of_China">Taiwan, Province of China</option>
+                                    <option th:value="Tajikistan">Tajikistan</option>
+                                    <option th:value="Tanzania">Tanzania</option>
+                                    <option th:value="Thailand">Thailand</option>
+                                    <option th:value="Timor-leste">Timor-leste</option>
+                                    <option th:value="Togo">Togo</option>
+                                    <option th:value="Tokelau">Tokelau</option>
+                                    <option th:value="Tonga">Tonga</option>
+                                    <option th:value="Trinidad_and_Tobago">Trinidad and Tobago</option>
+                                    <option th:value="Tunisia">Tunisia</option>
+                                    <option th:value="Turkey">Turkey</option>
+                                    <option th:value="Turkmenistan">Turkmenistan</option>
+                                    <option th:value="Turks_and_Caicos_Islands">Turks and Caicos Islands</option>
+                                    <option th:value="Tuvalu">Tuvalu</option>
+                                    <option th:value="Uganda">Uganda</option>
+                                    <option th:value="Ukraine">Ukraine</option>
+                                    <option th:value="United_Arab_Emirates">United Arab Emirates</option>
+                                    <option selected th:value="United_Kingdom">United Kingdom</option>
+                                    <option th:value="United_States">United States</option>
+                                    <option th:value="United_States_Minor_Outlying_Islands">United States Minor Outlying
+                                        Islands
+                                    </option>
+                                    <option th:value="Uruguay">Uruguay</option>
+                                    <option th:value="Uzbekistan">Uzbekistan</option>
+                                    <option th:value="Vanuatu">Vanuatu</option>
+                                    <option th:value="Venezuela">Venezuela</option>
+                                    <option th:value="Vietnam">Vietam</option>
+                                    <option th:value="Virgin_Islands_UK">Virgin Islands UK</option>
+                                    <option th:value="Virgin_Islands_U.S.">Virgin Islands U.S.</option>
+                                    <option th:value="Wallis_and_Futuna">Wallis and Futuna</option>
+                                    <option th:value="Western_Sahara">Western Sahara</option>
+                                    <option th:value="Yemen">Yemen</option>
+                                    <option th:value="Zambia">Zambia</option>
+                                    <option th:value="Zimbabwe">Zimbabwe</option>
+                                </select>
+                                <label for="countries">Country</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{county}" id="county"
+                                       class="form-control"
+                                       type="text"/>
+
+                                <label for="county">County</label>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <h5>Payment</h5>
+                            <div class="form-group col s12">
+                                <select class="form-control" id="payment" th:field="*{paymentTerm}">
+                                    <option th:each="paymentTerm : ${T(com.ocere.portal.enums.PaymentTerms).values()}"
+                                            th:value="${paymentTerm}"
+                                            th:text="${paymentTerm}"
+                                            th:selected="${client.paymentTerm == paymentTerm}">
+                                    </option>
+                                </select>
+
+                                <label for="payment">Payment Term</label>
+                            </div>
                         </div>
 
-                        <div class="form-group col-3">
-                            <label for="fname">Contact Firstname</label>
-                            <input th:field="*{contactFirstName}" placeholder="Firstname" id="fname"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-                        <div class="form-group col-3">
-                            <label for="lname">Contact Lastname</label>
-                            <input th:field="*{contactLastName}" placeholder="Lastname" id="lname"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-
-                        <div class="form-group col-6">
-                            <label for="email">Email</label>
-                            <input th:field="*{email}" placeholder="Email" id="email"
-                                   class="form-control"
-                                   type="email"/>
-                        </div>
-
-                        <div class="form-group col-3">
-                            <label for="pc">Postal Code</label>
-                            <input th:field="*{postcode}" placeholder="Post Code" id="pc"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-                        <div class="form-group col-3">
-                            <label for="city">City</label>
-                            <input th:field="*{city}" placeholder="City" id="city"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="street">Street</label>
-                            <input th:field="*{street}" placeholder="Street" id="street"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-
-                        <div class="form-group col-6">
-                            <label for="website">Website</label>
-                            <input th:field="*{website}" placeholder="Website" id="website"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="contactpage">Contact Page</label>
-                            <input th:field="*{contactUsPage}" placeholder="Contactpage" id="contactpage"
-                                   class="form-control"
-                                   type="text"/>
-                        </div>
-
-                        <div class="form-group col-6">
-                            <label for="assignedUser">Assigned User</label>
-                            <select class="form-control" id="assignedUser" th:field="*{assignedUser.id}">
-                                <option value="0">select user</option>
-                                <option th:each="user : ${users}"
-                                        th:value="${user.id}"
-                                        th:text="${user.firstname + ' ' + user.lastname}"
-                                        th:selected="${client.assignedUser.id == user.id}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="priority">Status</label>
-                            <select class="form-control" id="priority" th:field="*{status}">
-                                <option th:each="status : ${T(com.ocere.portal.enums.ClientStatus).values()}"
-                                        th:value="${status}"
-                                        th:text="${status}"
-                                        th:selected="${client.status == status}">
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-12">
-                            <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
-                            <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                        <div class="col s12">
+                            <div class="input-field col s12">
+                                <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                                <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- Content End -->
         </div>
     </div>
+</div>
 
-    <div th:replace="fragments :: script-links"></div>
+<div th:replace="fragments :: script-links"></div>
 
-    <script type="text/javascript">
-        $('.template-dropdown').on('change', function () {
-            window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
+<script type="text/javascript">
+    $('.template-dropdown').on('change', function () {
+        window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
+    });
+
+    new FroalaEditor('textarea#description', {
+        // Set the image upload parameter.
+        imageUploadParam: 'file',
+
+        // Set the image upload URL.
+        imageUploadURL: '/froala/upload',
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
 
-        new FroalaEditor('textarea#description', {
-            // Set the image upload parameter.
-            imageUploadParam: 'file',
-
-            // Set the image upload URL.
-            imageUploadURL: '/froala/upload',
-
-            // Set request type.
-            imageUploadMethod: 'POST',
-
-            // Set max image size to 5MB.
-            imageMaxSize: 5 * 1024 * 1024,
-
-            // Allow to upload PNG and JPG.
-            imageAllowedTypes: ['jpeg', 'jpg', 'png']
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
         });
-
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 
 </html>

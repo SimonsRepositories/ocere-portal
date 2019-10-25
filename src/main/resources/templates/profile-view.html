@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Profile</title>
+
+    <div th:replace="fragments :: head-links"></div>
+
+    <!-- Tabs -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Profile Overview</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Name</small>
+                            <p class="attribute-value" th:text="${user.firstname} + ' ' + ${user.lastname}">Name</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Email</small>
+                            <p class="attribute-value" th:text="${user.email}">
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <small class="attribute-title">Roles</small>
+                        <div th:each="role : ${user.roles}">
+                            <p class="attribute-value" th:text="${role.role}">Role</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+</html>

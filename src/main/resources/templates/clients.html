@@ -25,18 +25,45 @@
                     <div class="row">
                         <h1>Clients</h1>
                     </div>
-                    <h4 th:if="${assigned.isEmpty()}">No clients found</h4>
-                    <table th:if="${!assigned.isEmpty()}"
-                           class="table table-striped">
-                        <thead>
+                    <script>
+                        // Search for table
+                        function searchTable() {
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("myInput");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("clientTable");
+                            if (table == null) {
+                                console.log("table null")
+                            } else {
+                                console.log("table not null")
+                            }
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                td = tr[i].getElementsByTagName("td")[0];
+                                if (td) {
+                                    txtValue = td.textContent || td.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+                    <h4 th:if="${clients.isEmpty()}">No clients found</h4>
+                    <input th:if="${!clients.isEmpty()}" type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for company" title="Type in a name">
+                    <table th:if="${!clients.isEmpty()}"
+                           class="table table-striped js-sort-table" id="clientTable">
+                        <thead class="sortable-head">
                         <tr>
-                            <th>Company Name</th>
-                            <th>Contact Name</th>
-                            <th>Status</th>
+                            <th class="js-sort-string">Company Name</th>
+                            <th class="js-sort-string">Contact Name</th>
+                            <th class="js-sort-string">Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="client : ${assigned}" th:data-id="${client.id}" class="client-row">
+                        <tr th:each="client : ${clients}" th:data-id="${client.id}" class="client-row">
                             <td th:text="${client.companyName}"></td>
                             <td th:text="${client.contactFirstName} + ' ' +  ${client.contactLastName}"></td>
                             <td th:text="${client.status}"></td>

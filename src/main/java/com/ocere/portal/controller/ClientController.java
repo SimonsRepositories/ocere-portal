@@ -1,11 +1,15 @@
 package com.ocere.portal.controller;
 
-import com.ocere.portal.model.*;
+import com.ocere.portal.model.Client;
+import com.ocere.portal.model.Role;
+import com.ocere.portal.model.User;
 import com.ocere.portal.service.ClientService;
 import com.ocere.portal.service.Impl.MailService;
 import com.ocere.portal.service.JobService;
+import com.ocere.portal.service.RoleService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.HashSet;
-import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("clients")
@@ -27,22 +31,27 @@ public class ClientController {
     private UserService userService;
     private JobService jobService;
     private MailService mailService;
+    private RoleService roleService;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
     public ClientController(ClientService clientService,
                             UserService userService,
                             JobService jobService,
-                            MailService mailService) {
+                            MailService mailService,
+                            RoleService roleService,
+                            BCryptPasswordEncoder encoder) {
         this.clientService = clientService;
         this.userService = userService;
         this.jobService = jobService;
         this.mailService = mailService;
+        this.roleService = roleService;
+        this.encoder = encoder;
     }
 
     @GetMapping
     public String clientLanding(Model model, Principal principal) {
         model.addAttribute("clients", clientService.findAll());
-        model.addAttribute("assigned", clientService.findAllByAssignedUser(userService.findByEmail(principal.getName())));
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
 
         return "clients";
@@ -89,7 +98,6 @@ public class ClientController {
 
     @PostMapping("create")
     public String saveNewClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
-        fillClientReferencesById(client);
 
         // Create User account with generated credentials and mail them to user
         User user = new User();
@@ -99,8 +107,15 @@ public class ClientController {
         user.setRoles(new HashSet<>(4));
         user.setPassword(generatePassword(12));
 
-        client.setAssignedUser(user);
+        user.setClient(true);
+
         this.clientService.saveClient(client);
+
+        Set<Role> roles = new HashSet<>();
+        Role clientRole = roleService.findById(4);
+        roles.add(clientRole);
+
+        this.userService.saveUser(user, roles);
 
         mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), client.getEmail(), "Ocere login credentials",
                 "Authentication credentials for http://localhost:8080\n" +
@@ -112,7 +127,6 @@ public class ClientController {
 
     @PostMapping("save/{id}")
     public String saveClient(@PathVariable int id, @ModelAttribute Client client) throws Exception {
-        fillClientReferencesById(client);
         mapUneditedValuesToClient(client, id);
 
         this.clientService.updateClient(client, id);
@@ -130,14 +144,9 @@ public class ClientController {
         return result;
     }
 
-
-    private void fillClientReferencesById(Client client) {
-        Optional<User> user = this.userService.getUserById(client.getAssignedUser().getId());
-        user.ifPresentOrElse(client::setAssignedUser, () -> client.setAssignedUser(null));
-    }
-
     /**
      * Needs to be done in order to keep the changes
+     *
      * @param client
      * @param clientId
      */

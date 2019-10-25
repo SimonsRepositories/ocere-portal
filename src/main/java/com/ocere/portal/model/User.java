@@ -48,6 +48,8 @@ public class User
             inverseJoinColumns = @JoinColumn(name = "auth_role_id", nullable = false))
     private Set<Role> roles;
 
+    private Boolean client;
+
     @OneToMany(
             mappedBy = "assignedUser",
             cascade = CascadeType.ALL
@@ -60,10 +62,20 @@ public class User
     )
     private Set<Ticket> createdTickets;
 
+    public Boolean getClient() {
+        return client;
+    }
+
+    public void setClient(Boolean client) {
+        this.client = client;
+    }
+
     @OneToMany(
             mappedBy = "author",
             cascade = CascadeType.ALL
     )
+
+
     private Set<Note> createdNotes;
 
     @OneToMany(
