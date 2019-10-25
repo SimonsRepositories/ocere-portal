@@ -70,6 +70,7 @@ public class Job {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    @Column(length=10485760)
     private String description;
 
     private boolean whiteLabel;
@@ -97,8 +98,10 @@ public class Job {
 
     private double seoValue;
 
+    @Column(length=10485760)
     private String targetKeywords;
 
+    @Column(length=10485760)
     private String reportingKeywords;
 
     @ElementCollection(targetClass = SearchEngine.class)
@@ -213,6 +216,26 @@ public class Job {
 
     public double getTotalValue() {
         return seoValue + linkValue + ppcValue + contentValue;
+    }
+
+    public boolean isFacebookSelected() {
+        return campaignTypes.contains(CampaignType.FacebookImageAds) || campaignTypes.contains(CampaignType.FacebookLeadAds);
+    }
+
+    public boolean isSeoSelected() {
+        return productTypes.contains(ProductType.SEO);
+    }
+
+    public boolean isLinkBuildingSelected() {
+        return productTypes.contains(ProductType.LinkBuilding);
+    }
+
+    public boolean isPpcSelected() {
+        return productTypes.contains(ProductType.PPC);
+    }
+
+    public boolean isContentSelected() {
+        return productTypes.contains(ProductType.Content);
     }
 
     /*------------------------

@@ -56,7 +56,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="fixed-action-btn">
+                    <div class="fixed-action-btn click-to-toggle">
                         <a class="btn-floating btn-large .ocere-green--background">
                             <i class="large material-icons">menu_book</i>
                         </a>
@@ -74,7 +74,7 @@
 
 <script type="text/javascript">
     $('.template-row').on('click', function () {
-        window.location.href = window.location.origin + "/tickets/templates/" + $(this).data('id');
+        window.location.href = "/tickets/templates/" + $(this).data('id');
     });
 </script>
 

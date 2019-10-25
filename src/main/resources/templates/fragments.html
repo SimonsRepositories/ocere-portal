@@ -86,7 +86,7 @@
     <script type="text/javascript">
         $('.post-button').on('click', function () {
             $.post($(this).data('post-url'));
-            window.location.href = window.location.origin + $(this).data('redirect-url');
+            window.location.href = $(this).data('redirect-url');
         });
 
         $(document).ready(function () {
@@ -104,6 +104,11 @@
             var elems = document.querySelectorAll('.fixed-action-btn');
             var instances = M.FloatingActionButton.init(elems, {
                 direction: 'top'
+            });
+        });
+        $(document).ready(function () {
+            $('.input-field .select-wrapper input').on('click', function () {
+                $(this).addClass('valid');
             });
         });
     </script>
