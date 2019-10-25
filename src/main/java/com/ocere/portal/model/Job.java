@@ -80,7 +80,7 @@ public class Job {
     private String website;
 
     @Enumerated
-    private Status status;
+    private JobStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -250,284 +250,36 @@ public class Job {
         this.id = id;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setWhiteLabel(boolean whiteLabel) {
-        this.whiteLabel = whiteLabel;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setFiles(Set<DBFile> files) {
-        this.files = files;
-    }
-
-    public void setTargetKeywords(String targetKeywords) {
-        this.targetKeywords = targetKeywords;
-    }
-
-    public void setReportingKeywords(String reportingKeywords) {
-        this.reportingKeywords = reportingKeywords;
-    }
-
-    public void setSeoSearchEngines(Set<SearchEngine> seoSearchEngines) {
-        this.seoSearchEngines = seoSearchEngines;
-    }
-
-    public void setOnPageReview(boolean onPageReview) {
-        this.onPageReview = onPageReview;
-    }
-
-    public void setHealthCheck(boolean healthCheck) {
-        this.healthCheck = healthCheck;
-    }
-
-    public void setLinkSearchEngines(Set<SearchEngine> linkSearchEngines) {
-        this.linkSearchEngines = linkSearchEngines;
-    }
-
-    public void setGoogleDocLink(String googleDocLink) {
-        this.googleDocLink = googleDocLink;
-    }
-
-    public void setOrderFormFile(DBFile orderFormFile) {
-        this.orderFormFile = orderFormFile;
-    }
-
-    public void setCampaignTypes(Set<CampaignType> campaignTypes) {
-        this.campaignTypes = campaignTypes;
-    }
-
-    public void setCampaignLaunchDate(Date campaignLaunchDate) {
-        this.campaignLaunchDate = campaignLaunchDate;
-    }
-
-    public void setSignOffRequired(boolean signOffRequired) {
-        this.signOffRequired = signOffRequired;
-    }
-
-    public void setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
-    }
-
-    public void setFacebookUrl(String facebookUrl) {
-        this.facebookUrl = facebookUrl;
-    }
-
-    public void setSetUpRequired(boolean setUpRequired) {
-        this.setUpRequired = setUpRequired;
-    }
-
-    public void setGoogleAdsId(String googleAdsId) {
-        this.googleAdsId = googleAdsId;
-    }
-
-    public void setMonthlyClickSpend(String monthlyClickSpend) {
-        this.monthlyClickSpend = monthlyClickSpend;
-    }
-
-    public void setTargetAreas(String targetAreas) {
-        this.targetAreas = targetAreas;
-    }
-
-    public void setLandingPageUrls(String landingPageUrls) {
-        this.landingPageUrls = landingPageUrls;
-    }
-
-    public void setAdwordsMainGoal(String adwordsMainGoal) {
-        this.adwordsMainGoal = adwordsMainGoal;
-    }
-
-    public void setFacebookMainGoal(String facebookMainGoal) {
-        this.facebookMainGoal = facebookMainGoal;
-    }
-
-    public void setThankYouPageUrl(String thankYouPageUrl) {
-        this.thankYouPageUrl = thankYouPageUrl;
-    }
-
-    public void setReportingEmail(String reportingEmail) {
-        this.reportingEmail = reportingEmail;
-    }
-
     public Client getClient() {
         return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Timestamp getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public User getAuthor() {
         return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Set<Ticket> getTickets() {
         return tickets;
     }
 
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isWhiteLabel() {
-        return whiteLabel;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Set<DBFile> getFiles() {
-        return files;
-    }
-
-    public String getTargetKeywords() {
-        return targetKeywords;
-    }
-
-    public String getReportingKeywords() {
-        return reportingKeywords;
-    }
-
-    public Set<SearchEngine> getSeoSearchEngines() {
-        return seoSearchEngines;
-    }
-
-    public boolean isOnPageReview() {
-        return onPageReview;
-    }
-
-    public boolean isHealthCheck() {
-        return healthCheck;
-    }
-
-    public Set<SearchEngine> getLinkSearchEngines() {
-        return linkSearchEngines;
-    }
-
-    public String getGoogleDocLink() {
-        return googleDocLink;
-    }
-
-    public DBFile getOrderFormFile() {
-        return orderFormFile;
-    }
-
-    public Set<CampaignType> getCampaignTypes() {
-        return campaignTypes;
-    }
-
-    public Date getCampaignLaunchDate() {
-        return campaignLaunchDate;
-    }
-
-    public boolean isSignOffRequired() {
-        return signOffRequired;
-    }
-
-    public String getFacebookId() {
-        return facebookId;
-    }
-
-    public String getFacebookUrl() {
-        return facebookUrl;
-    }
-
-    public boolean isSetUpRequired() {
-        return setUpRequired;
-    }
-
-    public String getGoogleAdsId() {
-        return googleAdsId;
-    }
-
-    public String getMonthlyClickSpend() {
-        return monthlyClickSpend;
-    }
-
-    public String getTargetAreas() {
-        return targetAreas;
-    }
-
-    public String getLandingPageUrls() {
-        return landingPageUrls;
-    }
-
-    public String getAdwordsMainGoal() {
-        return adwordsMainGoal;
-    }
-
-    public String getFacebookMainGoal() {
-        return facebookMainGoal;
-    }
-
-    public String getThankYouPageUrl() {
-        return thankYouPageUrl;
-    }
-
-    public String getReportingEmail() {
-        return reportingEmail;
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     public Set<ProductType> getProductTypes() {
@@ -538,60 +290,180 @@ public class Job {
         this.productTypes = productTypes;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isWhiteLabel() {
+        return whiteLabel;
+    }
+
+    public void setWhiteLabel(boolean whiteLabel) {
+        this.whiteLabel = whiteLabel;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public JobStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(JobStatus status) {
+        this.status = status;
+    }
+
     public User getOwner() {
         return owner;
-    }
-
-    public int getContentNumberOfPieces() {
-        return contentNumberOfPieces;
-    }
-
-    public ContentType getContentType() {
-        return contentType;
-    }
-
-    public int getContentLength() {
-        return contentLength;
-    }
-
-    public String getContentTitles() {
-        return contentTitles;
-    }
-
-    public WritingStyle getContentWritingStyle() {
-        return contentWritingStyle;
-    }
-
-    public String getContentKeywords() {
-        return contentKeywords;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
     }
 
-    public void setContentNumberOfPieces(int contentNumberOfPieces) {
-        this.contentNumberOfPieces = contentNumberOfPieces;
+    public Set<DBFile> getFiles() {
+        return files;
     }
 
-    public void setContentType(ContentType contentType) {
-        this.contentType = contentType;
+    public void setFiles(Set<DBFile> files) {
+        this.files = files;
     }
 
-    public void setContentLength(int contentLength) {
-        this.contentLength = contentLength;
+    public double getSeoValue() {
+        return seoValue;
     }
 
-    public void setContentTitles(String contentTitles) {
-        this.contentTitles = contentTitles;
+    public void setSeoValue(double seoValue) {
+        this.seoValue = seoValue;
     }
 
-    public void setContentWritingStyle(WritingStyle contentWritingStyle) {
-        this.contentWritingStyle = contentWritingStyle;
+    public String getTargetKeywords() {
+        return targetKeywords;
     }
 
-    public void setContentKeywords(String contentKeywords) {
-        this.contentKeywords = contentKeywords;
+    public void setTargetKeywords(String targetKeywords) {
+        this.targetKeywords = targetKeywords;
+    }
+
+    public String getReportingKeywords() {
+        return reportingKeywords;
+    }
+
+    public void setReportingKeywords(String reportingKeywords) {
+        this.reportingKeywords = reportingKeywords;
+    }
+
+    public Set<SearchEngine> getSeoSearchEngines() {
+        return seoSearchEngines;
+    }
+
+    public void setSeoSearchEngines(Set<SearchEngine> seoSearchEngines) {
+        this.seoSearchEngines = seoSearchEngines;
+    }
+
+    public boolean isOnPageReview() {
+        return onPageReview;
+    }
+
+    public void setOnPageReview(boolean onPageReview) {
+        this.onPageReview = onPageReview;
+    }
+
+    public boolean isHealthCheck() {
+        return healthCheck;
+    }
+
+    public void setHealthCheck(boolean healthCheck) {
+        this.healthCheck = healthCheck;
+    }
+
+    public double getLinkValue() {
+        return linkValue;
+    }
+
+    public void setLinkValue(double linkValue) {
+        this.linkValue = linkValue;
+    }
+
+    public Set<SearchEngine> getLinkSearchEngines() {
+        return linkSearchEngines;
+    }
+
+    public void setLinkSearchEngines(Set<SearchEngine> linkSearchEngines) {
+        this.linkSearchEngines = linkSearchEngines;
+    }
+
+    public String getGoogleDocLink() {
+        return googleDocLink;
+    }
+
+    public void setGoogleDocLink(String googleDocLink) {
+        this.googleDocLink = googleDocLink;
+    }
+
+    public DBFile getOrderFormFile() {
+        return orderFormFile;
+    }
+
+    public void setOrderFormFile(DBFile orderFormFile) {
+        this.orderFormFile = orderFormFile;
+    }
+
+    public double getPpcValue() {
+        return ppcValue;
+    }
+
+    public void setPpcValue(double ppcValue) {
+        this.ppcValue = ppcValue;
+    }
+
+    public Set<CampaignType> getCampaignTypes() {
+        return campaignTypes;
+    }
+
+    public void setCampaignTypes(Set<CampaignType> campaignTypes) {
+        this.campaignTypes = campaignTypes;
     }
 
     public boolean isAsap() {
@@ -602,35 +474,163 @@ public class Job {
         this.asap = asap;
     }
 
-    public double getSeoValue() {
-        return seoValue;
+    public Date getCampaignLaunchDate() {
+        return campaignLaunchDate;
     }
 
-    public double getLinkValue() {
-        return linkValue;
+    public void setCampaignLaunchDate(Date campaignLaunchDate) {
+        this.campaignLaunchDate = campaignLaunchDate;
     }
 
-    public double getPpcValue() {
-        return ppcValue;
+    public boolean isSignOffRequired() {
+        return signOffRequired;
+    }
+
+    public void setSignOffRequired(boolean signOffRequired) {
+        this.signOffRequired = signOffRequired;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
+    public String getFacebookUrl() {
+        return facebookUrl;
+    }
+
+    public void setFacebookUrl(String facebookUrl) {
+        this.facebookUrl = facebookUrl;
+    }
+
+    public boolean isSetUpRequired() {
+        return setUpRequired;
+    }
+
+    public void setSetUpRequired(boolean setUpRequired) {
+        this.setUpRequired = setUpRequired;
+    }
+
+    public String getGoogleAdsId() {
+        return googleAdsId;
+    }
+
+    public void setGoogleAdsId(String googleAdsId) {
+        this.googleAdsId = googleAdsId;
+    }
+
+    public String getMonthlyClickSpend() {
+        return monthlyClickSpend;
+    }
+
+    public void setMonthlyClickSpend(String monthlyClickSpend) {
+        this.monthlyClickSpend = monthlyClickSpend;
+    }
+
+    public String getTargetAreas() {
+        return targetAreas;
+    }
+
+    public void setTargetAreas(String targetAreas) {
+        this.targetAreas = targetAreas;
+    }
+
+    public String getLandingPageUrls() {
+        return landingPageUrls;
+    }
+
+    public void setLandingPageUrls(String landingPageUrls) {
+        this.landingPageUrls = landingPageUrls;
+    }
+
+    public String getAdwordsMainGoal() {
+        return adwordsMainGoal;
+    }
+
+    public void setAdwordsMainGoal(String adwordsMainGoal) {
+        this.adwordsMainGoal = adwordsMainGoal;
+    }
+
+    public String getFacebookMainGoal() {
+        return facebookMainGoal;
+    }
+
+    public void setFacebookMainGoal(String facebookMainGoal) {
+        this.facebookMainGoal = facebookMainGoal;
+    }
+
+    public String getThankYouPageUrl() {
+        return thankYouPageUrl;
+    }
+
+    public void setThankYouPageUrl(String thankYouPageUrl) {
+        this.thankYouPageUrl = thankYouPageUrl;
+    }
+
+    public String getReportingEmail() {
+        return reportingEmail;
+    }
+
+    public void setReportingEmail(String reportingEmail) {
+        this.reportingEmail = reportingEmail;
     }
 
     public double getContentValue() {
         return contentValue;
     }
 
-    public void setSeoValue(double seoValue) {
-        this.seoValue = seoValue;
-    }
-
-    public void setLinkValue(double linkValue) {
-        this.linkValue = linkValue;
-    }
-
-    public void setPpcValue(double ppcValue) {
-        this.ppcValue = ppcValue;
-    }
-
     public void setContentValue(double contentValue) {
         this.contentValue = contentValue;
+    }
+
+    public int getContentNumberOfPieces() {
+        return contentNumberOfPieces;
+    }
+
+    public void setContentNumberOfPieces(int contentNumberOfPieces) {
+        this.contentNumberOfPieces = contentNumberOfPieces;
+    }
+
+    public ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public int getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
+    }
+
+    public String getContentTitles() {
+        return contentTitles;
+    }
+
+    public void setContentTitles(String contentTitles) {
+        this.contentTitles = contentTitles;
+    }
+
+    public WritingStyle getContentWritingStyle() {
+        return contentWritingStyle;
+    }
+
+    public void setContentWritingStyle(WritingStyle contentWritingStyle) {
+        this.contentWritingStyle = contentWritingStyle;
+    }
+
+    public String getContentKeywords() {
+        return contentKeywords;
+    }
+
+    public void setContentKeywords(String contentKeywords) {
+        this.contentKeywords = contentKeywords;
     }
 }
