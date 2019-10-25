@@ -236,13 +236,13 @@ input[type=text].error, input[type=date].error, input[type=number].error {
 }
 
 p.error {
-    display: block!important;
+    display: block !important;
     margin: 0px;
     font-size: 0.8rem;
     color: #ff0000;
 }
 
-.input-field>input[type=date]~label {
+.input-field > input[type=date] ~ label {
     -webkit-transform: translateY(-14px) scale(0.8);
     transform: translateY(-14px) scale(0.8);
     -webkit-transform-origin: 0 0;
@@ -315,18 +315,6 @@ td {
 }
 
 /*
-    FROALA
- */
-
-.froala-wrapper {
-
-}
-
-.froala-wrapper strong {
-    font-weight: bold;
-}
-
-/*
     INDEX BUTTONS
  */
 
@@ -375,6 +363,40 @@ table:hover {
     margin-bottom: 1rem;
 }
 
+.attribute-title {
+    font-size: 14px;
+}
+
+.attribute-value {
+    font-size: 18px;
+    color: #000000;
+    margin: 5px 0;
+}
+
+.froala-wrapper {
+
+}
+
+.froala-wrapper strong {
+    font-weight: bold;
+}
+
+.btn {
+    background-color: #2ec4b6;
+}
+
+.btn:hover {
+    background-color: #1AA090;
+}
+
+.btn-cancel {
+    background-color: #cccccc;
+}
+
+.btn-cancel:hover {
+    background-color: #666666;
+    color: #ffffff;
+}
 
 
 /* -----------------------------------------------------

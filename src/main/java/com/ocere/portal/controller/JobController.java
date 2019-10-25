@@ -30,6 +30,12 @@ public class JobController {
         this.clientService = clientService;
     }
 
+    @GetMapping("{id}")
+    public String loadTicketView(Model model, @PathVariable int id) {
+        model.addAttribute("job", this.jobService.findJobById(id).get());
+        return "jobs-view";
+    }
+
     @GetMapping("create")
     public String loadCreateJobView(Model model, @RequestParam(name="clientId") int clientId) {
         model.addAttribute("siteTitle", "Create Job");
@@ -53,7 +59,7 @@ public class JobController {
         model.addAttribute("siteTitle", "Edit Job");
         model.addAttribute("action", "save/" + id);
         model.addAttribute("submitText", "Save");
-        model.addAttribute("cancelPage", "/clients/" + job.getClient().getId());
+        model.addAttribute("cancelPage", "/jobs/" + job.getId());
 
         model.addAttribute("owners", userService.findAll());
 

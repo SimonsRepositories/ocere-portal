@@ -1,7 +1,6 @@
 package com.ocere.portal.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
