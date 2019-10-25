@@ -15,7 +15,7 @@ public class DBFile {
 
     @OneToOne
     @MapsId
-    private Job jobExcel;
+    private Job jobOrderForm;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")

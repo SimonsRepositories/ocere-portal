@@ -1,6 +1,9 @@
 package com.ocere.portal.service.Impl;
 
+import com.ocere.portal.enums.ContentType;
+import com.ocere.portal.enums.WritingStyle;
 import com.ocere.portal.model.Job;
+import com.ocere.portal.model.User;
 import com.ocere.portal.repository.JobRepository;
 import com.ocere.portal.service.ClientService;
 import com.ocere.portal.service.JobService;
@@ -58,7 +61,6 @@ public class JobServiceImpl implements JobService {
             updatedJob.setAuthor(job.getAuthor());
             updatedJob.setTickets(job.getTickets());
             updatedJob.setProductTypes(job.getProductTypes());
-            updatedJob.setValue(job.getValue());
             updatedJob.setCurrency(job.getCurrency());
             updatedJob.setStartDate(job.getStartDate());
             updatedJob.setEndDate(job.getEndDate());
@@ -75,7 +77,7 @@ public class JobServiceImpl implements JobService {
             updatedJob.setHealthCheck(job.isHealthCheck());
             updatedJob.setLinkSearchEngines(job.getLinkSearchEngines());
             updatedJob.setGoogleDocLink(job.getGoogleDocLink());
-            updatedJob.setExcelFile(job.getExcelFile());
+            updatedJob.setOrderFormFile(job.getOrderFormFile());
             updatedJob.setCampaignTypes(job.getCampaignTypes());
             updatedJob.setCampaignLaunchDate(job.getCampaignLaunchDate());
             updatedJob.setSignOffRequired(job.isSignOffRequired());
@@ -90,6 +92,18 @@ public class JobServiceImpl implements JobService {
             updatedJob.setFacebookMainGoal(job.getFacebookMainGoal());
             updatedJob.setThankYouPageUrl(job.getThankYouPageUrl());
             updatedJob.setReportingEmail(job.getReportingEmail());
+            updatedJob.setOwner(job.getOwner());
+            updatedJob.setContentNumberOfPieces(job.getContentNumberOfPieces());
+            updatedJob.setContentType(job.getContentType());
+            updatedJob.setContentLength(job.getContentLength());
+            updatedJob.setContentTitles(job.getContentTitles());
+            updatedJob.setContentWritingStyle(job.getContentWritingStyle());
+            updatedJob.setContentKeywords(job.getContentKeywords());
+            updatedJob.setAsap(job.isAsap());
+            updatedJob.setSeoValue(job.getSeoValue());
+            updatedJob.setLinkValue(job.getLinkValue());
+            updatedJob.setPpcValue(job.getPpcValue());
+            updatedJob.setContentValue(job.getContentValue());
         } else {
             throw new Exception("Couldn't update job, because it didn't exist!");
         }

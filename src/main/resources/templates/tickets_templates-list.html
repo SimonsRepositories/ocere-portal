@@ -25,15 +25,15 @@
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <table th:if="${!templates.isEmpty()}" style="width: 100%" class="table table-striped">
-                                <thead>
+                            <table th:if="${!templates.isEmpty()}" style="width: 100%" class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Subject</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Assigned User</th>
-                                    <th>Assigned Group</th>
+                                    <th class="js-sort-number">ID</th>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Status</th>
+                                    <th class="js-sort-string">Priority</th>
+                                    <th class="js-sort-string">Assigned User</th>
+                                    <th class="js-sort-string">Assigned Group</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +56,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="fixed-action-btn">
+                    <div class="fixed-action-btn click-to-toggle">
                         <a class="btn-floating btn-large .ocere-green--background">
                             <i class="large material-icons">menu_book</i>
                         </a>
@@ -74,7 +74,7 @@
 
 <script type="text/javascript">
     $('.template-row').on('click', function () {
-        window.location.href = window.location.origin + "/tickets/templates/" + $(this).data('id');
+        window.location.href = "/tickets/templates/" + $(this).data('id');
     });
 </script>
 

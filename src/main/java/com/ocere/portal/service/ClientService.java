@@ -18,8 +18,6 @@ public interface ClientService {
 
     Client findClientById(int id);
 
-    List<Client> findAllByAssignedUser(User user);
-
     List<Client> findAllByAuthor(User user);
 
     Client updateClient(Client client, int id) throws Exception;

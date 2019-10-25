@@ -35,16 +35,16 @@
                         <div id="open" class="col s12">
                             <h4 th:if="${assignedOpen.isEmpty()}">0 tickets left! You're all done</h4>
                             <table th:if="${!assignedOpen.isEmpty()}"
-                                   class="table table-striped">
-                                <thead>
+                                   class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Job</th>
-                                    <th>Subject</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Assigned User</th>
-                                    <th>Assigned Group</th>
+                                    <th class="js-sort-number">ID</th>
+                                    <th class="js-sort-string">Job</th>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Status</th>
+                                    <th class="js-sort-string">Priority</th>
+                                    <th class="js-sort-string">Assigned User</th>
+                                    <th class="js-sort-string">Assigned Group</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,7 +182,7 @@
     });
 
     $('.ticket-row').on('click', function () {
-        window.location.href = window.location.origin + "/tickets/" + $(this).data('id');
+        window.location.href = "/tickets/" + $(this).data('id');
     });
 
     $(document).ready(function () {

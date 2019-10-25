@@ -1,7 +1,7 @@
 package com.ocere.portal.model;
 
 import com.ocere.portal.enums.ClientStatus;
-import com.ocere.portal.enums.Satisfaction;
+import com.ocere.portal.enums.PaymentTerms;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -33,101 +33,63 @@ public class Client {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "assigned_user_id")
-    private User assignedUser;
-
     private String companyName;
     private String contactFirstName;
     private String contactLastName;
     private String phone;
-    private String street;
-    private String postcode;
+    private String addressLine1;
+    private String addressLine2;
     private String city;
     private String email;
     private String website;
     private String tier;
+    private String jobTitle;
+    private String contactUsPage;
+    private String country;
+    private String county;
 
     @Enumerated(EnumType.STRING)
-    private Satisfaction satisfaction;
+    private PaymentTerms paymentTerm;
 
-    private String contactUsPage;
-
-    /*private double monthlySpend;
-    private double totalSpend;
-
-    private List<String> phones;
-    private List<String> emails;
-    private String linkedIn;
-
-    private Boolean lead;
-
-    private String paymentTerms;
-    private Date lastOrder;
-
-    public Date getLastOrder() {
-        return lastOrder;
+    public PaymentTerms getPaymentTerm() {
+        return paymentTerm;
     }
 
-    public void setLastOrder(Date lastOrder) {
-        this.lastOrder = lastOrder;
+    public void setPaymentTerm(PaymentTerms paymentTerm) {
+        this.paymentTerm = paymentTerm;
     }
 
-    public String getPaymentTerms() {
-        return paymentTerms;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setPaymentTerms(String paymentTerms) {
-        this.paymentTerms = paymentTerms;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
-    public double getMonthlySpend() {
-        return monthlySpend;
+    public String getAddressLine1() {
+        return addressLine1;
     }
 
-    public void setMonthlySpend(double monthlySpend) {
-        this.monthlySpend = monthlySpend;
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
     }
 
-    public double getTotalSpend() {
-        return totalSpend;
+    public String getCounty() {
+        return county;
     }
 
-    public void setTotalSpend(double totalSpend) {
-        this.totalSpend = totalSpend;
+    public void setCounty(String county) {
+        this.county = county;
     }
 
-    public List<String> getPhones() {
-        return phones;
+    public String getCountry() {
+        return country;
     }
 
-    public void setPhones(List<String> phones) {
-        this.phones = phones;
+    public void setCountry(String country) {
+        this.country = country;
     }
-
-    public List<String> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
-    }
-
-    public String getLinkedIn() {
-        return linkedIn;
-    }
-
-    public void setLinkedIn(String linkedIn) {
-        this.linkedIn = linkedIn;
-    }
-
-    public Boolean getLead() {
-        return lead;
-    }
-
-    public void setLead(Boolean lead) {
-        this.lead = lead;
-    }*/
 
     public String getContactFirstName() {
         return contactFirstName;
@@ -151,14 +113,6 @@ public class Client {
 
     public void setTier(String tier) {
         this.tier = tier;
-    }
-
-    public Satisfaction getSatisfaction() {
-        return satisfaction;
-    }
-
-    public void setSatisfaction(Satisfaction satisfaction) {
-        this.satisfaction = satisfaction;
     }
 
     public String getContactUsPage() {
@@ -186,19 +140,19 @@ public class Client {
     }
 
     public String getStreet() {
-        return street;
+        return addressLine1;
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        this.addressLine1 = street;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getAddressLine2() {
+        return addressLine2;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
     }
 
     public String getCity() {
@@ -263,13 +217,5 @@ public class Client {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public User getAssignedUser() {
-        return assignedUser;
-    }
-
-    public void setAssignedUser(User assignedUser) {
-        this.assignedUser = assignedUser;
     }
 }

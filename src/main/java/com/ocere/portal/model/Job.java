@@ -2,8 +2,6 @@ package com.ocere.portal.model;
 
 import com.ocere.portal.enums.*;
 import com.ocere.portal.exception.FileStorageException;
-import com.ocere.portal.service.Impl.DBFileStorageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +14,14 @@ import java.util.Set;
 
 @Entity
 public class Job {
+
+    public Job() {
+        asap = true;
+        seoValue = 0;
+        linkValue = 0;
+        ppcValue = 0;
+        contentValue = 0;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,8 +59,6 @@ public class Job {
         ALL
      */
 
-    private double value;
-
     @Enumerated
     private Currency currency;
 
@@ -66,6 +70,7 @@ public class Job {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    @Column(length=10485760)
     private String description;
 
     private boolean whiteLabel;
@@ -77,6 +82,10 @@ public class Job {
     @Enumerated
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
     @OneToMany(
             mappedBy = "job",
             cascade = CascadeType.ALL
@@ -87,8 +96,12 @@ public class Job {
         SEO
      */
 
+    private double seoValue;
+
+    @Column(length=10485760)
     private String targetKeywords;
 
+    @Column(length=10485760)
     private String reportingKeywords;
 
     @ElementCollection(targetClass = SearchEngine.class)
@@ -105,6 +118,8 @@ public class Job {
         LINK
      */
 
+    private double linkValue;
+
     @ElementCollection(targetClass = SearchEngine.class)
     @CollectionTable(name = "job_searchengine",
             joinColumns = @JoinColumn(name = "job_id"))
@@ -113,10 +128,10 @@ public class Job {
 
     private String googleDocLink;
 
-    @OneToOne(mappedBy = "jobExcel", cascade = CascadeType.ALL)
-    private DBFile excelFile;
+    @OneToOne(mappedBy = "jobOrderForm", cascade = CascadeType.ALL)
+    private DBFile orderFormFile;
 
-    private void setExcelFile(MultipartFile file) {
+    private void setOrderFormFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -126,7 +141,7 @@ public class Job {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            this.excelFile =  new DBFile(fileName, file.getContentType(), file.getBytes());
+            this.orderFormFile =  new DBFile(fileName, file.getContentType(), file.getBytes());
 
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
@@ -137,11 +152,15 @@ public class Job {
         PPC
      */
 
+    private double ppcValue;
+
     @ElementCollection(targetClass = CampaignType.class)
     @CollectionTable(name = "job_campaigntype",
             joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "campaigntype_id")
     private Set<CampaignType> campaignTypes;
+
+    private boolean asap;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -171,6 +190,54 @@ public class Job {
 
     private String reportingEmail;
 
+    /*
+        CONTENT
+     */
+
+    private double contentValue;
+
+    private int contentNumberOfPieces;
+
+    @Enumerated
+    private ContentType contentType;
+
+    private int contentLength; /* DROPDOWN */
+
+    private String contentTitles;
+
+    @Enumerated
+    private WritingStyle contentWritingStyle;
+
+    private String contentKeywords;
+
+    /*------------------------
+        DYNAMIC HANDLER
+    ------------------------*/
+
+    public double getTotalValue() {
+        return seoValue + linkValue + ppcValue + contentValue;
+    }
+
+    public boolean isFacebookSelected() {
+        return campaignTypes.contains(CampaignType.FacebookImageAds) || campaignTypes.contains(CampaignType.FacebookLeadAds);
+    }
+
+    public boolean isSeoSelected() {
+        return productTypes.contains(ProductType.SEO);
+    }
+
+    public boolean isLinkBuildingSelected() {
+        return productTypes.contains(ProductType.LinkBuilding);
+    }
+
+    public boolean isPpcSelected() {
+        return productTypes.contains(ProductType.PPC);
+    }
+
+    public boolean isContentSelected() {
+        return productTypes.contains(ProductType.Content);
+    }
+
     /*------------------------
         GETTER AND SETTER
     ------------------------*/
@@ -197,10 +264,6 @@ public class Job {
 
     public void setTickets(Set<Ticket> tickets) {
         this.tickets = tickets;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 
     public void setCurrency(Currency currency) {
@@ -267,8 +330,8 @@ public class Job {
         this.googleDocLink = googleDocLink;
     }
 
-    public void setExcelFile(DBFile excelFile) {
-        this.excelFile = excelFile;
+    public void setOrderFormFile(DBFile orderFormFile) {
+        this.orderFormFile = orderFormFile;
     }
 
     public void setCampaignTypes(Set<CampaignType> campaignTypes) {
@@ -343,10 +406,6 @@ public class Job {
         return tickets;
     }
 
-    public double getValue() {
-        return value;
-    }
-
     public Currency getCurrency() {
         return currency;
     }
@@ -411,8 +470,8 @@ public class Job {
         return googleDocLink;
     }
 
-    public DBFile getExcelFile() {
-        return excelFile;
+    public DBFile getOrderFormFile() {
+        return orderFormFile;
     }
 
     public Set<CampaignType> getCampaignTypes() {
@@ -477,5 +536,101 @@ public class Job {
 
     public void setProductTypes(Set<ProductType> productTypes) {
         this.productTypes = productTypes;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public int getContentNumberOfPieces() {
+        return contentNumberOfPieces;
+    }
+
+    public ContentType getContentType() {
+        return contentType;
+    }
+
+    public int getContentLength() {
+        return contentLength;
+    }
+
+    public String getContentTitles() {
+        return contentTitles;
+    }
+
+    public WritingStyle getContentWritingStyle() {
+        return contentWritingStyle;
+    }
+
+    public String getContentKeywords() {
+        return contentKeywords;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public void setContentNumberOfPieces(int contentNumberOfPieces) {
+        this.contentNumberOfPieces = contentNumberOfPieces;
+    }
+
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
+    }
+
+    public void setContentTitles(String contentTitles) {
+        this.contentTitles = contentTitles;
+    }
+
+    public void setContentWritingStyle(WritingStyle contentWritingStyle) {
+        this.contentWritingStyle = contentWritingStyle;
+    }
+
+    public void setContentKeywords(String contentKeywords) {
+        this.contentKeywords = contentKeywords;
+    }
+
+    public boolean isAsap() {
+        return asap;
+    }
+
+    public void setAsap(boolean asap) {
+        this.asap = asap;
+    }
+
+    public double getSeoValue() {
+        return seoValue;
+    }
+
+    public double getLinkValue() {
+        return linkValue;
+    }
+
+    public double getPpcValue() {
+        return ppcValue;
+    }
+
+    public double getContentValue() {
+        return contentValue;
+    }
+
+    public void setSeoValue(double seoValue) {
+        this.seoValue = seoValue;
+    }
+
+    public void setLinkValue(double linkValue) {
+        this.linkValue = linkValue;
+    }
+
+    public void setPpcValue(double ppcValue) {
+        this.ppcValue = ppcValue;
+    }
+
+    public void setContentValue(double contentValue) {
+        this.contentValue = contentValue;
     }
 }
