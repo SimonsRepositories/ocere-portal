@@ -194,6 +194,10 @@ a.button {
     width: 100% !important;
 }
 
+.hidden {
+    display: none;
+}
+
 /*
     MATERIALIZE
  */
@@ -225,6 +229,26 @@ a.button {
     outline: none;
 }
 
+input[type=text].error, input[type=date].error, input[type=number].error {
+    border-bottom: 1px solid #ff0000;
+    -webkit-box-shadow: 0 1px 0 0 #ff0000;
+    box-shadow: 0 1px 0 0 #ff0000;
+}
+
+p.error {
+    display: block!important;
+    margin: 0px;
+    font-size: 0.8rem;
+    color: #ff0000;
+}
+
+.input-field>input[type=date]~label {
+    -webkit-transform: translateY(-14px) scale(0.8);
+    transform: translateY(-14px) scale(0.8);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
 /*
     FLOATING BUTTON
  */
@@ -238,6 +262,10 @@ a.button {
  */
 
 .content-container h1 {
+    text-align: center;
+}
+
+.productTitle {
     text-align: center;
 }
 
