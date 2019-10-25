@@ -7,8 +7,13 @@ import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController
@@ -72,13 +77,38 @@ public class UserController
     }
 
     @RequestMapping(value="/users/edit-user", method = RequestMethod.POST)
-    public ModelAndView editUser(@ModelAttribute User user, Model model) {
+    public ModelAndView editUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap, Model model)
+    {
         ModelAndView modelAndView = new ModelAndView();
-        if(user.getRoles() != null) {
-            userService.saveUserById(user, user.getId(), user.getRoles());
+        /*System.out.println(user.getId());
+        User tmpValue = new User();
+        if (user.getPassword().equals("")) {
+            for (int i = 0; i < userService.findAll().size(); i++) {
+                tmpValue = userService.findAll().get(i);
+                user.setPassword(tmpValue.getPassword());
+                user.setId(tmpValue.getId());
+                if(user.getMailpassword().equals("")) {
+                    user.setMailpassword(tmpValue.getMailpassword());
+                }
+            }
+        }*/
+        //Check for the validation
+        if (bindingResult.hasErrors()) {
+            System.out.println("has errors: " + bindingResult.toString());
+            modelMap.addAttribute("bindingResult", bindingResult);
+            modelAndView.addObject("listOfRoles", roleService.findAll());
+            modelAndView.setViewName("users-form");
+            return modelAndView;
         }
-
-        model.addAttribute("listOfUsers", userService.findAll());
+        //save the user if no binding errors
+        else if (userService.isUserAlreadyPresent(user)) {
+            modelAndView.addObject("successMessage", "User already exists!");
+        } else {
+            if (user.getRoles() != null) {
+                userService.saveUserById(user, user.getId(), user.getRoles());
+            }
+        }
+        modelAndView.addObject("listOfUsers", userService.findAll());
         modelAndView.setViewName("redirect:/users");
         return modelAndView;
     }

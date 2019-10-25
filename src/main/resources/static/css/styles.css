@@ -434,3 +434,10 @@ table:hover {
         transform: translateX(0);
     }
 }
+
+/*setting individual padding for register & login*/
+.card .card-content {
+    padding: 20px 50px 20px 50px;
+}
+
+/*centering register & login form*/

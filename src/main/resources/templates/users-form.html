@@ -1,82 +1,105 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Edit User</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
+    <div th:replace="fragments :: head-links"></div>
 </head>
 <body>
-<div class="wrapper">
-    <div th:replace="fragments :: header"></div>
+    <div class="wrapper">
+        <div th:replace="fragments :: header"></div>
 
-    <div class="content">
-        <div class="content-wrapper">
-            <div class="content-container">
-                <div class="container">
-                    <form class="row" action="#" method="post" th:action="@{/users/edit-user}" th:object="${user}">
-                        <div class="form-group col-12">
-                            <label for="id">Id: </label>
-                            <input class="form-control" type="text" th:field="*{id}" placeholder="id" id="id"/>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="id">Firstname: </label>
-                            <input class="form-control" type="text" th:field="*{firstname}" placeholder="firstname" id="firstname"/>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="id">Lastname: </label>
-                            <input class="form-control" type="text" th:field="*{lastname}" placeholder="lastname" id="lastname"/>
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="id">Email: </label>
-                            <input class="form-control" type="text" th:field="*{email}" placeholder="email" id="email"/>
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="id">new Password: </label>
-                            <input class="form-control" type="password" placeholder="New password" id="newpassword"/>
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="id">confirm password: </label>
-                            <input class="form-control" type="password" th:field="*{password}" placeholder="Confirm passwrod" id="confirmpasswrod"/>
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="id">new mail password: </label>
-                            <input class="form-control" type="password" placeholder="New mail passwrod" id="newmailpassword"/>
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="id">confirm mail password: </label>
-                            <input class="form-control" type="password" th:field="*{mailpassword}" placeholder="Confirm mail passwrod" id="confirmmailpassword"/>
-                        </div>
-                        <p>Edit your roles: </p><br>
-                        <p th:each="role : ${listOfRoles}" style="list-style-type: none; text-align: left">
-                            <label>
-                                <input type="checkbox" th:field="*{roles}" th:value="${role.id}" th:checked="${user.getRoles().contains(role)}"/>
-                                <span th:text="${role.desc}"></span><br>
-                            </label>
-                        </p>
-                        <div>
-                            <button type="submit" value="Submit"><a href="/users"></a>Submit</button>
-                        </div>
-                    </form>
+        <div class="content">
+            <div class="content-wrapper">
+                <div class="content-container">
+                    <div class="container">
+                        <form action="#" method="post" th:action="@{/users/edit-user}" th:object="${user}" onsubmit="return myFunction();">
+                            <div class="row">
+                                <div class="col s12">
+                                    <small class="attribute-title">Id:</small>
+                                    <p class="attribute-value" th:text="${user.id}">Value</p>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="firstname" type="text" th:field="*{firstname}" class="form-control"/>
+                                    <label for="firstname">First name</label>
+                                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></small>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="lastname" type="text" th:field="*{lastname}" class="form-control"/>
+                                    <label for="lastname">Last name</label>
+                                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></small>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="email" type="text" th:field="*{email}" class="form-control"/>
+                                    <label for="email">Email</label>
+                                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="newPassword" type="password" class="form-control"/>
+                                    <label for="newPassword">New Password</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field col s6">
+                                            <input id="confirmPassword" type="password" th:field="*{password}" class="form-control"/>
+                                            <label for="confirmPassword">Confirm new password</label>
+                                            <small style="color: #FF190A;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+                                            <br><small style="color: #FF190A;" id="passwordMatch"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="newmailpassword" type="password" class="form-control"/>
+                                    <label for="newmailpassword">New mail password</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field col s6">
+                                            <input id="confirmmailpassword" type="password" th:field="*{mailpassword}" class="form-control"/>
+                                            <label for="confirmmailpassword">Confirm mail password</label>
+                                            <small style="color: #FF190A;" th:if="${#fields.hasErrors('mailpassword')}" th:errors="*{mailpassword}"></small>
+                                            <br><small style="color: #FF190A;" id="mailpasswordmatch"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="roles" th:field="*{roles}" multiple>
+                                        <option th:each="role : ${listOfRoles}"
+                                                th:value="${role.id}"
+                                                th:text="${role.desc}"
+                                                th:selected="${user.getRoles().contains(role)}">
+                                        </option>
+                                    </select>
+                                    <label for="roles">Edit your roles</label>
+                                </div>
+                                <div class="input-field col s12 center">
+                                    <button type="submit" value="Submit" class="waves-effect waves-light btn"><a href="/users"></a>Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+<div th:replace="fragments :: script-links"></div>
+<script type="text/javascript">
+    //document.getElementById("submit").onclick = function() {myFunction()};
+
+    function myFunction() {
+        if(document.getElementById("newPassword").value != document.getElementById("confirmPassword").value) {
+            document.getElementById("passwordMatch").innerHTML = 'passwords do not match';
+            return false;
+        } else if (document.getElementById("newmailpassword").value != document.getElementById("confirmmailpassword").value) {
+            document.getElementById(("mailpasswordmatch").innerHTML = "mail passwords do not match";
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
