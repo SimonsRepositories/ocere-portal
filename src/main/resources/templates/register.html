@@ -1,89 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registration Form</title>
+    <title>Ocere - Register</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <div th:replace="fragments :: head-links"></div>
 </head>
 <body style="background-color: #1AA090;">
-<div class="container">
     <div class="row">
-        <div class="col-sm-9 col-md col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Register</h5>
-                    <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post"
-                          class="form-signin" role="form">
-                        <div class="form-group">
-                            <div class="">
-                                <input type="text" th:field="*{firstname}" placeholder="Name" class="form-control"/>
+        <div class="col s6" style="margin-left: 25%;">
+            <div class="card grey lighten-5">
+                <div class="card-content">
+                    <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return myFunction();" role="form">
+                        <span class="card-title center">Register</span>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="firstname" type="text" th:field="*{firstname}" class="form-control" required/>
+                                <label for="firstname">First Name</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></small>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="lastname" type="text" th:field="*{lastname}" class="form-control" required/>
+                                <label for="lastname">Last Name</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></small>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="email" type="text" th:field="*{email}" class="form-control"/>
+                                <label for="email">Email</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="mailpassword" type="password" th:field="*{mailpassword}" class="form-control" required/>
+                                <label for="mailpassword">My App Password</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('mailpassword')}" th:errors="*{mailpassword}"></small>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="newPassword" type="password" class="form-control"/>
+                                <label for="newPassword">New Password</label>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="input-field col s6">
+                                        <input id="confirmPassword" type="password" th:field="*{password}" class="form-control" required/>
+                                        <label for="confirmPassword">Confirm new password</label>
+                                        <small style="color: #FF190A;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+                                        <br><small style="color: #FF190A;" id="passwordMatch"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-field col s12">
+                                <select id="roles" th:field="*{roles}" multiple>
+                                    <option th:each="role : ${listOfRoles}"
+                                            th:value="${role.id}"
+                                            th:text="${role.desc}">
+                                    </option>
+                                </select>
+                                <label for="roles">Roles</label>
+                            </div>
+                            <div class="input-field col s12 center">
+                                <button type="submit" class="waves-effect waves-light btn">Register User</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="">
-                                <input type="text" th:field="*{lastname}" placeholder="Last Name" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="">
-                                <input type="text" th:field="*{email}" placeholder="Email" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="">
-                                <input type="password"
-                                       th:field="*{password}" placeholder="Password" class="form-control"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password"
-                                   th:field="*{mailpassword}" placeholder="Mail Password"
-                                   class="form-control"/>
-                        </div>
-                        <!--<p>Choose a role: </p>
-                        <label th:each="role : ${listOfRoles}">
-                            <input th:value="${role.id}" th:field="*{roles}" type="checkbox" />
-                            <span th:text="${role.desc}" ></span>
-                            <br>
-                        </label>-->
-
-                        <div class="input-field col s3">
-                            <select id="roles" th:field="*{roles}" multiple>
-                                <option th:each="role : ${listOfRoles}"
-                                        th:value="${role.id}"
-                                        th:text="${role.desc}">
-                                </option>
-                            </select>
-                            <label for="roles">Roles</label>
-                        </div>
-
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <!--
-                        <div class="form-group" th:object="${role}">
-                            <label for="roleSelect">Select Role</label>
-                            <select th:field="*{id}" class="form-control" id="roleSelect">
-                                <option th:each="role : ${listOfRoles}" th:value="${role.id}" th:text="${role.desc}"></option>
-                            </select>
-                        </div>-->
-                        <div class="form-group">
-                            <div class="">
-                                <button type="submit" class="btn btn-primary btn-block">Register User</button>
-                            </div>
-                        </div>
-                        <span th:utext="${successMessage}"></span>
+                        <br><small th:utext="${successMessage}"></small>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <div th:replace="fragments :: script-links"></div>
+<script type="text/javascript">
+    //document.getElementById("submit").onclick = function() {myFunction()};
 
+    function myFunction() {
+        if(document.getElementById("newPassword").value != document.getElementById("confirmPassword").value) {
+            document.getElementById("passwordMatch").innerHTML = 'passwords do not match';
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

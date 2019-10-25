@@ -326,19 +326,6 @@ td {
     color: black;
 }
 
-/*
-    FORM
- */
-
-.form-signin {
-    width: 100%;
-}
-
-.form-label-group {
-    position: relative;
-    margin-bottom: 1rem;
-}
-
 /* -----------------------------------------------------
     MEDIA
 ----------------------------------------------------- */
@@ -364,3 +351,10 @@ td {
         transform: translateX(0);
     }
 }
+
+/*setting individual padding for register & login*/
+.card .card-content {
+    padding: 20px 50px 20px 50px;
+}
+
+/*centering register & login form*/

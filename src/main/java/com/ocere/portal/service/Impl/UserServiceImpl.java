@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.*;
 import java.util.*;
 
 @Service
@@ -52,10 +51,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
     @Override
     public Optional<User> getUserById(int id) {
         return userRepository.findById(id);
@@ -64,6 +59,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserAlreadyPresent(User user) {
         return userRepository.findById(user.getId()).isPresent();
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public void removeUserById(int id) {
