@@ -27,12 +27,12 @@
     INSERT INTO usergroup (group_id, is_active, created_at, is_empty, `name`, updated_at)
     VALUES  (1, true, NOW(), false, 'GroupTest', NOW());
 
-    INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
-    VALUES (1, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Ham', 'Ham' , 'Hamster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'HAPPY', 'Road 1', 'A', 'https://www.ocere.com/');
-    INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
-    VALUES (2, 'ACTIVE', 1, 1, 'Cheltenham', 'Cheltenham-Bacon', 'Bac' , 'Bacton', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'NEUTRAL', 'Road 1', 'B', 'https://www.ocere.com/');
-    INSERT INTO client (id, status, assigned_user_id, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, postcode, satisfaction, street, tier, website)
-    VALUES (3, 'FINISHED', 1, 1, 'Cheltenham', 'Cheltenham-Steak', 'Ste' , 'Steakster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'GLP-50', 'UNHAPPY', 'Road 1', 'F', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, address_line1, address_line2, job_title, country, county, tier, website)
+    VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 'Ham' , 'Hamster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'Switzerland', 'Zurich', 'A', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, address_line1, address_line2, job_title, country, county, tier, website)
+    VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 'Bac' , 'bacstor', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'Gloucstershire', 'B', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, address_line1, address_line2, job_title, country, county, tier, website)
+    VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 'Stec' , 'Steakster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'London', 'C', 'https://www.ocere.com/');
 
     INSERT INTO `ticket` (`ticket_id`, `created_at`, `description`, `priority`, `status`, `subject`, `template`, `group_id`, `assigned_user_id`, `author_id`, `job_id`, `turnaround_id`) VALUES
     (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL, NULL, 1, NULL, 4),
