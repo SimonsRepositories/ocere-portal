@@ -52,20 +52,21 @@
                         }
                     </script>
                     <h4 th:if="${clients.isEmpty()}">No clients found</h4>
-                    <input th:if="${!clients.isEmpty()}" type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for company" title="Type in a name">
+                    <input th:if="${!clients.isEmpty()}" type="text" id="myInput" onkeyup="searchTable()"
+                           placeholder="Search for company" title="Type in a name">
                     <table th:if="${!clients.isEmpty()}"
                            class="table table-striped js-sort-table" id="clientTable">
                         <thead class="sortable-head">
                         <tr>
-                            <th class="js-sort-string">Company Name</th>
-                            <th class="js-sort-string">Contact Name</th>
+                            <th class="js-sort-string">Company</th>
+                            <th class="js-sort-string">Contact</th>
                             <th class="js-sort-string">Status</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="client : ${clients}" th:data-id="${client.id}" class="client-row">
                             <td th:text="${client.companyName}"></td>
-                            <td th:text="${client.contactFirstName} + ' ' +  ${client.contactLastName}"></td>
+                            <td th:text="${client.firstContact.first_name} + ' ' +  ${client.firstContact.last_name}"></td>
                             <td th:text="${client.status}"></td>
                         </tr>
                         </tbody>
@@ -75,7 +76,8 @@
                             <i class="large material-icons">menu_book</i>
                         </a>
                         <ul>
-                            <li><a href="/clients/create" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                            <li><a href="/clients/create" class="btn-floating green"><i
+                                    class="material-icons">add</i></a></li>
                         </ul>
                     </div>
                 </div>

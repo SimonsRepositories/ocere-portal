@@ -3,13 +3,9 @@ package com.ocere.portal.controller;
 import com.ocere.portal.model.Client;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
-import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.MailService;
-import com.ocere.portal.service.JobService;
-import com.ocere.portal.service.RoleService;
-import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +28,7 @@ public class ClientController {
     private JobService jobService;
     private MailService mailService;
     private RoleService roleService;
-    private BCryptPasswordEncoder encoder;
+    private ContactService contactService;
 
     @Autowired
     public ClientController(ClientService clientService,
@@ -40,19 +36,20 @@ public class ClientController {
                             JobService jobService,
                             MailService mailService,
                             RoleService roleService,
-                            BCryptPasswordEncoder encoder) {
+                            ContactService contactService) {
         this.clientService = clientService;
         this.userService = userService;
         this.jobService = jobService;
         this.mailService = mailService;
         this.roleService = roleService;
-        this.encoder = encoder;
+        this.contactService = contactService;
     }
 
     @GetMapping
     public String clientLanding(Model model, Principal principal) {
         model.addAttribute("clients", clientService.findAll());
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
+        model.addAttribute("contacts", contactService.findAll());
 
         return "clients";
     }
@@ -98,29 +95,59 @@ public class ClientController {
 
     @PostMapping("create")
     public String saveNewClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
-
-        // Create User account with generated credentials and mail them to user
-        User user = new User();
-        user.setFirstname(client.getContactFirstName());
-        user.setLastname(client.getContactLastName());
-        user.setEmail(client.getEmail());
-        user.setRoles(new HashSet<>(4));
-        user.setPassword(generatePassword(12));
-
-        user.setClient(true);
-
-        this.clientService.saveClient(client);
-
         Set<Role> roles = new HashSet<>();
         Role clientRole = roleService.findById(4);
         roles.add(clientRole);
 
+        // Create User account with generated credentials and mail them to user
+        User user = new User();
+        user.setFirstname(client.getFirstContact().getFirst_name());
+        user.setLastname(client.getFirstContact().getLast_name());
+        user.setEmail(client.getFirstContact().getEmail());
+        user.setRoles(new HashSet<>(4));
+        user.setPassword(generatePassword(12));
+        user.setClient(true);
         this.userService.saveUser(user, roles);
 
-        mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), client.getEmail(), "Ocere login credentials",
+        mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
                 "Authentication credentials for http://localhost:8080\n" +
                         "Username: " + user.getEmail() + "\n" +
                         "Password: " + user.getPassword());
+
+
+        if (client.getSecondContact().getEmail() != null) {
+            User user2 = new User();
+            user2.setFirstname(client.getSecondContact().getFirst_name());
+            user2.setLastname(client.getSecondContact().getLast_name());
+            user2.setEmail(client.getSecondContact().getEmail());
+            user2.setRoles(new HashSet<>(4));
+            user2.setPassword(generatePassword(12));
+            user2.setClient(true);
+            this.userService.saveUser(user2, roles);
+
+
+            mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user2.getEmail(), "Ocere login credentials",
+                    "Authentication credentials for http://localhost:8080\n" +
+                            "Username: " + user.getEmail() + "\n" +
+                            "Password: " + user.getPassword());
+        }
+
+        if (client.getThirdContact().getEmail() != null) {
+            User user3 = new User();
+            user3.setFirstname(client.getThirdContact().getFirst_name());
+            user3.setLastname(client.getThirdContact().getLast_name());
+            user3.setEmail(client.getThirdContact().getEmail());
+            user3.setRoles(new HashSet<>(4));
+            user3.setPassword(generatePassword(12));
+            user3.setClient(true);
+            this.userService.saveUser(user3, roles);
+
+            mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user3.getEmail(), "Ocere login credentials",
+                    "Authentication credentials for http://localhost:8080\n" +
+                            "Username: " + user.getEmail() + "\n" +
+                            "Password: " + user.getPassword());
+        }
+        this.clientService.saveClient(client);
 
         return "redirect:/clients";
     }

@@ -3,7 +3,6 @@ package com.ocere.portal.service.Impl;
 import com.ocere.portal.model.Client;
 import com.ocere.portal.model.User;
 import com.ocere.portal.repository.ClientRepository;
-import com.ocere.portal.repository.UserRepository;
 import com.ocere.portal.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +13,10 @@ import java.util.Optional;
 @Service
 public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, UserRepository userRepository) {
+    public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,21 +50,31 @@ public class ClientServiceImpl implements ClientService {
 
         if (optionalUpdatedClient.isPresent()) {
             updatedClient = optionalUpdatedClient.get();
-            updatedClient.setStatus(client.getStatus());
             updatedClient.setNotes(client.getNotes());
             updatedClient.setJobs(client.getJobs());
             updatedClient.setId(client.getId());
             updatedClient.setAuthor(client.getAuthor());
             updatedClient.setCity(client.getCity());
             updatedClient.setCompanyName(client.getCompanyName());
-            updatedClient.setContactFirstName(client.getContactFirstName());
-            updatedClient.setContactLastName(client.getContactLastName());
+
+            updatedClient.getFirstContact().setFirst_name(client.getFirstContact().getFirst_name());
+            updatedClient.getFirstContact().setLast_name(client.getFirstContact().getLast_name());
+            updatedClient.getFirstContact().setPhone(client.getFirstContact().getPhone());
+            updatedClient.getFirstContact().setEmail(client.getFirstContact().getEmail());
+
+            updatedClient.getSecondContact().setFirst_name(client.getSecondContact().getFirst_name());
+            updatedClient.getSecondContact().setLast_name(client.getSecondContact().getLast_name());
+            updatedClient.getSecondContact().setPhone(client.getSecondContact().getPhone());
+            updatedClient.getSecondContact().setEmail(client.getSecondContact().getEmail());
+
+            updatedClient.getThirdContact().setFirst_name(client.getThirdContact().getFirst_name());
+            updatedClient.getThirdContact().setLast_name(client.getThirdContact().getLast_name());
+            updatedClient.getThirdContact().setPhone(client.getThirdContact().getPhone());
+            updatedClient.getThirdContact().setEmail(client.getThirdContact().getEmail());
+
             updatedClient.setContactUsPage(client.getContactUsPage());
-            updatedClient.setEmail(client.getEmail());
-            updatedClient.setPhone(client.getPhone());
             updatedClient.setAddressLine2(client.getAddressLine2());
             updatedClient.setStreet(client.getStreet());
-            updatedClient.setTier(client.getTier());
             updatedClient.setWebsite(client.getWebsite());
         } else {
             throw new Exception("Couldn’t update client because he didn’t exist");

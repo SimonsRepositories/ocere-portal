@@ -27,12 +27,12 @@
     INSERT INTO usergroup (group_id, is_active, created_at, is_empty, `name`, updated_at)
     VALUES  (1, true, NOW(), false, 'GroupTest', NOW());
 
-    INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-    VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 'Ham' , 'Hamster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'Switzerland', 'Zurich', 'A', 'https://www.ocere.com/');
-    INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-    VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 'Bac' , 'bacstor', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'Gloucstershire', 'B', 'https://www.ocere.com/');
-    INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page, email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-    VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 'Stec' , 'Steakster', 'https://www.ocere.com/', 'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'London', 'C', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, author_id, city, company_name, contact_us_page, address_line1, address_line2, job_title, country, county, tier, website)
+    VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 'https://www.ocere.com/', 'addressline1', 'addressline2', 'Job title1', 'Switzerland', 'Zurich', 'A', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, author_id, city, company_name, contact_us_page, address_line1, address_line2, job_title, country, county, tier, website)
+    VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 'https://www.ocere.com/', 'addressline1', 'addressline2', 'Job title2', 'UK', 'Gloucestershire', 'B', 'https://www.ocere.com/');
+    INSERT INTO client (id, status, author_id, city, company_name, contact_us_page, address_line1, address_line2, job_title, country, county, tier, website)
+    VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 'https://www.ocere.com/', 'addressline1', 'addressline2', 'Job title3', 'UK', 'London', 'C', 'https://www.ocere.com/');
 
     INSERT INTO `ticket` (`ticket_id`, `created_at`, `description`, `priority`, `status`, `subject`, `template`, `group_id`, `assigned_user_id`, `author_id`, `job_id`, `turnaround_id`) VALUES
     (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL, NULL, 1, NULL, 4),
@@ -40,3 +40,10 @@
     (3, '2019-10-18 16:31:29', '', 1, 0, 'Source sites for Outreach (new client)', b'1', NULL, NULL, 1, NULL, 4),
     (4, '2019-10-18 16:31:53', '', 1, 0, 'GA Analysis for Potential Client (need guidelines)', b'1', NULL, NULL, 1, NULL, 4),
     (5, '2019-10-18 16:32:21', '', 1, 0, 'PCC Update / Report', b'1', NULL, NULL, 1, NULL, 4);
+
+    INSERT INTO contact (id, first_name, last_name, phone, email) VALUES
+    (1, 'John', 'Jones', '012345689', 'john@jones.com'),
+    (2, 'James', 'Jefferson', '012345689', 'james@jefferson.com'),
+    (3, 'Jeremy', 'Jenkins', '012345689', 'jeremy@jenkins.com'),
+    (4, 'Jane', 'Jarvis', '012345689', 'jane@jarvis.com'),
+    (5, 'Jack', 'Johnson', '012345689', 'jack@johnson.com');
