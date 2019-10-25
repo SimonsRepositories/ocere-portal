@@ -1,6 +1,7 @@
 package com.ocere.portal.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -15,7 +16,7 @@ public class DBFile {
 
     @OneToOne
     @MapsId
-    private Job jobExcel;
+    private Job jobOrderForm;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")

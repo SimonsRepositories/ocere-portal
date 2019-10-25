@@ -10,8 +10,8 @@
     <div th:replace="fragments :: head-links"></div>
 
     <!-- Froala Editor -->
-    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
-          type='text/css'/>
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 
 <body>
@@ -27,7 +27,9 @@
                             <h1 th:text="${siteTitle}">Title</h1>
                         </div>
                     </div>
-                    <form class="row" action="#" method="post" th:action="@{/jobs/{action}(action=${action})}" th:object="${job}">
+                    <form id="jobForm" class="row" action="#" method="post"
+                          th:action="@{/jobs/{action}(action=${action})}"
+                          th:object="${job}">
                         <div class="input-field col s6">
                             <input th:field="*{company}"
                                    id="company"
@@ -53,11 +55,19 @@
                             <label for="endDate">End Date:</label>
                         </div>
                         <div class="input-field col s3">
-                            <input th:field="*{value}" id="value" class="validate" type="number">
-                            <label for="value">Value:</label>
+                            <select id="owner" th:field="*{owner.id}">
+                                <option value="-1">select</option>
+                                <option th:each="owner : ${owners}"
+                                        th:value="${owner.id}"
+                                        th:text="${owner.fullName}"
+                                        th:selected="${job.owner.id == owner.id}">
+                                </option>
+                            </select>
+                            <label for="owner">Owner:</label>
                         </div>
                         <div class="input-field col s3">
                             <select id="currency" th:field="*{currency}">
+                                <option value="">select</option>
                                 <option th:each="currency : ${T(com.ocere.portal.enums.Currency).values()}"
                                         th:value="${currency}"
                                         th:text="${currency}"
@@ -83,11 +93,11 @@
                             </select>
                             <label for="status">Status:</label>
                         </div>
-                        <div class="input-field col s12">
-                            <label for="description">Description:</label>
+                        <div style="margin-top: 45px;" class="input-field col s12">
                             <textarea th:field="*{description}"
                                       th:text="${job.description}"
                                       id="description"></textarea>
+                            <label style="margin-top: -42px;" for="description">Description:</label>
                         </div>
                         <div class="input-field col s6 offset-s3">
                             <select id="productTypes" th:field="*{productTypes}" multiple>
@@ -97,6 +107,306 @@
                                 </option>
                             </select>
                             <label for="productTypes">Products:</label>
+                        </div>
+                        <!--
+                        SEO
+                        -->
+                        <div id="seo-container" class="col s12 hidden">
+                            <h4 class="productTitle">SEO</h4>
+                            <div class="input-field col s4 offset-s4">
+                                <input th:field="*{seoValue}"
+                                       id="seoValue"
+                                       class="validate"
+                                       type="number"
+                                       placeholder="SEO Value"/>
+                                <label for="seoValue">SEO Value:</label>
+                            </div>
+                            <div style="margin-top: 45px;" class="input-field col s6">
+                                <textarea th:field="*{targetKeywords}"
+                                          th:text="${job.targetKeywords}"
+                                          id="targetKeywords"></textarea>
+                                <label style="margin-top: -42px;" for="targetKeywords">Target Keywords:</label>
+                            </div>
+                            <div style="margin-top: 45px;" class="input-field col s6">
+                                <textarea th:field="*{reportingKeywords}"
+                                          th:text="${job.reportingKeywords}"
+                                          id="reportingKeywords"></textarea>
+                                <label style="margin-top: -42px;" for="reportingKeywords">Reporting Keywords:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="seoSearchEngines" th:field="*{seoSearchEngines}" multiple>
+                                    <option th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
+                                            th:value="${searchEngine}"
+                                            th:text="${searchEngine}">
+                                    </option>
+                                </select>
+                                <label for="seoSearchEngines">SEO Search Engines:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <select id="onPageReview" th:field="*{onPageReview}">
+                                    <option value="0" th:selected="${job.onPageReview == false}">No</option>
+                                    <option value="1" th:selected="${job.onPageReview == true}">Yes</option>
+                                </select>
+                                <label for="onPageReview">On Page Review:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <select id="healthCheck" th:field="*{healthCheck}">
+                                    <option value="0" th:selected="${job.healthCheck == false}">No</option>
+                                    <option value="1" th:selected="${job.healthCheck == true}">Yes</option>
+                                </select>
+                                <label for="healthCheck">Health Check:</label>
+                            </div>
+                        </div>
+                        <!--
+                        LINK
+                        -->
+                        <div id="link-container" class="col s12 hidden">
+                            <h4 class="productTitle">LinkBuilding</h4>
+                            <div class="input-field col s4 offset-s4">
+                                <input th:field="*{linkValue}"
+                                       id="linkValue"
+                                       class="validate"
+                                       type="number"
+                                       placeholder="Link Building Value"/>
+                                <label for="linkValue">Link Building Value:</label>
+                            </div>
+                            <div class="col s6 file-field input-field">
+                                <div class="btn">
+                                    <span>Browse</span>
+                                    <input id="orderFormFile"
+                                           type="file"
+                                           name="orderFormFile"/>
+                                </div>
+
+                                <div class="file-path-wrapper">
+                                    <input id="orderFormFilePath"
+                                           class="file-path validate"
+                                           type="text"
+                                           placeholder="Upload file"/>
+                                </div>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{googleDocLink}"
+                                       id="googleDocLink"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Google Doc Link"/>
+                                <label for="googleDocLink">Google Doc Link:</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select id="linkSearchEngines" th:field="*{linkSearchEngines}" multiple>
+                                    <option th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
+                                            th:value="${searchEngine}"
+                                            th:text="${searchEngine}">
+                                    </option>
+                                </select>
+                                <label for="linkSearchEngines">Link Building Search Engines:</label>
+                            </div>
+                        </div>
+                        <!--
+                        PPC
+                        -->
+                        <div id="ppc-container" class="col s12 hidden">
+                            <h4 class="productTitle">PPC</h4>
+                            <div class="input-field col s4 offset-s4">
+                                <input th:field="*{ppcValue}"
+                                       id="ppcValue"
+                                       class="validate"
+                                       type="number"
+                                       placeholder="PPC Value"/>
+                                <label for="ppcValue">PPC Value:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="campaignTypes" th:field="*{campaignTypes}" multiple>
+                                    <option th:each="campaignType : ${T(com.ocere.portal.enums.CampaignType).values()}"
+                                            th:value="${campaignType}"
+                                            th:text="${campaignType}">
+                                    </option>
+                                </select>
+                                <label for="campaignTypes">Campaign Types:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <select id="asap" th:field="*{asap}">
+                                    <option value="0" th:selected="${job.asap == false}">No</option>
+                                    <option value="1" th:selected="${job.asap == true}">Yes</option>
+                                </select>
+                                <label for="asap">ASAP:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input th:field="*{campaignLaunchDate}" id="campaignLaunchDate" class="validate"
+                                       type="date">
+                                <label for="campaignLaunchDate">Campaign Launch Date:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <select id="signOffRequired" th:field="*{signOffRequired}">
+                                    <option value="0" th:selected="${job.signOffRequired == false}">No</option>
+                                    <option value="1" th:selected="${job.signOffRequired == true}">Yes</option>
+                                </select>
+                                <label for="signOffRequired">Sign Off Required:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <select id="setUpRequired" th:field="*{setUpRequired}">
+                                    <option value="0" th:selected="${job.setUpRequired == false}">No</option>
+                                    <option value="1" th:selected="${job.setUpRequired == true}">Yes</option>
+                                </select>
+                                <label for="setUpRequired">Set Up Required:</label>
+                            </div>
+                            <div class="facebookContainer hidden">
+                                <div class="input-field col s3">
+                                    <input th:field="*{facebookId}"
+                                           id="facebookId"
+                                           class="validate"
+                                           type="text"
+                                           placeholder="Facebook ID"/>
+                                    <label for="facebookId">Facebook ID:</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input th:field="*{facebookUrl}"
+                                           id="facebookUrl"
+                                           class="validate"
+                                           type="text"
+                                           placeholder="Facebook URL"/>
+                                    <label for="facebookUrl">Facebook URL:</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input th:field="*{facebookMainGoal}"
+                                           id="facebookMainGoal"
+                                           class="validate"
+                                           type="text"
+                                           placeholder="Facebook Main Goal"/>
+                                    <label for="facebookMainGoal">Facebook Main Goal:</label>
+                                </div>
+                            </div>
+                            <div class="input-field col s3">
+                                <input th:field="*{googleAdsId}"
+                                       id="googleAdsId"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Google Ads ID"/>
+                                <label for="googleAdsId">Google Ads ID:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input th:field="*{monthlyClickSpend}"
+                                       id="monthlyClickSpend"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Monthly Click Spend"/>
+                                <label for="monthlyClickSpend">Monthly Click Spend:</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{targetAreas}"
+                                       id="targetAreas"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Target Areas"/>
+                                <label for="targetAreas">Target Areas:</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{landingPageUrls}"
+                                       id="landingPageUrls"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Landing Page Urls"/>
+                                <label for="landingPageUrls">Landing Page Urls:</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{adwordsMainGoal}"
+                                       id="adwordsMainGoal"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Adwords Main Goal"/>
+                                <label for="adwordsMainGoal">Adwords Main Goal:</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{thankYouPageUrl}"
+                                       id="thankYouPageUrl"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Thank You Page URL"/>
+                                <label for="thankYouPageUrl">Thank You Page URL:</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{reportingEmail}"
+                                       id="reportingEmail"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Reporting Email"/>
+                                <label for="reportingEmail">Reporting Email:</label>
+                            </div>
+                        </div>
+                        <!--
+                        CONTENT
+                        -->
+                        <div id="content-container" class="col s12 hidden">
+                            <h4 class="productTitle">Content</h4>
+                            <div class="input-field col s4 offset-s4">
+                                <input th:field="*{contentValue}"
+                                       id="contentValue"
+                                       class="validate"
+                                       type="number"
+                                       placeholder="Content Value"/>
+                                <label for="contentValue">Content Value:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{contentNumberOfPieces}"
+                                       id="contentNumberOfPieces"
+                                       class="validate"
+                                       type="number"
+                                       step="1"
+                                       placeholder="Number of pieces"/>
+                                <label for="contentNumberOfPieces">Number of pieces:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="contentType" th:field="*{contentType}">
+                                    <option value="">select</option>
+                                    <option th:each="contentType : ${T(com.ocere.portal.enums.ContentType).values()}"
+                                            th:value="${contentType}"
+                                            th:text="${contentType}"
+                                            th:selected="${job.contentType == contentType}">
+                                    </option>
+                                </select>
+                                <label for="contentType">Content Type:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="contentLength" th:field="*{contentLength}">
+                                    <option value="-1">select</option>
+                                    <option value="500" th:selected="${job.contentLength == 500}">500</option>
+                                    <option value="750" th:selected="${job.contentLength == 750}">750</option>
+                                    <option value="1000" th:selected="${job.contentLength == 1000}">1000</option>
+                                    <option value="1500" th:selected="${job.contentLength == 1500}">1500</option>
+                                    <option value="2000" th:selected="${job.contentLength == 2000}">2000</option>
+                                    <option value="2500" th:selected="${job.contentLength == 2500}">2500</option>
+                                    <option value="3000" th:selected="${job.contentLength == 3000}">3000</option>
+                                </select>
+                                <label for="contentLength">Content Length:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{contentTitles}"
+                                       id="contentTitles"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Titles"/>
+                                <label for="contentTitles">Titles:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="contentWritingStyle" th:field="*{contentWritingStyle}">
+                                    <option value="">select</option>
+                                    <option th:each="writingStyle : ${T(com.ocere.portal.enums.WritingStyle).values()}"
+                                            th:value="${writingStyle}"
+                                            th:text="${writingStyle}"
+                                            th:selected="${job.contentWritingStyle == writingStyle}">
+                                    </option>
+                                </select>
+                                <label for="contentWritingStyle">Writing Style:</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input th:field="*{contentKeywords}"
+                                       id="contentKeywords"
+                                       class="validate"
+                                       type="text"
+                                       placeholder="Keywords"/>
+                                <label for="contentKeywords">Keywords:</label>
+                            </div>
                         </div>
                         <input th:field="*{client.id}" th:value="${job.client.id}" hidden/>
                         <div class="col s12">
@@ -112,26 +422,234 @@
 
 <div th:replace="fragments :: script-links"></div>
 
-<!-- Froala Editor -->
-<script type='text/javascript'
-        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
-
 <script type="text/javascript">
-    new FroalaEditor('textarea#description', {
-        // Set the image upload parameter.
-        imageUploadParam: 'file',
+    $(document).ready(function () {
+        var $productTypes = $('#productTypes');
+        var $campaignTypes = $('#campaignTypes');
+        var $facebookContainer = $('.facebookContainer');
+        var $seoContainer = $('#seo-container');
+        var $linkContainer = $('#link-container');
+        var $ppcContainer = $('#ppc-container');
+        var $contentContainer = $('#content-container');
 
-        // Set the image upload URL.
-        imageUploadURL: '/froala/upload',
+        new FroalaEditor('textarea#description', {
+            imageUploadParam: 'file',
+            imageUploadURL: '/froala/upload',
+            imageUploadMethod: 'POST',
+            imageMaxSize: 5 * 1024 * 1024, // 5MB
+            imageAllowedTypes: ['jpeg', 'jpg', 'png']
+        });
 
-        // Set request type.
-        imageUploadMethod: 'POST',
+        new FroalaEditor('textarea#targetKeywords', {
+            imageUploadParam: 'file',
+            imageUploadURL: '/froala/upload',
+            imageUploadMethod: 'POST',
+            imageMaxSize: 5 * 1024 * 1024, // 5MB
+            imageAllowedTypes: ['jpeg', 'jpg', 'png']
+        });
 
-        // Set max image size to 5MB.
-        imageMaxSize: 5 * 1024 * 1024,
+        new FroalaEditor('textarea#reportingKeywords', {
+            imageUploadParam: 'file',
+            imageUploadURL: '/froala/upload',
+            imageUploadMethod: 'POST',
+            imageMaxSize: 5 * 1024 * 1024, // 5MB
+            imageAllowedTypes: ['jpeg', 'jpg', 'png']
+        });
 
-        // Allow to upload PNG and JPG.
-        imageAllowedTypes: ['jpeg', 'jpg', 'png']
+        /*----------------------
+            VALIDATION
+        -----------------------*/
+
+        function validateField(condition, $field, event) {
+            if (condition) {
+                event.preventDefault();
+                $field.siblings('input.dropdown-trigger').addClass('error');
+                $field.addClass('error');
+                if (!$field.siblings('p.error').length) {
+                    $('<p class="error">This field is required.</p>').insertAfter($field);
+                }
+            } else {
+                $field.removeClass('error');
+                $field.siblings('p.error').remove();
+            }
+        }
+
+        $("#jobForm").submit(function (event) {
+            /* ALL */
+            validateField($productTypes.val().length === 0, $productTypes, event);
+
+            var $company = $('#company');
+            validateField($company.val() === '', $company, event);
+
+            var $website = $('#website');
+            validateField($website.val() === '', $website, event);
+
+            var $startDate = $('#startDate');
+            validateField($startDate.val() === '', $startDate, event);
+
+            var $endDate = $('#endDate');
+            validateField($endDate.val() === '', $endDate, event);
+
+            var $owner = $('#owner');
+            validateField($owner.val() === '-1', $owner, event);
+
+            var $currency = $('#currency');
+            validateField($currency.val() === '', $currency, event);
+
+            /* SEO */
+            if (!$seoContainer.hasClass('hidden')) {
+                var $seoValue = $('#seoValue');
+                validateField($seoValue.val() === '0.0', $seoValue, event);
+
+                var $targetKeywords = $('#targetKeywords');
+                validateField($targetKeywords.val() === '', $targetKeywords, event);
+
+                var $reportingKeywords = $('#reportingKeywords');
+                validateField($reportingKeywords.val() === '', $reportingKeywords, event);
+
+                var $seoSearchEngines = $('#seoSearchEngines');
+                validateField($seoSearchEngines.val().length === 0, $seoSearchEngines, event);
+            }
+
+            /* LINK */
+            if (!$linkContainer.hasClass('hidden')) {
+                var $linkValue = $('#linkValue');
+                validateField($linkValue.val() === '0.0', $linkValue, event);
+
+                var $googleDocLink = $('#googleDocLink');
+                var $orderFormFilePath = $('#orderFormFilePath');
+                validateField($googleDocLink.val() === '' && $orderFormFilePath.val() === '', $googleDocLink, event);
+                validateField($googleDocLink.val() === '' && $orderFormFilePath.val() === '', $orderFormFilePath, event);
+
+                var $linkSearchEngines = $('#linkSearchEngines');
+                validateField($linkSearchEngines.val().length === 0, $linkSearchEngines, event);
+            }
+
+            /* PPC */
+            if (!$ppcContainer.hasClass('hidden')) {
+                validateField($campaignTypes.val().length === 0, $campaignTypes, event);
+
+                var $ppcValue = $('#ppcValue');
+                validateField($ppcValue.val() === '0.0', $ppcValue, event);
+
+                var $campaignLaunchDate = $('#campaignLaunchDate');
+                validateField($campaignLaunchDate.val() === '', $campaignLaunchDate, event);
+
+                var $signOffRequired = $('#signOffRequired');
+                validateField($signOffRequired.val() === '', $signOffRequired, event);
+
+                var $setUpRequired = $('#setUpRequired');
+                validateField($setUpRequired.val() === '', $setUpRequired, event);
+
+                var $googleAdsId = $('#googleAdsId');
+                validateField($googleAdsId.val() === '', $googleAdsId, event);
+
+                var $monthlyClickSpend = $('#monthlyClickSpend');
+                validateField($monthlyClickSpend.val() === '', $monthlyClickSpend, event);
+
+                var $targetAreas = $('#targetAreas');
+                validateField($targetAreas.val() === '', $targetAreas, event);
+
+                var $landingPageUrls = $('#landingPageUrls');
+                validateField($landingPageUrls.val() === '', $landingPageUrls, event);
+
+                var $adwordsMainGoal = $('#adwordsMainGoal');
+                validateField($adwordsMainGoal.val() === '', $adwordsMainGoal, event);
+
+                var $thankYouPageUrl = $('#thankYouPageUrl');
+                validateField($thankYouPageUrl.val() === '', $thankYouPageUrl, event);
+
+                var $reportingEmail = $('#reportingEmail');
+                validateField($reportingEmail.val() === '', $reportingEmail, event);
+
+                if ($campaignTypes.val().includes('FacebookImageAds') || $campaignTypes.val().includes('FacebookLeadAds')) {
+                    var $facebookMainGoal = $('#facebookMainGoal');
+                    validateField($facebookMainGoal.val() === '', $facebookMainGoal, event);
+
+                    var $facebookId = $('#facebookId');
+                    validateField($facebookId.val() === '', $facebookId, event);
+
+                    var $facebookUrl = $('#facebookUrl');
+                    validateField($facebookUrl.val() === '', $facebookUrl, event);
+
+                }
+            }
+
+            /* CONTENT */
+            if (!$contentContainer.hasClass('hidden')) {
+                var $contentValue = $('#contentValue');
+                validateField($contentValue.val() === '0.0', $contentValue, event);
+
+                var $contentNumberOfPieces = $('#contentNumberOfPieces');
+                validateField($contentNumberOfPieces.val() === '0', $contentNumberOfPieces, event);
+
+                var $contentType = $('#contentType');
+                validateField($contentType.val() === '', $contentType, event);
+
+                var $contentLength = $('#contentLength');
+                validateField($contentLength.val() === '-1', $contentLength, event);
+
+                var $contentTitles = $('#contentTitles');
+                validateField($contentTitles.val() === '', $contentTitles, event);
+
+                var $contentWritingStyle = $('#contentWritingStyle');
+                validateField($contentWritingStyle.val() === '', $contentWritingStyle, event);
+
+                var $contentKeywords = $('#contentKeywords');
+                validateField($contentKeywords.val() === '', $contentKeywords, event);
+            }
+        });
+
+        /*----------------------
+            MANAGE VIEW
+        -----------------------*/
+
+        $campaignTypes.change(function () {
+            if ($campaignTypes.val().includes('FacebookImageAds') || $campaignTypes.val().includes('FacebookLeadAds')) {
+                $facebookContainer.removeClass('hidden');
+            } else {
+                $facebookContainer.addClass('hidden');
+            }
+        });
+
+        updateElementContainers();
+
+        $productTypes.change(function () {
+            updateElementContainers();
+        });
+
+
+        function updateElementContainers() {
+            hideAllElementContainers();
+            var instance = M.FormSelect.getInstance(document.getElementById('productTypes'));
+            instance.getSelectedValues().forEach(function (element) {
+                showElementContainer(element);
+            });
+        }
+
+        function hideAllElementContainers() {
+            $seoContainer.addClass('hidden');
+            $linkContainer.addClass('hidden');
+            $ppcContainer.addClass('hidden');
+            $contentContainer.addClass('hidden');
+        }
+
+        function showElementContainer(element) {
+            switch (element) {
+                case 'SEO':
+                    $seoContainer.removeClass('hidden');
+                    break;
+                case 'LinkBuilding':
+                    $linkContainer.removeClass('hidden');
+                    break;
+                case 'PPC':
+                    $ppcContainer.removeClass('hidden');
+                    break;
+                case 'Content':
+                    $contentContainer.removeClass('hidden');
+                    break;
+            }
+        }
     });
 </script>
 </body>

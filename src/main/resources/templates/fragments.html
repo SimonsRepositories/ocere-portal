@@ -58,8 +58,12 @@
 </div>
 
 <div th:fragment="script-links">
+    <!-- Froala -->
+    <script th:src="@{/js/froala_editor.pkgd.min.js}"></script>
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
     <!-- Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>

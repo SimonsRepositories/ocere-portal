@@ -66,6 +66,14 @@ public class User
     )
     private Set<Note> createdNotes;
 
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL
+    )
+    private Set<Job> job;
+
+    public String getFullName() { return firstname + " " + lastname; }
+
     public String getMailpassword() {
         return mailpassword;
     }
@@ -156,5 +164,13 @@ public class User
 
     public void setCreatedNotes(Set<Note> createdNotes) {
         this.createdNotes = createdNotes;
+    }
+
+    public Set<Job> getJob() {
+        return job;
+    }
+
+    public void setJob(Set<Job> job) {
+        this.job = job;
     }
 }
