@@ -83,7 +83,7 @@
                         </div>
                         <div class="input-field col s3">
                             <select id="status" th:field="*{status}">
-                                <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
+                                <option th:each="status : ${T(com.ocere.portal.enums.JobStatus).values()}"
                                         th:value="${status}"
                                         th:text="${status}"
                                         th:selected="${job.status == status}">
@@ -179,6 +179,7 @@
                                            class="file-path validate"
                                            type="text"/>
                                 </div>
+                                <input th:field="*{orderFormFile.id}" id="orderFormFileId" type="text" hidden>
                             </div>
                             <div class="input-field col s6">
                                 <input th:field="*{googleDocLink}"
@@ -579,6 +580,27 @@
 
                 var $contentKeywords = $('#contentKeywords');
                 validateField($contentKeywords.val() === '', $contentKeywords, event);
+            }
+
+            if ($orderFormFilePath.val() !== '') {
+                var form = new FormData();
+                var orderFormFile = document.getElementById('orderFormFile');
+                form.append('orderFormFile', orderFormFile.files[0]);
+                $.ajax({
+                    url: "/uploadFormFile",
+                    method: "POST",
+                    dataType: 'json',
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function(result){
+                        $('#orderFormFileId').val(result.id);
+                    },
+                    error: function(er){
+                        event.preventDefault();
+                        console.log(er);
+                    }
+                });
             }
         });
 

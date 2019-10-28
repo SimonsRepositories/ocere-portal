@@ -128,7 +128,8 @@ public class Job {
 
     private String googleDocLink;
 
-    @OneToOne(mappedBy = "jobOrderForm", cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_form_file_id")
     private DBFile orderFormFile;
 
     private void setOrderFormFile(MultipartFile file) {
