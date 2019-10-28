@@ -249,8 +249,18 @@ p.error {
     transform-origin: 0 0;
 }
 
+a.button.ocere {
+    background-color: #2EC4B6;
+    border: 3px solid #2EC4B6;
+    color: #fff;
+}
+
+.dropdown .links a:hover:not([href]), .navigation .links a:hover:not([href]) {
+    color: #4d4d4d;
+}
+
 /*
-    FLOATING BUTTON
+    BACKGROUND COLOR
  */
 
 .ocere-green--background {
@@ -351,7 +361,7 @@ table:hover {
 }
 
 /*
-    FORM
+    CRUD
  */
 
 .form-signin {
@@ -424,3 +434,10 @@ table:hover {
         transform: translateX(0);
     }
 }
+
+/*setting individual padding for register & login*/
+.card .card-content {
+    /*padding: 20px 50px 20px 50px;*/
+}
+
+/*centering register & login form*/

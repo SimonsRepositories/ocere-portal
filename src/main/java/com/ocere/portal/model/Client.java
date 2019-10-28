@@ -36,16 +36,8 @@ public class Client {
     private String companyName;
 
     @OneToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Contact firstContact;
-
-    @OneToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Contact secondContact;
-
-    @OneToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Contact thirdContact;
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
 
     private String addressLine1;
     private String addressLine2;
@@ -60,28 +52,12 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private PaymentTerms paymentTerm;
 
-    public Contact getFirstContact() {
-        return firstContact;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setFirstContact(Contact firstContact) {
-        this.firstContact = firstContact;
-    }
-
-    public Contact getSecondContact() {
-        return secondContact;
-    }
-
-    public void setSecondContact(Contact secondContact) {
-        this.secondContact = secondContact;
-    }
-
-    public Contact getThirdContact() {
-        return thirdContact;
-    }
-
-    public void setThirdContact(Contact thirdContact) {
-        this.thirdContact = thirdContact;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     public PaymentTerms getPaymentTerm() {

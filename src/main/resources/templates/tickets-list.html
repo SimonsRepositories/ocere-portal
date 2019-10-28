@@ -20,8 +20,7 @@
             <div class="content-container">
                 <div class="container full-width">
                     <div class="row">
-                        <h1 class="section-title h1">Ticket Dashboard <a class="btn btn-primary" href="/tickets/create">New</a>
-                        </h1>
+                        <h1 class="section-title h1">Ticket Dashboard</h1>
                     </div>
                     <div class="row">
                         <div class="col s12">
@@ -33,7 +32,7 @@
                             </ul>
                         </div>
                         <div id="open" class="col s12">
-                            <h4 th:if="${assignedOpen.isEmpty()}">0 tickets left! You're all done</h4>
+                            <h5 th:if="${assignedOpen.isEmpty()}">0 tickets left. You're all done!</h5>
                             <table th:if="${!assignedOpen.isEmpty()}"
                                    class="table table-striped js-sort-table">
                                 <thead class="sortable-head">
@@ -66,12 +65,11 @@
                             </table>
                         </div>
                         <div id="overdue" class="col s12">
-                            <h4 th:if="${assignedOverdue.isEmpty()}">0 tickets overdue! Good job</h4>
+                            <h5 th:if="${assignedOverdue.isEmpty()}">0 tickets overdue. Good job!</h5>
                             <table th:if="${!assignedOverdue.isEmpty()}"
                                    class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Job</th>
                                     <th>Subject</th>
                                     <th>Status</th>
@@ -83,7 +81,6 @@
                                 <tbody>
                                 <tr th:each="ticket : ${assignedOverdue}" class="ticket-row"
                                     th:data-id="${ticket.id}">
-                                    <td th:text="${ticket.id}"></td>
                                     <td th:text="${ticket.job}"></td>
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
@@ -99,12 +96,11 @@
                             </table>
                         </div>
                         <div id="all" class="col s12">
-                            <h4 th:if="${assigned.isEmpty()}">You weren't assigned any tickets yet</h4>
+                            <h5 th:if="${assigned.isEmpty()}">You weren't assigned any tickets yet</h5>
                             <table th:if="${!assigned.isEmpty()}" style="width: 100%"
                                    class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Job</th>
                                     <th>Subject</th>
                                     <th>Status</th>
@@ -117,7 +113,6 @@
                                 <tr th:each="ticket : ${assigned}" class="ticket-row"
                                     th:data-id="${ticket.id}"
                                     style="cursor: pointer;">
-                                    <td th:text="${ticket.id}"></td>
                                     <td th:text="${ticket.job}"></td>
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
@@ -133,12 +128,11 @@
                             </table>
                         </div>
                         <div id="submitted" class="col s12">
-                            <h4 th:if="${submitted.isEmpty()}">You haven't submitted any tickets yet</h4>
+                            <h5 th:if="${submitted.isEmpty()}">You haven't submitted any tickets yet</h5>
                             <table th:if="${!submitted.isEmpty()}" style="width: 100%"
                                    class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Job</th>
                                     <th>Subject</th>
                                     <th>Status</th>
@@ -152,7 +146,6 @@
                                 <tr th:each="ticket : ${submitted}" class="ticket-row"
                                     th:data-id="${ticket.id}"
                                     style="cursor: pointer;">
-                                    <td th:text="${ticket.id}"></td>
                                     <td th:text="${ticket.job}"></td>
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:text="${ticket.status}"></td>
@@ -166,6 +159,14 @@
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="fixed-action-btn click-to-toggle">
+                            <a class="btn-floating btn-large ocere-green--background">
+                                <i class="large material-icons">menu</i>
+                            </a>
+                            <ul>
+                                <li><a th:href="${'/tickets/create'}" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

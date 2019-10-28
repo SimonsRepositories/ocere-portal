@@ -35,8 +35,6 @@ public class AuthenticationController
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         Role role = new Role();
-        int[] idRoles = new int[4];
-        model.addAttribute("idRoles", idRoles);
         modelAndView.addObject("user", user);
         model.addAttribute("role", role);
         model.addAttribute("listOfRoles", roleService.findAll());
@@ -46,12 +44,16 @@ public class AuthenticationController
     }
 
     @PostMapping(value="/register")
-    public ModelAndView registerUser(@ModelAttribute @Valid User user, BindingResult bindingResult, ModelMap modelMap) {
+    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Please correct the errors in form!");
+            //modelAndView.addObject("successMessage", "Please correct the errors in form!");
+            System.out.println("has errors: " + bindingResult.toString());
             modelMap.addAttribute("bindingResult", bindingResult);
+            modelAndView.addObject("listOfRoles", roleService.findAll());
+            modelAndView.setViewName("register");
+            return modelAndView;
         }
         //save the user if no binding errors
         else if(userService.isUserAlreadyPresent(user)){
@@ -68,7 +70,9 @@ public class AuthenticationController
             modelAndView.addObject("successMessage", "User is registered successfully");
         }
         modelAndView.addObject("user", new User());
+        modelAndView.addObject("role", new Role());
         modelAndView.addObject("listOfRoles", roleService.findAll());
+        modelAndView.addObject("listOfUsers", userService.findAll());
         modelAndView.setViewName("register");
         return modelAndView;
     }

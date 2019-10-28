@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Clients</title>
+    <title>Jobs</title>
 
     <div th:replace="fragments :: head-links"></div>
 </head>
@@ -19,28 +19,24 @@
             <div class="content-container">
                 <div class="container full-width">
                     <div class="row">
-                        <h1>Clients</h1>
+                        <h1>Jobs</h1>
                     </div>
-                    <h4 th:if="${clients.isEmpty()}">No clients found</h4>
-                    <table th:if="${!clients.isEmpty()}"
-                           class="table table-striped js-sort-table" id="clientTable">
-                        <div class="row input-field">
-                            <input th:if="${!clients.isEmpty()}" type="text" id="clientSearchInput"
-                                   onkeyup="searchTable()">
-                            <label for="clientSearchInput">Search for company</label>
-                        </div>
+                    <h4 th:if="${jobs.isEmpty()}">No jobs found</h4>
+                    <div class="row input-field">
+                        <input th:if="${!jobs.isEmpty()}" type="text" id="jobSearchInput" onkeyup="searchTable()">
+                        <label for="jobSearchInput">Search for company</label>
+                    </div>
+                    <table th:if="${!jobs.isEmpty()}" class="table table-striped js-sort-table" id="jobTable">
                         <thead class="sortable-head">
                         <tr>
                             <th class="js-sort-string">Company</th>
-                            <th class="js-sort-string">Contact</th>
                             <th class="js-sort-string">Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="client : ${clients}" th:data-id="${client.id}" class="client-row">
-                            <td th:text="${client.companyName}"></td>
-                            <td th:text="${client.contact.first_name} + ' ' +  ${client.contact.last_name}"></td>
-                            <td th:text="${client.status}"></td>
+                        <tr th:each="job : ${jobs}" th:data-id="${job.id}" class="job-row">
+                            <td th:text="${job.company}"></td>
+                            <td th:text="${job.status}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -49,8 +45,7 @@
                             <i class="large material-icons">menu</i>
                         </a>
                         <ul>
-                            <li><a href="/clients/create" class="btn-floating green"><i
-                                    class="material-icons">add</i></a></li>
+                            <li><a href="/jobs/create" class="btn-floating green"><i class="material-icons">add</i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,8 +63,8 @@
     // Search for table
     function searchTable() {
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("clientSearchInput");
-        table = document.getElementById("clientTable");
+        input = document.getElementById("jobSearchInput");
+        table = document.getElementById("jobTable");
         filter = input.value.toUpperCase();
         if (table == null) {
             console.log("table null")
@@ -90,8 +85,8 @@
         }
     }
 
-    $('.client-row').on('click', function () {
-        window.location.href = "/clients/" + $(this).data('id');
+    $('.job-row').on('click', function () {
+        window.location.href = "/jobs/" + $(this).data('id');
     });
 </script>
 </body>

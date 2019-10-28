@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>Ocere - Login</title>
+    <meta charset="UTF-8">
 
     <div th:replace="fragments :: head-links"></div>
 </head>
-
 <body style="background-color:#1AA090;">
-    <div id="loginBox" class="container">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9 col-md col-lg-5 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Log In</h5>
-                            <form th:action="@{/page/login}" method="POST" class="form-signin">
-                                <br/> <input type="text" id="email" name="email" th:placeholder="Email" class="form-control"/> <br/> <input
-                                    type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
+    <div class="row">
+        <div class="col s6" style="margin-left: 25%;">
+            <div class="card grey lighten-5 center">
+                <div class="card-content">
+                    <form th:action="@{/page/login}" method="POST">
+                        <span class="card-title">Log In</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="text" name="email" class="form-control"/>
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="password" type="password" name="password" class="form-control"/>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="input-field col s12">
                                 <div align="center" th:if="${param.error}">
-                                    <p style="font-size: 20px; color: #FF1C19;">Email or Password is invalid.</p>
+                                    <small style="color: #FF190A;">Email or Password is invalid.</small>
                                 </div>
-                                <button class="btn btn-lg btn-primary" name="Submit" value="Login" type="Submit" th:text="Login"
-                                        style="margin-right:10px;"></button>
-                                <a href="/home">Forgot password?</a>
-                            </form>
+                            </div>
+                            <div class="center">
+                                <button type="submit" value="Login" name="Submit" class="waves-effect waves-light btn" th:text="Login"></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <div th:replace="fragments :: script-links"></div>
 </body>
 </html>

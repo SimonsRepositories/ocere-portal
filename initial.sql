@@ -27,20 +27,19 @@ VALUES (1, '2 Hours', 2),
 INSERT INTO usergroup (group_id, is_active, created_at, is_empty, name, updated_at)
 VALUES (1, true, NOW(), false, 'GroupTest', NOW());
 
-INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page,
-                    email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 'Ham', 'Hamster', 'https://www.ocere.com/', 'cheltenham@ham.uk',
-        '123456789012', 'addressline1', 'addresline2', 'Job title', 'Switzerland', 'Zurich', 'A',
+INSERT INTO client (id, status, author_id, city, company_name, contact_id, contact_us_page,
+                    address_line1, address_line2, job_title, country, county, tier, website)
+VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 1, 'https://www.ocere.com/', 'addressline1', 'addresline2', 'Job title', 'Switzerland', 'Zurich', 'A',
         'https://www.ocere.com/');
-INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page,
-                    email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 'Bac', 'bacstor', 'https://www.ocere.com/',
-        'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'Gloucstershire', 'B',
+INSERT INTO client (id, status, author_id, city, company_name, contact_id, contact_us_page,
+                    address_line1, address_line2, job_title, country, county, tier, website)
+VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 2, 'https://www.ocere.com/',
+        'addressline1', 'addresline2', 'Job title', 'UK', 'Gloucstershire', 'B',
         'https://www.ocere.com/');
-INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page,
-                    email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 'Stec', 'Steakster', 'https://www.ocere.com/',
-        'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'London', 'C',
+INSERT INTO client (id, status, author_id, city, company_name, contact_id, contact_us_page,
+                   address_line1, address_line2, job_title, country, county, tier, website)
+VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 4, 'https://www.ocere.com/',
+        'addressline1', 'addresline2', 'Job title', 'UK', 'London', 'C',
         'https://www.ocere.com/');
 
 INSERT INTO `job` (`id`, `adwords_main_goal`, `asap`, `campaign_launch_date`, `company`, `content_keywords`,

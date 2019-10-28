@@ -57,20 +57,10 @@ public class ClientServiceImpl implements ClientService {
             updatedClient.setCity(client.getCity());
             updatedClient.setCompanyName(client.getCompanyName());
 
-            updatedClient.getFirstContact().setFirst_name(client.getFirstContact().getFirst_name());
-            updatedClient.getFirstContact().setLast_name(client.getFirstContact().getLast_name());
-            updatedClient.getFirstContact().setPhone(client.getFirstContact().getPhone());
-            updatedClient.getFirstContact().setEmail(client.getFirstContact().getEmail());
-
-            updatedClient.getSecondContact().setFirst_name(client.getSecondContact().getFirst_name());
-            updatedClient.getSecondContact().setLast_name(client.getSecondContact().getLast_name());
-            updatedClient.getSecondContact().setPhone(client.getSecondContact().getPhone());
-            updatedClient.getSecondContact().setEmail(client.getSecondContact().getEmail());
-
-            updatedClient.getThirdContact().setFirst_name(client.getThirdContact().getFirst_name());
-            updatedClient.getThirdContact().setLast_name(client.getThirdContact().getLast_name());
-            updatedClient.getThirdContact().setPhone(client.getThirdContact().getPhone());
-            updatedClient.getThirdContact().setEmail(client.getThirdContact().getEmail());
+            updatedClient.getContact().setFirst_name(client.getContact().getFirst_name());
+            updatedClient.getContact().setLast_name(client.getContact().getLast_name());
+            updatedClient.getContact().setPhone(client.getContact().getPhone());
+            updatedClient.getContact().setEmail(client.getContact().getEmail());
 
             updatedClient.setContactUsPage(client.getContactUsPage());
             updatedClient.setAddressLine2(client.getAddressLine2());

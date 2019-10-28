@@ -64,64 +64,23 @@
 
                     <h4>Contact</h4>
                     <div class="row">
-                        <h6>First Contact</h6>
                         <div class="col s4">
                             <small class="attribute-title">Name</small>
                             <p class="attribute-value"
-                               th:text="${client.firstContact.first_name} + ' ' + ${client.firstContact.last_name}">
+                               th:text="${client.contact.first_name} + ' ' + ${client.contact.last_name}">
                                 Name</p>
                         </div>
                         <div class="col s4">
                             <small class="attribute-title">Phone</small>
-                            <p class="attribute-value" th:text="${client.firstContact.phone}">Phone</p>
+                            <p class="attribute-value" th:text="${client.contact.phone}">Phone</p>
                         </div>
                         <div class="col s4">
                             <small class="attribute-title">Email</small>
-                            <p class="attribute-value" th:text="${client.firstContact.email}">Email</p>
+                            <p class="attribute-value" th:text="${client.contact.email}">Email</p>
                         </div>
                     </div>
 
-                    <div th:if="*{!client.secondContact.email.isEmpty()}">
-                        <h6>Second Contact</h6>
-                        <div class="row">
-                            <div class="col s4">
-                                <small class="attribute-title">Name</small>
-                                <p class="attribute-value"
-                                   th:text="${client.secondContact.first_name} + ' ' + ${client.secondContact.last_name}">
-                                    Name</p>
-                            </div>
-                            <div class="col s4">
-                                <small class="attribute-title">Phone</small>
-                                <p class="attribute-value" th:text="${client.secondContact.phone}">Phone</p>
-                            </div>
-                            <div class="col s4">
-                                <small class="attribute-title">Email</small>
-                                <p class="attribute-value" th:text="${client.secondContact.email}">Email</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div th:if="*{!client.thirdContact.email.isEmpty()}">
-                        <h6>Third Contact</h6>
-                        <div class="row">
-                            <div class="col s4">
-                                <small class="attribute-title">Name</small>
-                                <p class="attribute-value"
-                                   th:text="${client.thirdContact.first_name} + ' ' + ${client.thirdContact.last_name}">
-                                    Name</p>
-                            </div>
-                            <div class="col s4">
-                                <small class="attribute-title">Phone</small>
-                                <p class="attribute-value" th:text="${client.thirdContact.phone}">Phone</p>
-                            </div>
-                            <div class="col s4">
-                                <small class="attribute-title">Email</small>
-                                <p class="attribute-value" th:text="${client.thirdContact.email}">Email</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4>Jobs</h4>
+                    <!--<h4>Jobs</h4>
                     <div class="row mt-1">
                         <div class="col s12">
                             <div th:if="${jobs.isEmpty()}">
@@ -152,7 +111,7 @@
                     </div>
                     <div class="fixed-action-btn click-to-toggle">
                         <a class="btn-floating btn-large ocere-green--background">
-                            <i class="large material-icons">menu_book</i>
+                            <i class="large material-icons">menu</i>
                         </a>
                         <ul>
                             <li><a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn-floating green"><i
@@ -164,6 +123,7 @@
                                     class="material-icons">delete</i></a></li>
                         </ul>
                     </div>
+                    -->
                 </div>
             </div>
         </div>

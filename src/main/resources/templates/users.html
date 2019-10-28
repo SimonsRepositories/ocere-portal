@@ -24,56 +24,75 @@
                         <div th:switch="${listOfUsers}">
                             <h4 th:case="null">No Users yet</h4>
                             <div th:case="*">
-                                <table class="table table-striped">
+                                <table class="table table-striped js-sort-table" id="userTable">
+                                    <div class="row input-field">
+                                        <input th:if="${!listOfUsers.isEmpty()}" type="text" id="userSearchInput"
+                                               onkeyup="searchTable()">
+                                        <label for="userSearchInput">Search for user</label>
+                                    </div>
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>firstname</th>
-                                        <th>lastame</th>
-                                        <th>email</th>
+                                        <th class="js-sort-string">Name</th>
+                                        <th class="js-sort-string">Email</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="user : ${listOfUsers}" style="cursor: pointer;" class="user-row"
                                         th:data-id="${user.id}">
-                                        <td th:text="${user.id}"></td>
-                                        <td th:text="${user.firstname}"></td>
-                                        <td th:text="${user.lastname}"></td>
+                                        <td th:text="${user.firstname} + ' ' + ${user.lastname}"></td>
                                         <td th:text="${user.email}"></td>
-                                        <!--<td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
-                                        <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>-->
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div>
-                            <a href="/register">New Account</a>
+                            <div class="fixed-action-btn click-to-toggle">
+                                <a class="btn-floating btn-large ocere-green--background">
+                                    <i class="large material-icons">menu</i>
+                                </a>
+                                <ul>
+                                    <li><a href="/register" class="btn-floating green"><i
+                                            class="material-icons">add</i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
-<!-- jQuery CDN - Slim version (=without AJAX) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<!-- Popper.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Sortable Table -->
+<script th:src="@{/js/sort-table.js}"></script>
 
 <script type="text/javascript">
+    // Search for table
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("userSearchInput");
+        table = document.getElementById("userTable");
+        filter = input.value.toUpperCase();
+        if (table == null) {
+            console.log("table null")
+        } else {
+            console.log("table not null")
+        }
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
     $('.user-row').on('click', function () {
         window.location.href = "/users/" + $(this).data('id');
     });

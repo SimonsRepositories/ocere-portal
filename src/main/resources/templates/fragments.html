@@ -8,19 +8,17 @@
         <link rel="stylesheet" th:href="@{/css/normalize.css}">
 
         <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/css/icon.css}">
 
         <!-- Materialized -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" th:href="@{/css/materialize.min.css}">
 
         <!-- Scrollbar Custom CSS -->
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
 
         <!-- Our Custom CSS -->
         <link rel="stylesheet" th:href="@{/css/styles.css}">
     </div>
-
 </head>
 <body>
 
@@ -49,7 +47,7 @@
                     <a href="/users">Users</a>
                 </div>
                 <div class="buttons">
-                    <a href="/profile" class="button green">Profile</a>
+                    <a href="/profile" class="button ocere">Profile</a>
                     <a href="/logout" class="button orange">Logout</a>
                 </div>
             </div>
@@ -58,54 +56,46 @@
 </div>
 
 <div th:fragment="script-links">
+
+    <!-- Custom Scroller CDN -->
+    <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+
+    <!-- jQuery -->
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+
     <!-- Froala -->
     <script th:src="@{/js/froala_editor.pkgd.min.js}"></script>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script th:src="@{/js/jquery-3.4.1.js}"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-    <!-- Sortable Table -->
-    <script th:src="@{/js/sort-table.js}"></script>
-
-    <!-- Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
+    <!-- Materialize -->
+    <script th:src="@{/js/materialize.min.js}"></script>
 
     <script type="text/javascript">
+        // Post Button
         $('.post-button').on('click', function () {
             $.post($(this).data('post-url'));
             window.location.href = $(this).data('redirect-url');
         });
 
+        // Initialize materialize dropdown
         $(document).ready(function () {
             $('select').formSelect();
         });
 
+        // Make dropdown visible as valid on change
         $('select').change(function () {
             $(this).parent().find('.dropdown-trigger').addClass('valid');
         });
 
-        $(document).ready(function () {
-            $('.fixed-action-btn').floatingActionButton();
-        });
-        document.addEventListener('DOMContentLoaded', function () {
+        // Configure floating action button
+        document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.fixed-action-btn');
             var instances = M.FloatingActionButton.init(elems, {
-                direction: 'top'
+                direction: 'top',
+                hoverEnabled: false
             });
         });
+
+        // Make dropdown visible as valid when it has been selected even though its value is the same as initial
         $(document).ready(function () {
             $('.input-field .select-wrapper input').on('click', function () {
                 $(this).addClass('valid');

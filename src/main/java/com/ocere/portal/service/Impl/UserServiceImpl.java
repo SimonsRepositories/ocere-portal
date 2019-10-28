@@ -5,6 +5,8 @@ import com.ocere.portal.model.User;
 import com.ocere.portal.repository.RoleRepository;
 import com.ocere.portal.repository.UserRepository;
 import com.ocere.portal.service.UserService;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user, Set<Role> idRoles) {
         if(user.getPassword() != null) {
             user.setPassword(encoder.encode(user.getPassword()));
+            if(user.getMailpassword() != null) {
+                user.setMailpassword(encoder.encode(user.getMailpassword()));
+            }
         }
         user.setStatus("VERIFIED");
         //Role userRole = roleRepository.findById(roleId);

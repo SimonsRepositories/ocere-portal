@@ -57,7 +57,7 @@ public class ClientController {
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("client", this.clientService.findClientById(id));
-        model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
+        //model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
         return "clients-view";
     }
 
@@ -101,52 +101,23 @@ public class ClientController {
 
         // Create User account with generated credentials and mail them to user
         User user = new User();
-        user.setFirstname(client.getFirstContact().getFirst_name());
-        user.setLastname(client.getFirstContact().getLast_name());
-        user.setEmail(client.getFirstContact().getEmail());
+        user.setFirstname(client.getContact().getFirst_name());
+        user.setLastname(client.getContact().getLast_name());
+        user.setEmail(client.getContact().getEmail());
         user.setRoles(new HashSet<>(4));
         user.setPassword(generatePassword(12));
         user.setClient(true);
         this.userService.saveUser(user, roles);
 
-        mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
-                "Authentication credentials for http://localhost:8080\n" +
-                        "Username: " + user.getEmail() + "\n" +
-                        "Password: " + user.getPassword());
-
-
-        if (client.getSecondContact().getEmail() != null) {
-            User user2 = new User();
-            user2.setFirstname(client.getSecondContact().getFirst_name());
-            user2.setLastname(client.getSecondContact().getLast_name());
-            user2.setEmail(client.getSecondContact().getEmail());
-            user2.setRoles(new HashSet<>(4));
-            user2.setPassword(generatePassword(12));
-            user2.setClient(true);
-            this.userService.saveUser(user2, roles);
-
-
-            mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user2.getEmail(), "Ocere login credentials",
+        try {
+            mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
                     "Authentication credentials for http://localhost:8080\n" +
                             "Username: " + user.getEmail() + "\n" +
                             "Password: " + user.getPassword());
+        } catch (Exception e) {
+            System.out.println("mail sending isn't possible with your email and mailpassword");
         }
 
-        if (client.getThirdContact().getEmail() != null) {
-            User user3 = new User();
-            user3.setFirstname(client.getThirdContact().getFirst_name());
-            user3.setLastname(client.getThirdContact().getLast_name());
-            user3.setEmail(client.getThirdContact().getEmail());
-            user3.setRoles(new HashSet<>(4));
-            user3.setPassword(generatePassword(12));
-            user3.setClient(true);
-            this.userService.saveUser(user3, roles);
-
-            mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user3.getEmail(), "Ocere login credentials",
-                    "Authentication credentials for http://localhost:8080\n" +
-                            "Username: " + user.getEmail() + "\n" +
-                            "Password: " + user.getPassword());
-        }
         this.clientService.saveClient(client);
 
         return "redirect:/clients";

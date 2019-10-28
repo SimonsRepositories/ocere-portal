@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -16,24 +17,23 @@ public class User
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "Id field must not be empty")
     @Column(name= "auth_user_id")
     private int id;
 
-    @NotNull(message = "first name is compulsory")
     @Column(name = "first_name")
     private String firstname;
 
-    @NotNull(message = "last name is compulsory")
     @Column(name = "last_name")
     private String lastname;
 
-    @NotNull(message = "email is compulsory")
-    @Email(message ="Email is invalid")
+    @Email
     @Column(name = "email")
     private String email;
 
-    @NotNull(message = "password is compulsory")
-    @Length(min=5, message = "Password should be at least 5 characters")
+    @Length(min=8, message = "Password should be at least 8 characters")
+    //Patttern: requires one lower case, one upper case, one digit and no spaces
+    @Pattern(message="requires one lower case, one upper case, one digit and no spaces", regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}$")
     @Column(name = "password")
     private String password;
 
