@@ -5,24 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>User</title>
+    <title>User View</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
+    <div th:replace="fragments :: head-links"></div>
 </head>
 <body>
 <div class="wrapper">
@@ -34,39 +19,36 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s12">
-                            <h1>User View
-                                <a class="btn btn-primary" th:href="${'/users/edit-user/' + user.id}">Edit</a>
-                                <form class="inlineBlockForm" method="post"
-                                      th:href="@{/users/delete-user?id={id}(id=${user.id})}">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                                <a href="/users" class="btn btn-warning">Cancel</a>
-                            </h1>
+                            <h1>User View</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12">
-                            <small class="attribute-title">Id:</small>
-                            <p class="attribute-value" th:text="${user.id}">Value</p>
+                        <div class="col s6">
+                            <small class="attribute-title">Name</small>
+                            <p class="attribute-value" th:text="${user.firstname} + ' ' + ${user.lastname}">Name</p>
                         </div>
                         <div class="col s6">
-                            <small class="attribute-title">firstname:</small>
-                            <p class="attribute-value" th:text="${user.firstname}">Value</p>
+                            <small class="attribute-title">Email</small>
+                            <p class="attribute-value" th:text="${user.email}">Email</p>
                         </div>
-                        <div class="col s6">
-                            <small class="attribute-title">lastname:</small>
-                            <p class="attribute-value" th:text="${user.lastname}">Value</p>
-                        </div>
-                        <div class="col s12">
-                            <small class="attribute-title">lastname:</small>
-                            <p class="attribute-value" th:text="${user.email}">Value</p>
-                        </div>
-                        <!--show roles here-->
                     </div>
+                </div>
+                <div class="fixed-action-btn click-to-toggle">
+                    <a class="btn-floating btn-large ocere-green--background">
+                        <i class="large material-icons">menu</i>
+                    </a>
+                    <ul>
+                        <li><a th:href="${'/users/edit-user/' + user.id}" class="btn-floating yellow"><i class="material-icons">edit</i></a></li>
+                        <li><a th:href="${'/users/delete-user?id=' + user.id}" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div th:replace="fragments :: script-links"></div>
+
+
 </body>
 </html>

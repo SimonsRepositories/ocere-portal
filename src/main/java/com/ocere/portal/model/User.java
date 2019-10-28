@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
@@ -22,27 +21,22 @@ public class User
     @Column(name= "auth_user_id")
     private int id;
 
-    @NotEmpty(message = "First name field must not be empty")
     @Column(name = "first_name")
     private String firstname;
 
-    @NotEmpty(message = "Last name field must not be empty")
     @Column(name = "last_name")
     private String lastname;
 
-    @NotEmpty(message = "Email field must not be empty")
     @Email
     @Column(name = "email")
     private String email;
 
-    @NotEmpty(message = "Password field must not be empty")
     @Length(min=8, message = "Password should be at least 8 characters")
     //Patttern: requires one lower case, one upper case, one digit and no spaces
     @Pattern(message="requires one lower case, one upper case, one digit and no spaces", regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}$")
     @Column(name = "password")
     private String password;
 
-    @NotEmpty(message = "Your mail password field must not be empty.")
     @Column(name = "mailpassword")
     private String mailpassword;
 
