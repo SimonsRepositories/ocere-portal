@@ -24,7 +24,8 @@
                         <div th:switch="${listOfUsers}">
                             <h4 th:case="null">No Users yet</h4>
                             <div th:case="*">
-                                <table class="table table-striped">
+                                <h4 th:if="${listOfUsers.isEmpty()}">No Users created yet</h4>
+                                <table th:if="${!listOfUsers.isEmpty()}" class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th>ID</th>

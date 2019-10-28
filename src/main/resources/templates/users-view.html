@@ -36,10 +36,10 @@
                         <div class="col s12">
                             <h1>User View
                                 <a class="btn btn-primary" th:href="${'/users/edit-user/' + user.id}">Edit</a>
-                                <form class="inlineBlockForm" method="post"
-                                      th:href="@{/users/delete-user?id={id}(id=${user.id})}">
+                                <!--<form class="inlineBlockForm" method="post">
                                     <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                                </form>-->
+                                <a class="btn btn-primary" th:href="@{/users/delete-user?id={id}(id=${user.id})}">Delete</a>
                                 <a href="/users" class="btn btn-warning">Cancel</a>
                             </h1>
                         </div>

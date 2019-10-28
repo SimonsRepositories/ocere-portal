@@ -4,6 +4,7 @@ import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.RoleService;
 import com.ocere.portal.service.UserService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -44,7 +46,7 @@ public class AuthenticationController
     }
 
     @PostMapping(value="/register")
-    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap) {
+    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap, RedirectAttributes redirAttrs) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
         if (bindingResult.hasErrors()) {
@@ -58,6 +60,12 @@ public class AuthenticationController
         //save the user if no binding errors
         else if(userService.isUserAlreadyPresent(user)){
             modelAndView.addObject("successMessage", "User already exists!");
+            modelAndView.addObject("user", new User());
+            modelAndView.addObject("role", new Role());
+            modelAndView.addObject("listOfRoles", roleService.findAll());
+            modelAndView.addObject("listOfUsers", userService.findAll());
+            modelAndView.setViewName("register");
+            return modelAndView;
         } else {
             if(user.getRoles() != null) {
                 for (Role role : user.getRoles()) {
@@ -67,13 +75,10 @@ public class AuthenticationController
                 }
                 userService.saveUser(user, user.getRoles());
             }
-            modelAndView.addObject("successMessage", "User is registered successfully");
         }
-        modelAndView.addObject("user", new User());
-        modelAndView.addObject("role", new Role());
-        modelAndView.addObject("listOfRoles", roleService.findAll());
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("register");
+        modelAndView.addObject("successMessage", "User registered successfully");
+        redirAttrs.addFlashAttribute("successMessage", "User registered successfully");
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 }

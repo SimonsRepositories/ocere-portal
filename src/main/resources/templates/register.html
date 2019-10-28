@@ -9,6 +9,7 @@
     <div th:replace="fragments :: head-links"></div>
 </head>
 <body style="background-color: #1AA090;">
+<div th:replace="fragments :: header"></div>
     <div class="row">
         <div class="col s6" style="margin-left: 25%;">
             <div class="card grey lighten-5">
@@ -63,7 +64,6 @@
                                 <button type="submit" class="waves-effect waves-light btn">Register User</button>
                             </div>
                         </div>
-                        <br><small th:utext="${successMessage}"></small>
                     </form>
                 </div>
             </div>
