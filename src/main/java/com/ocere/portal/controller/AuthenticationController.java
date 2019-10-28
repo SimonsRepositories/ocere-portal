@@ -23,7 +23,7 @@ public class AuthenticationController
     @Autowired
     RoleService roleService;
 
-    @GetMapping(value = { "/page/login" })
+    @GetMapping(value = { "/login" })
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login"); //resources/templates/login.html

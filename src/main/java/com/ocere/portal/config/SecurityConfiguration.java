@@ -44,16 +44,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // URLs matching for access rights
-                .antMatchers("/page/login").permitAll()
-                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/register").hasAnyAuthority("DEV_USER", "ADMIN_USER", "STAFF_USER")
                 .antMatchers("/home/**").hasAnyAuthority("DEV_USER", "ADMIN_USER", "STAFF_USER", "CLIENT_USER")
                 .antMatchers("/admin/**").hasAnyAuthority("DEV_USER", "ADMIN_USER")
                 .anyRequest().authenticated()
                 .and()
                 // form login
                 .csrf().disable().formLogin()
-                .loginPage("/page/login")
-                .failureUrl("/page/login?error=true")
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
                 .successHandler(successHandler)
                 .usernameParameter("email")
                 .passwordParameter("password")
