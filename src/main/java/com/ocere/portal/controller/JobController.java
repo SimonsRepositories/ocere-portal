@@ -30,6 +30,13 @@ public class JobController {
         this.clientService = clientService;
     }
 
+    @GetMapping
+    public String loadJobListView(Model model) {
+        model.addAttribute("jobs", this.jobService.findAll());
+
+        return "jobs-list";
+    }
+
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("job", this.jobService.findJobById(id).get());
