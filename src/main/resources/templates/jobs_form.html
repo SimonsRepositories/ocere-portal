@@ -174,8 +174,15 @@
                                            name="orderFormFile"/>
                                 </div>
 
-                                <div class="file-path-wrapper">
-                                    <input id="orderFormFilePath"
+                                <div class="file-path-wrapper" th:switch="${job.orderFormFile}">
+                                    <!--suppress XmlDuplicatedId -->
+                                    <input th:case="null"
+                                           id="orderFormFilePath"
+                                           class="file-path validate"
+                                           type="text"/>
+                                    <!--suppress XmlDuplicatedId -->
+                                    <input th:case="*" th:value="${job.orderFormFile.fileName}"
+                                           id="orderFormFilePath"
                                            class="file-path validate"
                                            type="text"/>
                                 </div>
@@ -454,6 +461,29 @@
             }
         }
 
+        var $orderFormFilePath = $('#orderFormFilePath');
+        $orderFormFilePath.on('change', function () {
+            if ($orderFormFilePath.val() !== '') {
+                var form = new FormData();
+                var orderFormFile = document.getElementById('orderFormFile');
+                form.append('orderFormFile', orderFormFile.files[0]);
+                $.ajax({
+                    url: "/uploadFormFile",
+                    method: "POST",
+                    dataType: 'json',
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $('#orderFormFileId').val(result.id);
+                    },
+                    error: function (er) {
+                        console.log(er);
+                    }
+                });
+            }
+        });
+
         $("#jobForm").submit(function (event) {
             /* ALL */
             validateField($productTypes.val().length === 0, $productTypes, event);
@@ -582,26 +612,7 @@
                 validateField($contentKeywords.val() === '', $contentKeywords, event);
             }
 
-            if ($orderFormFilePath.val() !== '') {
-                var form = new FormData();
-                var orderFormFile = document.getElementById('orderFormFile');
-                form.append('orderFormFile', orderFormFile.files[0]);
-                $.ajax({
-                    url: "/uploadFormFile",
-                    method: "POST",
-                    dataType: 'json',
-                    data: form,
-                    processData: false,
-                    contentType: false,
-                    success: function(result){
-                        $('#orderFormFileId').val(result.id);
-                    },
-                    error: function(er){
-                        event.preventDefault();
-                        console.log(er);
-                    }
-                });
-            }
+
         });
 
         /*----------------------

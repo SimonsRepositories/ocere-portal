@@ -1,16 +1,18 @@
 package com.ocere.portal.model;
 
 import com.ocere.portal.enums.*;
-import com.ocere.portal.exception.FileStorageException;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Job {
@@ -92,6 +94,10 @@ public class Job {
     )
     private Set<DBFile> files;
 
+    public List<DBFile> getSortedFiles() {
+        return files.stream().sorted(Comparator.comparing(DBFile::getFileName)).collect(Collectors.toList());
+    }
+
     /*
         SEO
      */
@@ -128,26 +134,13 @@ public class Job {
 
     private String googleDocLink;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @Cascade({ org.hibernate.annotations.CascadeType.ALL })
     @JoinColumn(name = "order_form_file_id")
+    @NotFound(action= NotFoundAction.IGNORE)
     private DBFile orderFormFile;
 
-    private void setOrderFormFile(MultipartFile file) {
-        // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        try {
-            // Check if the file's name contains invalid characters
-            if (fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            this.orderFormFile =  new DBFile(fileName, file.getContentType(), file.getBytes());
-
-        } catch (IOException ex) {
-            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
-        }
-    }
 
     /*
         PPC
@@ -237,6 +230,28 @@ public class Job {
 
     public boolean isContentSelected() {
         return productTypes.contains(ProductType.Content);
+    }
+
+    /*------------------------
+        DATABASE METHODS
+    ------------------------*/
+
+    public void saveOrderFormFile(DBFile orderFormFile) {
+        if (this.orderFormFile != null) {
+            this.orderFormFile.setJobOrderFormFile(null);
+        }
+        if (orderFormFile != null) {
+            orderFormFile.setJobOrderFormFile(this);
+        }
+        this.orderFormFile = orderFormFile;
+    }
+
+    public void saveFiles(Set<DBFile> files) {
+        if (this.files != null) {
+            this.files.forEach(file -> file.setJob(null));
+        }
+        files.forEach(file -> file.setJob(this));
+        this.files = files;
     }
 
     /*------------------------
@@ -367,9 +382,6 @@ public class Job {
         return files;
     }
 
-    public void setFiles(Set<DBFile> files) {
-        this.files = files;
-    }
 
     public double getSeoValue() {
         return seoValue;
@@ -447,9 +459,7 @@ public class Job {
         return orderFormFile;
     }
 
-    public void setOrderFormFile(DBFile orderFormFile) {
-        this.orderFormFile = orderFormFile;
-    }
+
 
     public double getPpcValue() {
         return ppcValue;
@@ -633,5 +643,13 @@ public class Job {
 
     public void setContentKeywords(String contentKeywords) {
         this.contentKeywords = contentKeywords;
+    }
+
+    public void setFiles(Set<DBFile> files) {
+        this.files = files;
+    }
+
+    public void setOrderFormFile(DBFile orderFormFile) {
+        this.orderFormFile = orderFormFile;
     }
 }

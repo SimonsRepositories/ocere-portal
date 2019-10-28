@@ -80,8 +80,6 @@ public class User
             mappedBy = "author",
             cascade = CascadeType.ALL
     )
-
-
     private Set<Note> createdNotes;
 
     @OneToMany(
@@ -89,6 +87,12 @@ public class User
             cascade = CascadeType.ALL
     )
     private Set<Job> job;
+
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL
+    )
+    private Set<DBFile> dbFile;
 
     public String getFullName() { return firstname + " " + lastname; }
 

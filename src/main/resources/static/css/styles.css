@@ -383,6 +383,12 @@ table:hover {
     margin: 5px 0;
 }
 
+.file-link {
+    color: black;
+    display: block;
+    font-size: 18px;
+}
+
 .froala-wrapper {
 
 }
