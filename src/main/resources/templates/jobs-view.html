@@ -110,7 +110,7 @@
                                 <small class="attribute-title">Uploaded File:</small>
                                 <div th:switch="${job.orderFormFile}">
                                     <p class="attribute-value" th:case="null">None</p>
-                                    <p class="attribute-value" th:case="*" th:text="${job.orderFormFile.fileName}">Value</p>
+                                    <a th:href="${'/downloadFile/' + job.orderFormFile.id}" class="attribute-value" th:case="*" th:text="${job.orderFormFile.fileName}">Value</a>
                                 </div>
                             </div>
                             <div class="col s6">

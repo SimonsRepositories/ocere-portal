@@ -1,8 +1,10 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.Impl.DBFileStorageService;
 import com.ocere.portal.service.JobService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,14 @@ public class JobController {
     private JobService jobService;
     private UserService userService;
     private ClientService clientService;
+    private DBFileStorageService dbFileStorageService;
 
     @Autowired
-    public JobController(JobService jobService, UserService userService, ClientService clientService) {
+    public JobController(JobService jobService, UserService userService, ClientService clientService, DBFileStorageService dbFileStorageService) {
         this.jobService = jobService;
         this.userService = userService;
         this.clientService = clientService;
+        this.dbFileStorageService = dbFileStorageService;
     }
 
     @GetMapping
@@ -114,5 +118,8 @@ public class JobController {
     private void fillJobReferencesById(Job job) {
         Optional<User> owner = this.userService.getUserById(job.getOwner().getId());
         owner.ifPresentOrElse(job::setOwner, () -> job.setOwner(null));
+
+        DBFile dbFile = this.dbFileStorageService.getFile(job.getOrderFormFile().getId());
+        job.setOrderFormFile(dbFile);
     }
 }

@@ -68,4 +68,11 @@ public class FileController {
     public byte[] accessFile(@PathVariable String fileId) {
         return DBFileStorageService.getFile(fileId).getData();
     }
+
+
+
+    @PostMapping("uploadFormFile")
+    public DBFile createJob(@RequestParam("orderFormFile") MultipartFile file) {
+        return DBFileStorageService.storeFile(file);
+    }
 }

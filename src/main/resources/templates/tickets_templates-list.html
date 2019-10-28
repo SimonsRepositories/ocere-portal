@@ -25,6 +25,7 @@
                     </div>
                     <div class="row">
                         <div class="col s12">
+                            <h4 th:if="${templates.isEmpty()}">No Ticket Templates created yet.</h4>
                             <table th:if="${!templates.isEmpty()}" style="width: 100%" class="table table-striped js-sort-table">
                                 <thead class="sortable-head">
                                 <tr>

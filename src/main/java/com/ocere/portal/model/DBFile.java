@@ -3,6 +3,7 @@ package com.ocere.portal.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "files")
@@ -13,9 +14,11 @@ public class DBFile {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @OneToOne
-    @MapsId
-    private Job jobOrderForm;
+    @OneToMany(
+            mappedBy = "orderFormFile",
+            cascade = CascadeType.ALL
+    )
+    private Set<Job> jobOrderFormFiles;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
