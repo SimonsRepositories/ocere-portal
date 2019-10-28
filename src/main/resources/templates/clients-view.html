@@ -19,56 +19,29 @@
             <div class="content-container">
                 <div class="container">
                     <h1 th:text="${client.companyName}"></h1>
+                    <h4>Overview</h4>
                     <div class="row">
                         <div class="col s6">
                             <small class="attribute-title">Name</small>
                             <p class="attribute-value" th:text="${client.companyName}">Name</p>
                         </div>
 
-                        <div class="col s6">
+                        <div class="col s3">
                             <small class="attribute-title">Tier</small>
                             <p class="attribute-value" th:text="${client.tier}">Tier</p>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col s3">
-                            <small class="attribute-title">Contact Firstname</small>
-                            <p class="attribute-value" th:text="${client.contactFirstName}">Contact
-                                <Firstname></Firstname>
-                            </p>
-                        </div>
-                        <div class="col s3">
-                            <small class="attribute-title">Contact Lastname</small>
-                            <p class="attribute-value" th:text="${client.contactLastName}">Contact Lastname</p>
+                            <small class="attribute-title">Status</small>
+                            <p class="attribute-value" th:text="${client.status}">Status</p>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col s6">
-                            <small class="attribute-title">Phone</small>
-                            <p class="attribute-value" th:text="${client.phone}">Phone</p>
-                        </div>
                         <div class="col s6">
                             <small class="attribute-title">Website</small>
                             <br>
                             <a class="attribute-value" th:href="${client.website}"
                                th:text="${client.website}">Website</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <small class="attribute-title">Email</small>
-                            <p class="attribute-value" th:text="${client.email}">Email</p>
-                        </div>
-                        <div class="col s6">
-                            <small class="attribute-title">Status</small>
-                            <p class="attribute-value" th:text="${client.status}">Status</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <small class="attribute-title">Address</small>
-                            <p class="attribute-value"
-                               th:text="${client.addressLine2} + ' ' + ${client.city} + ' ' + ${client.street}">Address</p>
                         </div>
                         <div class="col s6">
                             <small class="attribute-title">Contact page</small>
@@ -78,9 +51,41 @@
                                 page</a>
                         </div>
                     </div>
-                    <br>
+                    <div class="row">
+                        <div class="col s12">
+                            <small class="attribute-title">Address</small>
+                            <p class="attribute-value" th:text="${client.addressLine1}">Addressline 1</p>
+                            <p class="attribute-value" th:text="${client.addressLine2}">Addressline 2</p>
+                            <p class="attribute-value" th:text="${client.city}">City</p>
+                            <p class="attribute-value" th:text="${client.county} + ', ' + ${client.country}">County &
+                                Country</p>
+                        </div>
+                    </div>
+
+                    <h4>Contact</h4>
+                    <div class="row">
+                        <div class="col s4">
+                            <small class="attribute-title">Name</small>
+                            <p class="attribute-value"
+                               th:text="${client.contact.first_name} + ' ' + ${client.contact.last_name}">
+                                Name</p>
+                        </div>
+                        <div class="col s4">
+                            <small class="attribute-title">Phone</small>
+                            <p class="attribute-value" th:text="${client.contact.phone}">Phone</p>
+                        </div>
+                        <div class="col s4">
+                            <small class="attribute-title">Email</small>
+                            <p class="attribute-value" th:text="${client.contact.email}">Email</p>
+                        </div>
+                    </div>
+
+                    <!--<h4>Jobs</h4>
                     <div class="row mt-1">
                         <div class="col s12">
+                            <div th:if="${jobs.isEmpty()}">
+                                <h6>No Jobs have been setup yet</h6>
+                            </div>
                             <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
                                 <thead>
                                 <tr>
@@ -106,14 +111,19 @@
                     </div>
                     <div class="fixed-action-btn click-to-toggle">
                         <a class="btn-floating btn-large ocere-green--background">
-                            <i class="large material-icons">menu_book</i>
+                            <i class="large material-icons">menu</i>
                         </a>
                         <ul>
-                            <li><a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn-floating green"><i class="material-icons">add</i></a></li>
-                            <li><a th:href="${'/clients/edit/' + client.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
-                            <li><a class="btn-floating red post-button" th:data-post-url="${'/clients/delete/' + client.id}" data-redirect-url="/clients"><i class="material-icons">delete</i></a></li>
+                            <li><a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn-floating green"><i
+                                    class="material-icons">add</i></a></li>
+                            <li><a th:href="${'/clients/edit/' + client.id}" class="btn-floating yellow darken-1"><i
+                                    class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button"
+                                   th:data-post-url="${'/clients/delete/' + client.id}" data-redirect-url="/clients"><i
+                                    class="material-icons">delete</i></a></li>
                         </ul>
                     </div>
+                    -->
                 </div>
             </div>
         </div>

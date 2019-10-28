@@ -25,4 +25,11 @@ public class ProfileController {
 
         return "profile-view";
     }
+
+    @GetMapping("/change-password")
+    public String loadChangePassword(Model model, Principal principal) {
+        model.addAttribute("user", userService.findByEmail(principal.getName()));
+
+        return "changePassword";
+    }
 }

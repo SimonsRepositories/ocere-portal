@@ -1,8 +1,10 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.Impl.DBFileStorageService;
 import com.ocere.portal.service.JobService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("jobs")
@@ -22,12 +27,14 @@ public class JobController {
     private JobService jobService;
     private UserService userService;
     private ClientService clientService;
+    private DBFileStorageService dbFileStorageService;
 
     @Autowired
-    public JobController(JobService jobService, UserService userService, ClientService clientService) {
+    public JobController(JobService jobService, UserService userService, ClientService clientService, DBFileStorageService dbFileStorageService) {
         this.jobService = jobService;
         this.userService = userService;
         this.clientService = clientService;
+        this.dbFileStorageService = dbFileStorageService;
     }
 
     @GetMapping
@@ -86,7 +93,7 @@ public class JobController {
         job.setAuthor(this.userService.findByEmail(principal.getName()));
 
         this.jobService.saveJob(job);
-        return "redirect:/clients/" + job.getClient().getId();
+        return "redirect:/jobs/" + job.getId();
     }
 
     @PostMapping("/save/{id}")
@@ -95,7 +102,7 @@ public class JobController {
 
         mapUneditedValuesToJob(job, id);
         jobService.updateJob(job, id);
-        return "redirect:/clients/" + job.getClient().getId();
+        return "redirect:/jobs/" + job.getId();
     }
 
     @PostMapping("/delete/{id}")
@@ -103,6 +110,19 @@ public class JobController {
         int clientId = jobService.findJobById(id).get().getClient().getId();
         jobService.deleteJobById(id);
         return "redirect:/clients/" + clientId;
+    }
+
+    @PostMapping("/{id}/uploadFiles")
+    public String uploadFile(@PathVariable int id, @RequestParam("files") MultipartFile[] files, Principal principal) throws Exception {
+        Job job = jobService.findJobById(id).get();
+        Set<DBFile> dbFiles = job.getFiles();
+        Arrays.stream(files)
+                .map(file -> dbFileStorageService.storeFileWithPrincipal(file, principal))
+                .forEach(dbFiles::add);
+        job.saveFiles(dbFiles);
+        jobService.updateJob(job, id);
+
+        return "redirect:/jobs/" + id;
     }
 
     private void mapUneditedValuesToJob(Job job, int id) {
@@ -114,5 +134,12 @@ public class JobController {
     private void fillJobReferencesById(Job job) {
         Optional<User> owner = this.userService.getUserById(job.getOwner().getId());
         owner.ifPresentOrElse(job::setOwner, () -> job.setOwner(null));
+
+        if (job.getOrderFormFile().getId().equals("")) {
+            job.setOrderFormFile(null);
+        } else {
+            DBFile dbFile = this.dbFileStorageService.getFile(job.getOrderFormFile().getId());
+            job.saveOrderFormFile(dbFile);
+        }
     }
 }

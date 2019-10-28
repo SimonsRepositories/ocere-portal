@@ -34,13 +34,14 @@ public class Client {
     private User author;
 
     private String companyName;
-    private String contactFirstName;
-    private String contactLastName;
-    private String phone;
+
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
+
     private String addressLine1;
     private String addressLine2;
     private String city;
-    private String email;
     private String website;
     private String tier;
     private String jobTitle;
@@ -50,6 +51,14 @@ public class Client {
 
     @Enumerated(EnumType.STRING)
     private PaymentTerms paymentTerm;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 
     public PaymentTerms getPaymentTerm() {
         return paymentTerm;
@@ -91,22 +100,6 @@ public class Client {
         this.country = country;
     }
 
-    public String getContactFirstName() {
-        return contactFirstName;
-    }
-
-    public void setContactFirstName(String contactFirstName) {
-        this.contactFirstName = contactFirstName;
-    }
-
-    public String getContactLastName() {
-        return contactLastName;
-    }
-
-    public void setContactLastName(String contactLastName) {
-        this.contactLastName = contactLastName;
-    }
-
     public String getTier() {
         return tier;
     }
@@ -131,14 +124,6 @@ public class Client {
         this.companyName = companyName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getStreet() {
         return addressLine1;
     }
@@ -161,14 +146,6 @@ public class Client {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getWebsite() {

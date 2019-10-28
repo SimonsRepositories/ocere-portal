@@ -27,20 +27,19 @@ VALUES (1, '2 Hours', 2),
 INSERT INTO usergroup (group_id, is_active, created_at, is_empty, name, updated_at)
 VALUES (1, true, NOW(), false, 'GroupTest', NOW());
 
-INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page,
-                    email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 'Ham', 'Hamster', 'https://www.ocere.com/', 'cheltenham@ham.uk',
-        '123456789012', 'addressline1', 'addresline2', 'Job title', 'Switzerland', 'Zurich', 'A',
+INSERT INTO client (id, status, author_id, city, company_name, contact_id, contact_us_page,
+                    address_line1, address_line2, job_title, country, county, tier, website)
+VALUES (1, 'ACTIVE', 1, 'Zurich', 'Cheltenham-Ham', 1, 'https://www.ocere.com/', 'addressline1', 'addresline2', 'Job title', 'Switzerland', 'Zurich', 'A',
         'https://www.ocere.com/');
-INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page,
-                    email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 'Bac', 'bacstor', 'https://www.ocere.com/',
-        'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'Gloucstershire', 'B',
+INSERT INTO client (id, status, author_id, city, company_name, contact_id, contact_us_page,
+                    address_line1, address_line2, job_title, country, county, tier, website)
+VALUES (2, 'ACTIVE', 1, 'Cheltenham', 'Cheltenham-bacon', 2, 'https://www.ocere.com/',
+        'addressline1', 'addresline2', 'Job title', 'UK', 'Gloucstershire', 'B',
         'https://www.ocere.com/');
-INSERT INTO client (id, status, author_id, city, company_name, contact_first_name, contact_last_name, contact_us_page,
-                    email, phone, address_line1, address_line2, job_title, country, county, tier, website)
-VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 'Stec', 'Steakster', 'https://www.ocere.com/',
-        'cheltenham@ham.uk', '123456789012', 'addressline1', 'addresline2', 'Job title', 'UK', 'London', 'C',
+INSERT INTO client (id, status, author_id, city, company_name, contact_id, contact_us_page,
+                   address_line1, address_line2, job_title, country, county, tier, website)
+VALUES (3, 'ACTIVE', 1, 'London', 'Cheltenham-steak', 4, 'https://www.ocere.com/',
+        'addressline1', 'addresline2', 'Job title', 'UK', 'London', 'C',
         'https://www.ocere.com/');
 
 INSERT INTO `job` (`id`, `adwords_main_goal`, `asap`, `campaign_launch_date`, `company`, `content_keywords`,
@@ -51,7 +50,7 @@ INSERT INTO `job` (`id`, `adwords_main_goal`, `asap`, `campaign_launch_date`, `c
                    `reporting_email`, `reporting_keywords`, `seo_value`, `set_up_required`, `sign_off_required`,
                    `start_date`, `status`, `target_areas`, `target_keywords`, `thank_you_page_url`, `website`,
                    `white_label`, `author_id`, `client_id`, `owner_id`)
-VALUES (1, 'That\'s my main goal', b'0', '2019-10-15', 'Celtenham Ham',
+VALUES (1, 'That\s my main goal', b'0', '2019-10-15', 'Celtenham Ham',
         'asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf, asdf',
         3000, 15,
         'Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title, Title',
@@ -87,3 +86,10 @@ VALUES (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL,
        (4, '2019-10-18 16:31:53', '', 1, 0, 'GA Analysis for Potential Client (need guidelines)', b'1', NULL, NULL, 1,
         NULL, 4),
        (5, '2019-10-18 16:32:21', '', 1, 0, 'PCC Update / Report', b'1', NULL, NULL, 1, NULL, 4);
+
+    INSERT INTO contact (id, first_name, last_name, phone, email) VALUES
+    (1, 'John', 'Jones', '012345689', 'john@jones.com'),
+    (2, 'James', 'Jefferson', '012345689', 'james@jefferson.com'),
+    (3, 'Jeremy', 'Jenkins', '012345689', 'jeremy@jenkins.com'),
+    (4, 'Jane', 'Jarvis', '012345689', 'jane@jarvis.com'),
+    (5, 'Jack', 'Johnson', '012345689', 'jack@johnson.com');

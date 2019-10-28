@@ -81,12 +81,15 @@
                             </div>
                             <div class="col s6">
                                 <small class="attribute-title">Reporting Keywords:</small>
-                                <div class="attribute-value froala-wrapper" th:utext="${job.reportingKeywords}">Value</div>
+                                <div class="attribute-value froala-wrapper" th:utext="${job.reportingKeywords}">Value
+                                </div>
                             </div>
                             <div class="col s6">
                                 <small class="attribute-title">SEO Search Engines:</small>
-                                <p class="attribute-value" th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
-                                   th:if="${#lists.contains(job.seoSearchEngines, searchEngine)}" th:text="${searchEngine}">Value</p>
+                                <p class="attribute-value"
+                                   th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
+                                   th:if="${#lists.contains(job.seoSearchEngines, searchEngine)}"
+                                   th:text="${searchEngine}">Value</p>
                             </div>
                             <div class="col s3">
                                 <small class="attribute-title">On Page Review:</small>
@@ -110,7 +113,8 @@
                                 <small class="attribute-title">Uploaded File:</small>
                                 <div th:switch="${job.orderFormFile}">
                                     <p class="attribute-value" th:case="null">None</p>
-                                    <p class="attribute-value" th:case="*" th:text="${job.orderFormFile.fileName}">Value</p>
+                                    <a th:href="${'/downloadFile/' + job.orderFormFile.id}" class="attribute-value"
+                                       th:case="*" th:text="${job.orderFormFile.fileName}">Value</a>
                                 </div>
                             </div>
                             <div class="col s6">
@@ -119,8 +123,10 @@
                             </div>
                             <div class="col s12">
                                 <small class="attribute-title">Link Building Search Engines:</small>
-                                <p class="attribute-value" th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
-                                   th:if="${#lists.contains(job.linkSearchEngines, searchEngine)}" th:text="${searchEngine}">Value</p>
+                                <p class="attribute-value"
+                                   th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
+                                   th:if="${#lists.contains(job.linkSearchEngines, searchEngine)}"
+                                   th:text="${searchEngine}">Value</p>
                             </div>
                         </div>
                         <!--
@@ -134,8 +140,10 @@
                             </div>
                             <div class="col s6">
                                 <small class="attribute-title">Campaign Types:</small>
-                                <p class="attribute-value" th:each="campaignType : ${T(com.ocere.portal.enums.CampaignType).values()}"
-                                   th:if="${#lists.contains(job.campaignTypes, campaignType)}" th:text="${campaignType}">Value</p>
+                                <p class="attribute-value"
+                                   th:each="campaignType : ${T(com.ocere.portal.enums.CampaignType).values()}"
+                                   th:if="${#lists.contains(job.campaignTypes, campaignType)}"
+                                   th:text="${campaignType}">Value</p>
                             </div>
                             <div class="col s3">
                                 <small class="attribute-title">ASAP:</small>
@@ -143,7 +151,8 @@
                             </div>
                             <div class="col s3">
                                 <small class="attribute-title">Campaign Launch Date:</small>
-                                <p class="attribute-value" th:text="${#dates.format(job.campaignLaunchDate, 'dd. MMMM YYYY')}">
+                                <p class="attribute-value"
+                                   th:text="${#dates.format(job.campaignLaunchDate, 'dd. MMMM YYYY')}">
                                     Value</p>
                             </div>
                             <div class="col s3">
@@ -232,14 +241,42 @@
                                 <p class="attribute-value" th:text="${job.contentKeywords}">Value</p>
                             </div>
                         </div>
+                        <div>
+                            <h4 class="productTitle">Files</h4>
+                            <form class="col s12" id="jobForm"
+                                  action="#" method="post" th:action="@{/jobs/{id}/uploadFiles(id=${job.id})}"
+                                  enctype="multipart/form-data">
+                                <div class="col s10 file-field input-field">
+                                    <div class="btn">
+                                        <span>Browse</span>
+                                        <input id="files"
+                                               type="file"
+                                               name="files"
+                                               multiple/>
+                                    </div>
+
+                                    <div class="file-path-wrapper">
+                                        <input id="filePath"
+                                               class="file-path validate"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <input class="col s2 btn green input-field" id="filesSubmit" type="submit" value="Upload">
+                            </form>
+                            <a th:each="file : ${job.sortedFiles}" th:href="${'/downloadFile/' + file.id}"
+                               class="file-link col s12" th:text="${file.fileName}">Value</a>
+                        </div>
                     </div>
                     <div class="fixed-action-btn click-to-toggle">
                         <a class="btn-floating btn-large ocere-green--background">
-                            <i class="large material-icons">menu_book</i>
+                            <i class="large material-icons">menu</i>
                         </a>
                         <ul>
-                            <li><a th:href="${'/jobs/edit/' + job.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
-                            <li><a class="btn-floating red post-button" th:data-post-url="${'/jobs/delete/' + job.id}" th:data-redirect-url="${'/clients/' + job.client.id}"><i class="material-icons">delete</i></a></li>
+                            <li><a th:href="${'/jobs/edit/' + job.id}" class="btn-floating yellow darken-1"><i
+                                    class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/jobs/delete/' + job.id}"
+                                   th:data-redirect-url="${'/clients/' + job.client.id}"><i class="material-icons">delete</i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

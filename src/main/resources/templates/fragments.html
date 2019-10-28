@@ -19,7 +19,6 @@
         <!-- Our Custom CSS -->
         <link rel="stylesheet" th:href="@{/css/styles.css}">
     </div>
-
 </head>
 <body>
 
@@ -58,11 +57,11 @@
 
 <div th:fragment="script-links">
 
-    <!-- Custom Scroller CDN -->
-    <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
-
     <!-- jQuery -->
     <script th:src="@{/js/jquery-3.4.1.js}"></script>
+
+    <!-- Custom Scroller CDN -->
+    <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 
     <!-- Froala -->
     <script th:src="@{/js/froala_editor.pkgd.min.js}"></script>
@@ -87,16 +86,12 @@
             $(this).parent().find('.dropdown-trigger').addClass('valid');
         });
 
-        // Initialize floating action button
-        $(document).ready(function () {
-            $('.fixed-action-btn').floatingActionButton();
-        });
-
         // Configure floating action button
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.fixed-action-btn');
             var instances = M.FloatingActionButton.init(elems, {
-                direction: 'top'
+                direction: 'top',
+                hoverEnabled: false
             });
         });
 

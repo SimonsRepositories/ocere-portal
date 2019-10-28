@@ -383,6 +383,12 @@ table:hover {
     margin: 5px 0;
 }
 
+.file-link {
+    color: black;
+    display: block;
+    font-size: 18px;
+}
+
 .froala-wrapper {
 
 }
@@ -437,7 +443,7 @@ table:hover {
 
 /*setting individual padding for register & login*/
 .card .card-content {
-    padding: 20px 50px 20px 50px;
+    /*padding: 20px 50px 20px 50px;*/
 }
 
 /*centering register & login form*/

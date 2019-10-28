@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,5 +68,12 @@ public class FileController {
             produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] accessFile(@PathVariable String fileId) {
         return DBFileStorageService.getFile(fileId).getData();
+    }
+
+
+
+    @PostMapping("uploadFormFile")
+    public DBFile createJob(@RequestParam("orderFormFile") MultipartFile file) {
+        return DBFileStorageService.storeFile(file);
     }
 }

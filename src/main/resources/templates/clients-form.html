@@ -24,7 +24,7 @@
                     <form class="row" action="#" method="post" th:action="@{/clients/{action}(action=${action})}"
                           th:object="${client}">
                         <div class="col s12">
-                            <h5>Company</h5>
+                            <h4>Company</h4>
                             <div class="input-field col s12">
                                 <input th:field="*{companyName}" id="client"
                                        class="form-control"
@@ -37,38 +37,51 @@
                                        type="text"/>
                                 <label for="jobTitle">Job Title</label>
                             </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{website}" id="website"
+                                       class="form-control"
+                                       type="text"/>
+                                <label for="website">Website</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input th:field="*{contactUsPage}" id="contactUsPage"
+                                       class="form-control"
+                                       type="text"/>
+                                <label for="contactUsPage">Contact Page</label>
+                            </div>
                         </div>
                         <div class="col s12">
-                            <h5>Contact</h5>
+                            <h4>Contact</h4>
                             <div class="input-field col s6">
-                                <input th:field="*{contactFirstName}" id="firstname"
+                                <input th:field="*{contact.first_name}" id="firstname"
                                        class="form-control"
                                        type="text"/>
                                 <label for="firstname">Firstname</label>
                             </div>
                             <div class="input-field col s6">
-                                <input th:field="*{contactLastName}" id="lastname"
+                                <input th:field="*{contact.last_name}" id="lastname"
                                        class="form-control"
                                        type="text"/>
                                 <label for="lastname">Lastname</label>
                             </div>
                             <div class="input-field col s6">
-                                <input th:field="*{phone}" id="phone"
+                                <input th:field="*{contact.phone}" id="phone"
                                        class="form-control"
                                        type="text"/>
 
                                 <label for="phone">Phone</label>
                             </div>
                             <div class="input-field col s6">
-                                <input th:field="*{email}" id="email"
+                                <input th:field="*{contact.email}" id="email"
                                        class="form-control"
                                        type="email"/>
 
                                 <label for="email">Email</label>
                             </div>
+
                         </div>
                         <div class="col s12">
-                            <h5>Address</h5>
+                            <h4>Address</h4>
                             <div class="input-field col s6">
                                 <input th:field="*{addressLine1}" id="addressline1"
                                        class="form-control"
