@@ -43,6 +43,10 @@ public class Ticket {
     private Job job;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "predefines_ticket_collection_id")
+    private PredefinedTicketCollection predefinedTicketCollection;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "turnaround_id")
     private Turnaround turnaround;
 
@@ -200,5 +204,13 @@ public class Ticket {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public PredefinedTicketCollection getPredefinedTicketCollection() {
+        return predefinedTicketCollection;
+    }
+
+    public void setPredefinedTicketCollection(PredefinedTicketCollection predefinedTicketCollection) {
+        this.predefinedTicketCollection = predefinedTicketCollection;
     }
 }

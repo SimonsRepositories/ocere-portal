@@ -9,10 +9,7 @@ import com.ocere.portal.service.TurnaroundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,6 +75,11 @@ public class TicketServiceImpl implements TicketService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Ticket> findAllTicketsByJobId(int id) {
+        return ticketRepository.findAllTicketsByJobId(id);
+    }
+
     /*
         ACTIONS
      */
@@ -111,6 +113,7 @@ public class TicketServiceImpl implements TicketService {
             updatedTicket.setCreatedAt(ticket.getCreatedAt());
             updatedTicket.setAuthor(ticket.getAuthor());
             updatedTicket.setFiles(ticket.getFiles());
+            updatedTicket.setPredefinedTicketCollection(ticket.getPredefinedTicketCollection());
         } else {
             throw new Exception("Couldn’t update ticket, because it didn’t exist !");
         }

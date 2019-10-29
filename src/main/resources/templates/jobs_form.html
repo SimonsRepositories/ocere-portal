@@ -85,7 +85,7 @@
                             <select id="status" th:field="*{status}">
                                 <option th:each="status : ${T(com.ocere.portal.enums.JobStatus).values()}"
                                         th:value="${status}"
-                                        th:text="${status}"
+                                        th:text="${status.description}"
                                         th:selected="${job.status == status}">
                                 </option>
                             </select>
