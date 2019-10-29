@@ -34,6 +34,8 @@
                             <th class="js-sort-string">Company</th>
                             <th class="js-sort-string">Contact</th>
                             <th class="js-sort-string">Status</th>
+                            <th class="js-sort-number">Monthly Spending</th>
+                            <th class="js-sort-number">Total Spending</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,6 +43,8 @@
                             <td th:text="${client.companyName}"></td>
                             <td th:text="${client.contact.first_name} + ' ' +  ${client.contact.last_name}"></td>
                             <td th:text="${client.status}"></td>
+                            <td th:text="${client.monthlySpending}"></td>
+                            <td th:text="${client.totalSpending}"></td>
                         </tr>
                         </tbody>
                     </table>

@@ -38,6 +38,19 @@
 
                     <div class="row">
                         <div class="col s6">
+                            <small class="attribute-title">Monthly Spending</small>
+                            <p class="attribute-value" th:text="${client.monthlySpending}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Total Spending</small>
+                            <p class="attribute-value" th:text="${client.totalSpending}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s6">
                             <small class="attribute-title">Website</small>
                             <br>
                             <a class="attribute-value" th:href="${client.website}"

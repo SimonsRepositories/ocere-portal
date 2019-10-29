@@ -118,6 +118,11 @@ public class JobController {
         if (job.getStatus() == JobStatus.Live) {
             job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() - oldValue + job.getTotalValue());
         }
+        if (job.getClient().getMonthlySpending() < 0) {
+            job.getClient().setMonthlySpending(0);
+        } if (job.getClient().getTotalSpending() < 0) {
+            job.getClient().setTotalSpending(0);
+        }
 
         return "redirect:/jobs/" + job.getId();
     }
