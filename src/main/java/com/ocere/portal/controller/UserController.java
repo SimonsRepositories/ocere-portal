@@ -28,7 +28,7 @@ public class UserController
         this.roleService = roleService;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @GetMapping("/users")
     public ModelAndView adminHome() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("listOfUsers", userService.findAll());
@@ -36,14 +36,14 @@ public class UserController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @GetMapping("/home")
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         return modelAndView;
     }
 
-    @RequestMapping(value="/users/delete-user", method = RequestMethod.GET)
+    @GetMapping("/users/delete-user")
     public ModelAndView deleteUser(@RequestParam(name="id", required = true) int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("listOfUsers", userService.findAll());
@@ -52,7 +52,7 @@ public class UserController
         return modelAndView;
     }
 
-    @RequestMapping(value="/users/{id}", method = RequestMethod.GET)
+    @GetMapping("/users/{id}")
     public String showUser(Model model, @PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         User value = userService.getUserById(id).get();
@@ -61,7 +61,7 @@ public class UserController
         return "users-view";
     }
 
-    @RequestMapping(value="/users/edit-user/{id}", method = RequestMethod.GET)
+    @GetMapping("/users/edit-user/{id}")
     public ModelAndView editUser(Model model, @PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         User value = userService.getUserById(id).get();
@@ -75,7 +75,7 @@ public class UserController
         return modelAndView;
     }
 
-    @RequestMapping(value="/users/edit-user", method = RequestMethod.POST)
+    @PostMapping("/users/edit-user")
     public ModelAndView editUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap, Model model)
     {
         ModelAndView modelAndView = new ModelAndView();

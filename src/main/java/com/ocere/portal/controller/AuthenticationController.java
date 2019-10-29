@@ -44,20 +44,18 @@ public class AuthenticationController
     }
 
     @PostMapping(value="/register")
-    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String registerUser(Model model, @Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap) {
         // Check for the validation
         if (bindingResult.hasErrors()) {
             //modelAndView.addObject("successMessage", "Please correct the errors in form!");
             System.out.println("has errors: " + bindingResult.toString());
             modelMap.addAttribute("bindingResult", bindingResult);
-            modelAndView.addObject("listOfRoles", roleService.findAll());
-            modelAndView.setViewName("register");
-            return modelAndView;
+            model.addAttribute("listOfRoles", roleService.findAll());
+            return "register";
         }
         //save the user if no binding errors
         else if(userService.isUserAlreadyPresent(user)){
-            modelAndView.addObject("successMessage", "User already exists!");
+            model.addAttribute("successMessage", "User already exists!");
         } else {
             if(user.getRoles() != null) {
                 for (Role role : user.getRoles()) {
@@ -67,13 +65,8 @@ public class AuthenticationController
                 }
                 userService.saveUser(user, user.getRoles());
             }
-            modelAndView.addObject("successMessage", "User is registered successfully");
+            model.addAttribute("successMessage", "User is registered successfully");
         }
-        modelAndView.addObject("user", new User());
-        modelAndView.addObject("role", new Role());
-        modelAndView.addObject("listOfRoles", roleService.findAll());
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("register");
-        return modelAndView;
+        return "index";
     }
 }

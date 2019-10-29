@@ -1,5 +1,7 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.enums.JobStatus;
+import com.ocere.portal.model.Client;
 import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
 import com.ocere.portal.model.User;
@@ -18,7 +20,6 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("jobs")
@@ -51,7 +52,7 @@ public class JobController {
     }
 
     @GetMapping("create")
-    public String loadCreateJobView(Model model, @RequestParam(name="clientId") int clientId) {
+    public String loadCreateJobView(Model model, @RequestParam(name = "clientId") int clientId) {
         model.addAttribute("siteTitle", "Create Job");
         model.addAttribute("action", "create");
         model.addAttribute("submitText", "Create");
@@ -92,6 +93,10 @@ public class JobController {
         job.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         job.setAuthor(this.userService.findByEmail(principal.getName()));
 
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() + job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() + job.getTotalValue());
+
         this.jobService.saveJob(job);
         return "redirect:/jobs/" + job.getId();
     }
@@ -101,14 +106,31 @@ public class JobController {
         fillJobReferencesById(job);
 
         mapUneditedValuesToJob(job, id);
+        double oldValue = jobService.findJobById(id).get().getTotalValue();
         jobService.updateJob(job, id);
+
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() - oldValue + job.getTotalValue());
+        if (job.getStatus() == JobStatus.Live) {
+            job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() - oldValue + job.getTotalValue());
+        }
+
         return "redirect:/jobs/" + job.getId();
     }
 
     @PostMapping("/delete/{id}")
     public String deleteTicket(@PathVariable int id) throws Exception {
         int clientId = jobService.findJobById(id).get().getClient().getId();
+        Client client = clientService.findClientById(clientId);
+        Job job = jobService.findJobById(id).get();
+        client.setTotalSpending(client.getTotalSpending() - job.getTotalValue());
+
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() - job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() - job.getTotalValue());
+
         jobService.deleteJobById(id);
+
         return "redirect:/clients/" + clientId;
     }
 
