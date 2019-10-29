@@ -73,6 +73,7 @@
         // Post Button
         $('.post-button').on('click', function () {
             $.post($(this).data('post-url'));
+
             window.location.href = $(this).data('redirect-url');
         });
 
