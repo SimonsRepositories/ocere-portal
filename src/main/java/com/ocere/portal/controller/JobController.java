@@ -5,10 +5,8 @@ import com.ocere.portal.model.Client;
 import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
 import com.ocere.portal.model.User;
-import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.DBFileStorageService;
-import com.ocere.portal.service.JobService;
-import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,25 +27,31 @@ public class JobController {
     private UserService userService;
     private ClientService clientService;
     private DBFileStorageService dbFileStorageService;
+    private TicketService ticketService;
 
     @Autowired
-    public JobController(JobService jobService, UserService userService, ClientService clientService, DBFileStorageService dbFileStorageService) {
+    public JobController(JobService jobService,
+                         UserService userService,
+                         ClientService clientService,
+                         DBFileStorageService dbFileStorageService,
+                         TicketService ticketService) {
         this.jobService = jobService;
         this.userService = userService;
         this.clientService = clientService;
         this.dbFileStorageService = dbFileStorageService;
+        this.ticketService = ticketService;
     }
 
     @GetMapping
     public String loadJobListView(Model model) {
         model.addAttribute("jobs", this.jobService.findAll());
-
         return "jobs-list";
     }
 
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("job", this.jobService.findJobById(id).get());
+        model.addAttribute("tickets", this.ticketService.findAllTicketsByJobId(id));
         return "jobs-view";
     }
 

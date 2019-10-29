@@ -93,3 +93,9 @@ VALUES (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL,
     (3, 'Jeremy', 'Jenkins', '012345689', 'jeremy@jenkins.com'),
     (4, 'Jane', 'Jarvis', '012345689', 'jane@jarvis.com'),
     (5, 'Jack', 'Johnson', '012345689', 'jack@johnson.com');
+
+INSERT INTO predefined_ticket_collection (id, product_type)
+VALUES (1, 0),
+       (2, 1),
+       (3, 2),
+       (4, 3);

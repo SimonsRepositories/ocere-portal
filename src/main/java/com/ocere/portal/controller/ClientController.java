@@ -57,7 +57,7 @@ public class ClientController {
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("client", this.clientService.findClientById(id));
-        //model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
+        model.addAttribute("jobs", this.jobService.findAllJobsByClientId(id));
         return "clients-view";
     }
 

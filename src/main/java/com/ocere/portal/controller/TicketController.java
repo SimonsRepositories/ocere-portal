@@ -1,10 +1,8 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.enums.ProductType;
 import com.ocere.portal.enums.Status;
-import com.ocere.portal.model.Ticket;
-import com.ocere.portal.model.Turnaround;
-import com.ocere.portal.model.User;
-import com.ocere.portal.model.Usergroup;
+import com.ocere.portal.model.*;
 import com.ocere.portal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,18 +22,24 @@ public class TicketController {
     private TicketService ticketService;
     private TemplateService templateService;
     private TurnaroundService turnaroundService;
+    private JobService jobService;
+    private PredefinedTicketCollectionService predefinedTicketCollectionService;
 
     @Autowired
     public TicketController(UserService userService,
                             UsergroupService usergroupService,
                             TicketService ticketService,
                             TemplateService templateService,
-                            TurnaroundService turnaroundService) {
+                            TurnaroundService turnaroundService,
+                            JobService jobService,
+                            PredefinedTicketCollectionService predefinedTicketCollectionService) {
         this.userService = userService;
         this.usergroupService = usergroupService;
         this.ticketService = ticketService;
         this.templateService = templateService;
         this.turnaroundService = turnaroundService;
+        this.jobService = jobService;
+        this.predefinedTicketCollectionService = predefinedTicketCollectionService;
     }
 
     @GetMapping
@@ -57,7 +61,9 @@ public class TicketController {
     }
 
     @GetMapping("/create")
-    public String loadCreateTicketView(Model model, @RequestParam(name = "templateId", defaultValue = "-1") int id) {
+    public String loadCreateTicketView(Model model,
+                                       @RequestParam(name = "templateId", defaultValue = "-1") int id,
+                                       @RequestParam(name = "jobId", defaultValue = "-1") int jobId) {
         model.addAttribute("siteTitle", "New Ticket");
         model.addAttribute("action", "create");
         model.addAttribute("submitText", "Create");
@@ -70,6 +76,11 @@ public class TicketController {
         } else {
             ticket = this.templateService.findTemplateById(id);
         }
+
+        if (jobId != -1) {
+            ticket.setJob(jobService.findJobById(jobId).get());
+        }
+
         model.addAttribute("ticket", ticket);
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
@@ -134,6 +145,53 @@ public class TicketController {
         return "tickets_form";
     }
 
+    @GetMapping("/predefined")
+    public String loadPredefinedTicketsListView(Model model) {
+        model.addAttribute("seoTickets", predefinedTicketCollectionService.findByProductType(ProductType.SEO).getSortedTickets());
+        model.addAttribute("linkTickets", predefinedTicketCollectionService.findByProductType(ProductType.LinkBuilding).getSortedTickets());
+        model.addAttribute("ppcTickets", predefinedTicketCollectionService.findByProductType(ProductType.PPC).getSortedTickets());
+        model.addAttribute("contentTickets", predefinedTicketCollectionService.findByProductType(ProductType.Content).getSortedTickets());
+
+        return "predefined-tickets_list";
+    }
+
+    @GetMapping("/predefined/{id}")
+    public String loadPredefinedTicketView(Model model, @PathVariable int id) {
+        model.addAttribute("ticket", this.ticketService.findTicketById(id));
+        return "predefined-tickets-view";
+    }
+
+    @GetMapping("/predefined/create")
+    public String loadPredefinedTicketsCreationView(Model model) {
+        model.addAttribute("siteTitle", "New Predefined Ticket");
+        model.addAttribute("action", "predefined/create");
+        model.addAttribute("submitText", "Create");
+        model.addAttribute("cancelPage", "/tickets/predefined");
+
+        model.addAttribute("ticket", new Ticket());
+        model.addAttribute("predefinedTicketCollections", this.predefinedTicketCollectionService.findAll());
+        model.addAttribute("users", this.userService.findAll());
+        model.addAttribute("groups", this.usergroupService.findAll());
+        model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
+
+        return "predefined-tickets_form";
+    }
+
+    @GetMapping("/predefined/edit/{id}")
+    public String loadPredefinedTicketEditView(Model model, @PathVariable int id) {
+        model.addAttribute("siteTitle", "Edit Predefined Ticket");
+        model.addAttribute("action", "predefined/save/" + id);
+        model.addAttribute("submitText", "Save");
+        model.addAttribute("cancelPage", "/tickets/predefined/" + id);
+
+        model.addAttribute("ticket", this.ticketService.findTicketById(id));
+        model.addAttribute("predefinedTicketCollections", this.predefinedTicketCollectionService.findAll());
+        model.addAttribute("users", this.userService.findAll());
+        model.addAttribute("groups", this.usergroupService.findAll());
+        model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
+        return "predefined-tickets_form";
+    }
+
     /*
         ACTIONS
      */
@@ -147,7 +205,12 @@ public class TicketController {
         ticket.setAuthor(this.userService.findByEmail(principal.getName()));
 
         this.ticketService.saveTicket(ticket);
-        return "redirect:/tickets";
+
+        String redirectUrl = "redirect:/tickets";
+        if (ticket.getJob() != null) {
+            redirectUrl = "redirect:/jobs/" + ticket.getJob().getId();
+        }
+        return redirectUrl;
     }
 
     @PostMapping("/templates/create")
@@ -160,6 +223,24 @@ public class TicketController {
 
         this.templateService.saveTemplate(template);
         return "redirect:/tickets/templates";
+    }
+
+    @PostMapping("/predefined/create")
+    public String createPredefinedTicket(@ModelAttribute Ticket ticket, Principal principal) {
+        fillTicketReferencesById(ticket);
+
+        Optional<PredefinedTicketCollection> predefinedTicketCollection =
+                this.predefinedTicketCollectionService.findById(ticket.getPredefinedTicketCollection().getId());
+        predefinedTicketCollection.ifPresentOrElse(ticket::setPredefinedTicketCollection,
+                () -> ticket.setPredefinedTicketCollection(null));
+
+        ticket.setTemplate(false);
+        ticket.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        ticket.setAuthor(this.userService.findByEmail(principal.getName()));
+
+        this.ticketService.saveTicket(ticket);
+
+        return "redirect:/tickets/predefined";
     }
 
     @PostMapping("/save/{id}")
@@ -180,6 +261,15 @@ public class TicketController {
         return "redirect:/tickets/templates/" + id;
     }
 
+    @PostMapping("/predefined/save/{id}")
+    public String savePredefinedTicket(@PathVariable int id, @ModelAttribute Ticket ticket) throws Exception {
+        fillTicketReferencesById(ticket);
+        mapUneditedValuesToTicket(ticket, id);
+
+        this.ticketService.updateTicket(ticket, id);
+        return "redirect:/tickets/predefined/" + id;
+    }
+
     @PostMapping("/delete/{id}")
     public String deleteTicket(@PathVariable int id) {
         this.ticketService.removeTicketById(id);
@@ -190,6 +280,12 @@ public class TicketController {
     public String deleteTemplate(@PathVariable int id) {
         this.templateService.removeTemplateById(id);
         return "redirect:/tickets/templates";
+    }
+
+    @PostMapping("/predefined/delete/{id}")
+    public String deletePredefinedTicket(@PathVariable int id) {
+        this.ticketService.removeTicketById(id);
+        return "redirect:/tickets/predefined";
     }
 
     /*

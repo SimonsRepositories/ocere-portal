@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Predefined Tickets</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <h1 class="section-title h1">Predefined Tickets</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a href="#seo">SEO</a></li>
+                                <li class="tab col s3"><a class="active" href="#link">LinkBuilding</a></li>
+                                <li class="tab col s3"><a href="#ppc">PPC</a></li>
+                                <li class="tab col s3"><a href="#content">Content</a></li>
+                            </ul>
+                        </div>
+                        <div id="seo" class="col s12">
+                            <h5 th:if="${seoTickets.isEmpty()}">No ticket</h5>
+                            <table th:if="${!seoTickets.isEmpty()}"
+                                   class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Assignee</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${seoTickets}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="link" class="col s12">
+                            <h5 th:if="${linkTickets.isEmpty()}">No ticket</h5>
+                            <table th:if="${!linkTickets.isEmpty()}"
+                                   class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Assignee</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${linkTickets}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="ppc" class="col s12">
+                            <h5 th:if="${ppcTickets.isEmpty()}">No ticket</h5>
+                            <table th:if="${!ppcTickets.isEmpty()}"
+                                   class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Assignee</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${ppcTickets}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="content" class="col s12">
+                            <h5 th:if="${contentTickets.isEmpty()}">No ticket</h5>
+                            <table th:if="${!contentTickets.isEmpty()}"
+                                   class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Assignee</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${contentTickets}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fixed-action-btn click-to-toggle">
+                            <a class="btn-floating btn-large ocere-green--background">
+                                <i class="large material-icons">menu</i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a th:href="${'/tickets/predefined/create'}" class="btn-floating green">
+                                        <i class="material-icons">add</i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tabs').tabs();
+    });
+
+    $('.ticket-row').on('click', function () {
+        window.location.href = "/tickets/predefined/" + $(this).data('id');
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+</html>

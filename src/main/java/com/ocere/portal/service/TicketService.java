@@ -21,4 +21,5 @@ public interface TicketService {
     List<Ticket> findAllTicketsByAuthor(User user);
     List<Ticket> findAllTicketsByTurnaroundInFuture();
     List<Ticket> findAllTicketsByAssignedUserAndTurnaroundInFuture(User user);
+    List<Ticket> findAllTicketsByJobId(int id);
 }
