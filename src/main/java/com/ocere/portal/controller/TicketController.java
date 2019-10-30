@@ -322,6 +322,7 @@ public class TicketController {
         ticket.setCreatedAt(dbTicket.getCreatedAt());
         ticket.setJob(dbTicket.getJob());
         ticket.setFiles(dbTicket.getFiles());
+        ticket.setDynamicTurnaround(dbTicket.getDynamicTurnaround());
     }
 
     /**
@@ -337,6 +338,7 @@ public class TicketController {
         template.setCreatedAt(dbTemplate.getCreatedAt());
         template.setJob(dbTemplate.getJob());
         template.setFiles(dbTemplate.getFiles());
+        template.setDynamicTurnaround(dbTemplate.getDynamicTurnaround());
     }
 
     /**

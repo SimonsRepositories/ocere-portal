@@ -24,9 +24,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12">
+                        <div class="col s6">
                             <small class="attribute-title">Products:</small>
                             <p class="attribute-value"><span th:each="product: ${defticket.defProducts}" th:text="${product + ', '}"></span></p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Dynamic Turnaround:</small>
+                            <p class="attribute-value" th:text="${defticket.dynamicTurnaround.description}"></p>
                         </div>
                         <div class="col s12">
                             <small class="attribute-title">Subject:</small>

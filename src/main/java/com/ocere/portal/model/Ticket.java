@@ -1,9 +1,6 @@
 package com.ocere.portal.model;
 
-import com.ocere.portal.enums.CampaignType;
-import com.ocere.portal.enums.Priority;
-import com.ocere.portal.enums.ProductType;
-import com.ocere.portal.enums.Status;
+import com.ocere.portal.enums.*;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -35,6 +32,7 @@ public class Ticket {
         this.description = ticket.getDescription();
         this.priority = ticket.getPriority();
         this.status = ticket.getStatus();
+        this.dynamicTurnaround = ticket.getDynamicTurnaround();
     }
 
     // Default constructor is required by JPA
@@ -111,6 +109,9 @@ public class Ticket {
             joinColumns = @JoinColumn(name = "ticket_id"))
     @Column(name = "defproduct_id")
     private Set<ProductType> defProducts;
+
+    @Enumerated
+    private DynamicTurnaround dynamicTurnaround;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
@@ -250,5 +251,13 @@ public class Ticket {
 
     public void setDefProducts(Set<ProductType> defProducts) {
         this.defProducts = defProducts;
+    }
+
+    public DynamicTurnaround getDynamicTurnaround() {
+        return dynamicTurnaround;
+    }
+
+    public void setDynamicTurnaround(DynamicTurnaround dynamicTurnaround) {
+        this.dynamicTurnaround = dynamicTurnaround;
     }
 }

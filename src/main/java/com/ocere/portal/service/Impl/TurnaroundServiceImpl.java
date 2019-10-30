@@ -1,5 +1,6 @@
 package com.ocere.portal.service.Impl;
 
+import com.ocere.portal.enums.DynamicTurnaround;
 import com.ocere.portal.model.Ticket;
 import com.ocere.portal.model.Turnaround;
 import com.ocere.portal.repository.TurnaroundRepository;
@@ -61,6 +62,14 @@ public class TurnaroundServiceImpl implements TurnaroundService {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(ticket.getCreatedAt().getTime());
         cal.add(Calendar.HOUR, ticket.getTurnaround().getHours());
+
+        if (ticket.getDynamicTurnaround() == DynamicTurnaround.JOBEND && ticket.getJob() != null) {
+            return new Timestamp(ticket.getJob().getEndDate().getTime());
+        }
+        if (ticket.getDynamicTurnaround() == DynamicTurnaround.CAMPAIGNSTART && ticket.getJob() != null) {
+            return new Timestamp(ticket.getJob().getCampaignLaunchDate().getTime());
+        }
+
         return new Timestamp(cal.getTime().getTime());
     }
 }

@@ -39,7 +39,7 @@
                     </div>
                     <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}"
                           th:object="${ticket}">
-                        <div th:if="${ticket.defticket==true}" class="input-field col s12">
+                        <div th:if="${ticket.defticket==true}" class="input-field col s6">
                             <select id="defProducts" th:field="*{defProducts}" multiple>
                                 <option th:each="productType : ${T(com.ocere.portal.enums.ProductType).values()}"
                                         th:value="${productType}"
@@ -47,6 +47,15 @@
                                 </option>
                             </select>
                             <label for="defProducts">Defined Products:</label>
+                        </div>
+                        <div th:if="${ticket.defticket==true}" class="input-field col s6">
+                            <select id="dynamicTurnaround" th:field="*{dynamicTurnaround}">
+                                <option th:each="dynamicTurnaround : ${T(com.ocere.portal.enums.DynamicTurnaround).values()}"
+                                        th:value="${dynamicTurnaround}"
+                                        th:text="${dynamicTurnaround.description}">
+                                </option>
+                            </select>
+                            <label for="dynamicTurnaround">Dynamic Turnaround:</label>
                         </div>
                         <div class="input-field col s12">
                             <label for="subject">Subject:</label>

@@ -67,6 +67,7 @@ public class TemplateServiceImpl implements TemplateService {
             updatedTemplate.setCreatedAt(template.getCreatedAt());
             updatedTemplate.setAuthor(template.getAuthor());
             updatedTemplate.setFiles(template.getFiles());
+            updatedTemplate.setDynamicTurnaround(template.getDynamicTurnaround());
         } else {
             throw new Exception("Couldn’t update template, because it didn’t exist !");
         }
