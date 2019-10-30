@@ -35,7 +35,7 @@ public class Client {
 
     private String companyName;
 
-    @OneToOne(fetch= FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id")
     private Contact contact;
 
@@ -48,9 +48,27 @@ public class Client {
     private String contactUsPage;
     private String country;
     private String county;
+    private double totalSpending;
+    private double monthlySpending;
 
     @Enumerated(EnumType.STRING)
     private PaymentTerms paymentTerm;
+
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
+    }
+
+    public double getMonthlySpending() {
+        return monthlySpending;
+    }
+
+    public void setMonthlySpending(double monthlySpending) {
+        this.monthlySpending = monthlySpending;
+    }
 
     public Contact getContact() {
         return contact;

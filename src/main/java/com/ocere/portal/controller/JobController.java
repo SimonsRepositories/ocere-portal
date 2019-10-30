@@ -1,6 +1,8 @@
 package com.ocere.portal.controller;
 
 import com.ocere.portal.enums.ProductType;
+import com.ocere.portal.enums.JobStatus;
+import com.ocere.portal.model.Client;
 import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
 import com.ocere.portal.model.Ticket;
@@ -129,6 +131,10 @@ public class JobController {
         initialTickets = initialTickets.stream().map(ticket -> new Ticket(ticket, job, author)).collect(Collectors.toSet());
         job.setTickets(initialTickets);
 
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() + job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() + job.getTotalValue());
+
         this.jobService.saveJob(job);
         return "redirect:/jobs/" + job.getId();
     }
@@ -145,7 +151,16 @@ public class JobController {
     @PostMapping("/delete/{id}")
     public String deleteTicket(@PathVariable int id) throws Exception {
         int clientId = jobService.findJobById(id).get().getClient().getId();
+        Client client = clientService.findClientById(clientId);
+        Job job = jobService.findJobById(id).get();
+        client.setTotalSpending(client.getTotalSpending() - job.getTotalValue());
+
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() - job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() - job.getTotalValue());
+
         jobService.deleteJobById(id);
+
         return "redirect:/clients/" + clientId;
     }
 
