@@ -23,7 +23,9 @@ VALUES (1, '2 Hours', 2),
        (5, '2 Days', 48),
        (6, '3 Days', 72),
        (7, '5 Days', 120),
-       (8, '7 Days', 168);
+       (8, '7 Days', 168),
+       (9, '14 Days', 336),
+       (10, '30 Days', 720);
 INSERT INTO usergroup (group_id, is_active, created_at, is_empty, name, updated_at)
 VALUES (1, true, NOW(), false, 'GroupTest', NOW());
 
@@ -87,15 +89,20 @@ VALUES (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL,
         NULL, 4),
        (5, '2019-10-18 16:32:21', '', 1, 0, 'PCC Update / Report', b'1', NULL, NULL, 1, NULL, 4);
 
+INSERT INTO `ticket` (`ticket_id`, `created_at`, `defticket`, `description`, `priority`, `status`, `subject`, `template`, `group_id`, `assigned_user_id`, `author_id`, `job_id`, `turnaround_id`) VALUES
+(1, '2019-10-30 10:55:56', b'1', '', 1, 0, 'Invoice', b'0', NULL, NULL, 1, NULL, 4),
+(2, '2019-10-30 10:56:15', b'1', '', 1, 0, 'IRR + Upload', b'0', NULL, NULL, 1, NULL, 4),
+(3, '2019-10-30 11:06:09', b'1', '', 1, 0, 'QA Setup in 5PM', b'0', NULL, NULL, 1, NULL, 4),
+(4, '2019-10-30 11:08:04', b'1', '', 1, 0, 'Mid Month QA + Analise', b'0', NULL, NULL, 1, NULL, 9),
+(5, '2019-10-30 11:08:35', b'1', '', 1, 0, 'Upload Final Reports + EMR', b'0', NULL, NULL, 1, NULL, 10),
+(6, '2019-10-30 11:12:23', b'1', '', 1, 0, 'Complete Review & Health Checks', b'0', NULL, NULL, 1, NULL, 6),
+(7, '2019-10-30 11:25:59', b'1', '', 1, 0, 'New Facebook Campaign', b'0', NULL, NULL, 1, NULL, 4),
+(8, '2019-10-30 11:26:15', b'1', '', 1, 0, 'New Adwords Campaign', b'0', NULL, NULL, 1, NULL, 4),
+(9, '2019-10-30 11:26:34', b'1', '', 1, 0, 'Content Set Up', b'0', NULL, NULL, 1, NULL, 4);
+
     INSERT INTO contact (id, first_name, last_name, phone, email) VALUES
     (1, 'John', 'Jones', '012345689', 'john@jones.com'),
     (2, 'James', 'Jefferson', '012345689', 'james@jefferson.com'),
     (3, 'Jeremy', 'Jenkins', '012345689', 'jeremy@jenkins.com'),
     (4, 'Jane', 'Jarvis', '012345689', 'jane@jarvis.com'),
     (5, 'Jack', 'Johnson', '012345689', 'jack@johnson.com');
-
-INSERT INTO predefined_ticket_collection (id, product_type)
-VALUES (1, 0),
-       (2, 1),
-       (3, 2),
-       (4, 3);

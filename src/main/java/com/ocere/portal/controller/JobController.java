@@ -1,7 +1,9 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.enums.ProductType;
 import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
+import com.ocere.portal.model.Ticket;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.DBFileStorageService;
@@ -14,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("jobs")
@@ -26,18 +30,21 @@ public class JobController {
     private ClientService clientService;
     private DBFileStorageService dbFileStorageService;
     private TicketService ticketService;
+    private DefticketService defticketService;
 
     @Autowired
     public JobController(JobService jobService,
                          UserService userService,
                          ClientService clientService,
                          DBFileStorageService dbFileStorageService,
-                         TicketService ticketService) {
+                         TicketService ticketService,
+                         DefticketService defticketService) {
         this.jobService = jobService;
         this.userService = userService;
         this.clientService = clientService;
         this.dbFileStorageService = dbFileStorageService;
         this.ticketService = ticketService;
+        this.defticketService = defticketService;
     }
 
     @GetMapping
@@ -84,6 +91,21 @@ public class JobController {
         return "jobs_form";
     }
 
+    @GetMapping("/clone")
+    public String loadCloneJobView(@RequestParam(name = "jobId") int jobId, Principal principal, Model model) {
+        Job job = this.jobService.findJobById(jobId).get();
+
+        model.addAttribute("siteTitle", "Clone Job");
+        model.addAttribute("action", "create");
+        model.addAttribute("submitText", "Clone");
+        model.addAttribute("cancelPage", "/clients/" + job.getClient().getId());
+
+        model.addAttribute("owners", userService.findAll());
+
+        model.addAttribute("job", new Job(job, this.userService.findByEmail(principal.getName())));
+        return "jobs_form";
+    }
+
     /*
         ACTIONS
      */
@@ -92,8 +114,20 @@ public class JobController {
     public String createJob(@ModelAttribute Job job, Principal principal) {
         fillJobReferencesById(job);
 
+        User author = this.userService.findByEmail(principal.getName());
         job.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        job.setAuthor(this.userService.findByEmail(principal.getName()));
+        job.setAuthor(author);
+
+        Set<Ticket> initialTickets = new HashSet<>();
+        for (Ticket defticket: this.defticketService.findAllDeftickets()) {
+            for (ProductType productType: job.getProductTypes()) {
+                if (defticket.getDefProducts().contains(productType)) {
+                    initialTickets.add(defticket);
+                }
+            }
+        }
+        initialTickets = initialTickets.stream().map(ticket -> new Ticket(ticket, job, author)).collect(Collectors.toSet());
+        job.setTickets(initialTickets);
 
         this.jobService.saveJob(job);
         return "redirect:/jobs/" + job.getId();

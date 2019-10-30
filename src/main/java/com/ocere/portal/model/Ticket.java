@@ -1,6 +1,8 @@
 package com.ocere.portal.model;
 
+import com.ocere.portal.enums.CampaignType;
 import com.ocere.portal.enums.Priority;
+import com.ocere.portal.enums.ProductType;
 import com.ocere.portal.enums.Status;
 
 import javax.persistence.*;
@@ -13,6 +15,28 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Ticket {
+
+    /**
+     * Creates a new ticket based on a predefined ticket, a job and an author
+     * @param ticket
+     * @param job
+     * @param author
+     */
+    public Ticket(Ticket ticket, Job job, User author) {
+        this.job = job;
+        this.author = author;
+        this.template = false;
+        this.defticket = false;
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.subject = ticket.getSubject();
+        this.turnaround = ticket.getTurnaround();
+        this.assignedUser = ticket.getAssignedUser();
+        this.assignedGroup = ticket.getAssignedGroup();
+        this.description = ticket.getDescription();
+        this.priority = ticket.getPriority();
+        this.status = ticket.getStatus();
+    }
+
     // Default constructor is required by JPA
     public Ticket() {
         this.assignedUser = new User();
@@ -23,6 +47,7 @@ public class Ticket {
         this.priority = Priority.MEDIUM;
         this.turnaround = new Turnaround(4);
         this.template = false;
+        this.defticket = false;
     }
 
     @Id
@@ -41,10 +66,6 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private Job job;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "predefines_ticket_collection_id")
-    private PredefinedTicketCollection predefinedTicketCollection;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "turnaround_id")
@@ -81,6 +102,15 @@ public class Ticket {
 
     @Column(name = "template")
     private boolean template;
+
+    @Column(name = "defticket")
+    private boolean defticket;
+
+    @ElementCollection(targetClass = ProductType.class)
+    @CollectionTable(name = "ticket_defproduct",
+            joinColumns = @JoinColumn(name = "ticket_id"))
+    @Column(name = "defproduct_id")
+    private Set<ProductType> defProducts;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
@@ -206,11 +236,19 @@ public class Ticket {
         this.author = author;
     }
 
-    public PredefinedTicketCollection getPredefinedTicketCollection() {
-        return predefinedTicketCollection;
+    public boolean isDefticket() {
+        return defticket;
     }
 
-    public void setPredefinedTicketCollection(PredefinedTicketCollection predefinedTicketCollection) {
-        this.predefinedTicketCollection = predefinedTicketCollection;
+    public void setDefticket(boolean defticket) {
+        this.defticket = defticket;
+    }
+
+    public Set<ProductType> getDefProducts() {
+        return defProducts;
+    }
+
+    public void setDefProducts(Set<ProductType> defProducts) {
+        this.defProducts = defProducts;
     }
 }

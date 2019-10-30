@@ -289,7 +289,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="template-row" th:each="ticket : ${tickets}" th:data-id="${ticket.id}"
+                                <tr class="ticket-row" th:each="ticket : ${tickets}" th:data-id="${ticket.id}"
                                     style="cursor: pointer;">
                                     <td th:text="${ticket.subject}"></td>
                                     <td th:switch="${ticket.assignedGroup}">
@@ -307,7 +307,12 @@
                             <i class="large material-icons">menu</i>
                         </a>
                         <ul>
-                            <li><a th:href="'/tickets/create?jobId=' + ${job.id}" class="btn-floating green"><i
+                            <li>
+                                <a th:href="${'/jobs/clone?jobId=' + job.id}" class="btn-floating blue">
+                                    <i class="material-icons">content_copy</i>
+                                </a>
+                            </li>
+                            <li><a th:href="${'/tickets/create?jobId=' + job.id}" class="btn-floating green"><i
                                     class="material-icons">add</i></a></li>
                             <li>
                                 <a th:href="${'/jobs/edit/' + job.id}" class="btn-floating yellow darken-1"><i
@@ -327,6 +332,9 @@
 <div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
+    $('.ticket-row').on('click', function () {
+        window.location.href = "/tickets/" + $(this).data('id');
+    });
 </script>
 </body>
 

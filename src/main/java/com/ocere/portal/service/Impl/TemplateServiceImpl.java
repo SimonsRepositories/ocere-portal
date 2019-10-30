@@ -54,6 +54,7 @@ public class TemplateServiceImpl implements TemplateService {
         if (optionalUpdatedTemplate.isPresent()) {
             updatedTemplate = optionalUpdatedTemplate.get();
             updatedTemplate.setTemplate(template.isTemplate());
+            updatedTemplate.setDefticket(template.isDefticket());
             updatedTemplate.setTurnaround(template.getTurnaround());
             updatedTemplate.setAssignedGroup(template.getAssignedGroup());
             updatedTemplate.setAssignedUser(template.getAssignedUser());
@@ -66,7 +67,6 @@ public class TemplateServiceImpl implements TemplateService {
             updatedTemplate.setCreatedAt(template.getCreatedAt());
             updatedTemplate.setAuthor(template.getAuthor());
             updatedTemplate.setFiles(template.getFiles());
-            updatedTemplate.setPredefinedTicketCollection(template.getPredefinedTicketCollection());
         } else {
             throw new Exception("Couldn’t update template, because it didn’t exist !");
         }

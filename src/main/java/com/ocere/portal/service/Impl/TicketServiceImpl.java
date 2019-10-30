@@ -31,32 +31,32 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> findAllTickets() {
-        return ticketRepository.findAllByTemplateFalse();
+        return ticketRepository.findAllByTemplateFalseAndDefticketFalse();
     }
 
     @Override
     public Ticket findTicketById(int id) {
-        return ticketRepository.findByIdAndTemplateFalse(id);
+        return ticketRepository.findByIdAndTemplateFalseAndDefticketFalse(id);
     }
 
     @Override
     public List<Ticket> findAllTicketsByStatus(Status status) {
-        return ticketRepository.findAllByStatusAndTemplateFalse(status);
+        return ticketRepository.findAllByStatusAndTemplateFalseAndDefticketFalse(status);
     }
 
     @Override
     public List<Ticket> findAllTicketsByAssignedUser(User user) {
-        return ticketRepository.findAllByAssignedUserAndTemplateFalse(user);
+        return ticketRepository.findAllByAssignedUserAndTemplateFalseAndDefticketFalse(user);
     }
 
     @Override
     public List<Ticket> findAllTicketsByAssignedUserAndStatus(User user, Status status) {
-        return ticketRepository.findAllByAssignedUserAndStatusAndTemplateFalse(user, status);
+        return ticketRepository.findAllByAssignedUserAndStatusAndTemplateFalseAndDefticketFalse(user, status);
     }
 
     @Override
     public List<Ticket> findAllTicketsByAuthor(User user) {
-        return ticketRepository.findAllByAuthorAndTemplateFalse(user);
+        return ticketRepository.findAllByAuthorAndTemplateFalseAndDefticketFalse(user);
     }
 
     @Override
@@ -101,6 +101,7 @@ public class TicketServiceImpl implements TicketService {
         if (optionalUpdatedTicket.isPresent()) {
             updatedTicket = optionalUpdatedTicket.get();
             updatedTicket.setTemplate(ticket.isTemplate());
+            updatedTicket.setDefticket(ticket.isDefticket());
             updatedTicket.setTurnaround(ticket.getTurnaround());
             updatedTicket.setAssignedGroup(ticket.getAssignedGroup());
             updatedTicket.setAssignedUser(ticket.getAssignedUser());
@@ -113,7 +114,6 @@ public class TicketServiceImpl implements TicketService {
             updatedTicket.setCreatedAt(ticket.getCreatedAt());
             updatedTicket.setAuthor(ticket.getAuthor());
             updatedTicket.setFiles(ticket.getFiles());
-            updatedTicket.setPredefinedTicketCollection(ticket.getPredefinedTicketCollection());
         } else {
             throw new Exception("Couldn’t update ticket, because it didn’t exist !");
         }

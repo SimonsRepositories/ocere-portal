@@ -11,17 +11,17 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
-    List<Ticket> findAllByTemplateFalse();
+    List<Ticket> findAllByTemplateFalseAndDefticketFalse();
 
-    Ticket findByIdAndTemplateFalse(int id);
+    Ticket findByIdAndTemplateFalseAndDefticketFalse(int id);
 
-    List<Ticket> findAllByStatusAndTemplateFalse(Status status);
+    List<Ticket> findAllByStatusAndTemplateFalseAndDefticketFalse(Status status);
 
-    List<Ticket> findAllByAssignedUserAndTemplateFalse(User user);
+    List<Ticket> findAllByAssignedUserAndTemplateFalseAndDefticketFalse(User user);
 
-    List<Ticket> findAllByAssignedUserAndStatusAndTemplateFalse(User user, Status status);
+    List<Ticket> findAllByAssignedUserAndStatusAndTemplateFalseAndDefticketFalse(User user, Status status);
 
-    List<Ticket> findAllByAuthorAndTemplateFalse(User user);
+    List<Ticket> findAllByAuthorAndTemplateFalseAndDefticketFalse(User user);
 
     List<Ticket> findAllTicketsByJobId(int id);
 }
