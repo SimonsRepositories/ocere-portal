@@ -78,7 +78,7 @@ public class AuthenticationController
         }
         modelAndView.addObject("successMessage", "User registered successfully");
         redirAttrs.addFlashAttribute("successMessage", "User registered successfully");
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 }
