@@ -41,7 +41,11 @@
                         <tbody>
                         <tr th:each="client : ${clients}" th:data-id="${client.id}" class="client-row">
                             <td th:text="${client.companyName}"></td>
-                            <td th:text="${client.contact.first_name} + ' ' +  ${client.contact.last_name}"></td>
+                            <td th:switch="${client.contact}">
+                                <span th:case="null">None</span>
+                                <span th:case="*"
+                                      th:text="${client.contact.first_name} + ' ' +  ${client.contact.last_name}"></span>
+                            </td>
                             <td th:text="${client.status}"></td>
                             <td th:text="${client.monthlySpending}"></td>
                             <td th:text="${client.totalSpending}"></td>

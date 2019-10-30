@@ -54,6 +54,8 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private PaymentTerms paymentTerm;
 
+    private String targetMonthlyValue;
+
     public double getTotalSpending() {
         return totalSpending;
     }
@@ -212,5 +214,13 @@ public class Client {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getTargetMonthlyValue() {
+        return targetMonthlyValue;
+    }
+
+    public void setTargetMonthlyValue(String targetMonthlyValue) {
+        this.targetMonthlyValue = targetMonthlyValue;
     }
 }

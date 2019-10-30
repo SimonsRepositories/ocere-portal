@@ -56,6 +56,7 @@ public class ClientServiceImpl implements ClientService {
             updatedClient.setAuthor(client.getAuthor());
             updatedClient.setCity(client.getCity());
             updatedClient.setCompanyName(client.getCompanyName());
+            updatedClient.setTargetMonthlyValue(client.getTargetMonthlyValue());
 
             updatedClient.getContact().setFirst_name(client.getContact().getFirst_name());
             updatedClient.getContact().setLast_name(client.getContact().getLast_name());

@@ -89,7 +89,7 @@
                                 <p class="attribute-value"
                                    th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
                                    th:if="${#lists.contains(job.seoSearchEngines, searchEngine)}"
-                                   th:text="${searchEngine}">Value</p>
+                                   th:text="${searchEngine.description}">Value</p>
                             </div>
                             <div class="col s3">
                                 <small class="attribute-title">On Page Review:</small>
@@ -126,7 +126,7 @@
                                 <p class="attribute-value"
                                    th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
                                    th:if="${#lists.contains(job.linkSearchEngines, searchEngine)}"
-                                   th:text="${searchEngine}">Value</p>
+                                   th:text="${searchEngine.description}">Value</p>
                             </div>
                         </div>
                         <!--
