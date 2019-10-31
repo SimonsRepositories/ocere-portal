@@ -70,6 +70,7 @@ public class DefticketServiceImpl implements DefticketService {
             updatedDefticket.setCreatedAt(defticket.getCreatedAt());
             updatedDefticket.setAuthor(defticket.getAuthor());
             updatedDefticket.setFiles(defticket.getFiles());
+            updatedDefticket.setDynamicTurnaround(defticket.getDynamicTurnaround());
         } else {
             throw new Exception("Couldn’t update defticket, because it didn’t exist !");
         }

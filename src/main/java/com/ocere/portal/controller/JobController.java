@@ -1,6 +1,7 @@
 package com.ocere.portal.controller;
 
 import com.ocere.portal.enums.ClientStatus;
+import com.ocere.portal.enums.DynamicTurnaround;
 import com.ocere.portal.enums.ProductType;
 import com.ocere.portal.enums.JobStatus;
 import com.ocere.portal.model.Client;
@@ -34,6 +35,9 @@ public class JobController {
     private DBFileStorageService dbFileStorageService;
     private TicketService ticketService;
     private DefticketService defticketService;
+
+    @Autowired
+    private TurnaroundService turnaroundService;
 
     @Autowired
     public JobController(JobService jobService,

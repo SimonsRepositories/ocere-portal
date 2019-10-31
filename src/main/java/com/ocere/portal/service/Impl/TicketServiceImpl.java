@@ -102,6 +102,7 @@ public class TicketServiceImpl implements TicketService {
             updatedTicket = optionalUpdatedTicket.get();
             updatedTicket.setTemplate(ticket.isTemplate());
             updatedTicket.setDefticket(ticket.isDefticket());
+            updatedTicket.setDefProducts(ticket.getDefProducts());
             updatedTicket.setTurnaround(ticket.getTurnaround());
             updatedTicket.setAssignedGroup(ticket.getAssignedGroup());
             updatedTicket.setAssignedUser(ticket.getAssignedUser());
@@ -114,6 +115,7 @@ public class TicketServiceImpl implements TicketService {
             updatedTicket.setCreatedAt(ticket.getCreatedAt());
             updatedTicket.setAuthor(ticket.getAuthor());
             updatedTicket.setFiles(ticket.getFiles());
+            updatedTicket.setDynamicTurnaround(ticket.getDynamicTurnaround());
         } else {
             throw new Exception("Couldn’t update ticket, because it didn’t exist !");
         }

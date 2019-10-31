@@ -6,6 +6,8 @@ import com.ocere.portal.service.UsergroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,10 @@ public class UserGroupServiceImpl implements UsergroupService {
     }
 
     public Usergroup createUsergroup(Usergroup usergroup) {
+        //Date date //= new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        //System.out.println(formatter.format(date));
+        //usergroup.setCreated_at();
         return usergroupRepository.saveAndFlush(usergroup);
     }
 
