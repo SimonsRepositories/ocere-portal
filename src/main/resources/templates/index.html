@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ocere-Portal</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body th:data-toast="${successMessage}" th:onload="showToast()">
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <h1>Ocere-Portal</h1>
+                    </div>
+                    <div class="row">
+                        <div class="index-button-row">
+                            <a class="index-button" href="/clients">
+                                <img src="/img/customer.svg" alt="Customer icon">
+                                <p>Clients</p>
+                            </a>
+                            <a class="index-button" href="/jobs">
+                                <img src="/img/suitcase.svg" alt="Jobs icon">
+                                <p>Jobs</p>
+                            </a>
+                            <a class="index-button" href="/tickets">
+                                <img src="/img/bill.svg" alt="Tickets icon">
+                                <p>Tickets</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    //success message when user is registered successfully
+    function showToast() {
+        var toast = document.querySelectorAll('body')[0].getAttribute('data-toast');
+        M.toast({html: toast});
+    }
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+</html>

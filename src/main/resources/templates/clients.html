@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Clients</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <h1>Clients</h1>
+                    </div>
+                    <h4 th:if="${clients.isEmpty()}">No clients found</h4>
+                    <table th:if="${!clients.isEmpty()}"
+                           class="table table-striped js-sort-table" id="clientTable">
+                        <div class="row input-field">
+                            <input th:if="${!clients.isEmpty()}" type="text" id="clientSearchInput"
+                                   onkeyup="searchTable()">
+                            <label for="clientSearchInput">Search for company</label>
+                        </div>
+                        <thead class="sortable-head">
+                        <tr>
+                            <th class="js-sort-string">Company</th>
+                            <th class="js-sort-string">Contact</th>
+                            <th class="js-sort-string">Status</th>
+                            <th class="js-sort-number">Monthly Spending</th>
+                            <th class="js-sort-number">Total Spending</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="client : ${clients}" th:data-id="${client.id}" class="client-row">
+                            <td th:text="${client.companyName}"></td>
+                            <td th:switch="${client.contact}">
+                                <span th:case="null">None</span>
+                                <span th:case="*"
+                                      th:text="${client.contact.first_name} + ' ' +  ${client.contact.last_name}"></span>
+                            </td>
+                            <td th:text="${client.status}"></td>
+                            <td th:text="${client.monthlySpending}"></td>
+                            <td th:text="${client.totalSpending}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a href="/clients/create" class="btn-floating green"><i
+                                    class="material-icons">add</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Sortable Table -->
+<script th:src="@{/js/sort-table.js}"></script>
+
+<script type="text/javascript">
+    // Search for table
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("clientSearchInput");
+        table = document.getElementById("clientTable");
+        filter = input.value.toUpperCase();
+        if (table == null) {
+            console.log("table null")
+        } else {
+            console.log("table not null")
+        }
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    $('.client-row').on('click', function () {
+        window.location.href = "/clients/" + $(this).data('id');
+    });
+</script>
+</body>
+</html>

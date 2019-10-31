@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+.wrapper {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #f1f2f4;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* -----------------------------------------------------
+    HEADER
+----------------------------------------------------- */
+
+.header-wrapper {
+    width: 100vw;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.header {
+    height: 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 48px;
+    max-width: 1350px;
+    margin: 0 auto;
+}
+
+/*
+    DROPDOWN
+*/
+
+.header-wrapper .header .navigation {
+    display: flex;
+    align-items: center;
+}
+
+.hover-dropdown {
+    z-index: 1;
+    position: relative;
+    display: inline-block;
+}
+
+.hover-dropdown > .hover-dropdown--wrapper {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
+    position: absolute;
+    background-color: #fff;
+    flex-direction: column;
+    border-radius: 5px;
+    margin-top: 7px;
+    display: none;
+    transition: opacity .2s;
+    min-width: 180px;
+    padding: 8px 16px;
+}
+
+.hover-dropdown > div .item {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #f1f2f4;
+    height: 42px;
+}
+
+.hover-dropdown > div .item:last-child {
+    border-bottom: none;
+}
+
+/* ICON
+.hover-dropdown > div .item img {
+    width: 28px;
+    margin-right: 8px;
+}*/
+
+.hover-dropdown > div .item a {
+    padding: 8px !important;
+    margin: 0 !important;
+    text-align: left !important;
+    white-space: nowrap;
+    text-wrap: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.hover-dropdown:hover > .hover-dropdown--wrapper {
+    -webkit-animation: slide-in .2s ease alternate;
+    animation: slide-in .2s ease alternate;
+    display: flex;
+}
+
+.dropdown .links a, .navigation .links a {
+    text-decoration: none;
+    color: #4d4d4d;
+    transition: color .2s;
+    font-weight: 600;
+    margin: 2px 12px;
+    padding: 8px;
+    text-align: center;
+    width: 80%;
+    cursor: pointer;
+}
+
+.dropdown .links a:hover, .navigation .links a:hover {
+    color: #2ec4b6;
+}
+
+.header-wrapper .header .buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 16px;
+}
+
+a.button.green, button.green {
+    background-color: #2ec4b6;
+    border: 3px solid #2ec4b6;
+    color: #fff;
+}
+
+a.button.orange, button.orange {
+    background-color: #ff9f1c;
+    border: 3px solid #ff9f1c;
+    color: #fff;
+}
+
+.header-wrapper .header .buttons .orange {
+    margin-left: 4px;
+}
+
+a.button {
+    padding: 8px 16px;
+    line-height: 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+    margin: 2px 0;
+    display: inline-block;
+    text-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color .2s, background-color .2s ease, border .2s;
+    min-width: 120px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #f0f0ef;
+    border: 3px solid #f0f0ef;
+    color: #707070;
+}
+
+/* -----------------------------------------------------
+    CONTENT
+----------------------------------------------------- */
+
+.content {
+
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    padding: 32px 48px;
+    max-width: 1350px;
+}
+
+/*
+    CONTAINER
+ */
+
+.content-container {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-around;
+    box-sizing: border-box;
+    padding: 16px 58px;
+    margin: 24px auto;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
+    display: flex;
+    align-items: center;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+    MATERIALIZE
+ */
+
+/*Black color to the text*/
+.tabs .tab a {
+    color: #9FCCBE;
+}
+
+/*Text color on hover*/
+.tabs .tab a:hover {
+    color: #1AA090;
+}
+
+/*Background and text color when a tab is active*/
+.tabs .tab a.active {
+    background-color: rgba(46, 196, 182, 0.2);
+    color: #1AA090;
+}
+
+/*Color of underline*/
+.tabs .indicator {
+    background-color: #1AA090;
+}
+
+/*Color after click*/
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba(46, 196, 182, 0.2);
+    outline: none;
+}
+
+input[type=text].error, input[type=date].error, input[type=number].error {
+    border-bottom: 1px solid #ff0000;
+    -webkit-box-shadow: 0 1px 0 0 #ff0000;
+    box-shadow: 0 1px 0 0 #ff0000;
+}
+
+p.error {
+    display: block !important;
+    margin: 0px;
+    font-size: 0.8rem;
+    color: #ff0000;
+}
+
+.input-field > input[type=date] ~ label {
+    -webkit-transform: translateY(-14px) scale(0.8);
+    transform: translateY(-14px) scale(0.8);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+a.button.ocere {
+    background-color: #2EC4B6;
+    border: 3px solid #2EC4B6;
+    color: #fff;
+}
+
+.dropdown .links a:hover:not([href]), .navigation .links a:hover:not([href]) {
+    color: #4d4d4d;
+}
+
+/*
+    BACKGROUND COLOR
+ */
+
+.ocere-green--background {
+    background-color: #2ec4b6;
+}
+
+/*
+    TITLE
+ */
+
+.content-container h1 {
+    text-align: center;
+}
+
+.productTitle {
+    text-align: center;
+}
+
+/*
+    TABLE FIX
+ */
+
+table > thead > tr:first-child th {
+    border-top: 0;
+}
+
+td {
+    padding: 5px;
+}
+
+/*
+    NOTE
+ */
+
+.note {
+    display: inline-block;
+    position: relative;
+    margin: 10px;
+    padding: 10px;
+    background: #ededed;
+    border-radius: 5px;
+}
+
+.note-title {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.note-text {
+    font-size: 16px;
+}
+
+.note-button--edit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+/*
+    INDEX BUTTONS
+ */
+
+.index-button-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+::placeholder {
+    color: black;
+}
+
+table:hover {
+    cursor: pointer;
+}
+
+.index-button {
+    display: flex;
+    margin: 50px;
+    flex-flow: column nowrap;
+}
+
+.index-button img {
+    width: 200px;
+    height: 200px;
+}
+
+.index-button p {
+    text-align: center;
+    font-size: 24px;
+    color: black;
+}
+
+/*
+    CRUD
+ */
+
+.form-signin {
+    width: 100%;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.attribute-title {
+    font-size: 14px;
+}
+
+.attribute-value {
+    font-size: 18px;
+    color: #000000;
+    margin: 5px 0;
+}
+
+.file-link {
+    color: black;
+    font-size: 18px;
+    display: inline-block;
+    margin: 5px 0px;
+}
+
+.file-link i {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.file-link span {
+    vertical-align: middle;
+}
+
+.file-link:hover {
+    color: #2ec4b6;
+}
+
+.froala-wrapper {
+
+}
+
+.froala-wrapper strong {
+    font-weight: bold;
+}
+
+.btn {
+    background-color: #2ec4b6;
+}
+
+.btn:hover {
+    background-color: #1AA090;
+}
+
+.btn-cancel {
+    background-color: #cccccc;
+}
+
+.btn-cancel:hover {
+    background-color: #666666;
+    color: #ffffff;
+}
+
+
+/* -----------------------------------------------------
+    MEDIA
+----------------------------------------------------- */
+
+@media only screen and (max-width: 1024px) {
+
+    .header {
+        height: 72px;
+    }
+}
+
+/* -----------------------------------------------------
+    KEYFRAMES
+----------------------------------------------------- */
+
+@keyframes slide-in {
+    0% {
+        opacity: .01;
+        transform: translateX(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*setting individual padding for register & login*/
+.card .card-content {
+    /*padding: 20px 50px 20px 50px;*/
+}
+
+/*centering register & login form*/

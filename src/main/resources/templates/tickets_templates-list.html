@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Tickets</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Templates</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h4 th:if="${templates.isEmpty()}">No Ticket Templates created yet.</h4>
+                            <table th:if="${!templates.isEmpty()}" style="width: 100%" class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-number">ID</th>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Status</th>
+                                    <th class="js-sort-string">Priority</th>
+                                    <th class="js-sort-string">Assigned User</th>
+                                    <th class="js-sort-string">Assigned Group</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="template-row" th:each="template : ${templates}" th:data-id="${template.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${template.id}"></td>
+                                    <td th:text="${template.subject}"></td>
+                                    <td th:text="${template.status}"></td>
+                                    <td th:text="${template.priority}"></td>
+                                    <td th:switch="${template.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                                    </td>
+                                    <td th:switch="${template.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large .ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a href="/tickets/templates/create" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $('.template-row').on('click', function () {
+        window.location.href = "/tickets/templates/" + $(this).data('id');
+    });
+</script>
+
+</body>
+
+</html>

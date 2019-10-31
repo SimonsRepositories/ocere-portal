@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ocere - Groups</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="wrapper">
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <h1>Groups </h1>
+                    <div>
+                        <div th:switch="${listOfGroups}">
+                            <h4 th:case="null">No Groups yet</h4>
+                            <div th:case="*">
+                                <h4 th:if="${listOfGroups.isEmpty()}">No Groups created yet</h4>
+                                <table th:if="${!listOfGroups.isEmpty()}" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Group name</th>
+                                        <th>Created at</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="usergroup : ${listOfGroups}" style="cursor: pointer;" class="group-row" th:data-id="${usergroup.id}">
+                                        <td th:text="${usergroup.name}"></td>
+                                        <td th:text="${usergroup.created_at}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="fixed-action-btn click-to-toggle">
+                                <a class="btn-floating btn-large ocere-green--background">
+                                    <i class="large material-icons">menu</i>
+                                </a>
+                                <ul>
+                                    <li><a href="/groups/create-group" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+<script type="text/javascript">
+    $('.group-row').on('click', function () {
+        window.location.href = "/groups/" + $(this).data('id');
+    });
+</script>
+</body>
+</html>

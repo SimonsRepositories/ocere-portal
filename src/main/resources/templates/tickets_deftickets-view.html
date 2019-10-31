@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Defticket</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Defticket View</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Products:</small>
+                            <p class="attribute-value"><span th:each="product: ${defticket.defProducts}" th:text="${product + ', '}"></span></p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Dynamic Turnaround:</small>
+                            <p class="attribute-value" th:text="${defticket.dynamicTurnaround.description}"></p>
+                        </div>
+                        <div class="col s12">
+                            <small class="attribute-title">Subject:</small>
+                            <p class="attribute-value" th:text="${defticket.subject}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Assigned User:</small>
+                            <div th:switch="${defticket.assignedUser}">
+                                <p class="attribute-value" th:case="null">None</p>
+                                <p class="attribute-value" th:case="*" th:text="${defticket.assignedUser.name}">Name</p>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Assigned Group:</small>
+                            <div th:switch="${defticket.assignedGroup}">
+                                <p class="attribute-value" th:case="null">None</p>
+                                <p class="attribute-value" th:case="*" th:text="${defticket.assignedGroup.name}">Name</p>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <small class="attribute-title">Description:</small>
+                            <p class="attribute-value" th:utext="${defticket.description}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Priority:</small>
+                            <p class="attribute-value" th:text="${defticket.priority}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Status:</small>
+                            <p class="attribute-value" th:text="${defticket.status}">Value</p>
+                        </div>
+                        <div class="col s12">
+                            <small class="attribute-title">Turnaround:</small>
+                            <p class="attribute-value" th:text="${defticket.turnaround.description}">Value</p>
+                        </div>
+                    </div>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a th:href="${'/tickets/deftickets/edit/' + defticket.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/tickets/deftickets/delete/' + defticket.id}" data-redirect-url="/tickets/deftickets"><i class="material-icons">delete</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+</body>
+
+</html>

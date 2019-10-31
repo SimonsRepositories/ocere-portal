@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Group</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <form action="#" method="post" th:action="@{/{action}(action=${action})}" th:object="${usergroup}">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="name" type="text" th:field="*{name}" class="form-control"/>
+                                <label for="name">Group name</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                            </div>
+                            <div class="input-field col s12 center">
+                                <button type="submit" value="Submit" class="waves-effect waves-light btn"><a href="/groups"></a>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+</body>
+</html>

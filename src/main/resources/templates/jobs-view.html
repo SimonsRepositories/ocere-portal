@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Job</title>
+
+    <div th:replace="fragments :: head-links"></div>
+
+    <!-- Froala Editor -->
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Job View</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Company:</small>
+                            <p class="attribute-value" th:text="${job.company}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Website:</small>
+                            <p class="attribute-value" th:text="${job.website}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Start Date:</small>
+                            <p class="attribute-value" th:text="${#dates.format(job.startDate, 'dd. MMMM YYYY')}">
+                                Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">End Date:</small>
+                            <p class="attribute-value" th:text="${#dates.format(job.endDate, 'dd. MMMM YYYY')}">
+                                Value</p>
+                        </div>
+                        <div class="col s3">
+                            <small class="attribute-title">Owner:</small>
+                            <p class="attribute-value" th:text="${job.owner.fullName}">Value</p>
+                        </div>
+                        <div class="col s3">
+                            <small class="attribute-title">Currency:</small>
+                            <p class="attribute-value" th:text="${job.currency}">Value</p>
+                        </div>
+                        <div class="col s3">
+                            <small class="attribute-title">White label:</small>
+                            <p class="attribute-value" th:text="${job.whiteLabel}">Value</p>
+                        </div>
+                        <div class="col s3">
+                            <small class="attribute-title">Status:</small>
+                            <p class="attribute-value" th:text="${job.status}">Value</p>
+                        </div>
+                        <div class="col s12">
+                            <small class="attribute-title">Description:</small>
+                            <div class="froala-wrapper" th:utext="${job.description}">Value</div>
+                        </div>
+                        <!--
+                        SEO
+                        -->
+                        <div th:if="${job.seoSelected}" id="seo-container" class="col s12">
+                            <h4 class="productTitle">SEO</h4>
+                            <div class="col s12">
+                                <small class="attribute-title">SEO Value:</small>
+                                <p class="attribute-value" th:text="${job.seoValue}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Target Keywords:</small>
+                                <div class="attribute-value froala-wrapper" th:utext="${job.targetKeywords}">Value</div>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Reporting Keywords:</small>
+                                <div class="attribute-value froala-wrapper" th:utext="${job.reportingKeywords}">Value
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">SEO Search Engines:</small>
+                                <p class="attribute-value"
+                                   th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
+                                   th:if="${#lists.contains(job.seoSearchEngines, searchEngine)}"
+                                   th:text="${searchEngine.description}">Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">On Page Review:</small>
+                                <p class="attribute-value" th:text="${job.onPageReview}">Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">Health Check:</small>
+                                <p class="attribute-value" th:text="${job.healthCheck}">Value</p>
+                            </div>
+                        </div>
+                        <!--
+                        LINK
+                        -->
+                        <div th:if="${job.linkBuildingSelected}" id="link-container" class="col s12">
+                            <h4 class="productTitle">LinkBuilding</h4>
+                            <div class="col s12">
+                                <small class="attribute-title">Link Building Value:</small>
+                                <p class="attribute-value" th:text="${job.linkValue}">Value</p>
+                            </div>
+                            <div class="col s6 file-field input-field">
+                                <small class="attribute-title">Uploaded File:</small>
+                                <div th:switch="${job.orderFormFile}">
+                                    <p class="attribute-value" th:case="null">None</p>
+                                    <a th:href="${'/downloadFile/' + job.orderFormFile.id}" class="attribute-value"
+                                       th:case="*" th:text="${job.orderFormFile.fileName}">Value</a>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">GoogleDoc Link:</small>
+                                <p class="attribute-value" th:text="${job.googleDocLink}">Value</p>
+                            </div>
+                            <div class="col s12">
+                                <small class="attribute-title">Link Building Search Engines:</small>
+                                <p class="attribute-value"
+                                   th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
+                                   th:if="${#lists.contains(job.linkSearchEngines, searchEngine)}"
+                                   th:text="${searchEngine.description}">Value</p>
+                            </div>
+                        </div>
+                        <!--
+                        PPC
+                        -->
+                        <div th:if="${job.ppcSelected}" id="ppc-container" class="col s12">
+                            <h4 class="productTitle">PPC</h4>
+                            <div class="col s12">
+                                <small class="attribute-title">PPC Value:</small>
+                                <p class="attribute-value" th:text="${job.ppcValue}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Campaign Types:</small>
+                                <p class="attribute-value"
+                                   th:each="campaignType : ${T(com.ocere.portal.enums.CampaignType).values()}"
+                                   th:if="${#lists.contains(job.campaignTypes, campaignType)}"
+                                   th:text="${campaignType}">Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">ASAP:</small>
+                                <p class="attribute-value" th:text="${job.asap}">Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">Campaign Launch Date:</small>
+                                <p class="attribute-value"
+                                   th:text="${#dates.format(job.campaignLaunchDate, 'dd. MMMM YYYY')}">
+                                    Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">Sign Off Required:</small>
+                                <p class="attribute-value" th:text="${job.signOffRequired}">Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">Set Up Required:</small>
+                                <p class="attribute-value" th:text="${job.setUpRequired}">Value</p>
+                            </div>
+                            <div th:if="${job.facebookSelected}" class="facebookContainer">
+                                <div class="col s3">
+                                    <small class="attribute-title">Facebook ID:</small>
+                                    <p class="attribute-value" th:text="${job.facebookId}">Value</p>
+                                </div>
+                                <div class="col s3">
+                                    <small class="attribute-title">Facebook URL:</small>
+                                    <p class="attribute-value" th:text="${job.facebookUrl}">Value</p>
+                                </div>
+                                <div class="col s6">
+                                    <small class="attribute-title">Facebook Mail Goal:</small>
+                                    <p class="attribute-value" th:text="${job.facebookMainGoal}">Value</p>
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">Google Ads ID:</small>
+                                <p class="attribute-value" th:text="${job.googleAdsId}">Value</p>
+                            </div>
+                            <div class="col s3">
+                                <small class="attribute-title">Monthly Click Spend:</small>
+                                <p class="attribute-value" th:text="${job.monthlyClickSpend}">Value</p>
+                            </div>
+                            <div class="col s12">
+                                <small class="attribute-title">Target Areas:</small>
+                                <p class="attribute-value" th:text="${job.targetAreas}">Value</p>
+
+                            </div>
+                            <div class="col s12">
+                                <small class="attribute-title">Monthly Click Spend:</small>
+                                <p class="attribute-value" th:text="${job.monthlyClickSpend}">Value</p>
+                            </div>
+                            <div class="col s12">
+                                <small class="attribute-title">Adwords Main Goal:</small>
+                                <p class="attribute-value" th:text="${job.adwordsMainGoal}">Value</p>
+                            </div>
+                            <div class="col s12">
+                                <small class="attribute-title">Thank You Page URL:</small>
+                                <p class="attribute-value" th:text="${job.thankYouPageUrl}">Value</p>
+                            </div>
+                            <div class="col s12">
+                                <small class="attribute-title">Reporting Email:</small>
+                                <p class="attribute-value" th:text="${job.reportingEmail}">Value</p>
+                            </div>
+                        </div>
+                        <!--
+                        CONTENT
+                        -->
+                        <div th:if="${job.contentSelected}" id="content-container" class="col s12">
+                            <h4 class="productTitle">Content</h4>
+                            <div class="col s12">
+                                <small class="attribute-title">Content Value:</small>
+                                <p class="attribute-value" th:text="${job.contentValue}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Number of Pieces:</small>
+                                <p class="attribute-value" th:text="${job.contentNumberOfPieces}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Content Type:</small>
+                                <p class="attribute-value" th:text="${job.contentType}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Content Length:</small>
+                                <p class="attribute-value" th:text="${job.contentLength}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Content Titles:</small>
+                                <p class="attribute-value" th:text="${job.contentTitles}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Content Writing Style:</small>
+                                <p class="attribute-value" th:text="${job.contentWritingStyle}">Value</p>
+                            </div>
+                            <div class="col s6">
+                                <small class="attribute-title">Content Keywords:</small>
+                                <p class="attribute-value" th:text="${job.contentKeywords}">Value</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="productTitle">Files</h4>
+                            <form class="col s12" id="jobForm"
+                                  action="#" method="post" th:action="@{/jobs/{id}/uploadFiles(id=${job.id})}"
+                                  enctype="multipart/form-data">
+                                <div class="col s10 file-field input-field">
+                                    <div class="btn">
+                                        <span>Browse</span>
+                                        <input id="files"
+                                               type="file"
+                                               name="files"
+                                               multiple/>
+                                    </div>
+
+                                    <div class="file-path-wrapper">
+                                        <input id="filePath"
+                                               class="file-path validate"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <input class="col s2 btn green input-field" id="filesSubmit" type="submit"
+                                       value="Upload">
+                            </form>
+                            <div th:each="file : ${job.sortedFiles}" class="file-link-wrapper col s12">
+                                <a th:href="${'/downloadFile/' + file.id}" class="file-link">
+                                    <i class="material-icons">cloud_download</i>
+                                    <span th:text="${file.fileName}">Value</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>Tickets</h4>
+                        </div>
+                        <div class="col s12">
+                            <div th:if="${tickets.isEmpty()}">
+                                <h6>No Tickets have been setup yet</h6>
+                            </div>
+                            <table th:if="${!tickets.isEmpty()}" style="width: 100%" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Assignee</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="ticket-row" th:each="ticket : ${tickets}" th:data-id="${ticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:switch="${ticket.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                    <td th:text="${ticket.status}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a th:href="${'/jobs/clone?jobId=' + job.id}" class="btn-floating blue">
+                                    <i class="material-icons">content_copy</i>
+                                </a>
+                            </li>
+                            <li><a th:href="${'/tickets/create?jobId=' + job.id}" class="btn-floating green"><i
+                                    class="material-icons">add</i></a></li>
+                            <li>
+                                <a th:href="${'/jobs/edit/' + job.id}" class="btn-floating yellow darken-1"><i
+                                        class="material-icons">edit</i></a></li>
+                            <li>
+                                <a class="btn-floating red post-button" th:data-post-url="${'/jobs/delete/' + job.id}"
+                                   th:data-redirect-url="${'/clients/' + job.client.id}"><i class="material-icons">delete</i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $('.ticket-row').on('click', function () {
+        window.location.href = "/tickets/" + $(this).data('id');
+    });
+</script>
+</body>
+
+</html>

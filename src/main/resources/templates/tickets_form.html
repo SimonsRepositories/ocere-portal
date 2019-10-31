@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ticket</title>
+
+    <div th:replace="fragments :: head-links"></div>
+
+    <!-- Froala Editor -->
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1 th:text="${siteTitle}">Title</h1>
+                        </div>
+                        <div th:if="${templates!=null}" class="input-field col s12">
+                            <select class="template-dropdown" id="templateId">
+                                <option value="0" selected disabled>select template</option>
+                                <option th:each="template : ${templates}"
+                                        th:value="${template.id}"
+                                        th:text="${template.subject}">
+                                </option>
+                            </select>
+                            <label for="assignedUser">Template :</label>
+                        </div>
+                    </div>
+                    <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}"
+                          th:object="${ticket}">
+                        <div th:if="${ticket.defticket==true}" class="input-field col s6">
+                            <select id="defProducts" th:field="*{defProducts}" multiple>
+                                <option th:each="productType : ${T(com.ocere.portal.enums.ProductType).values()}"
+                                        th:value="${productType}"
+                                        th:text="${productType}">
+                                </option>
+                            </select>
+                            <label for="defProducts">Defined Products:</label>
+                        </div>
+                        <div th:if="${ticket.defticket==true}" class="input-field col s6">
+                            <select id="dynamicTurnaround" th:field="*{dynamicTurnaround}">
+                                <option th:each="dynamicTurnaround : ${T(com.ocere.portal.enums.DynamicTurnaround).values()}"
+                                        th:value="${dynamicTurnaround}"
+                                        th:text="${dynamicTurnaround.description}">
+                                </option>
+                            </select>
+                            <label for="dynamicTurnaround">Dynamic Turnaround:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="subject">Subject:</label>
+                            <input th:field="*{subject}" placeholder="Subject" id="subject" class="validate"
+                                   type="text"/>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="assignedUser" th:field="*{assignedUser.id}">
+                                <option value="0">select user</option>
+                                <option th:each="user : ${users}"
+                                        th:value="${user.id}"
+                                        th:text="${user.firstname + ' ' + user.lastname}"
+                                        th:selected="${ticket.assignedUser.id == user.id}">
+                                </option>
+                            </select>
+                            <label for="assignedUser">Assigned User:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="assignedGroup" th:field="*{assignedGroup.id}">
+                                <option value="0">select group</option>
+                                <option th:each="group : ${groups}"
+                                        th:value="${group.id}"
+                                        th:text="${group.name}"
+                                        th:selected="${ticket.assignedGroup.id == group.id}">
+                                </option>
+                            </select>
+                            <label for="assignedGroup">Assigned Group:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="description">Description:</label>
+                            <textarea th:field="*{description}"
+                                      th:text="${ticket.description}"
+                                      id="description">Initialize the Froala WYSIWYG HTML Editor on a textarea.</textarea>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="priority" th:field="*{priority}">
+                                <option th:each="priority : ${T(com.ocere.portal.enums.Priority).values()}"
+                                        th:value="${priority}"
+                                        th:text="${priority}"
+                                        th:selected="${ticket.priority == priority}">
+                                </option>
+                            </select>
+                            <label for="priority">Priority:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="status" th:field="*{status}">
+                                <option th:each="status : ${T(com.ocere.portal.enums.Status).values()}"
+                                        th:value="${status}"
+                                        th:text="${status}"
+                                        th:selected="${ticket.status == status}">
+                                </option>
+                            </select>
+                            <label for="status">Status:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select id="turnaround" th:field="*{turnaround.id}">
+                                <option th:each="turnaround : ${turnaroundTimes}"
+                                        th:value="${turnaround.id}"
+                                        th:text="${turnaround.description}"
+                                        th:selected="${ticket.turnaround.id == turnaround.id}">
+                                </option>
+                            </select>
+                            <label for="turnaround">Turnaround:</label>
+                        </div>
+                        <input th:if="${ticket.job!=null}" th:field="*{job.id}" th:value="${ticket.job.id}" hidden/>
+                        <div class="col s12">
+                            <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                            <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Froala Editor -->
+<script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
+
+<script type="text/javascript">
+    $('.template-dropdown').on('change', function () {
+        var sign = '?';
+        if (window.location.href.indexOf('?') > -1) {
+            sign = '&';
+        }
+        window.location.replace(window.location.href + sign + 'templateId=' + this.value);
+    });
+
+    new FroalaEditor('textarea#description', {
+        // Set the image upload parameter.
+        imageUploadParam: 'file',
+
+        // Set the image upload URL.
+        imageUploadURL: '/froala/upload',
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
+    });
+</script>
+</body>
+
+</html>

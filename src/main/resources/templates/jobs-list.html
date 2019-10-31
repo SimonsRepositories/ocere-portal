@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Jobs</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <h1>Jobs</h1>
+                    </div>
+                    <h4 th:if="${jobs.isEmpty()}">No jobs found</h4>
+                    <div class="row input-field">
+                        <input th:if="${!jobs.isEmpty()}" type="text" id="jobSearchInput" onkeyup="searchTable()">
+                        <label for="jobSearchInput">Search for company</label>
+                    </div>
+                    <table th:if="${!jobs.isEmpty()}" class="table table-striped js-sort-table" id="jobTable">
+                        <thead class="sortable-head">
+                        <tr>
+                            <th class="js-sort-string">Company</th>
+                            <th class="js-sort-string">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="job : ${jobs}" th:data-id="${job.id}" class="job-row">
+                            <td th:text="${job.company}"></td>
+                            <td th:text="${job.status}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Sortable Table -->
+<script th:src="@{/js/sort-table.js}"></script>
+
+<script type="text/javascript">
+    // Search for table
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("jobSearchInput");
+        table = document.getElementById("jobTable");
+        filter = input.value.toUpperCase();
+        if (table == null) {
+            console.log("table null")
+        } else {
+            console.log("table not null")
+        }
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    $('.job-row').on('click', function () {
+        window.location.href = "/jobs/" + $(this).data('id');
+    });
+</script>
+</body>
+</html>

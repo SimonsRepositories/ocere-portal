@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ocere - view group</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Group View
+                                <a href="/groups" class="btn btn-warning">Cancel</a>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">group name:</small>
+                            <p class="attribute-value" th:text="${usergroup.name}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">created at:</small>
+                            <p class="attribute-value" th:text="${usergroup.created_at}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">updated at:</small>
+                            <p class="attribute-value" th:text="${usergroup.updated_at}">Value</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fixed-action-btn click-to-toggle">
+                    <a class="btn-floating btn-large ocere-green--background">
+                        <i class="large material-icons">menu</i>
+                    </a>
+                    <ul>
+                        <li><a th:href="${'/groups/edit-group/' + usergroup.id}" class="btn-floating yellow"><i class="material-icons">edit</i></a></li>
+                        <li><a th:href="@{/groups/delete-group?id={id}(id=${usergroup.id})}" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+</body>
+</html>

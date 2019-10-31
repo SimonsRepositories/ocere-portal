@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Post</title>
+
+    <div th:replace="fragments :: head-links"></div>
 </head>
 <body>
 <form action="#" th:action="@{/admin/editUser}" th:object="${user}" method="post">
@@ -13,7 +15,7 @@
         </div>
         <div>
             <label>Author: </label>
-            <input type="text" th:field="*{name}">
+            <input type="text" th:field="*{firstname}">
         </div>
         <div>
             <label>Content </label>
@@ -24,8 +26,12 @@
             <input type="text" th:field="*{email}">
         </div>
         <div>
-            <label>Content </label>
+            <label>Password </label>
             <input type="text" th:field="*{password}">
+        </div>
+        <div>
+            <label>Mail Password </label>
+            <input type="text" th:field="*{mailpassword}">
         </div>
         <p>
             <button type="submit" value="Submit"><a href="/admin"></a>Submit</button>

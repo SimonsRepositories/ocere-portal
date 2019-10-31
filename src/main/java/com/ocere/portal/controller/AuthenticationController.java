@@ -1,17 +1,18 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.model.Role;
+import com.ocere.portal.model.User;
+import com.ocere.portal.service.RoleService;
 import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.ocere.portal.model.User;
 
 import javax.validation.Valid;
 
@@ -21,82 +22,62 @@ public class AuthenticationController
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = { "/page/login" } , method = RequestMethod.GET)
+    @Autowired
+    RoleService roleService;
+
+    @GetMapping(value = { "/login" })
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login"); //resources/templates/login.html
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView register() {
+    @GetMapping(value = "/register")
+    public ModelAndView register(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
+        Role role = new Role();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("register"); //resources/templates/register.html
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home"); //resources/templates/home.html
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminHome() {
-        ModelAndView modelAndView = new ModelAndView();
+        model.addAttribute("role", role);
+        model.addAttribute("listOfRoles", roleService.findAll());
         modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("admin"); // resources/template/admin.html
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
-        ModelAndView modelAndView = new ModelAndView();
-        // Check for the validation
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Please correct the errors in form!");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        }
-        //save the user if no binding errors
-        else if(userService.isUserAlreadyPresent(user)){
-            modelAndView.addObject("successMessage", "User already exists!");
-        } else {
-            userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User is registered successfully");
-        }
-        modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
         return modelAndView;
     }
 
-    @RequestMapping(value="/admin/delete-user", method = RequestMethod.GET)
-    public ModelAndView deleteUser(@RequestParam(name="id", required = true) int id) {
+    @PostMapping(value="/register")
+    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        userService.removeUserById(id);
-
-        modelAndView.setViewName("admin");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/admin/editUser/{id}", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        User value = userService.getUserById(id);
-        modelAndView.addObject("user", value);
-        modelAndView.setViewName("editUser");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/admin/editUser", method = RequestMethod.POST)
-    public ModelAndView editUser(User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.saveUserById(user, user.getId());
-        modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("admin");
+        // Check for the validation
+        if (bindingResult.hasErrors()) {
+            //modelAndView.addObject("successMessage", "Please correct the errors in form!");
+            System.out.println("has errors: " + bindingResult.toString());
+            modelMap.addAttribute("bindingResult", bindingResult);
+            modelAndView.addObject("listOfRoles", roleService.findAll());
+            modelAndView.setViewName("register");
+            return modelAndView;
+        }
+        //save the user if no binding errors
+        else if(userService.isUserAlreadyPresent(user)){
+            modelAndView.addObject("successMessage", "User already exists!");
+            modelAndView.addObject("user", new User());
+            modelAndView.addObject("role", new Role());
+            modelAndView.addObject("listOfRoles", roleService.findAll());
+            modelAndView.addObject("listOfUsers", userService.findAll());
+            modelAndView.setViewName("register");
+            return modelAndView;
+        } else {
+            if(user.getRoles() != null) {
+                for (Role role : user.getRoles()) {
+                    if (role.getRole().equals("CLIENT")) {
+                        user.setClient(true);
+                    }
+                }
+                userService.saveUser(user, user.getRoles());
+            }
+        }
+        modelAndView.addObject("successMessage", "User registered successfully");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 }

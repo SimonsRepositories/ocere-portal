@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title th:value="${client.companyName}"></title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <h1 th:text="${client.companyName}"></h1>
+                    <h4>Overview</h4>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Name</small>
+                            <p class="attribute-value" th:text="${client.companyName}">Name</p>
+                        </div>
+
+                        <div class="col s3">
+                            <small class="attribute-title">Tier</small>
+                            <p class="attribute-value" th:text="${client.tier}">Tier</p>
+                        </div>
+                        <div class="col s3">
+                            <small class="attribute-title">Status</small>
+                            <p class="attribute-value" th:text="${client.status}">Status</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Monthly Spending</small>
+                            <p class="attribute-value" th:text="${client.monthlySpending}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Total Spending</small>
+                            <p class="attribute-value" th:text="${client.totalSpending}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <small class="attribute-title">Target Monthly Value:</small>
+                            <p class="attribute-value" th:text="${client.targetMonthlyValue}">Value</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s6">
+                            <small class="attribute-title">Website</small>
+                            <br>
+                            <a class="attribute-value" th:href="${client.website}"
+                               th:text="${client.website}">Website</a>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Contact page</small>
+                            <br>
+                            <a class="attribute-value" th:href="${client.contactUsPage}"
+                               th:text="${client.contactUsPage}">Contact
+                                page</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <small class="attribute-title">Address</small>
+                            <p class="attribute-value" th:text="${client.addressLine1}">Addressline 1</p>
+                            <p class="attribute-value" th:text="${client.addressLine2}">Addressline 2</p>
+                            <p class="attribute-value" th:text="${client.city}">City</p>
+                            <p class="attribute-value" th:text="${client.county} + ', ' + ${client.country}">County &
+                                Country</p>
+                        </div>
+                    </div>
+
+                    <h4>Contact</h4>
+                    <div class="row">
+                        <div class="col s4">
+                            <small class="attribute-title">Name</small>
+                            <p class="attribute-value"
+                               th:text="${client.contact.first_name} + ' ' + ${client.contact.last_name}">
+                                Name</p>
+                        </div>
+                        <div class="col s4">
+                            <small class="attribute-title">Phone</small>
+                            <p class="attribute-value" th:text="${client.contact.phone}">Phone</p>
+                        </div>
+                        <div class="col s4">
+                            <small class="attribute-title">Email</small>
+                            <p class="attribute-value" th:text="${client.contact.email}">Email</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>Jobs</h4>
+                        </div>
+                        <div class="col s12">
+                            <div th:if="${jobs.isEmpty()}">
+                                <h6>No Jobs have been setup yet</h6>
+                            </div>
+                            <table th:if="${!jobs.isEmpty()}" style="width: 100%" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Company</th>
+                                    <th>Website</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="template-row" th:each="job : ${jobs}" th:data-id="${job.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${job.id}"></td>
+                                    <td th:text="${job.company}"></td>
+                                    <td th:text="${job.website}"></td>
+                                    <td th:text="${#dates.format(job.startDate, 'dd. MMMM YYYY')}"></td>
+                                    <td th:text="${#dates.format(job.endDate, 'dd. MMMM YYYY')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a th:href="'/jobs/create?clientId=' + ${client.id}" class="btn-floating green"><i
+                                    class="material-icons">add</i></a></li>
+                            <li><a th:href="${'/clients/edit/' + client.id}" class="btn-floating yellow darken-1"><i
+                                    class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button"
+                                   th:data-post-url="${'/clients/delete/' + client.id}" data-redirect-url="/clients"><i
+                                    class="material-icons">delete</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $('.template-row').on('click', function () {
+        window.location.href = "/jobs/" + $(this).data('id');
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+
+</html>

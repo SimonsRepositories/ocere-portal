@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ticket</title>
+
+    <div th:replace="fragments :: head-links"></div>
+
+    <!-- Froala Editor -->
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1 th:text="${siteTitle}">Title</h1>
+                        </div>
+                    </div>
+                    <form class="row" action="#" method="post" th:action="@{/notes/{action}(action=${action})}"
+                          th:object="${note}">
+                        <div class="form-group col s12">
+                            <label for="title">Title:</label>
+                            <input th:field="*{title}"
+                                   id="title"
+                                   class="form-control"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col s12">
+                            <label for="text">Text:</label>
+                            <textarea th:field="*{text}"
+                                      th:text="${note.text}"
+                                      id="text"
+                                      class="form-control">
+                                Initialize the Froala WYSIWYG HTML Editor on a textarea.
+                            </textarea>
+                        </div>
+                        <input th:field="*{ticket.id}" th:value="${note.ticket.id}" hidden/>
+                        <div class="col s12">
+                            <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
+                            <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
+                        </div>
+                    </form>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/notes/delete/' + note.id}" th:data-redirect-url="${'/tickets/' + note.ticket.id}"><i class="material-icons">delete</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Froala Editor -->
+<script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
+
+<script type="text/javascript">
+    new FroalaEditor('textarea#text', {
+        // Set the image upload parameter.
+        imageUploadParam: 'file',
+
+        // Set the image upload URL.
+        imageUploadURL: '/froala/upload',
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,56 +1,126 @@
 package com.ocere.portal.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "auth_user")
 public class User
 {
-    //Default constructor required by JPA
+    //Default constructor is required by JPA
     public User(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "Id field must not be empty")
     @Column(name= "auth_user_id")
     private int id;
 
-    @NotNull(message = "first name is compulsory")
     @Column(name = "first_name")
-    private String name;
+    private String firstname;
 
-    @NotNull(message = "Last name name is compulsory")
+
     @Column(name = "last_name")
     private String lastname;
 
-    @NotNull(message = "email name is compulsory")
-    @Email(message ="Email is invalid")
-    @Column(name = "email")
+    @Email
+    @Column(name = "email", unique = true)
     private String email;
 
-    @NotNull(message = "password name is compulsory")
-    @Length(min=5, message = "Password should be at least 5 characters")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Contact contact;
+
+    @Length(min=8, message = "Password should be at least 8 characters")
+    //Patttern: requires one lower case, one upper case, one digit and no spaces
+    @Pattern(message="requires one lower case, one upper case, one digit and no spaces", regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}$")
     @Column(name = "password")
     private String password;
+
+    @Column(name = "mailpassword")
+    private String mailpassword;
 
     @Column(name = "status")
     private String status;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"),
-            inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
+    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+    @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "auth_role_id", nullable = false))
     private Set<Role> roles;
+
+    private Boolean client;
+
+    @OneToMany(
+            mappedBy = "assignedUser",
+            cascade = CascadeType.ALL
+    )
+    private Set<Ticket> tickets;
+
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL
+    )
+    private Set<Ticket> createdTickets;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public Set<DBFile> getDbFile() {
+        return dbFile;
+    }
+
+    public void setDbFile(Set<DBFile> dbFile) {
+        this.dbFile = dbFile;
+    }
+
+    public Boolean getClient() {
+        return client;
+    }
+
+    public void setClient(Boolean client) {
+        this.client = client;
+    }
+
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL
+    )
+    private Set<Note> createdNotes;
+
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL
+    )
+    private Set<Job> job;
+
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL
+    )
+    private Set<DBFile> dbFile;
+
+    public String getFullName() { return firstname + " " + lastname; }
+
+    public String getMailpassword() {
+        return mailpassword;
+    }
+
+    public void setMailpassword(String mailpassword) {
+        this.mailpassword = mailpassword;
+    }
+
+    public String getName() {
+        return firstname + " " + lastname;
+    }
 
     public int getId() {
         return id;
@@ -60,12 +130,12 @@ public class User
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -106,5 +176,37 @@ public class User
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Set<Ticket> getCreatedTickets() {
+        return createdTickets;
+    }
+
+    public void setCreatedTickets(Set<Ticket> createdTickets) {
+        this.createdTickets = createdTickets;
+    }
+
+    public Set<Note> getCreatedNotes() {
+        return createdNotes;
+    }
+
+    public void setCreatedNotes(Set<Note> createdNotes) {
+        this.createdNotes = createdNotes;
+    }
+
+    public Set<Job> getJob() {
+        return job;
+    }
+
+    public void setJob(Set<Job> job) {
+        this.job = job;
     }
 }

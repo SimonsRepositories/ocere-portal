@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit User</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+<body th:data-toast="${successMessage}" th:onload="showToast()">
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <form action="#" method="post" th:action="@{/users/edit-user/{id}(id=${user.id})}" th:object="${user}" onsubmit="return myFunction();">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="firstname" type="text" th:field="*{firstname}" class="form-control"/>
+                                <label for="firstname">Firstname</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('firstname')}"
+                                       th:errors="*{firstname}"></small>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="lastname" type="text" th:field="*{lastname}" class="form-control"/>
+                                <label for="lastname">Lastname</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('lastname')}"
+                                       th:errors="*{lastname}"></small>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="email" type="text" th:field="*{email}" class="form-control"/>
+                                <label for="email">Email</label>
+                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                            </div>
+                            <div class="input-field col s12">
+                                <select id="roles" th:field="*{roles}" multiple>
+                                    <option th:each="role : ${listOfRoles}"
+                                            th:value="${role.id}"
+                                            th:text="${role.desc}"
+                                            th:selected="${user.getRoles().contains(role)}">
+                                    </option>
+                                </select>
+                                <label for="roles">Edit your roles</label>
+                            </div>
+                            <div class="input-field col s12 center">
+                                <button type="submit" value="Submit" class="waves-effect waves-light btn"><a href="/users"></a>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="col s12">
+                                <a th:href="${'/users/change-password/' + user.id}" class="button ocere">Change Password</a>
+                            </div>
+                            <div class="col s12">
+                                <a th:href="${'/users/change-mailpassword/' + user.id}" class="button ocere">Change App Password</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+<script type="text/javascript">
+    //success message when user is registered successfully
+    function showToast() {
+        var toast = document.querySelectorAll('body')[0].getAttribute('data-toast');
+        M.toast({html: toast});
+    }
+    //document.getElementById("submit").onclick = function() {myFunction()};
+
+    function myFunction() {
+        if (document.getElementById("newPassword").value != document.getElementById("confirmPassword").value) {
+            document.getElementById("passwordMatch").innerHTML = 'passwords do not match';
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

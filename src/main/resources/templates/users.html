@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Users Dashboard</title>
+
+    <div th:replace="fragments :: head-links"></div>
+
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <h1>Users </h1>
+                    <div>
+                        <div th:switch="${listOfUsers}">
+                            <h4 th:case="null">No Users yet</h4>
+                            <div th:case="*">
+                                <table class="table table-striped js-sort-table" id="userTable">
+                                    <div class="row input-field">
+                                        <input th:if="${!listOfUsers.isEmpty()}" type="text" id="userSearchInput"
+                                               onkeyup="searchTable()">
+                                        <label for="userSearchInput">Search for user</label>
+                                    </div>
+                                    <thead>
+                                    <tr>
+                                        <th class="js-sort-string">Name</th>
+                                        <th class="js-sort-string">Email</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user : ${listOfUsers}" style="cursor: pointer;" class="user-row"
+                                        th:data-id="${user.id}">
+                                        <td th:text="${user.firstname} + ' ' + ${user.lastname}"></td>
+                                        <td th:text="${user.email}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="fixed-action-btn click-to-toggle">
+                                <a class="btn-floating btn-large ocere-green--background">
+                                    <i class="large material-icons">menu</i>
+                                </a>
+                                <ul>
+                                    <li><a href="/register" class="btn-floating green"><i
+                                            class="material-icons">add</i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<!-- Sortable Table -->
+<script th:src="@{/js/sort-table.js}"></script>
+
+<script type="text/javascript">
+    // Search for table
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("userSearchInput");
+        table = document.getElementById("userTable");
+        filter = input.value.toUpperCase();
+        if (table == null) {
+            console.log("table null")
+        } else {
+            console.log("table not null")
+        }
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    $('.user-row').on('click', function () {
+        window.location.href = "/users/" + $(this).data('id');
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+
+</html>

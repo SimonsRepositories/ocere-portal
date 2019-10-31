@@ -1,13 +1,8 @@
 package com.ocere.portal.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "auth_role")
 public class Role
 {
@@ -15,7 +10,7 @@ public class Role
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "auth_role_id")
+    @Column(name = "auth_role_id", nullable = false)
     private int id;
 
     @Column(name = "role_name")

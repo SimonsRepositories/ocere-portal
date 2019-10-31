@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ticket Dashboard</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <h1 class="section-title h1">Ticket Dashboard</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a href="#open">Open</a></li>
+                                <li class="tab col s3"><a class="active" href="#overdue">Overdue</a></li>
+                                <li class="tab col s3"><a href="#all">All</a></li>
+                                <li class="tab col s3"><a href="#submitted">Submitted</a></li>
+                            </ul>
+                        </div>
+                        <div id="open" class="col s12">
+                            <h5 th:if="${assignedOpen.isEmpty()}">0 tickets left. You're all done!</h5>
+                            <table th:if="${!assignedOpen.isEmpty()}"
+                                   class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-number">ID</th>
+                                    <th class="js-sort-string">Job</th>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Status</th>
+                                    <th class="js-sort-string">Priority</th>
+                                    <th class="js-sort-string">Assigned User</th>
+                                    <th class="js-sort-string">Assigned Group</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${assignedOpen}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.id}"></td>
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                    <td th:switch="${ticket.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="overdue" class="col s12">
+                            <h5 th:if="${assignedOverdue.isEmpty()}">0 tickets overdue. Good job!</h5>
+                            <table th:if="${!assignedOverdue.isEmpty()}"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${assignedOverdue}" class="ticket-row"
+                                    th:data-id="${ticket.id}">
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                    <td th:switch="${ticket.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="all" class="col s12">
+                            <h5 th:if="${assigned.isEmpty()}">You weren't assigned any tickets yet</h5>
+                            <table th:if="${!assigned.isEmpty()}" style="width: 100%"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${assigned}" class="ticket-row"
+                                    th:data-id="${ticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                    <td th:switch="${ticket.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="submitted" class="col s12">
+                            <h5 th:if="${submitted.isEmpty()}">You haven't submitted any tickets yet</h5>
+                            <table th:if="${!submitted.isEmpty()}" style="width: 100%"
+                                   class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned User</th>
+                                    <th>Assigned Group</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${submitted}" class="ticket-row"
+                                    th:data-id="${ticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${ticket.job}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.status}"></td>
+                                    <td th:text="${ticket.priority}"></td>
+                                    <td th:switch="${ticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                    <td th:switch="${ticket.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedGroup.name}">Name</p>
+                                    </td>w
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fixed-action-btn click-to-toggle">
+                            <a class="btn-floating btn-large ocere-green--background">
+                                <i class="large material-icons">menu</i>
+                            </a>
+                            <ul>
+                                <li><a th:href="${'/tickets/create'}" class="btn-floating green"><i
+                                        class="material-icons">add</i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tabs').tabs();
+    });
+
+    $('.ticket-row').on('click', function () {
+        window.location.href = "/tickets/" + $(this).data('id');
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+</html>

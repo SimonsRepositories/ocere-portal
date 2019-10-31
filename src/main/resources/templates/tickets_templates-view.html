@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ticket</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Template View</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <small class="attribute-title">Subject:</small>
+                            <p class="attribute-value" th:text="${template.subject}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Assigned User:</small>
+                            <div th:switch="${template.assignedUser}">
+                                <p class="attribute-value" th:case="null">None</p>
+                                <p class="attribute-value" th:case="*" th:text="${template.assignedUser.name}">Name</p>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Assigned Group:</small>
+                            <div th:switch="${template.assignedGroup}">
+                                <p class="attribute-value" th:case="null">None</p>
+                                <p class="attribute-value" th:case="*" th:text="${template.assignedGroup.name}">Name</p>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <small class="attribute-title">Description:</small>
+                            <p class="attribute-value" th:utext="${template.description}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Priority:</small>
+                            <p class="attribute-value" th:text="${template.priority}">Value</p>
+                        </div>
+                        <div class="col s6">
+                            <small class="attribute-title">Status:</small>
+                            <p class="attribute-value" th:text="${template.status}">Value</p>
+                        </div>
+                        <div class="col s12">
+                            <small class="attribute-title">Turnaround:</small>
+                            <p class="attribute-value" th:text="${template.turnaround.description}">Value</p>
+                        </div>
+                    </div>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a th:href="${'/tickets/templates/edit/' + template.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating red post-button" th:data-post-url="${'/tickets/templates/delete/' + template.id}" data-redirect-url="/tickets/templates"><i class="material-icons">delete</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+</body>
+
+</html>
