@@ -3,7 +3,6 @@ package com.ocere.portal.model;
 import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.PaymentTerms;
 import com.ocere.portal.enums.Tier;
-import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Set;
