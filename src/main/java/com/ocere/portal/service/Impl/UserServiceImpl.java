@@ -5,8 +5,6 @@ import com.ocere.portal.model.User;
 import com.ocere.portal.repository.RoleRepository;
 import com.ocere.portal.repository.UserRepository;
 import com.ocere.portal.service.UserService;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,10 @@
 package com.ocere.portal.controller;
 
 import com.ocere.portal.enums.Status;
-import com.ocere.portal.model.*;
+import com.ocere.portal.model.Ticket;
+import com.ocere.portal.model.Turnaround;
+import com.ocere.portal.model.User;
+import com.ocere.portal.model.Usergroup;
 import com.ocere.portal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.Optional;
 
 @Controller

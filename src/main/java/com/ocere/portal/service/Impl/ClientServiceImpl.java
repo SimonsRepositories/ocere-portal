@@ -2,7 +2,6 @@ package com.ocere.portal.service.Impl;
 
 import com.ocere.portal.enums.Tier;
 import com.ocere.portal.model.Client;
-import com.ocere.portal.model.Contact;
 import com.ocere.portal.model.User;
 import com.ocere.portal.repository.ClientRepository;
 import com.ocere.portal.service.ClientService;

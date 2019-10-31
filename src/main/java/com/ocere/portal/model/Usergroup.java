@@ -1,7 +1,6 @@
 package com.ocere.portal.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Set;
 

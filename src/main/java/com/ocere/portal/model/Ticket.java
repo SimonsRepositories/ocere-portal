@@ -1,10 +1,13 @@
 package com.ocere.portal.model;
 
-import com.ocere.portal.enums.*;
+import com.ocere.portal.enums.DynamicTurnaround;
+import com.ocere.portal.enums.Priority;
+import com.ocere.portal.enums.ProductType;
+import com.ocere.portal.enums.Status;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;

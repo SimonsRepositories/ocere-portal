@@ -1,14 +1,8 @@
 package com.ocere.portal.controller;
 
 import com.ocere.portal.enums.ClientStatus;
-import com.ocere.portal.enums.DynamicTurnaround;
 import com.ocere.portal.enums.ProductType;
-import com.ocere.portal.enums.JobStatus;
-import com.ocere.portal.model.Client;
-import com.ocere.portal.model.DBFile;
-import com.ocere.portal.model.Job;
-import com.ocere.portal.model.Ticket;
-import com.ocere.portal.model.User;
+import com.ocere.portal.model.*;
 import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.DBFileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;

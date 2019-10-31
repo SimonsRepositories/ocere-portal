@@ -1,9 +1,6 @@
 package com.ocere.portal.service.Impl;
 
-import com.ocere.portal.enums.ContentType;
-import com.ocere.portal.enums.WritingStyle;
 import com.ocere.portal.model.Job;
-import com.ocere.portal.model.User;
 import com.ocere.portal.repository.JobRepository;
 import com.ocere.portal.service.ClientService;
 import com.ocere.portal.service.JobService;
