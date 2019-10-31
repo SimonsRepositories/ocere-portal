@@ -41,6 +41,9 @@
                             <div class="item">
                                 <a href="/tickets/templates">Template Dashboard</a>
                             </div>
+                            <div class="item">
+                                <a href="/tickets/deftickets">Deftickets Dashboard</a>
+                            </div>
                         </div>
                     </div>
                     <a href="/groups">Groups</a>
@@ -72,8 +75,10 @@
     <script type="text/javascript">
         // Post Button
         $('.post-button').on('click', function () {
-            $.post($(this).data('post-url'));
-            window.location.href = $(this).data('redirect-url');
+            var postButton = this;
+            $.post($(this).data('post-url'), function () {
+                window.location.href = $(postButton).data('redirect-url');
+            });
         });
 
         // Initialize materialize dropdown

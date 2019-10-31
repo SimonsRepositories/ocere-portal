@@ -1,12 +1,11 @@
 package com.ocere.portal.enums;
 
-// Prototype
-public enum JobStatus {
-    Live("Live");
+public enum DynamicTurnaround {
+    NONE("None"), JOBEND("End of Job"), CAMPAIGNSTART("Campaign Start");
 
     private String description;
 
-    JobStatus(String description) {
+    DynamicTurnaround(String description) {
         this.description = description;
     }
 

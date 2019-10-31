@@ -1,6 +1,7 @@
 package com.ocere.portal.model;
 
 import com.ocere.portal.enums.*;
+import com.ocere.portal.enums.Currency;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -8,14 +9,70 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
 public class Job {
+
+    public Job(Job job, User author) {
+        this.client = job.getClient();
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.author = author;
+        this.productTypes = job.getProductTypes();
+        this.currency = job.getCurrency();
+        this.description = job.getDescription();
+        this.whiteLabel = job.isWhiteLabel();
+        this.company = job.getCompany();
+        this.website = job.getWebsite();
+        this.status = job.getStatus();
+        this.owner = job.getOwner();
+        this.files = job.getFiles();
+        this.seoValue = job.getSeoValue();
+        this.targetKeywords = job.getTargetKeywords();
+        this.reportingKeywords = job.getReportingKeywords();
+        this.seoSearchEngines = job.getSeoSearchEngines();
+        this.onPageReview = job.isOnPageReview();
+        this.healthCheck = job.isHealthCheck();
+        this.linkValue = job.getLinkValue();
+        this.linkSearchEngines = job.getLinkSearchEngines();
+        this.googleDocLink = job.getGoogleDocLink();
+        this.orderFormFile = job.getOrderFormFile();
+        this.ppcValue = job.getPpcValue();
+        this.campaignTypes = job.getCampaignTypes();
+        this.asap = job.isAsap();
+        this.campaignLaunchDate = job.getCampaignLaunchDate();
+        this.signOffRequired = job.isSignOffRequired();
+        this.facebookId = job.getFacebookId();
+        this.facebookUrl = job.getFacebookUrl();
+        this.setUpRequired = job.isSetUpRequired();
+        this.googleAdsId = job.getGoogleAdsId();
+        this.monthlyClickSpend = job.getMonthlyClickSpend();
+        this.targetAreas = job.getTargetAreas();
+        this.landingPageUrls = job.getLandingPageUrls();
+        this.adwordsMainGoal = job.getAdwordsMainGoal();
+        this.facebookMainGoal = job.facebookMainGoal;
+        this.thankYouPageUrl = job.getThankYouPageUrl();
+        this.reportingEmail = job.getReportingEmail();
+        this.contentValue = job.getContentValue();
+        this.contentNumberOfPieces = job.getContentNumberOfPieces();
+        this.contentType = job.getContentType();
+        this.contentLength = job.getContentLength();
+        this.contentTitles = job.getContentTitles();
+        this.contentWritingStyle = job.getContentWritingStyle();
+        this.contentKeywords = job.getContentKeywords();
+
+        /*this.startDate = job.getStartDate();
+        this.endDate = job.getEndDate();*/
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(job.getStartDate());
+        calendar.add(Calendar.MONTH, 1);
+        this.startDate = calendar.getTime();
+        calendar.setTime(job.getEndDate());
+        calendar.add(Calendar.MONTH, 1);
+        this.endDate = calendar.getTime();
+    }
 
     public Job() {
         asap = true;
@@ -139,8 +196,6 @@ public class Job {
     @JoinColumn(name = "order_form_file_id")
     @NotFound(action= NotFoundAction.IGNORE)
     private DBFile orderFormFile;
-
-
 
     /*
         PPC

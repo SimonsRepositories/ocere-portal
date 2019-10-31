@@ -89,7 +89,7 @@
                                 <p class="attribute-value"
                                    th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
                                    th:if="${#lists.contains(job.seoSearchEngines, searchEngine)}"
-                                   th:text="${searchEngine}">Value</p>
+                                   th:text="${searchEngine.description}">Value</p>
                             </div>
                             <div class="col s3">
                                 <small class="attribute-title">On Page Review:</small>
@@ -126,7 +126,7 @@
                                 <p class="attribute-value"
                                    th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
                                    th:if="${#lists.contains(job.linkSearchEngines, searchEngine)}"
-                                   th:text="${searchEngine}">Value</p>
+                                   th:text="${searchEngine.description}">Value</p>
                             </div>
                         </div>
                         <!--
@@ -261,10 +261,45 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <input class="col s2 btn green input-field" id="filesSubmit" type="submit" value="Upload">
+                                <input class="col s2 btn green input-field" id="filesSubmit" type="submit"
+                                       value="Upload">
                             </form>
-                            <a th:each="file : ${job.sortedFiles}" th:href="${'/downloadFile/' + file.id}"
-                               class="file-link col s12" th:text="${file.fileName}">Value</a>
+                            <div th:each="file : ${job.sortedFiles}" class="file-link-wrapper col s12">
+                                <a th:href="${'/downloadFile/' + file.id}" class="file-link">
+                                    <i class="material-icons">cloud_download</i>
+                                    <span th:text="${file.fileName}">Value</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>Tickets</h4>
+                        </div>
+                        <div class="col s12">
+                            <div th:if="${tickets.isEmpty()}">
+                                <h6>No Tickets have been setup yet</h6>
+                            </div>
+                            <table th:if="${!tickets.isEmpty()}" style="width: 100%" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Assignee</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="ticket-row" th:each="ticket : ${tickets}" th:data-id="${ticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:switch="${ticket.assignedGroup}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${ticket.assignedUser.fullName}">Name</p>
+                                    </td>
+                                    <td th:text="${ticket.status}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="fixed-action-btn click-to-toggle">
@@ -272,9 +307,18 @@
                             <i class="large material-icons">menu</i>
                         </a>
                         <ul>
-                            <li><a th:href="${'/jobs/edit/' + job.id}" class="btn-floating yellow darken-1"><i
-                                    class="material-icons">edit</i></a></li>
-                            <li><a class="btn-floating red post-button" th:data-post-url="${'/jobs/delete/' + job.id}"
+                            <li>
+                                <a th:href="${'/jobs/clone?jobId=' + job.id}" class="btn-floating blue">
+                                    <i class="material-icons">content_copy</i>
+                                </a>
+                            </li>
+                            <li><a th:href="${'/tickets/create?jobId=' + job.id}" class="btn-floating green"><i
+                                    class="material-icons">add</i></a></li>
+                            <li>
+                                <a th:href="${'/jobs/edit/' + job.id}" class="btn-floating yellow darken-1"><i
+                                        class="material-icons">edit</i></a></li>
+                            <li>
+                                <a class="btn-floating red post-button" th:data-post-url="${'/jobs/delete/' + job.id}"
                                    th:data-redirect-url="${'/clients/' + job.client.id}"><i class="material-icons">delete</i></a>
                             </li>
                         </ul>
@@ -288,6 +332,9 @@
 <div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
+    $('.ticket-row').on('click', function () {
+        window.location.href = "/tickets/" + $(this).data('id');
+    });
 </script>
 </body>
 

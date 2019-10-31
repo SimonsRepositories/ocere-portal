@@ -80,7 +80,7 @@
                         </a>
                         <ul>
                             <li><a th:href="${'/notes/create?ticketId=' + ticket.id}" class="btn-floating green"><i class="material-icons">add</i></a></li>
-                            <li><a th:href="${'/tickets/edit/' + ticket.id}" class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                            <li><a th:href="${'/tickets/edit/' + ticket.id}" class="btn-floating yellow"><i class="material-icons">edit</i></a></li>
                             <li><a class="btn-floating red post-button" th:data-post-url="${'/tickets/delete/' + ticket.id}" data-redirect-url="/clients"><i class="material-icons">delete</i></a></li>
                         </ul>
                     </div>
@@ -93,17 +93,7 @@
 <div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
 
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
-    });
 </script>
 </body>
 

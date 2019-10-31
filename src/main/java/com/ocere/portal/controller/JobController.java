@@ -1,12 +1,15 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.enums.DynamicTurnaround;
+import com.ocere.portal.enums.ProductType;
+import com.ocere.portal.enums.JobStatus;
+import com.ocere.portal.model.Client;
 import com.ocere.portal.model.DBFile;
 import com.ocere.portal.model.Job;
+import com.ocere.portal.model.Ticket;
 import com.ocere.portal.model.User;
-import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.DBFileStorageService;
-import com.ocere.portal.service.JobService;
-import com.ocere.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,30 +32,42 @@ public class JobController {
     private UserService userService;
     private ClientService clientService;
     private DBFileStorageService dbFileStorageService;
+    private TicketService ticketService;
+    private DefticketService defticketService;
 
     @Autowired
-    public JobController(JobService jobService, UserService userService, ClientService clientService, DBFileStorageService dbFileStorageService) {
+    private TurnaroundService turnaroundService;
+
+    @Autowired
+    public JobController(JobService jobService,
+                         UserService userService,
+                         ClientService clientService,
+                         DBFileStorageService dbFileStorageService,
+                         TicketService ticketService,
+                         DefticketService defticketService) {
         this.jobService = jobService;
         this.userService = userService;
         this.clientService = clientService;
         this.dbFileStorageService = dbFileStorageService;
+        this.ticketService = ticketService;
+        this.defticketService = defticketService;
     }
 
     @GetMapping
     public String loadJobListView(Model model) {
         model.addAttribute("jobs", this.jobService.findAll());
-
         return "jobs-list";
     }
 
     @GetMapping("{id}")
     public String loadTicketView(Model model, @PathVariable int id) {
         model.addAttribute("job", this.jobService.findJobById(id).get());
+        model.addAttribute("tickets", this.ticketService.findAllTicketsByJobId(id));
         return "jobs-view";
     }
 
     @GetMapping("create")
-    public String loadCreateJobView(Model model, @RequestParam(name="clientId") int clientId) {
+    public String loadCreateJobView(Model model, @RequestParam(name = "clientId") int clientId) {
         model.addAttribute("siteTitle", "Create Job");
         model.addAttribute("action", "create");
         model.addAttribute("submitText", "Create");
@@ -81,6 +97,21 @@ public class JobController {
         return "jobs_form";
     }
 
+    @GetMapping("/clone")
+    public String loadCloneJobView(@RequestParam(name = "jobId") int jobId, Principal principal, Model model) {
+        Job job = this.jobService.findJobById(jobId).get();
+
+        model.addAttribute("siteTitle", "Clone Job");
+        model.addAttribute("action", "create");
+        model.addAttribute("submitText", "Clone");
+        model.addAttribute("cancelPage", "/clients/" + job.getClient().getId());
+
+        model.addAttribute("owners", userService.findAll());
+
+        model.addAttribute("job", new Job(job, this.userService.findByEmail(principal.getName())));
+        return "jobs_form";
+    }
+
     /*
         ACTIONS
      */
@@ -89,8 +120,24 @@ public class JobController {
     public String createJob(@ModelAttribute Job job, Principal principal) {
         fillJobReferencesById(job);
 
+        User author = this.userService.findByEmail(principal.getName());
         job.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        job.setAuthor(this.userService.findByEmail(principal.getName()));
+        job.setAuthor(author);
+
+        Set<Ticket> initialTickets = new HashSet<>();
+        for (Ticket defticket: this.defticketService.findAllDeftickets()) {
+            for (ProductType productType: job.getProductTypes()) {
+                if (defticket.getDefProducts().contains(productType)) {
+                    initialTickets.add(defticket);
+                }
+            }
+        }
+        initialTickets = initialTickets.stream().map(ticket -> new Ticket(ticket, job, author)).collect(Collectors.toSet());
+        job.setTickets(initialTickets);
+
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() + job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() + job.getTotalValue());
 
         this.jobService.saveJob(job);
         return "redirect:/jobs/" + job.getId();
@@ -108,7 +155,16 @@ public class JobController {
     @PostMapping("/delete/{id}")
     public String deleteTicket(@PathVariable int id) throws Exception {
         int clientId = jobService.findJobById(id).get().getClient().getId();
+        Client client = clientService.findClientById(clientId);
+        Job job = jobService.findJobById(id).get();
+        client.setTotalSpending(client.getTotalSpending() - job.getTotalValue());
+
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() - job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() - job.getTotalValue());
+
         jobService.deleteJobById(id);
+
         return "redirect:/clients/" + clientId;
     }
 

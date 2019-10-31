@@ -26,7 +26,7 @@
                         <div class="col s12">
                             <h1 th:text="${siteTitle}">Title</h1>
                         </div>
-                        <div th:if="${ticket.template==false}" class="input-field col s12">
+                        <div th:if="${templates!=null}" class="input-field col s12">
                             <select class="template-dropdown" id="templateId">
                                 <option value="0" selected disabled>select template</option>
                                 <option th:each="template : ${templates}"
@@ -39,6 +39,24 @@
                     </div>
                     <form class="row" action="#" method="post" th:action="@{/tickets/{action}(action=${action})}"
                           th:object="${ticket}">
+                        <div th:if="${ticket.defticket==true}" class="input-field col s6">
+                            <select id="defProducts" th:field="*{defProducts}" multiple>
+                                <option th:each="productType : ${T(com.ocere.portal.enums.ProductType).values()}"
+                                        th:value="${productType}"
+                                        th:text="${productType}">
+                                </option>
+                            </select>
+                            <label for="defProducts">Defined Products:</label>
+                        </div>
+                        <div th:if="${ticket.defticket==true}" class="input-field col s6">
+                            <select id="dynamicTurnaround" th:field="*{dynamicTurnaround}">
+                                <option th:each="dynamicTurnaround : ${T(com.ocere.portal.enums.DynamicTurnaround).values()}"
+                                        th:value="${dynamicTurnaround}"
+                                        th:text="${dynamicTurnaround.description}">
+                                </option>
+                            </select>
+                            <label for="dynamicTurnaround">Dynamic Turnaround:</label>
+                        </div>
                         <div class="input-field col s12">
                             <label for="subject">Subject:</label>
                             <input th:field="*{subject}" placeholder="Subject" id="subject" class="validate"
@@ -102,6 +120,7 @@
                             </select>
                             <label for="turnaround">Turnaround:</label>
                         </div>
+                        <input th:if="${ticket.job!=null}" th:field="*{job.id}" th:value="${ticket.job.id}" hidden/>
                         <div class="col s12">
                             <button th:text="${submitText}" type="submit" class="btn btn-primary">Submit</button>
                             <a th:href="${cancelPage}" class="btn btn-warning">Cancel</a>
@@ -121,7 +140,11 @@
 
 <script type="text/javascript">
     $('.template-dropdown').on('change', function () {
-        window.location.replace(window.location.origin + "/tickets/create?templateId=" + this.value);
+        var sign = '?';
+        if (window.location.href.indexOf('?') > -1) {
+            sign = '&';
+        }
+        window.location.replace(window.location.href + sign + 'templateId=' + this.value);
     });
 
     new FroalaEditor('textarea#description', {

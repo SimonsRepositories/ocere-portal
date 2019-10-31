@@ -9,10 +9,7 @@ import com.ocere.portal.service.TurnaroundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,32 +31,32 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> findAllTickets() {
-        return ticketRepository.findAllByTemplateFalse();
+        return ticketRepository.findAllByTemplateFalseAndDefticketFalse();
     }
 
     @Override
     public Ticket findTicketById(int id) {
-        return ticketRepository.findByIdAndTemplateFalse(id);
+        return ticketRepository.findByIdAndTemplateFalseAndDefticketFalse(id);
     }
 
     @Override
     public List<Ticket> findAllTicketsByStatus(Status status) {
-        return ticketRepository.findAllByStatusAndTemplateFalse(status);
+        return ticketRepository.findAllByStatusAndTemplateFalseAndDefticketFalse(status);
     }
 
     @Override
     public List<Ticket> findAllTicketsByAssignedUser(User user) {
-        return ticketRepository.findAllByAssignedUserAndTemplateFalse(user);
+        return ticketRepository.findAllByAssignedUserAndTemplateFalseAndDefticketFalse(user);
     }
 
     @Override
     public List<Ticket> findAllTicketsByAssignedUserAndStatus(User user, Status status) {
-        return ticketRepository.findAllByAssignedUserAndStatusAndTemplateFalse(user, status);
+        return ticketRepository.findAllByAssignedUserAndStatusAndTemplateFalseAndDefticketFalse(user, status);
     }
 
     @Override
     public List<Ticket> findAllTicketsByAuthor(User user) {
-        return ticketRepository.findAllByAuthorAndTemplateFalse(user);
+        return ticketRepository.findAllByAuthorAndTemplateFalseAndDefticketFalse(user);
     }
 
     @Override
@@ -76,6 +73,11 @@ public class TicketServiceImpl implements TicketService {
         return findAllTicketsByAssignedUser(user).stream()
                 .filter((ticket -> turnaroundService.getTurnaroundTimestamp(ticket).after(now)))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Ticket> findAllTicketsByJobId(int id) {
+        return ticketRepository.findAllTicketsByJobId(id);
     }
 
     /*
@@ -99,6 +101,8 @@ public class TicketServiceImpl implements TicketService {
         if (optionalUpdatedTicket.isPresent()) {
             updatedTicket = optionalUpdatedTicket.get();
             updatedTicket.setTemplate(ticket.isTemplate());
+            updatedTicket.setDefticket(ticket.isDefticket());
+            updatedTicket.setDefProducts(ticket.getDefProducts());
             updatedTicket.setTurnaround(ticket.getTurnaround());
             updatedTicket.setAssignedGroup(ticket.getAssignedGroup());
             updatedTicket.setAssignedUser(ticket.getAssignedUser());
@@ -111,6 +115,7 @@ public class TicketServiceImpl implements TicketService {
             updatedTicket.setCreatedAt(ticket.getCreatedAt());
             updatedTicket.setAuthor(ticket.getAuthor());
             updatedTicket.setFiles(ticket.getFiles());
+            updatedTicket.setDynamicTurnaround(ticket.getDynamicTurnaround());
         } else {
             throw new Exception("Couldn’t update ticket, because it didn’t exist !");
         }

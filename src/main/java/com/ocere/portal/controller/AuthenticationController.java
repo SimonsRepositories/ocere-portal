@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -46,7 +45,7 @@ public class AuthenticationController
     }
 
     @PostMapping(value="/register")
-    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap, RedirectAttributes redirAttrs) {
+    public ModelAndView registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
         if (bindingResult.hasErrors()) {
@@ -77,7 +76,6 @@ public class AuthenticationController
             }
         }
         modelAndView.addObject("successMessage", "User registered successfully");
-        redirAttrs.addFlashAttribute("successMessage", "User registered successfully");
         modelAndView.setViewName("index");
         return modelAndView;
     }

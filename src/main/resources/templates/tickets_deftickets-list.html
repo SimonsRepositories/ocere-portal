@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Deftickets</title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <div class="row">
+                        <div class="col s12">
+                            <h1>Deftickets</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h4 th:if="${deftickets.isEmpty()}">No Defined Tickets created yet.</h4>
+                            <table th:if="${!deftickets.isEmpty()}" style="width: 100%" class="table table-striped js-sort-table">
+                                <thead class="sortable-head">
+                                <tr>
+                                    <th class="js-sort-number">ID</th>
+                                    <th class="js-sort-string">Subject</th>
+                                    <th class="js-sort-string">Assigned User</th>
+                                    <th class="js-sort-string">Products</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="defticket-row" th:each="defticket : ${deftickets}" th:data-id="${defticket.id}"
+                                    style="cursor: pointer;">
+                                    <td th:text="${defticket.id}"></td>
+                                    <td th:text="${defticket.subject}"></td>
+                                    <td th:switch="${defticket.assignedUser}">
+                                        <p th:case="null">None</p>
+                                        <p th:case="*" th:text="${defticket.assignedUser.name}">Name</p>
+                                    </td>
+                                    <td><span th:each="product: ${defticket.defProducts}" th:text="${product + ', '}"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="fixed-action-btn click-to-toggle">
+                        <a class="btn-floating btn-large .ocere-green--background">
+                            <i class="large material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a href="/tickets/deftickets/create" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $('.defticket-row').on('click', function () {
+        window.location.href = "/tickets/deftickets/" + $(this).data('id');
+    });
+</script>
+
+</body>
+
+</html>

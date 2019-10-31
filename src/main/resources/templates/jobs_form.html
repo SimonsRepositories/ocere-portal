@@ -85,7 +85,7 @@
                             <select id="status" th:field="*{status}">
                                 <option th:each="status : ${T(com.ocere.portal.enums.JobStatus).values()}"
                                         th:value="${status}"
-                                        th:text="${status}"
+                                        th:text="${status.description}"
                                         th:selected="${job.status == status}">
                                 </option>
                             </select>
@@ -134,7 +134,7 @@
                                 <select id="seoSearchEngines" th:field="*{seoSearchEngines}" multiple>
                                     <option th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
                                             th:value="${searchEngine}"
-                                            th:text="${searchEngine}">
+                                            th:text="${searchEngine.description}">
                                     </option>
                                 </select>
                                 <label for="seoSearchEngines">SEO Search Engines:</label>
@@ -199,7 +199,7 @@
                                 <select id="linkSearchEngines" th:field="*{linkSearchEngines}" multiple>
                                     <option th:each="searchEngine : ${T(com.ocere.portal.enums.SearchEngine).values()}"
                                             th:value="${searchEngine}"
-                                            th:text="${searchEngine}">
+                                            th:text="${searchEngine.description}">
                                     </option>
                                 </select>
                                 <label for="linkSearchEngines">Link Building Search Engines:</label>
