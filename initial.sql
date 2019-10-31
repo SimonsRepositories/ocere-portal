@@ -90,15 +90,15 @@ VALUES (1, '2019-10-18 16:20:02', '', 1, 0, 'PPC Review + Proposal', b'1', NULL,
        (5, '2019-10-18 16:32:21', '', 1, 0, 'PCC Update / Report', b'1', NULL, NULL, 1, NULL, 4);
 
 INSERT INTO `ticket` (`ticket_id`, `created_at`, `defticket`, `description`, `priority`, `status`, `subject`, `template`, `group_id`, `assigned_user_id`, `author_id`, `job_id`, `turnaround_id`) VALUES
-(1, '2019-10-30 10:55:56', b'1', '', 1, 0, 'Invoice', b'0', NULL, NULL, 1, NULL, 4),
-(2, '2019-10-30 10:56:15', b'1', '', 1, 0, 'IRR + Upload', b'0', NULL, NULL, 1, NULL, 4),
-(3, '2019-10-30 11:06:09', b'1', '', 1, 0, 'QA Setup in 5PM', b'0', NULL, NULL, 1, NULL, 4),
-(4, '2019-10-30 11:08:04', b'1', '', 1, 0, 'Mid Month QA + Analise', b'0', NULL, NULL, 1, NULL, 9),
-(5, '2019-10-30 11:08:35', b'1', '', 1, 0, 'Upload Final Reports + EMR', b'0', NULL, NULL, 1, NULL, 10),
-(6, '2019-10-30 11:12:23', b'1', '', 1, 0, 'Complete Review & Health Checks', b'0', NULL, NULL, 1, NULL, 6),
-(7, '2019-10-30 11:25:59', b'1', '', 1, 0, 'New Facebook Campaign', b'0', NULL, NULL, 1, NULL, 4),
-(8, '2019-10-30 11:26:15', b'1', '', 1, 0, 'New Adwords Campaign', b'0', NULL, NULL, 1, NULL, 4),
-(9, '2019-10-30 11:26:34', b'1', '', 1, 0, 'Content Set Up', b'0', NULL, NULL, 1, NULL, 4);
+(6, '2019-10-30 10:55:56', b'1', '', 1, 0, 'Invoice', b'0', NULL, NULL, 1, NULL, 4),
+(7, '2019-10-30 10:56:15', b'1', '', 1, 0, 'IRR + Upload', b'0', NULL, NULL, 1, NULL, 4),
+(8, '2019-10-30 11:06:09', b'1', '', 1, 0, 'QA Setup in 5PM', b'0', NULL, NULL, 1, NULL, 4),
+(9, '2019-10-30 11:08:04', b'1', '', 1, 0, 'Mid Month QA + Analise', b'0', NULL, NULL, 1, NULL, 9),
+(10, '2019-10-30 11:08:35', b'1', '', 1, 0, 'Upload Final Reports + EMR', b'0', NULL, NULL, 1, NULL, 10),
+(11, '2019-10-30 11:12:23', b'1', '', 1, 0, 'Complete Review & Health Checks', b'0', NULL, NULL, 1, NULL, 6),
+(12, '2019-10-30 11:25:59', b'1', '', 1, 0, 'New Facebook Campaign', b'0', NULL, NULL, 1, NULL, 4),
+(13, '2019-10-30 11:26:15', b'1', '', 1, 0, 'New Adwords Campaign', b'0', NULL, NULL, 1, NULL, 4),
+(14, '2019-10-30 11:26:34', b'1', '', 1, 0, 'Content Set Up', b'0', NULL, NULL, 1, NULL, 4);
 
     INSERT INTO contact (id, first_name, last_name, phone, email) VALUES
     (1, 'John', 'Jones', '012345689', 'john@jones.com'),

@@ -1,5 +1,6 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.ProductType;
 import com.ocere.portal.enums.JobStatus;
 import com.ocere.portal.model.Client;
@@ -113,7 +114,7 @@ public class JobController {
      */
 
     @PostMapping("/create")
-    public String createJob(@ModelAttribute Job job, Principal principal) {
+    public String createJob(@ModelAttribute Job job, Principal principal) throws Exception {
         fillJobReferencesById(job);
 
         User author = this.userService.findByEmail(principal.getName());
@@ -131,10 +132,16 @@ public class JobController {
         initialTickets = initialTickets.stream().map(ticket -> new Ticket(ticket, job, author)).collect(Collectors.toSet());
         job.setTickets(initialTickets);
 
-        //Set spending
-        job.getClient().setTotalSpending(job.getClient().getTotalSpending() + job.getTotalValue());
-        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() + job.getTotalValue());
+        Client client = clientService.findClientById(job.getClient().getId());
 
+        //set spending
+        client.setTotalSpending(client.getTotalSpending() + job.getTotalValue());
+        client.setMonthlySpending(client.getMonthlySpending() + job.getTotalValue());
+
+        clientService.updateTier(client.getId());
+        client.setStatus(ClientStatus.ACTIVE);
+
+        this.clientService.updateClient(client, client.getId());
         this.jobService.saveJob(job);
         return "redirect:/jobs/" + job.getId();
     }
@@ -145,6 +152,13 @@ public class JobController {
 
         mapUneditedValuesToJob(job, id);
         jobService.updateJob(job, id);
+
+        //Set spending
+        job.getClient().setTotalSpending(job.getClient().getTotalSpending() + job.getTotalValue());
+        job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() + job.getTotalValue());
+
+        clientService.updateTier(job.getClient().getId());
+
         return "redirect:/jobs/" + job.getId();
     }
 
@@ -158,6 +172,8 @@ public class JobController {
         //Set spending
         job.getClient().setTotalSpending(job.getClient().getTotalSpending() - job.getTotalValue());
         job.getClient().setMonthlySpending(job.getClient().getMonthlySpending() - job.getTotalValue());
+
+        clientService.updateTier(job.getClient().getId());
 
         jobService.deleteJobById(id);
 

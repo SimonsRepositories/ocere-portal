@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title th:value="Ocere-Portal"></title>
+
+    <div th:replace="fragments :: head-links"></div>
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragments :: header"></div>
+
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="content-container">
+                <div class="container full-width">
+                    <h1>Ocere-Portal</h1>
+                    <h4 th:text="Welcome to your portal + ${client.firstname}"></h4>
+                    <h6 th:if="${jobs.isEmpty()}">No jobs found</h6>
+                    <div class="row input-field">
+                        <input th:if="${!jobs.isEmpty()}" type="text" id="jobSearchInput" onkeyup="searchTable()">
+                        <label for="jobSearchInput">Search for company</label>
+                    </div>
+                    <table th:if="${!jobs.isEmpty()}" class="table table-striped js-sort-table" id="jobTable">
+                        <thead class="sortable-head">
+                        <tr>
+                            <th class="js-sort-string">Company</th>
+                            <th class="js-sort-string">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="job : ${jobs}" th:data-id="${job.id}" class="job-row">
+                            <td th:text="${job.company}"></td>
+                            <td th:text="${job.status}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: script-links"></div>
+
+<script type="text/javascript">
+    $('.template-row').on('click', function () {
+        window.location.href = "/jobs/" + $(this).data('id');
+    });
+
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+</script>
+</body>
+
+</html>

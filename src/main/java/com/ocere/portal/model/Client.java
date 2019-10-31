@@ -2,6 +2,8 @@ package com.ocere.portal.model;
 
 import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.PaymentTerms;
+import com.ocere.portal.enums.Tier;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -35,7 +37,7 @@ public class Client {
 
     private String companyName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id")
     private Contact contact;
 
@@ -43,12 +45,19 @@ public class Client {
     private String addressLine2;
     private String city;
     private String website;
-    private String tier;
+
+    @Enumerated(EnumType.STRING)
+    private Tier tier;
+
     private String jobTitle;
     private String contactUsPage;
     private String country;
     private String county;
+
+    @Column(columnDefinition = "double default 0.0")
     private double totalSpending;
+
+    @Column(columnDefinition = "double default 0.0")
     private double monthlySpending;
 
     @Enumerated(EnumType.STRING)
@@ -120,11 +129,11 @@ public class Client {
         this.country = country;
     }
 
-    public String getTier() {
+    public Tier getTier() {
         return tier;
     }
 
-    public void setTier(String tier) {
+    public void setTier(Tier tier) {
         this.tier = tier;
     }
 
