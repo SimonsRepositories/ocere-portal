@@ -31,11 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user, Set<Role> idRoles) {
-        if(user.getPassword() != null) {
+        if(user.getPassword() != null && user.getMailpassword() != null) {
             user.setPassword(encoder.encode(user.getPassword()));
-            if(user.getMailpassword() != null) {
-                user.setMailpassword(encoder.encode(user.getMailpassword()));
-            }
+            user.setMailpassword(encoder.encode(user.getMailpassword()));
         }
         user.setStatus("VERIFIED");
         //Role userRole = roleRepository.findById(roleId);
@@ -45,10 +43,37 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveUserById(User user, int id, Set<Role> idRoles) {
-        for (int i = 0; i < findAll().size(); i++) {
+         for (int i = 0; i < findAll().size(); i++) {
             User tmpValue = findAll().get(i);
             if (tmpValue.getId() == id) {
-                saveUser(user, idRoles);
+                User newuser = getUserById(id).get();
+                if(user.getPassword() == null && user.getMailpassword() == null) {
+                    user.setPassword(newuser.getPassword());
+                    user.setMailpassword(newuser.getMailpassword());
+                    user.setStatus("VERIFIED");
+                    userRepository.save(user);
+                } else if(user.getPassword() == null) {
+                    user.setPassword(newuser.getPassword());
+                    user.setFirstname(newuser.getFirstname());
+                    user.setLastname(newuser.getLastname());
+                    user.setEmail(newuser.getEmail());
+                    user.setMailpassword(encoder.encode(user.getMailpassword()));
+                    user.setRoles(new HashSet<Role>(newuser.getRoles()));
+                    user.setStatus("VERIFIED");
+                    userRepository.save(user);
+                } else if(user.getMailpassword() == null) {
+                    user.setMailpassword(newuser.getMailpassword());
+                    user.setFirstname(newuser.getFirstname());
+                    user.setLastname(newuser.getLastname());
+                    user.setEmail(newuser.getEmail());
+                    user.setPassword(encoder.encode(user.getPassword()));
+                    user.setRoles(new HashSet<Role>(newuser.getRoles()));
+                    user.setStatus("VERIFIED");
+                    userRepository.save(user);
+                }
+                else {
+                    saveUser(user, idRoles);
+                }
                 return;
             }
         }

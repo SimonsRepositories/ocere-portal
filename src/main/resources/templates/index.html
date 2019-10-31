@@ -10,10 +10,9 @@
     <div th:replace="fragments :: head-links"></div>
 </head>
 
-<body>
+<body th:data-toast="${successMessage}" th:onload="showToast()">
 <div class="wrapper">
     <div th:replace="fragments :: header"></div>
-
     <div class="content">
         <div class="content-wrapper">
             <div class="content-container">
@@ -46,6 +45,12 @@
 <div th:replace="fragments :: script-links"></div>
 
 <script type="text/javascript">
+    //success message when user is registered successfully
+    function showToast() {
+        var toast = document.querySelectorAll('body')[0].getAttribute('data-toast');
+        M.toast({html: toast});
+    }
+
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar, #content').toggleClass('active');
