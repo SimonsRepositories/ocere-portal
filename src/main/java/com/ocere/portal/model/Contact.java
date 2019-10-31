@@ -16,8 +16,20 @@ public class Contact {
     private String phone;
     private String email;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToOne(fetch = FetchType.LAZY)
     private Client client;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Client getClient() {
         return client;

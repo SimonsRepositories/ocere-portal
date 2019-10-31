@@ -1,5 +1,7 @@
 package com.ocere.portal.controller;
 
+import com.ocere.portal.enums.ClientStatus;
+import com.ocere.portal.enums.Tier;
 import com.ocere.portal.model.Client;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
@@ -94,7 +96,7 @@ public class ClientController {
     }
 
     @PostMapping("create")
-    public String saveNewClient(@ModelAttribute Client client, Principal principal) throws UnsupportedEncodingException, MessagingException {
+    public String saveNewClient(@ModelAttribute Client client, Principal principal) {
         Set<Role> roles = new HashSet<>();
         Role clientRole = roleService.findById(4);
         roles.add(clientRole);
@@ -108,6 +110,10 @@ public class ClientController {
         user.setPassword(generatePassword(12));
         user.setClient(true);
         this.userService.saveUser(user, roles);
+
+        client.getContact().setUser(user);
+        client.setStatus(ClientStatus.DEAD);
+        client.setTier(Tier.C);
 
         try {
             mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
@@ -133,13 +139,13 @@ public class ClientController {
 
     private static SecureRandom random = new SecureRandom();
 
-    public static String generatePassword(int len) {
-        String result = "";
+    private static String generatePassword(int len) {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < len; i++) {
             int index = random.nextInt(dic.length());
-            result += dic.charAt(index);
+            result.append(dic.charAt(index));
         }
-        return result;
+        return result.toString();
     }
 
     /**
