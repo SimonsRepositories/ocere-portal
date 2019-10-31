@@ -2,9 +2,7 @@ package com.ocere.portal.service.Impl;
 
 import com.ocere.portal.model.Ticket;
 import com.ocere.portal.repository.DefticketRepository;
-import com.ocere.portal.repository.TemplateRepository;
 import com.ocere.portal.service.DefticketService;
-import com.ocere.portal.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
