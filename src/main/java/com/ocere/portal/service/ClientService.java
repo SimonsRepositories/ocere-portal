@@ -21,4 +21,8 @@ public interface ClientService {
     List<Client> findAllByAuthor(User user);
 
     Client updateClient(Client client, int id) throws Exception;
+
+    Client findClientByContact(User user);
+
+    void updateTier(int id);
 }

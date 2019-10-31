@@ -1,6 +1,8 @@
 package com.ocere.portal.service.Impl;
 
+import com.ocere.portal.enums.Tier;
 import com.ocere.portal.model.Client;
+import com.ocere.portal.model.Contact;
 import com.ocere.portal.model.User;
 import com.ocere.portal.repository.ClientRepository;
 import com.ocere.portal.service.ClientService;
@@ -71,6 +73,23 @@ public class ClientServiceImpl implements ClientService {
             throw new Exception("Couldn’t update client because he didn’t exist");
         }
         return clientRepository.saveAndFlush(updatedClient);
+    }
+
+    @Override
+    public Client findClientByContact(User user) {
+        return user.getContact().getClient();
+    }
+
+    @Override
+    public void updateTier(int id) {
+        Client client = findClientById(id);
+        if (client.getMonthlySpending() < 1000) {
+            client.setTier(Tier.C);
+        } else if (client.getMonthlySpending() < 5000) {
+            client.setTier(Tier.B);
+        } else {
+            client.setTier(Tier.A);
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         //Role userRole = roleRepository.findById(roleId);
         //user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         user.setRoles(new HashSet<Role>(idRoles));
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     public void saveUserById(User user, int id, Set<Role> idRoles) {

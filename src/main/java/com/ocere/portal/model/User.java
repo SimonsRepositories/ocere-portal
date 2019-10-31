@@ -24,12 +24,16 @@ public class User
     @Column(name = "first_name")
     private String firstname;
 
+
     @Column(name = "last_name")
     private String lastname;
 
     @Email
     @Column(name = "email")
     private String email;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Contact contact;
 
     @Length(min=8, message = "Password should be at least 8 characters")
     //Patttern: requires one lower case, one upper case, one digit and no spaces
@@ -61,6 +65,22 @@ public class User
             cascade = CascadeType.ALL
     )
     private Set<Ticket> createdTickets;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public Set<DBFile> getDbFile() {
+        return dbFile;
+    }
+
+    public void setDbFile(Set<DBFile> dbFile) {
+        this.dbFile = dbFile;
+    }
 
     public Boolean getClient() {
         return client;
