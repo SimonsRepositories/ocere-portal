@@ -1,6 +1,8 @@
 package com.ocere.portal.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class Usergroup {
     @Column(name = "is_empty")
     private boolean empty;
 
+    @NotEmpty(message = "Name cannot be empty.")
     @Column(name = "name")
     private String name;
 

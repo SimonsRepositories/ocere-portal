@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,15 +33,18 @@
                                     <tr th:each="usergroup : ${listOfGroups}" style="cursor: pointer;" class="group-row" th:data-id="${usergroup.id}">
                                         <td th:text="${usergroup.name}"></td>
                                         <td th:text="${usergroup.created_at}"></td>
-                                        <!--<td><a th:href="@{/admin/editUser/{id}(id=${user.id})}">Edit</a></td>
-                                        <td><a th:href="@{/admin/delete-user?id={id}(id=${user.id})}">Delete</a></td>-->
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div>
-                            <a href="/groups/create-group">New Group</a>
+                            <div class="fixed-action-btn click-to-toggle">
+                                <a class="btn-floating btn-large ocere-green--background">
+                                    <i class="large material-icons">menu</i>
+                                </a>
+                                <ul>
+                                    <li><a href="/groups/create-group" class="btn-floating green"><i class="material-icons">add</i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

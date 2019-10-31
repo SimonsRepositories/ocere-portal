@@ -6,7 +6,10 @@ import com.ocere.portal.service.UsergroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +32,9 @@ public class UserGroupServiceImpl implements UsergroupService {
     }
 
     public Usergroup createUsergroup(Usergroup usergroup) {
-        //Date date //= new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        //System.out.println(formatter.format(date));
-        //usergroup.setCreated_at();
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        usergroup.setCreated_at(timestamp);
         return usergroupRepository.saveAndFlush(usergroup);
     }
 
@@ -48,18 +50,20 @@ public class UserGroupServiceImpl implements UsergroupService {
         Usergroup updatedUsergroup;
         Optional<Usergroup> optionalUpdatedUsergroup = findUsergroupById(id);
 
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+
         if (optionalUpdatedUsergroup.isPresent()) {
             updatedUsergroup = optionalUpdatedUsergroup.get();
-            updatedUsergroup.setActive(usergroup.isActive());
-            updatedUsergroup.setCreated_at(usergroup.getCreated_at());
-            updatedUsergroup.setEmpty(usergroup.isEmpty());
-            updatedUsergroup.setName(usergroup.getName());
-            updatedUsergroup.setTickets(usergroup.getTickets());
-            updatedUsergroup.setUpdated_at(usergroup.getUpdated_at());
+            updatedUsergroup.setActive(updatedUsergroup.isActive());
+            updatedUsergroup.setCreated_at(updatedUsergroup.getCreated_at());
+            updatedUsergroup.setEmpty(updatedUsergroup.isEmpty());
+            updatedUsergroup.setName(updatedUsergroup.getName());
+            updatedUsergroup.setTickets(updatedUsergroup.getTickets());
+            updatedUsergroup.setUpdated_at(timestamp);
         } else {
             throw new Exception("Couldn't update usergroup, because it didn't exist!");
         }
-
         return usergroupRepository.saveAndFlush(updatedUsergroup);
     }
 }

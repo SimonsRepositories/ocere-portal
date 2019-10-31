@@ -48,15 +48,16 @@ public class UserGroupController
     public ModelAndView editUser(Model model, @PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Usergroup value = usergroupService.findUsergroupById(id).get();
-        model.addAttribute("action", "groups/edit-group/" + id);
+        model.addAttribute("action", "groups/edit-group/" + value.getId());
         model.addAttribute("usergroup", value);
         modelAndView.setViewName("groups-form");
         return modelAndView;
     }
 
-    @RequestMapping(value="/groups/edit-group", method = RequestMethod.POST)
-    public ModelAndView editUser(@Valid @ModelAttribute Usergroup usergroup, BindingResult bindingResult, ModelMap modelMap) throws Exception {
+    @RequestMapping(value="/groups/edit-group/{id}", method = RequestMethod.POST)
+    public ModelAndView editUser(@Valid @ModelAttribute Usergroup usergroup, BindingResult bindingResult, ModelMap modelMap, @PathVariable("id") int id) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+        Usergroup newusergroup = usergroupService.findUsergroupById(id).get();
         //Check for the validation
         if (bindingResult.hasErrors()) {
             System.out.println("has errors: " + bindingResult.toString());
@@ -67,14 +68,14 @@ public class UserGroupController
         //save the group if no binding errors
         else if(!usergroup.isEmpty())
         {
-            usergroupService.updateUsergroup(usergroup, usergroup.getId());
+            usergroupService.updateUsergroup(usergroup, newusergroup.getId());
         }
         modelAndView.addObject("listOfGroups", usergroupService.findAll());
         modelAndView.setViewName("groups-list");
         return modelAndView;
     }
 
-    @GetMapping(value = "/groups/create-group")
+    @RequestMapping(value = "/groups/create-group", method = RequestMethod.GET)
     public ModelAndView register(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         Usergroup usergroup = new Usergroup();
@@ -85,7 +86,7 @@ public class UserGroupController
         return modelAndView;
     }
 
-    @PostMapping(value="/groups/create-group")
+    @RequestMapping(value="/groups/create-group", method = RequestMethod.POST)
     public ModelAndView registerUser(@Valid @ModelAttribute Usergroup usergroup, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validation
@@ -100,6 +101,7 @@ public class UserGroupController
         else {
             usergroupService.createUsergroup(usergroup);
         }
+        modelAndView.addObject("listOfGroups", usergroupService.findAll());
         modelAndView.setViewName("groups-list");
         return modelAndView;
     }
