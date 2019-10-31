@@ -28,7 +28,7 @@ public class User
     private String lastname;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Length(min=8, message = "Password should be at least 8 characters")

@@ -99,7 +99,7 @@ public class UserController
             }
         }
         modelAndView.addObject("listOfUsers", userService.findAll());
-        modelAndView.setViewName("redirect:/users");
+        modelAndView.setViewName("users");
         return modelAndView;
     }
 
