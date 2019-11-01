@@ -35,22 +35,22 @@
                                    id="company"
                                    class="validate"
                                    type="text"/>
-                            <label for="company">Company:</label>
+                            <label for="company">Company</label>
                         </div>
                         <div class="input-field col s6">
                             <input th:field="*{website}"
                                    id="website"
                                    class="validate"
                                    type="text"/>
-                            <label for="website">Website:</label>
+                            <label for="website">Website</label>
                         </div>
                         <div class="input-field col s6">
                             <input th:field="*{startDate}" id="startDate" class="validate" type="date">
-                            <label for="startDate">Start Date:</label>
+                            <label for="startDate">Start Date</label>
                         </div>
                         <div class="input-field col s6">
                             <input th:field="*{endDate}" id="endDate" class="validate" type="date">
-                            <label for="endDate">End Date:</label>
+                            <label for="endDate">End Date</label>
                         </div>
                         <div class="input-field col s3">
                             <select id="owner" th:field="*{owner.id}">
@@ -61,7 +61,7 @@
                                         th:selected="${job.owner.id == owner.id}">
                                 </option>
                             </select>
-                            <label for="owner">Owner:</label>
+                            <label for="owner">Owner</label>
                         </div>
                         <div class="input-field col s3">
                             <select id="currency" th:field="*{currency}">
@@ -72,14 +72,14 @@
                                         th:selected="${job.currency == currency}">
                                 </option>
                             </select>
-                            <label for="currency">Currency:</label>
+                            <label for="currency">Currency</label>
                         </div>
                         <div class="input-field col s3">
                             <select id="whiteLabel" th:field="*{whiteLabel}">
                                 <option value="0" th:selected="${job.whiteLabel == false}">No</option>
                                 <option value="1" th:selected="${job.whiteLabel == true}">Yes</option>
                             </select>
-                            <label for="whiteLabel">White Label:</label>
+                            <label for="whiteLabel">White Label</label>
                         </div>
                         <div class="input-field col s3">
                             <select id="status" th:field="*{status}">
@@ -89,13 +89,13 @@
                                         th:selected="${job.status == status}">
                                 </option>
                             </select>
-                            <label for="status">Status:</label>
+                            <label for="status">Status</label>
                         </div>
                         <div style="margin-top: 45px;" class="input-field col s12">
                             <textarea th:field="*{description}"
                                       th:text="${job.description}"
                                       id="description"></textarea>
-                            <label style="margin-top: -42px;" for="description">Description:</label>
+                            <label style="margin-top: -42px;" for="description">Description</label>
                         </div>
                         <div class="input-field col s6 offset-s3">
                             <select id="productTypes" th:field="*{productTypes}" multiple>
@@ -104,7 +104,7 @@
                                         th:text="${productType}">
                                 </option>
                             </select>
-                            <label for="productTypes">Products:</label>
+                            <label for="productTypes">Products</label>
                         </div>
                         <!--
                         SEO
@@ -116,19 +116,19 @@
                                        id="seoValue"
                                        class="validate"
                                        type="number"/>
-                                <label for="seoValue">SEO Value:</label>
+                                <label for="seoValue">SEO Value</label>
                             </div>
                             <div style="margin-top: 45px;" class="input-field col s6">
                                 <textarea th:field="*{targetKeywords}"
                                           th:text="${job.targetKeywords}"
                                           id="targetKeywords"></textarea>
-                                <label style="margin-top: -42px;" for="targetKeywords">Target Keywords:</label>
+                                <label style="margin-top: -42px;" for="targetKeywords">Target Keywords</label>
                             </div>
                             <div style="margin-top: 45px;" class="input-field col s6">
                                 <textarea th:field="*{reportingKeywords}"
                                           th:text="${job.reportingKeywords}"
                                           id="reportingKeywords"></textarea>
-                                <label style="margin-top: -42px;" for="reportingKeywords">Reporting Keywords:</label>
+                                <label style="margin-top: -42px;" for="reportingKeywords">Reporting Keywords</label>
                             </div>
                             <div class="input-field col s6">
                                 <select id="seoSearchEngines" th:field="*{seoSearchEngines}" multiple>
@@ -137,21 +137,21 @@
                                             th:text="${searchEngine.description}">
                                     </option>
                                 </select>
-                                <label for="seoSearchEngines">SEO Search Engines:</label>
+                                <label for="seoSearchEngines">SEO Search Engines</label>
                             </div>
                             <div class="input-field col s3">
                                 <select id="onPageReview" th:field="*{onPageReview}">
                                     <option value="0" th:selected="${job.onPageReview == false}">No</option>
                                     <option value="1" th:selected="${job.onPageReview == true}">Yes</option>
                                 </select>
-                                <label for="onPageReview">On Page Review:</label>
+                                <label for="onPageReview">On Page Review</label>
                             </div>
                             <div class="input-field col s3">
                                 <select id="healthCheck" th:field="*{healthCheck}">
                                     <option value="0" th:selected="${job.healthCheck == false}">No</option>
                                     <option value="1" th:selected="${job.healthCheck == true}">Yes</option>
                                 </select>
-                                <label for="healthCheck">Health Check:</label>
+                                <label for="healthCheck">Health Check</label>
                             </div>
                         </div>
                         <!--
@@ -164,7 +164,7 @@
                                        id="linkValue"
                                        class="validate"
                                        type="number"/>
-                                <label for="linkValue">Link Building Value:</label>
+                                <label for="linkValue">Link Building Value</label>
                             </div>
                             <div class="col s6 file-field input-field">
                                 <div class="btn">
@@ -193,7 +193,7 @@
                                        id="googleDocLink"
                                        class="validate"
                                        type="text"/>
-                                <label for="googleDocLink">Google Doc Link:</label>
+                                <label for="googleDocLink">Google Doc Link</label>
                             </div>
                             <div class="input-field col s12">
                                 <select id="linkSearchEngines" th:field="*{linkSearchEngines}" multiple>
@@ -202,7 +202,7 @@
                                             th:text="${searchEngine.description}">
                                     </option>
                                 </select>
-                                <label for="linkSearchEngines">Link Building Search Engines:</label>
+                                <label for="linkSearchEngines">Link Building Search Engines</label>
                             </div>
                         </div>
                         <!--
@@ -215,7 +215,7 @@
                                        id="ppcValue"
                                        class="validate"
                                        type="number"/>
-                                <label for="ppcValue">PPC Value:</label>
+                                <label for="ppcValue">PPC Value</label>
                             </div>
                             <div class="input-field col s6">
                                 <select id="campaignTypes" th:field="*{campaignTypes}" multiple>
@@ -224,19 +224,19 @@
                                             th:text="${campaignType}">
                                     </option>
                                 </select>
-                                <label for="campaignTypes">Campaign Types:</label>
+                                <label for="campaignTypes">Campaign Types</label>
                             </div>
                             <div class="input-field col s3">
                                 <select id="asap" th:field="*{asap}">
                                     <option value="0" th:selected="${job.asap == false}">No</option>
                                     <option value="1" th:selected="${job.asap == true}">Yes</option>
                                 </select>
-                                <label for="asap">ASAP:</label>
+                                <label for="asap">ASAP</label>
                             </div>
                             <div class="input-field col s3">
                                 <input th:field="*{campaignLaunchDate}" id="campaignLaunchDate" class="validate"
                                        type="date">
-                                <label for="campaignLaunchDate">Campaign Launch Date:</label>
+                                <label for="campaignLaunchDate">Campaign Launch Date</label>
                             </div>
                             <div class="input-field col s3">
                                 <select id="signOffRequired" th:field="*{signOffRequired}">
@@ -250,7 +250,7 @@
                                     <option value="0" th:selected="${job.setUpRequired == false}">No</option>
                                     <option value="1" th:selected="${job.setUpRequired == true}">Yes</option>
                                 </select>
-                                <label for="setUpRequired">Set Up Required:</label>
+                                <label for="setUpRequired">Set Up Required</label>
                             </div>
                             <div class="facebookContainer hidden">
                                 <div class="input-field col s3">
@@ -258,21 +258,21 @@
                                            id="facebookId"
                                            class="validate"
                                            type="text"/>
-                                    <label for="facebookId">Facebook ID:</label>
+                                    <label for="facebookId">Facebook ID</label>
                                 </div>
                                 <div class="input-field col s3">
                                     <input th:field="*{facebookUrl}"
                                            id="facebookUrl"
                                            class="validate"
                                            type="text"/>
-                                    <label for="facebookUrl">Facebook URL:</label>
+                                    <label for="facebookUrl">Facebook URL</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input th:field="*{facebookMainGoal}"
                                            id="facebookMainGoal"
                                            class="validate"
                                            type="text"/>
-                                    <label for="facebookMainGoal">Facebook Main Goal:</label>
+                                    <label for="facebookMainGoal">Facebook Main Goal</label>
                                 </div>
                             </div>
                             <div class="input-field col s3">
@@ -280,49 +280,49 @@
                                        id="googleAdsId"
                                        class="validate"
                                        type="text"/>
-                                <label for="googleAdsId">Google Ads ID:</label>
+                                <label for="googleAdsId">Google Ads ID</label>
                             </div>
                             <div class="input-field col s3">
                                 <input th:field="*{monthlyClickSpend}"
                                        id="monthlyClickSpend"
                                        class="validate"
                                        type="text"/>
-                                <label for="monthlyClickSpend">Monthly Click Spend:</label>
+                                <label for="monthlyClickSpend">Monthly Click Spend</label>
                             </div>
                             <div class="input-field col s12">
                                 <input th:field="*{targetAreas}"
                                        id="targetAreas"
                                        class="validate"
                                        type="text"/>
-                                <label for="targetAreas">Target Areas:</label>
+                                <label for="targetAreas">Target Areas</label>
                             </div>
                             <div class="input-field col s12">
                                 <input th:field="*{landingPageUrls}"
                                        id="landingPageUrls"
                                        class="validate"
                                        type="text"/>
-                                <label for="landingPageUrls">Landing Page Urls:</label>
+                                <label for="landingPageUrls">Landing Page Urls</label>
                             </div>
                             <div class="input-field col s12">
                                 <input th:field="*{adwordsMainGoal}"
                                        id="adwordsMainGoal"
                                        class="validate"
                                        type="text"/>
-                                <label for="adwordsMainGoal">Adwords Main Goal:</label>
+                                <label for="adwordsMainGoal">Adwords Main Goal</label>
                             </div>
                             <div class="input-field col s12">
                                 <input th:field="*{thankYouPageUrl}"
                                        id="thankYouPageUrl"
                                        class="validate"
                                        type="text"/>
-                                <label for="thankYouPageUrl">Thank You Page URL:</label>
+                                <label for="thankYouPageUrl">Thank You Page URL</label>
                             </div>
                             <div class="input-field col s12">
                                 <input th:field="*{reportingEmail}"
                                        id="reportingEmail"
                                        class="validate"
                                        type="text"/>
-                                <label for="reportingEmail">Reporting Email:</label>
+                                <label for="reportingEmail">Reporting Email</label>
                             </div>
                         </div>
                         <!--
@@ -335,7 +335,7 @@
                                        id="contentValue"
                                        class="validate"
                                        type="number"/>
-                                <label for="contentValue">Content Value:</label>
+                                <label for="contentValue">Content Value</label>
                             </div>
                             <div class="input-field col s6">
                                 <input th:field="*{contentNumberOfPieces}"
@@ -343,7 +343,7 @@
                                        class="validate"
                                        type="number"
                                        step="1"/>
-                                <label for="contentNumberOfPieces">Number of pieces:</label>
+                                <label for="contentNumberOfPieces">Number of pieces</label>
                             </div>
                             <div class="input-field col s6">
                                 <select id="contentType" th:field="*{contentType}">
@@ -354,7 +354,7 @@
                                             th:selected="${job.contentType == contentType}">
                                     </option>
                                 </select>
-                                <label for="contentType">Content Type:</label>
+                                <label for="contentType">Content Type</label>
                             </div>
                             <div class="input-field col s6">
                                 <select id="contentLength" th:field="*{contentLength}">
@@ -367,14 +367,14 @@
                                     <option value="2500" th:selected="${job.contentLength == 2500}">2500</option>
                                     <option value="3000" th:selected="${job.contentLength == 3000}">3000</option>
                                 </select>
-                                <label for="contentLength">Content Length:</label>
+                                <label for="contentLength">Content Length</label>
                             </div>
                             <div class="input-field col s6">
                                 <input th:field="*{contentTitles}"
                                        id="contentTitles"
                                        class="validate"
                                        type="text"/>
-                                <label for="contentTitles">Titles:</label>
+                                <label for="contentTitles">Titles</label>
                             </div>
                             <div class="input-field col s6">
                                 <select id="contentWritingStyle" th:field="*{contentWritingStyle}">
@@ -385,7 +385,7 @@
                                             th:selected="${job.contentWritingStyle == writingStyle}">
                                     </option>
                                 </select>
-                                <label for="contentWritingStyle">Writing Style:</label>
+                                <label for="contentWritingStyle">Writing Style</label>
                             </div>
                             <div class="input-field col s6">
                                 <input th:field="*{contentKeywords}"

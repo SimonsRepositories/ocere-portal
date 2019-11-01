@@ -7,6 +7,7 @@ import com.ocere.portal.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,12 +110,17 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public void saveJob(Job job) {
-        jobRepository.saveAndFlush(job);
+    public Job saveJob(Job job) {
+        return jobRepository.saveAndFlush(job);
     }
 
     @Override
     public List<Job> findAllJobsByClientId(int id) {
         return jobRepository.findAllByClient(clientService.findClientById(id));
+    }
+
+    @Override
+    public List<Job> findAllByEndDateAfter(Date endDate) {
+        return jobRepository.findAllByEndDateAfter(endDate);
     }
 }

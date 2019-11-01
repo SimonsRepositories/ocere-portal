@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -313,6 +314,11 @@ public class Job {
         GETTER AND SETTER
     ------------------------*/
 
+    @Transactional
+    public User getOwner() {
+        return owner;
+    }
+
     public int getId() {
         return id;
     }
@@ -423,10 +429,6 @@ public class Job {
 
     public void setStatus(JobStatus status) {
         this.status = status;
-    }
-
-    public User getOwner() {
-        return owner;
     }
 
     public void setOwner(User owner) {

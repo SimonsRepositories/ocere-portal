@@ -38,7 +38,7 @@ public class NoteController {
         note.setTicket(ticketService.findTicketById(ticketId));
 
         model.addAttribute("note", note);
-        return "notes_form";
+        return "notes-form";
     }
 
     @GetMapping("edit/{id}")
@@ -51,7 +51,7 @@ public class NoteController {
         model.addAttribute("cancelPage", "/tickets/" + note.getTicket().getId());
 
         model.addAttribute("note", note);
-        return "notes_form";
+        return "notes-form";
     }
 
     /*

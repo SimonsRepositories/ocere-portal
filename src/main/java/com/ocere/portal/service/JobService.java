@@ -2,6 +2,7 @@ package com.ocere.portal.service;
 
 import com.ocere.portal.model.Job;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,9 @@ public interface JobService {
 
     Job updateJob(Job note, int id) throws Exception;
 
-    void saveJob(Job note);
+    Job saveJob(Job note);
 
     List<Job> findAllJobsByClientId(int id);
+
+    List<Job> findAllByEndDateAfter(Date endDate);
 }

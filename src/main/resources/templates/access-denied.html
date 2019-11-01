@@ -5,11 +5,30 @@
     <title>403 - Forbidden</title>
 
     <div th:replace="fragments :: head-links"></div>
+    <style>
+        #access-denied-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+        }
+    </style>
+    }
 </head>
-<body style="background-color: #1AA090">
-    <div id="access-forbidden-text">
+<body style="background-color: #2EC4B6; height: 100%;">
+    <div id="access-denied-container">
         <h1>403</h1>
-        <h3>Access forbidden</h3>
+        <h5>Access forbidden</h5>
+        <p>Sorry, you don't have access to this page.</p>
+        <p>You'll need admin rights to view it.</p>
+        <a href="/" style="background-color: #FF9800; border-radius: 10px; color: white; border: none; padding: 5px 10px 5px 10px;">return</a>
     </div>
+    <div th:replace="fragments :: script-links"></div>
 </body>
 </html>

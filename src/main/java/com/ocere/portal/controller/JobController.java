@@ -5,7 +5,10 @@ import com.ocere.portal.enums.ProductType;
 import com.ocere.portal.model.*;
 import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.DBFileStorageService;
+import com.ocere.portal.service.Impl.MailService;
+import com.ocere.portal.tasks.NextJobTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -29,9 +29,8 @@ public class JobController {
     private DBFileStorageService dbFileStorageService;
     private TicketService ticketService;
     private DefticketService defticketService;
-
-    @Autowired
-    private TurnaroundService turnaroundService;
+    private TaskScheduler taskScheduler;
+    private MailService mailService;
 
     @Autowired
     public JobController(JobService jobService,
@@ -39,13 +38,17 @@ public class JobController {
                          ClientService clientService,
                          DBFileStorageService dbFileStorageService,
                          TicketService ticketService,
-                         DefticketService defticketService) {
+                         DefticketService defticketService,
+                         TaskScheduler taskScheduler,
+                         MailService mailService) {
         this.jobService = jobService;
         this.userService = userService;
         this.clientService = clientService;
         this.dbFileStorageService = dbFileStorageService;
         this.ticketService = ticketService;
         this.defticketService = defticketService;
+        this.taskScheduler = taskScheduler;
+        this.mailService = mailService;
     }
 
     @GetMapping
@@ -74,7 +77,7 @@ public class JobController {
         job.setClient(clientService.findClientById(clientId));
 
         model.addAttribute("job", job);
-        return "jobs_form";
+        return "jobs-form";
     }
 
     @GetMapping("edit/{id}")
@@ -89,7 +92,7 @@ public class JobController {
         model.addAttribute("owners", userService.findAll());
 
         model.addAttribute("job", job);
-        return "jobs_form";
+        return "jobs-form";
     }
 
     @GetMapping("/clone")
@@ -104,7 +107,7 @@ public class JobController {
         model.addAttribute("owners", userService.findAll());
 
         model.addAttribute("job", new Job(job, this.userService.findByEmail(principal.getName())));
-        return "jobs_form";
+        return "jobs-form";
     }
 
     /*
@@ -131,7 +134,6 @@ public class JobController {
         job.setTickets(initialTickets);
 
         Client client = clientService.findClientById(job.getClient().getId());
-
         //set spending
         client.setTotalSpending(client.getTotalSpending() + job.getTotalValue());
         client.setMonthlySpending(client.getMonthlySpending() + job.getTotalValue());
@@ -140,7 +142,11 @@ public class JobController {
         client.setStatus(ClientStatus.ACTIVE);
 
         this.clientService.updateClient(client, client.getId());
-        this.jobService.saveJob(job);
+
+        Job savedJob = this.jobService.saveJob(job);
+        NextJobTask nextJobTask = new NextJobTask(mailService, savedJob.getOwner(), savedJob);
+        taskScheduler.schedule(nextJobTask, savedJob.getEndDate());
+
         return "redirect:/jobs/" + job.getId();
     }
 

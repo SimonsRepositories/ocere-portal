@@ -29,10 +29,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user, Set<Role> idRoles) {
-        if(user.getPassword() != null && user.getMailpassword() != null) {
+        if(user.getPassword() != null) {
             user.setPassword(encoder.encode(user.getPassword()));
+        }
+        if (user.getMailpassword() != null) {
             user.setMailpassword(encoder.encode(user.getMailpassword()));
         }
+
         user.setStatus("VERIFIED");
         //Role userRole = roleRepository.findById(roleId);
         //user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
