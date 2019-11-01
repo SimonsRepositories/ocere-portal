@@ -109,7 +109,8 @@ public class ClientController {
         user.setLastname(client.getContact().getLast_name());
         user.setEmail(client.getContact().getEmail());
         user.setRoles(new HashSet<>(4));
-        user.setPassword(generatePassword(12));
+        String password = generatePassword(12);
+        user.setPassword(password);
         user.setClient(true);
         this.userService.saveUser(user, roles);
 
@@ -121,8 +122,9 @@ public class ClientController {
             mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
                     "Authentication credentials for http://localhost:8080\n" +
                             "Username: " + user.getEmail() + "\n" +
-                            "Password: " + user.getPassword());
+                            "Password: " + password);
         } catch (Exception e) {
+            System.out.println(password);
             System.out.println("mail sending isn't possible with your email and mailpassword");
         }
 
