@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Our Custom CSS -->
-    <!--<link rel="stylesheet" th:href="@{/css/styles.css}">-->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
         body {
             color: #9C9C9C;
@@ -43,7 +43,7 @@
     </style>
 </head>
 <body>
-    <!--<div th:replace="fragments :: header"></div>-->
+    <div th:replace="fragments :: header"></div>
     <div id="mycard" class="shadow p-3 mb-5 bg-white rounded">
         <h4>Register</h4>
         <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return myFunction();" role="form">
