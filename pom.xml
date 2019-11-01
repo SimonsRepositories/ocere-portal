@@ -13,7 +13,7 @@
     <name>ocere-portal</name>
     <description>Complete overhaul for the ticket system as well as the digital marketing site for Ocere Ltd.
     </description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
