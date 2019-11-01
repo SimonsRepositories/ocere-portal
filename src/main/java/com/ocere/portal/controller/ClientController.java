@@ -79,7 +79,7 @@ public class ClientController {
             jobService.deleteJobById(job.getId());
         }
         clientService.deleteClientById(id);
-        return "redirect:/clients-list";
+        return "redirect:/clients";
     }
 
     @GetMapping("create")
@@ -110,7 +110,6 @@ public class ClientController {
         user.setEmail(client.getContact().getEmail());
         user.setRoles(new HashSet<>(4));
         String password = generatePassword(12);
-        System.out.println(password);
         user.setPassword(password);
         user.setClient(true);
         this.userService.saveUser(user, roles);
@@ -125,6 +124,7 @@ public class ClientController {
                             "Username: " + user.getEmail() + "\n" +
                             "Password: " + password);
         } catch (Exception e) {
+            System.out.println(password);
             System.out.println("mail sending isn't possible with your email and mailpassword");
         }
 

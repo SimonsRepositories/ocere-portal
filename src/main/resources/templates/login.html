@@ -8,8 +8,9 @@
     <!-- Our Custom CSS -->
     <!--<link rel="stylesheet" th:href="@{/css/styles.css}">-->
     <style>
-    body {
-        color: #9C9C9C;
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+        body {
+        color: #4d4d4d;
         font-family: "Open Sans";
         background-color:#2EC4B6;
         height: 100%;
@@ -45,11 +46,11 @@
         <form th:action="@{/login}" method="POST">
                 <div class="form-group">
                     <small for="email">Email</small>
-                    <input id="email" type="text" name="email" class="form-control" placeholder="name.example@ocere.com"/>
+                    <input id="email" type="text" name="email" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <small for="password">Password</small>
-                    <input id="password" type="password" name="password" class="form-control" placeholder="••••••••••••"/>
+                    <input id="password" type="password" name="password" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <div align="center" th:if="${param.error}">

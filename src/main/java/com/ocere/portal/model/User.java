@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
@@ -23,7 +24,6 @@ public class User
 
     @Column(name = "first_name")
     private String firstname;
-
 
     @Column(name = "last_name")
     private String lastname;

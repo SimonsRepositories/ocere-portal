@@ -31,47 +31,47 @@ public class ScheduledTasks {
         this.mailService = mailService;
     }
 
-    @Scheduled(cron = "00 00 1 * * *")
-    public void resetMonthlySpending() {
-        for (Client client : clientService.findAll()) {
-            client.setMonthlySpending(0.0);
-        }
-    }
-
-    @Scheduled(cron = "00 00 00 * * *")
-    public void checkClientActivity() {
-        Date today = new Date();
-        Calendar cal = new GregorianCalendar();
-        cal.setTime(today);
-        cal.add(Calendar.DAY_OF_MONTH, -30);
-        Date month = cal.getTime();
-        cal.add(Calendar.DAY_OF_MONTH, -180);
-        Date month2 = cal.getTime();
-
-        for (Client client : clientService.findAll()) {
-            Date mostRecent = new GregorianCalendar(1970, Calendar.JANUARY, 1).getTime();
-            // get most recent job
-            for (Job job : client.getJobs()) {
-                if (job.getEndDate().after(mostRecent)) {
-                    mostRecent = job.getEndDate();
-                }
-
-                if (mostRecent.before(month)) {
-                    client.setStatus(ClientStatus.ACTIVE);
-                } else if (mostRecent.before(month2)) {
-                    client.setStatus(ClientStatus.INACTIVE);
-                } else {
-                    client.setStatus(ClientStatus.DEAD);
-                }
-            }
-        }
-    }
-
-    @Scheduled(cron = "0 */1 * * * *")
-    public void updateScheduledTasks() {
-        for (Job job: jobService.findAll()) {
-            NextJobTask nextJobTask = new NextJobTask(mailService, job.getOwner(), job);
-            taskScheduler.schedule(nextJobTask, job.getEndDate());
-        }
-    }
+//    @Scheduled(cron = "0 0 0 1 * *")
+//    public void resetMonthlySpending() {
+//        for (Client client : clientService.findAll()) {
+//            client.setMonthlySpending(0.0);
+//        }
+//    }
+//
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void checkClientActivity() {
+//        Date today = new Date();
+//        Calendar cal = new GregorianCalendar();
+//        cal.setTime(today);
+//        cal.add(Calendar.DAY_OF_MONTH, -30);
+//        Date month = cal.getTime();
+//        cal.add(Calendar.DAY_OF_MONTH, -180);
+//        Date month2 = cal.getTime();
+//
+//        for (Client client : clientService.findAll()) {
+//            Date mostRecent = new GregorianCalendar(1970, Calendar.JANUARY, 1).getTime();
+//            // get most recent job
+//            for (Job job : client.getJobs()) {
+//                if (job.getEndDate().after(mostRecent)) {
+//                    mostRecent = job.getEndDate();
+//                }
+//
+//                if (mostRecent.before(month)) {
+//                    client.setStatus(ClientStatus.ACTIVE);
+//                } else if (mostRecent.before(month2)) {
+//                    client.setStatus(ClientStatus.INACTIVE);
+//                } else {
+//                    client.setStatus(ClientStatus.DEAD);
+//                }
+//            }
+//        }
+//    }
+//
+//    @Scheduled(cron = "0 */1 * * * *")
+//    public void updateScheduledTasks() {
+//        for (Job job: jobService.findAll()) {
+//            NextJobTask nextJobTask = new NextJobTask(mailService, job.getOwner(), job);
+//            taskScheduler.schedule(nextJobTask, job.getEndDate());
+//        }
+//    }
 }
