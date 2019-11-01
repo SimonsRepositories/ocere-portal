@@ -2,7 +2,7 @@ package com.ocere.portal.enums;
 
 // Prototype
 public enum JobStatus {
-    Live("Live");
+    ACTIVE("Active"), COMPLETED("Completed");
 
     private String description;
 

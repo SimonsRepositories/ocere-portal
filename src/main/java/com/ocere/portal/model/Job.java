@@ -16,6 +16,11 @@ import java.util.stream.Collectors;
 @Entity
 public class Job {
 
+    /**
+     * Clone job for next month
+     * @param job
+     * @param author
+     */
     public Job(Job job, User author) {
         this.client = job.getClient();
         this.createdAt = new Timestamp(System.currentTimeMillis());
@@ -63,8 +68,7 @@ public class Job {
         this.contentWritingStyle = job.getContentWritingStyle();
         this.contentKeywords = job.getContentKeywords();
 
-        /*this.startDate = job.getStartDate();
-        this.endDate = job.getEndDate();*/
+        this.month = job.getMonth() + 1;
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(job.getStartDate());
@@ -76,6 +80,7 @@ public class Job {
     }
 
     public Job() {
+        month = 1;
         asap = true;
         seoValue = 0;
         linkValue = 0;
@@ -110,6 +115,8 @@ public class Job {
             joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "producttype_id")
     private Set<ProductType> productTypes;
+
+    private int month;
 
     /*---------------------------
         EDITABLE
@@ -708,5 +715,13 @@ public class Job {
 
     public void setOrderFormFile(DBFile orderFormFile) {
         this.orderFormFile = orderFormFile;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 }

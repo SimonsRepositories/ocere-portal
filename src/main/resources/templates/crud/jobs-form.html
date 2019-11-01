@@ -396,6 +396,7 @@
                             </div>
                         </div>
                         <input th:field="*{client.id}" th:value="${job.client.id}" hidden/>
+                        <input th:field="*{month}" th:value="${job.month}" hidden/>
                         <div class="col s12">
                             <button th:text="${submitText}" type="submit" class="btn">Submit</button>
                             <a th:href="${cancelPage}" class="btn btn-cancel">Cancel</a>
