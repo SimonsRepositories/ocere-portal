@@ -1,7 +1,7 @@
 package com.ocere.portal.model;
 
-import com.ocere.portal.enums.*;
 import com.ocere.portal.enums.Currency;
+import com.ocere.portal.enums.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;

@@ -20,11 +20,6 @@
                     <div class="row">
                         <div class="col s12">
                             <h1>Group View
-                                <a class="btn btn-primary" th:href="${'/groups/edit-group/' + usergroup.id}">Edit</a>
-                                <!--<form class="inlineBlockForm" method="post">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>-->
-                                <a class="btn btn-primary" th:href="@{/groups/delete-group?id={id}(id=${usergroup.id})}">Delete</a>
                                 <a href="/groups" class="btn btn-warning">Cancel</a>
                             </h1>
                         </div>
@@ -43,6 +38,15 @@
                             <p class="attribute-value" th:text="${usergroup.updated_at}">Value</p>
                         </div>
                     </div>
+                </div>
+                <div class="fixed-action-btn click-to-toggle">
+                    <a class="btn-floating btn-large ocere-green--background">
+                        <i class="large material-icons">menu</i>
+                    </a>
+                    <ul>
+                        <li><a th:href="${'/groups/edit-group/' + usergroup.id}" class="btn-floating yellow"><i class="material-icons">edit</i></a></li>
+                        <li><a th:href="@{/groups/delete-group?id={id}(id=${usergroup.id})}" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
