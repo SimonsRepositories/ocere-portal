@@ -79,7 +79,7 @@ public class ClientController {
             jobService.deleteJobById(job.getId());
         }
         clientService.deleteClientById(id);
-        return "redirect:/clients-list";
+        return "redirect:/clients";
     }
 
     @GetMapping("create")

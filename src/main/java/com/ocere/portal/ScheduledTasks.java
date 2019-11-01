@@ -31,14 +31,14 @@ public class ScheduledTasks {
         this.mailService = mailService;
     }
 
-    @Scheduled(cron = "00 00 1 * * *")
+    @Scheduled(cron = "0 0 0 1 * *")
     public void resetMonthlySpending() {
         for (Client client : clientService.findAll()) {
             client.setMonthlySpending(0.0);
         }
     }
 
-    @Scheduled(cron = "00 00 00 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void checkClientActivity() {
         Date today = new Date();
         Calendar cal = new GregorianCalendar();
