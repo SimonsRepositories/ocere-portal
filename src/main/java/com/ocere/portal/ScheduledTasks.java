@@ -38,7 +38,7 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(cron = "00 00 * * * *")
+    @Scheduled(cron = "00 00 00 * * *")
     public void checkClientActivity() {
         Date today = new Date();
         Calendar cal = new GregorianCalendar();

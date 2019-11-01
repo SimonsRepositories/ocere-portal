@@ -3,6 +3,7 @@ package com.ocere.portal.controller;
 import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.Tier;
 import com.ocere.portal.model.Client;
+import com.ocere.portal.model.Job;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.*;
@@ -74,8 +75,11 @@ public class ClientController {
 
     @PostMapping("delete/{id}")
     public String deleteClient(@PathVariable int id) throws Exception {
+        for (Job job : clientService.findClientById(id).getJobs()) {
+            jobService.deleteJobById(job.getId());
+        }
         clientService.deleteClientById(id);
-        return "clients-list";
+        return "redirect:/clients-list";
     }
 
     @GetMapping("create")
@@ -105,7 +109,9 @@ public class ClientController {
         user.setLastname(client.getContact().getLast_name());
         user.setEmail(client.getContact().getEmail());
         user.setRoles(new HashSet<>(4));
-        user.setPassword(generatePassword(12));
+        String password = generatePassword(12);
+        System.out.println(password);
+        user.setPassword(password);
         user.setClient(true);
         this.userService.saveUser(user, roles);
 
@@ -117,7 +123,7 @@ public class ClientController {
             mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
                     "Authentication credentials for http://localhost:8080\n" +
                             "Username: " + user.getEmail() + "\n" +
-                            "Password: " + user.getPassword());
+                            "Password: " + password);
         } catch (Exception e) {
             System.out.println("mail sending isn't possible with your email and mailpassword");
         }
