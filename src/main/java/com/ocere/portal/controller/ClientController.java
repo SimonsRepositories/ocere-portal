@@ -51,7 +51,7 @@ public class ClientController {
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
         model.addAttribute("contacts", contactService.findAll());
 
-        return "clients";
+        return "clients-list";
     }
 
     @GetMapping("{id}")
@@ -75,7 +75,7 @@ public class ClientController {
     @PostMapping("delete/{id}")
     public String deleteClient(@PathVariable int id) throws Exception {
         clientService.deleteClientById(id);
-        return "clients";
+        return "clients-list";
     }
 
     @GetMapping("create")

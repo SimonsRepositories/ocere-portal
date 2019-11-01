@@ -87,7 +87,7 @@ public class TicketController {
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "tickets_form";
+        return "tickets-form";
     }
 
     @GetMapping("/edit/{id}")
@@ -101,7 +101,7 @@ public class TicketController {
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "tickets_form";
+        return "tickets-form";
     }
 
     /*
@@ -134,7 +134,7 @@ public class TicketController {
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "tickets_form";
+        return "tickets-form";
     }
 
     @GetMapping("/templates/edit/{id}")
@@ -148,7 +148,7 @@ public class TicketController {
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "tickets_form";
+        return "tickets-form";
     }
 
     /*
@@ -181,12 +181,12 @@ public class TicketController {
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "tickets_form";
+        return "tickets-form";
     }
 
     @GetMapping("/deftickets/edit/{id}")
     public String loadDefticketEditView(Model model, @PathVariable int id) {
-        model.addAttribute("siteTitle", "Edit Defticket");
+        model.addAttribute("siteTitle", "Edit Generation Ticket");
         model.addAttribute("action", "deftickets/save/" + id);
         model.addAttribute("submitText", "Save");
         model.addAttribute("cancelPage", "/tickets/deftickets/" + id);
@@ -195,7 +195,7 @@ public class TicketController {
         model.addAttribute("users", this.userService.findAll());
         model.addAttribute("groups", this.usergroupService.findAll());
         model.addAttribute("turnaroundTimes", this.turnaroundService.findAll());
-        return "tickets_form";
+        return "tickets-form";
     }
 
     /*-----------------

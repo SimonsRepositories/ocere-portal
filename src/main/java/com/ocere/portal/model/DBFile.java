@@ -14,7 +14,6 @@ public class DBFile {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(length = 50)
     private String id;
 
     @OneToOne(mappedBy = "orderFormFile")
