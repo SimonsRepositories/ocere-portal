@@ -43,7 +43,7 @@
     </style>
 </head>
 <body>
-    <div th:replace="fragments :: header"></div>
+    <!--<div th:replace="fragments :: header"></div>-->
     <div id="mycard" class="shadow p-3 mb-5 bg-white rounded">
         <h4>Register</h4>
         <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return myFunction();" role="form">
