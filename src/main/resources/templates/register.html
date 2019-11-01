@@ -3,71 +3,107 @@
 <head>
     <title>Ocere - Register</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <div th:replace="fragments :: head-links"></div>
+    <!-- Our Custom CSS -->
+    <!--<link rel="stylesheet" th:href="@{/css/styles.css}">-->
+    <style>
+        body {
+            color: #9C9C9C;
+            font-family: "Open Sans";
+            background-color:#2EC4B6;
+            height: 100%;
+        }
+        #mycard {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            padding: 2rem 3rem 2rem 3rem !important;
+            border-radius: 12px !important;
+            width: 650px;
+        }
+        h4 {
+            text-align: center;
+        }
+        .btn {
+            background-color: #ff9f1c;
+            border-radius: 8px;
+            border: none;
+            color : white;
+            width: 140px;
+            padding: 7px 10px 7px 10px;
+            margin-top: 20px;
+        }
+        #selectRoles li{
+            list-style-type: none;
+        }
+    </style>
 </head>
-<body style="background-color: #1AA090;">
-<div th:replace="fragments :: header"></div>
-    <div class="row">
-        <div class="col s6" style="margin-left: 25%;">
-            <div class="card grey lighten-5">
-                <div class="card-content">
-                    <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return myFunction();" role="form">
-                        <span class="card-title center">Register</span>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input id="firstname" type="text" th:field="*{firstname}" class="form-control" required/>
-                                <label for="firstname">First Name</label>
-                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></small>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="lastname" type="text" th:field="*{lastname}" class="form-control" required/>
-                                <label for="lastname">Last Name</label>
-                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></small>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="email" type="text" th:field="*{email}" class="form-control"/>
-                                <label for="email">Email</label>
-                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="mailpassword" type="password" th:field="*{mailpassword}" class="form-control" required/>
-                                <label for="mailpassword">App Password</label>
-                                <small style="color: #FF190A;" th:if="${#fields.hasErrors('mailpassword')}" th:errors="*{mailpassword}"></small>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="newPassword" type="password" class="form-control"/>
-                                <label for="newPassword">New Password</label>
-                            </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="input-field col s6">
-                                        <input id="confirmPassword" type="password" th:field="*{password}" class="form-control" required/>
-                                        <label for="confirmPassword">Confirm new password</label>
-                                        <small style="color: #FF190A;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
-                                        <br><small style="color: #FF190A;" id="passwordMatch"></small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-field col s12">
-                                <select id="roles" th:field="*{roles}" multiple>
-                                    <option th:each="role : ${listOfRoles}"
-                                            th:value="${role.id}"
-                                            th:text="${role.desc}">
-                                    </option>
-                                </select>
-                                <label for="roles">Roles</label>
-                            </div>
-                            <div class="input-field col s12 center">
-                                <button type="submit" class="waves-effect waves-light btn">Register User</button>
-                            </div>
-                        </div>
-                    </form>
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div id="mycard" class="shadow p-3 mb-5 bg-white rounded">
+        <h4>Register</h4>
+        <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return myFunction();" role="form">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <small style="color: #FF190A;">* </small><small for="firstname">First Name</small>
+                    <input id="firstname" type="text" th:field="*{firstname}" class="form-control" placeholder="first name" required/>
+                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></small>
+                </div>
+                <div class="form-group col-lg-6">
+                    <small style="color: #FF190A;">* </small><small for="lastname">Last Name</small>
+                    <input id="lastname" type="text" th:field="*{lastname}" class="form-control" placeholder="last name" required/>
+                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></small>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <small style="color: #FF190A;">* </small><small for="email">Email</small>
+                    <input id="email" type="text" th:field="*{email}" class="form-control" placeholder="example@ocere.com" required/>
+                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                </div>
+                <div class="form-group col-lg-6">
+                    <small for="mailpassword">App Password</small>
+                    <input id="mailpassword" type="password" th:field="*{mailpassword}" class="form-control" placeholder="your app password"/>
+                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('mailpassword')}" th:errors="*{mailpassword}"></small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6 col-lg-offset-6">
+                    <small style="color: #FF190A;">* </small><small for="newPassword">New Password</small>
+                    <input id="newPassword" type="password" class="form-control" placeholder="min 8 characters" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="gorm-group col-lg-6 col-lg-offset-6">
+                    <small style="color: #FF190A;">* </small><label for="confirmPassword">Confirm new password</label>
+                    <input id="confirmPassword" type="password" th:field="*{password}" class="form-control" placeholder="confirm password" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="gorm-group col-lg-12">
+                    <small style="color: #FF190A;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+                    <br><small style="color: #FF190A;" id="passwordMatch"></small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6 col-lg-offset-6">
+                    <small style="color: #FF190A;">* </small><small for="roles">Select Roles</small>
+                    <ul id="selectRoles" style="padding: 0;">
+                        <li th:each="role : ${listOfRoles}">
+                            <input type="checkbox" id="roles" th:field="*{roles}" th:value="${role.id}"/>
+                            <label th:text="${role.desc}"></label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group" style="text-align: center;">
+                <button type="submit" class="waves-effect waves-light btn">Register User</button>
+            </div>
+        </form>
     </div>
 
 <div th:replace="fragments :: script-links"></div>

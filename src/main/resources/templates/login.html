@@ -45,11 +45,11 @@
         <form th:action="@{/login}" method="POST">
                 <div class="form-group">
                     <small for="email">Email</small>
-                    <input id="email" type="text" name="email" class="form-control" placeholder="name.example@ocere.com"/>
+                    <input id="email" type="text" name="email" class="form-control" />
                 </div>
                 <div class="form-group">
                     <small for="password">Password</small>
-                    <input id="password" type="password" name="password" class="form-control" placeholder="••••••••••••"/>
+                    <input id="password" type="password" name="password" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <div align="center" th:if="${param.error}">
