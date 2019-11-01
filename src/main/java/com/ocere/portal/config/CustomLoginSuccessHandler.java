@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Configuration
-public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -31,7 +31,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     }
 
     protected String determineTargetUrl(Authentication authentication) {
-        String url = "/login?error=true";
+        String url = "/";
 
         // Fetch the roles from Authentication object
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -41,14 +41,9 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         }
 
         // check user role and decide the redirect URL
-        /*if (roles.contains("ADMIN_USER")) {
-            url = "/";
+        if (roles.contains("CLIENT")) {
+            url = "/client";
         }
-        else if (roles.contains("SITE_USER")) {
-            url = "/";
-        }*/
-
-        url = "/";
 
         return url;
     }

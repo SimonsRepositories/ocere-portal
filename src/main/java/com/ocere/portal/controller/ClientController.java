@@ -3,11 +3,13 @@ package com.ocere.portal.controller;
 import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.Tier;
 import com.ocere.portal.model.Client;
+import com.ocere.portal.model.Job;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.*;
 import com.ocere.portal.service.Impl.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("clients")
@@ -31,6 +34,7 @@ public class ClientController {
     private MailService mailService;
     private RoleService roleService;
     private ContactService contactService;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
     public ClientController(ClientService clientService,
@@ -38,13 +42,15 @@ public class ClientController {
                             JobService jobService,
                             MailService mailService,
                             RoleService roleService,
-                            ContactService contactService) {
+                            ContactService contactService,
+                            BCryptPasswordEncoder encoder) {
         this.clientService = clientService;
         this.userService = userService;
         this.jobService = jobService;
         this.mailService = mailService;
         this.roleService = roleService;
         this.contactService = contactService;
+        this.encoder = encoder;
     }
 
     @GetMapping
@@ -76,8 +82,11 @@ public class ClientController {
 
     @PostMapping("delete/{id}")
     public String deleteClient(@PathVariable int id) throws Exception {
+        for (Job job : clientService.findClientById(id).getJobs()) {
+            jobService.deleteJobById(job.getId());
+        }
         clientService.deleteClientById(id);
-        return "clients";
+        return "redirect:/clients";
     }
 
     @GetMapping("create")
@@ -107,7 +116,9 @@ public class ClientController {
         user.setLastname(client.getContact().getLast_name());
         user.setEmail(client.getContact().getEmail());
         user.setRoles(new HashSet<>(4));
-        user.setPassword(generatePassword(12));
+        String password = generatePassword(12);
+        System.out.println(password);
+        user.setPassword(password);
         user.setClient(true);
         this.userService.saveUser(user, roles);
 
@@ -119,7 +130,7 @@ public class ClientController {
             mailService.sendMail(principal.getName(), userService.findByEmail(principal.getName()).getMailpassword(), user.getEmail(), "Ocere login credentials",
                     "Authentication credentials for http://localhost:8080\n" +
                             "Username: " + user.getEmail() + "\n" +
-                            "Password: " + user.getPassword());
+                            "Password: " + password);
         } catch (Exception e) {
             System.out.println("mail sending isn't possible with your email and mailpassword");
         }
