@@ -17,7 +17,6 @@ import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("clients")
@@ -53,7 +52,7 @@ public class ClientController {
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
         model.addAttribute("contacts", contactService.findAll());
 
-        return "clients";
+        return "clients-list";
     }
 
     @GetMapping("{id}")
@@ -80,7 +79,7 @@ public class ClientController {
             jobService.deleteJobById(job.getId());
         }
         clientService.deleteClientById(id);
-        return "redirect:/clients";
+        return "redirect:/clients-list";
     }
 
     @GetMapping("create")
