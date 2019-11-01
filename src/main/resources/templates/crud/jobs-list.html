@@ -22,24 +22,26 @@
                         <h1>Jobs</h1>
                     </div>
                     <h4 th:if="${jobs.isEmpty()}">No jobs found</h4>
-                    <div class="row input-field">
-                        <input th:if="${!jobs.isEmpty()}" type="text" id="jobSearchInput" onkeyup="searchTable()">
-                        <label for="jobSearchInput">Search for company</label>
+                    <div th:if="${!jobs.isEmpty()}">
+                        <div class="row input-field">
+                            <input type="text" id="jobSearchInput" onkeyup="searchTable()">
+                            <label for="jobSearchInput">Search for company</label>
+                        </div>
+                        <table class="table table-striped js-sort-table" id="jobTable">
+                            <thead class="sortable-head">
+                            <tr>
+                                <th class="js-sort-string">Company</th>
+                                <th class="js-sort-string">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="job : ${jobs}" th:data-id="${job.id}" class="job-row">
+                                <td th:text="${job.company}"></td>
+                                <td th:text="${job.status}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <table th:if="${!jobs.isEmpty()}" class="table table-striped js-sort-table" id="jobTable">
-                        <thead class="sortable-head">
-                        <tr>
-                            <th class="js-sort-string">Company</th>
-                            <th class="js-sort-string">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="job : ${jobs}" th:data-id="${job.id}" class="job-row">
-                            <td th:text="${job.company}"></td>
-                            <td th:text="${job.status}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

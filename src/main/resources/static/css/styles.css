@@ -8,13 +8,18 @@
     -webkit-font-smoothing: antialiased;
 }
 
+
+h1, h2, h3, h4, h5, h6, p, b {
+    color: #4d4d4d;
+}
+
 /* -----------------------------------------------------
     HEADER
 ----------------------------------------------------- */
 
 .header-wrapper {
     width: 100vw;
-    background-color: #fff;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
     outline: 0;
@@ -204,7 +209,7 @@ a.button {
 
 /*Black color to the text*/
 .tabs .tab a {
-    color: #9FCCBE;
+    color: #4d4d4d;
 }
 
 /*Text color on hover*/
@@ -221,6 +226,10 @@ a.button {
 /*Color of underline*/
 .tabs .indicator {
     background-color: #1AA090;
+}
+
+a {
+    outline: none;
 }
 
 /*Color after click*/
@@ -336,7 +345,7 @@ td {
 }
 
 ::placeholder {
-    color: black;
+    color: #4d4d4d;
 }
 
 table:hover {
@@ -357,7 +366,7 @@ table:hover {
 .index-button p {
     text-align: center;
     font-size: 24px;
-    color: black;
+    color: #4d4d4d;
 }
 
 /*
@@ -379,12 +388,12 @@ table:hover {
 
 .attribute-value {
     font-size: 18px;
-    color: #000000;
+    color: #4d4d4d;
     margin: 5px 0;
 }
 
 .file-link {
-    color: black;
+    color: #4d4d4d;
     font-size: 18px;
     display: inline-block;
     margin: 5px 0px;
@@ -425,7 +434,7 @@ table:hover {
 
 .btn-cancel:hover {
     background-color: #666666;
-    color: #ffffff;
+    color: #4d4d4d;
 }
 
 

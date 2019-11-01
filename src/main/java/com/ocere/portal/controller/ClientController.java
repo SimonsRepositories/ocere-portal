@@ -3,6 +3,7 @@ package com.ocere.portal.controller;
 import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.enums.Tier;
 import com.ocere.portal.model.Client;
+import com.ocere.portal.model.Job;
 import com.ocere.portal.model.Role;
 import com.ocere.portal.model.User;
 import com.ocere.portal.service.*;
@@ -51,7 +52,7 @@ public class ClientController {
         model.addAttribute("created", clientService.findAllByAuthor(userService.findByEmail(principal.getName())));
         model.addAttribute("contacts", contactService.findAll());
 
-        return "clients";
+        return "clients-list";
     }
 
     @GetMapping("{id}")
@@ -74,8 +75,11 @@ public class ClientController {
 
     @PostMapping("delete/{id}")
     public String deleteClient(@PathVariable int id) throws Exception {
+        for (Job job : clientService.findClientById(id).getJobs()) {
+            jobService.deleteJobById(job.getId());
+        }
         clientService.deleteClientById(id);
-        return "clients";
+        return "redirect:/clients-list";
     }
 
     @GetMapping("create")

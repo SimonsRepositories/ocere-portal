@@ -4,7 +4,11 @@ import com.ocere.portal.enums.ClientStatus;
 import com.ocere.portal.model.Client;
 import com.ocere.portal.model.Job;
 import com.ocere.portal.service.ClientService;
+import com.ocere.portal.service.Impl.MailService;
+import com.ocere.portal.service.JobService;
+import com.ocere.portal.tasks.NextJobTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +19,16 @@ import java.util.GregorianCalendar;
 @Component
 public class ScheduledTasks {
     private ClientService clientService;
+    private JobService jobService;
+    private TaskScheduler taskScheduler;
+    private MailService mailService;
 
     @Autowired
-    public ScheduledTasks(ClientService clientService) {
+    public ScheduledTasks(ClientService clientService, JobService jobService, TaskScheduler taskScheduler, MailService mailService) {
         this.clientService = clientService;
+        this.jobService = jobService;
+        this.taskScheduler = taskScheduler;
+        this.mailService = mailService;
     }
 
     @Scheduled(cron = "00 00 1 * * *")
@@ -28,7 +38,7 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(cron = "00 00 * * * *")
+    @Scheduled(cron = "00 00 00 * * *")
     public void checkClientActivity() {
         Date today = new Date();
         Calendar cal = new GregorianCalendar();
@@ -54,6 +64,14 @@ public class ScheduledTasks {
                     client.setStatus(ClientStatus.DEAD);
                 }
             }
+        }
+    }
+
+    @Scheduled(cron = "0 */1 * * * *")
+    public void updateScheduledTasks() {
+        for (Job job: jobService.findAll()) {
+            NextJobTask nextJobTask = new NextJobTask(mailService, job.getOwner(), job);
+            taskScheduler.schedule(nextJobTask, job.getEndDate());
         }
     }
 }
