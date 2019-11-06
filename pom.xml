@@ -88,6 +88,13 @@
             <version>7.1</version>
         </dependency>
 
+        <!-- DEV -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- ?DO WE NEED THIS? -->
         <dependency>
             <groupId>javax.xml.bind</groupId>

@@ -14,6 +14,88 @@ h1, h2, h3, h4, h5, h6, p, b {
 }
 
 /* -----------------------------------------------------
+    MATERIALIZE OVERRIDE
+----------------------------------------------------- */
+
+/*Black color to the text*/
+.tabs .tab a {
+    color: #4d4d4d;
+}
+
+/*Text color on hover*/
+.tabs .tab a:hover {
+    color: #1AA090;
+}
+
+/*Background and text color when a tab is active*/
+.tabs .tab a.active {
+    background-color: rgba(46, 196, 182, 0.2);
+    color: #1AA090;
+}
+
+/*Color of underline*/
+.tabs .indicator {
+    background-color: #1AA090;
+}
+
+a {
+    outline: none;
+}
+
+/*Color after click*/
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba(46, 196, 182, 0.2);
+    outline: none;
+}
+
+input[type=text].error, input[type=date].error, input[type=number].error {
+    border-bottom: 1px solid #ff0000;
+    -webkit-box-shadow: 0 1px 0 0 #ff0000;
+    box-shadow: 0 1px 0 0 #ff0000;
+}
+
+p.error {
+    display: block !important;
+    margin: 0px;
+    font-size: 0.8rem;
+    color: #ff0000;
+}
+
+.input-field > input[type=date] ~ label {
+    -webkit-transform: translateY(-14px) scale(0.8);
+    transform: translateY(-14px) scale(0.8);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+.dropdown .links a:hover:not([href]), .navigation .links a:hover:not([href]) {
+    color: #4d4d4d;
+}
+
+.btn {
+    background-color: #2ec4b6;
+}
+
+.btn:hover {
+    background-color: #1AA090;
+}
+
+.btn-cancel {
+    background-color: #cccccc;
+}
+
+.btn-cancel:hover {
+    background-color: #666666;
+    color: #4d4d4d;
+}
+
+input.valid:not([type]), input.valid:not([type]):focus, input.valid[type=text]:not(.browser-default), input.valid[type=text]:not(.browser-default):focus, input.valid[type=password]:not(.browser-default), input.valid[type=password]:not(.browser-default):focus, input.valid[type=email]:not(.browser-default), input.valid[type=email]:not(.browser-default):focus, input.valid[type=url]:not(.browser-default), input.valid[type=url]:not(.browser-default):focus, input.valid[type=time]:not(.browser-default), input.valid[type=time]:not(.browser-default):focus, input.valid[type=date]:not(.browser-default), input.valid[type=date]:not(.browser-default):focus, input.valid[type=datetime]:not(.browser-default), input.valid[type=datetime]:not(.browser-default):focus, input.valid[type=datetime-local]:not(.browser-default), input.valid[type=datetime-local]:not(.browser-default):focus, input.valid[type=tel]:not(.browser-default), input.valid[type=tel]:not(.browser-default):focus, input.valid[type=number]:not(.browser-default), input.valid[type=number]:not(.browser-default):focus, input.valid[type=search]:not(.browser-default), input.valid[type=search]:not(.browser-default):focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus, .select-wrapper.valid>input.select-dropdown {
+    border: 1px solid #4CAF50;
+    box-shadow: none;
+}
+
+
+/* -----------------------------------------------------
     HEADER
 ----------------------------------------------------- */
 
@@ -120,7 +202,7 @@ h1, h2, h3, h4, h5, h6, p, b {
     margin-left: 16px;
 }
 
-a.button.green, button.green {
+/*a.button.green, button.green {
     background-color: #2ec4b6;
     border: 3px solid #2ec4b6;
     color: #fff;
@@ -130,36 +212,10 @@ a.button.orange, button.orange {
     background-color: #ff9f1c;
     border: 3px solid #ff9f1c;
     color: #fff;
-}
+}*/
 
-.header-wrapper .header .buttons .orange {
+.header-wrapper .header .buttons .button-orange {
     margin-left: 4px;
-}
-
-a.button {
-    padding: 8px 16px;
-    line-height: 24px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-sizing: border-box;
-    text-decoration: none;
-    text-align: center;
-    margin: 2px 0;
-    display: inline-block;
-    text-wrap: none;
-    white-space: nowrap;
-    overflow: hidden;
-    transition: color .2s, background-color .2s ease, border .2s;
-    min-width: 120px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: #f0f0ef;
-    border: 3px solid #f0f0ef;
-    color: #707070;
 }
 
 /* -----------------------------------------------------
@@ -176,9 +232,9 @@ a.button {
     max-width: 1350px;
 }
 
-/*
+/* -----------------------------------------------------
     CONTAINER
- */
+----------------------------------------------------- */
 
 .content-container {
     flex-direction: row;
@@ -203,82 +259,17 @@ a.button {
     display: none;
 }
 
-/*
-    MATERIALIZE
- */
-
-/*Black color to the text*/
-.tabs .tab a {
-    color: #4d4d4d;
-}
-
-/*Text color on hover*/
-.tabs .tab a:hover {
-    color: #1AA090;
-}
-
-/*Background and text color when a tab is active*/
-.tabs .tab a.active {
-    background-color: rgba(46, 196, 182, 0.2);
-    color: #1AA090;
-}
-
-/*Color of underline*/
-.tabs .indicator {
-    background-color: #1AA090;
-}
-
-a {
-    outline: none;
-}
-
-/*Color after click*/
-.tabs .tab a:focus, .tabs .tab a:focus.active {
-    background-color: rgba(46, 196, 182, 0.2);
-    outline: none;
-}
-
-input[type=text].error, input[type=date].error, input[type=number].error {
-    border-bottom: 1px solid #ff0000;
-    -webkit-box-shadow: 0 1px 0 0 #ff0000;
-    box-shadow: 0 1px 0 0 #ff0000;
-}
-
-p.error {
-    display: block !important;
-    margin: 0px;
-    font-size: 0.8rem;
-    color: #ff0000;
-}
-
-.input-field > input[type=date] ~ label {
-    -webkit-transform: translateY(-14px) scale(0.8);
-    transform: translateY(-14px) scale(0.8);
-    -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
-}
-
-a.button.ocere {
-    background-color: #2EC4B6;
-    border: 3px solid #2EC4B6;
-    color: #fff;
-}
-
-.dropdown .links a:hover:not([href]), .navigation .links a:hover:not([href]) {
-    color: #4d4d4d;
-}
-
-/*
-    BACKGROUND COLOR
- */
+/* -----------------------------------------------------
+    BACKGROUND-COLOR
+----------------------------------------------------- */
 
 .ocere-green--background {
     background-color: #2ec4b6;
 }
 
-/*
+/* -----------------------------------------------------
     TITLE
- */
+----------------------------------------------------- */
 
 .content-container h1 {
     text-align: center;
@@ -288,21 +279,9 @@ a.button.ocere {
     text-align: center;
 }
 
-/*
-    TABLE FIX
- */
-
-table > thead > tr:first-child th {
-    border-top: 0;
-}
-
-td {
-    padding: 5px;
-}
-
-/*
+/* -----------------------------------------------------
     NOTE
- */
+----------------------------------------------------- */
 
 .note {
     display: inline-block;
@@ -333,64 +312,9 @@ td {
     cursor: pointer;
 }
 
-/*
-    INDEX BUTTONS
- */
-
-.index-button-row {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-}
-
-::placeholder {
-    color: #4d4d4d;
-}
-
-table:hover {
-    cursor: pointer;
-}
-
-.index-button {
-    display: flex;
-    margin: 50px;
-    flex-flow: column nowrap;
-}
-
-.index-button img {
-    width: 200px;
-    height: 200px;
-}
-
-.index-button p {
-    text-align: center;
-    font-size: 24px;
-    color: #4d4d4d;
-}
-
-/*
-    CRUD
- */
-
-.form-signin {
-    width: 100%;
-}
-
-.form-label-group {
-    position: relative;
-    margin-bottom: 1rem;
-}
-
-.attribute-title {
-    font-size: 14px;
-}
-
-.attribute-value {
-    font-size: 18px;
-    color: #4d4d4d;
-    margin: 5px 0;
-}
+/* -----------------------------------------------------
+    FILE
+----------------------------------------------------- */
 
 .file-link {
     color: #4d4d4d;
@@ -412,31 +336,194 @@ table:hover {
     color: #2ec4b6;
 }
 
-.froala-wrapper {
+/* -----------------------------------------------------
+    HEADING
+----------------------------------------------------- */
 
+.heading-container {
+    margin: 10px 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.froala-wrapper strong {
-    font-weight: bold;
+.heading-container span, .heading-container h1 {
+    padding: 0 20px 0 20px;
 }
 
-.btn {
+.heading {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.heading-button {
+    display: inline-block;
+    margin: 12px 0 0 0;
+    padding: 0;
+}
+
+/* -----------------------------------------------------
+    BUTTON
+----------------------------------------------------- */
+
+a.button, button.button {
+    padding: 8px 16px;
+    line-height: 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+    margin: 2px 0;
+    display: inline-block;
+    text-wrap: none;
+    white-space: nowrap;
+    overflow: unset;
+    transition: color .2s, background-color .2s ease, border .2s;
+    min-width: 120px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #f0f0ef;
+    border: 3px solid #f0f0ef;
+    color: #707070;
+}
+
+a.button-form, button.button-form {
+    padding: 4px 16px;
+    margin: 27px 5px 17px 0;
+    height: 38px;
+}
+
+.button-hidden {
+    color: transparent !important;
+    background: transparent !important;
+    border: transparent !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    cursor: default !important;
+    text-decoration: none !important;
+}
+
+a.button.button-ocere, button.button.button-ocere {
     background-color: #2ec4b6;
+    border: 3px solid #2ec4b6;
+    color: #fff;
 }
 
-.btn:hover {
-    background-color: #1AA090;
+a.button.button-orange, button.button.button-orange {
+    background-color: #ff9f1c;
+    border: 3px solid #ff9f1c;
+    color: #fff;
 }
 
-.btn-cancel {
-    background-color: #cccccc;
+a.button.button-red, button.button.button-red {
+    background-color: #ff3b19;
+    border: 3px solid #ff3b19;
+    color: #fff;
 }
 
-.btn-cancel:hover {
-    background-color: #666666;
+a.button.button-green, button.button.button-green {
+    background-color: #2bc900;
+    border: 3px solid #2bc900;
+    color: #fff;
+}
+
+a.button.button-blue, button.button.button-blue {
+    background-color: #4977ff;
+    border: 3px solid #4977ff;
+    color: #fff;
+}
+
+a.button.button-submit, button.button.button-submit {
+    background-color: #2ec4b6;
+    border: 3px solid #2ec4b6;
+    color: #fff;
+}
+
+a.button.button-cancel, button.button.button-cancel {
+    background-color: #a1a1a1;
+    border: 3px solid #a1a1a1;
+    color: #fff;
+}
+
+/*
+    HOME-BUTTONS
+ */
+
+.home-button-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+::placeholder {
     color: #4d4d4d;
 }
 
+table:hover {
+    cursor: pointer;
+}
+
+.home-button {
+    display: flex;
+    margin: 50px;
+    flex-flow: column nowrap;
+}
+
+.home-button img {
+    width: 200px;
+    height: 200px;
+}
+
+.home-button p {
+    text-align: center;
+    font-size: 24px;
+    color: #4d4d4d;
+}
+
+/*
+    UNDEFINED
+ */
+input[type=email], input[type=number], input[type=password], input[type=text], select {
+    width: 100%;
+    padding: 10px 16px;
+    margin: 6px 0 16px;
+    font-size: 14px;
+    color: #4d4d4d;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-weight: 500;
+}
+
+.select-wrapper input.select-dropdown, .select-wrapper input.select-dropdown:focus {
+    height: 36px;
+    margin: 6px 0 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding-left: 16px;
+    box-shadow: none;
+}
+
+.input-field {
+    margin: 22px 0 16px;
+    height: 44px;
+}
+
+.input-field>label {
+    top: -30px;
+}
+
+.input-field > .select-wrapper {
+    width: calc(100% - 18px);
+}
 
 /* -----------------------------------------------------
     MEDIA
@@ -464,9 +551,14 @@ table:hover {
     }
 }
 
-/*setting individual padding for register & login*/
-.card .card-content {
-    /*padding: 20px 50px 20px 50px;*/
+/* -----------------------------------------------------
+    TABLE OVERRIDE
+----------------------------------------------------- */
+
+table > thead > tr:first-child th {
+    border-top: 0;
 }
 
-/*centering register & login form*/
+td {
+    padding: 5px;
+}
