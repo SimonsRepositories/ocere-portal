@@ -102,6 +102,7 @@ public class JobServiceImpl implements JobService {
             updatedJob.setLinkValue(job.getLinkValue());
             updatedJob.setPpcValue(job.getPpcValue());
             updatedJob.setContentValue(job.getContentValue());
+            updatedJob.setMonth(job.getMonth());
         } else {
             throw new Exception("Couldn't update job, because it didn't exist!");
         }

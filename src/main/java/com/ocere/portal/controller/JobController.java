@@ -201,6 +201,7 @@ public class JobController {
         Job dbJob = jobService.findJobById(id).get();
         job.setCreatedAt(dbJob.getCreatedAt());
         job.setAuthor(dbJob.getAuthor());
+        job.setMonth(dbJob.getMonth());
     }
 
     private void fillJobReferencesById(Job job) {

@@ -19,7 +19,21 @@
             <div class="content-container">
                 <div class="container full-width">
                     <div class="row">
-                        <h1>Clients</h1>
+                        <div class="heading-container">
+                            <span class="heading-button">
+                                <a href="#" class="button button-red button-hidden">Delete</a>
+                            </span>
+                            <span class="heading-button">
+                                <a href="#" class="button button-orange button-hidden">Edit</a>
+                            </span>
+                            <h1 class="heading">Clients</h1>
+                            <span class="heading-button">
+                                <a href="/clients/create" class="button button-green">Create</a>
+                            </span>
+                            <span class="heading-button">
+                                <a href="#" class="button button-blue button-hidden">Clone</a>
+                            </span>
+                        </div>
                     </div>
                     <h4 th:if="${clients.isEmpty()}">No clients found</h4>
                     <table th:if="${!clients.isEmpty()}"
@@ -52,15 +66,6 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="fixed-action-btn click-to-toggle">
-                        <a class="btn-floating btn-large ocere-green--background">
-                            <i class="large material-icons">menu</i>
-                        </a>
-                        <ul>
-                            <li><a href="/clients/create" class="btn-floating green"><i
-                                    class="material-icons">add</i></a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

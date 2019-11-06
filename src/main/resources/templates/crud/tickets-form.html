@@ -8,10 +8,6 @@
     <title>Ticket</title>
 
     <div th:replace="fragments :: head-links"></div>
-
-    <!-- Froala Editor -->
-    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet'
-          type='text/css'/>
 </head>
 
 <body>
@@ -134,10 +130,6 @@
 
 <div th:replace="fragments :: script-links"></div>
 
-<!-- Froala Editor -->
-<script type='text/javascript'
-        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
-
 <script type="text/javascript">
     $('.template-dropdown').on('change', function () {
         var sign = '?';
@@ -145,23 +137,6 @@
             sign = '&';
         }
         window.location.replace(window.location.href + sign + 'templateId=' + this.value);
-    });
-
-    new FroalaEditor('textarea#description', {
-        // Set the image upload parameter.
-        imageUploadParam: 'file',
-
-        // Set the image upload URL.
-        imageUploadURL: '/froala/upload',
-
-        // Set request type.
-        imageUploadMethod: 'POST',
-
-        // Set max image size to 5MB.
-        imageMaxSize: 5 * 1024 * 1024,
-
-        // Allow to upload PNG and JPG.
-        imageAllowedTypes: ['jpeg', 'jpg', 'png']
     });
 </script>
 </body>
